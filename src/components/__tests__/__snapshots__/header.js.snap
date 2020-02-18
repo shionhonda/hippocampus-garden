@@ -1,0 +1,83 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Header renders correctly 1`] = `
+<header
+  className="App-header"
+>
+  <nav
+    className="App-navbar"
+  >
+    <div
+      className="App-navbar-item"
+      style={
+        Object {
+          "align": "center",
+        }
+      }
+    >
+      <ul>
+        <li>
+          <a
+            className="page-link"
+            href="/"
+            style={
+              Object {
+                "boxShadow": "none",
+                "color": "inherit",
+                "textDecoration": "none",
+              }
+            }
+          >
+            Home
+          </a>
+        </li>
+        <li>
+          <a
+            className="page-link"
+            href="/about/"
+            style={
+              Object {
+                "boxShadow": "none",
+                "color": "inherit",
+                "textDecoration": "none",
+              }
+            }
+          >
+            About
+          </a>
+        </li>
+        <li>
+          <a
+            className="page-link"
+            href="/blog/"
+            style={
+              Object {
+                "boxShadow": "none",
+                "color": "inherit",
+                "textDecoration": "none",
+              }
+            }
+          >
+            Blog
+          </a>
+        </li>
+        <li>
+          <a
+            className="page-link"
+            href="/misc/"
+            style={
+              Object {
+                "boxShadow": "none",
+                "color": "inherit",
+                "textDecoration": "none",
+              }
+            }
+          >
+            Misc
+          </a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+</header>
+`;
