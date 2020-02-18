@@ -13,7 +13,10 @@ const BlogIndex = ({ data, location }) => {
   return (
     <Layout location={location} title={siteTitle}>
       <SEO title="Home" />
-      <Bio />
+      <h4>Welcome to Hippocampus’s Garden, which is created and 
+        maintained by Shion Honda. 
+        Let’s explore the world of wonder!
+      </h4>
       {posts.map(({ node }) => {
         const title = node.frontmatter.title || node.fields.slug
         return (
