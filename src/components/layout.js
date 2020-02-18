@@ -44,7 +44,7 @@ const Layout = ({ location, title, children }) => {
         margin: 0,
         fontStyle: `italic`,
       }}>
-        All models are wrong, but some are useful.
+        Under the sea, in the hippocampus's garden...
         </p>
         <Header />
       </div>

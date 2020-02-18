@@ -2,7 +2,7 @@ module.exports = {
   siteMetadata: {
     title: `Hippocampus's Garden`,
     author: `Shion Honda`,
-    description: `Machine learning, data science, programming, and sometimes music.`,
+    description: `A blog on machine learning, data science, programming, and sometimes music.`,
     siteUrl: `https://hippocampus-garden.netlify.com/`,
     social: {
       twitter: `shion_honda`,
