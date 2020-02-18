@@ -1,0 +1,64 @@
+
+* {
+    border: 0;
+    margin: 0;
+    padding: 0;
+}
+
+/* ナビゲーションバー自体の設定 */
+.App-navbar {
+    height: 50px;
+    display: flex;
+    justify-content: flex-end;
+    flex-flow: row;
+}
+
+.App-navbar > .App-navbar-item {
+    height: 50px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+.App-navbar  p {
+    padding : 5px 20px;
+}
+
+
+/* ナビゲーションバー左端のロゴのリンク */
+.App-navbar p a {
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+    text-decoration: none;
+    line-height: 2.0;
+}
+
+.App-navbar-item ul {
+    display: flex;
+    flex-flow: row;
+    justify-content: space-between;
+    margin-top: 9px;
+    margin-bottom: 0;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.App-navbar-item ul li {
+    list-style: none;
+    width: 75px;
+}
+
+/* ナビゲーションバーのリンクのスタイル 
+   アクティブ時と差分がない物だけ以下に記述
+*/
+.App-navbar-item ul li a {
+    font-size: 20px;
+    font-weight: bold;
+    text-decoration: none;
+    line-height: 2.0;
+    text-align: center;
+    display: block;
+    padding: auto;
+    border-radius: 3px;
+}

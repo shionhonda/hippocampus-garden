@@ -1,0 +1,9 @@
+.header {
+    background: url(../../content/assets/background.png) center / cover;
+}
+
+.page-root{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}

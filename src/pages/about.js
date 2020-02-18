@@ -9,10 +9,11 @@ const About = ({ data, location }) => {
     const siteTitle = data.site.siteMetadata.title
   
     return (
-      <Layout location={location}>
+      <Layout location={location} title={siteTitle}>
         <SEO title="About" />
         <div>
             <h1>About</h1>
+            Data scientist. MScs in Information Scince and Technology.
         </div>
       </Layout>
     )
