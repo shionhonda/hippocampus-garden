@@ -25,7 +25,7 @@ const Layout = ({ location, title, children }) => {
           marginBottom: 0,
           marginTop: 0,
           fontStyle: `bold`,
-          fontSize: `36px`
+          fontSize: `48px`
         }}
       >
         <Link
