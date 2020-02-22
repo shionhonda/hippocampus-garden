@@ -68,7 +68,10 @@ const Layout = ({ location, title, children }) => {
     )
   } else {
     content = (
-      <main>{children}</main>
+      <div style={{backgroundColor: "white", padding: "20px"}}>
+        <main>{children}</main>
+      </div>
+      
     )
 
   }

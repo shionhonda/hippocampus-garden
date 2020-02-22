@@ -39,7 +39,7 @@ const About = ({ data, location }) => {
           <p style={{clear:"both"}}>See <a href="https://www.linkedin.com/in/shionhonda/" target="_blank" rel="noopener noreferrer">LinkedIn</a> for my education and work experiences
           and <a href="https://scholar.google.co.jp/citations?user=NhNlsZcAAAAJ" target="_blank" rel="noopener noreferrer">Google Scholar</a> for publications.</p>
 
-          <h1>External links</h1>
+          <h2>External links</h2>
           You may also like:
           <ul>
             <li>
@@ -57,7 +57,7 @@ const About = ({ data, location }) => {
             </li>
           </ul>
           
-          <h1>News</h1>
+          <h2>News</h2>
           <ul></ul>   
         </div>
       </Layout>
