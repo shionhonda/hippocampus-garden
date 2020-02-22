@@ -14,7 +14,8 @@ const About = ({ data, location }) => {
         <div>
           <h1>Shion Honda</h1>
           <p>Hi, this is Shion.
-          MScs in Information Scince and Technology.</p>
+          MScs in Information Scince and Technology.
+          </p>
           <div style={{ textAlign:"center"}}>
             <img src="https://media-exp1.licdn.com/dms/image/C5103AQGDS2utMiobKQ/profile-displayphoto-shrink_200_200/0?e=1587600000&v=beta&t=_HITxpVXkoPWiGKZsMKBLFUVlbZwrxWhF7noPpfcBXc"
             alt="profile" width="200px"></img>

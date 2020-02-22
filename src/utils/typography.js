@@ -3,12 +3,10 @@ import Typography from "typography"
 const typography = new Typography({
   baseFontSize: "18px",
   baseLineHeight: 1.666,
-  headerFontFamily: [
-    "Times New Roman",
-    "serif"
-  ],
-  bodyFontFamily: ["Times New Roman", "serif"],
-})
+  headerFontFamily: ['Noto Serif JP', 'serif'],
+  bodyFontFamily: ['Noto Serif JP', 'serif'],
+});
+
 export default typography
 
 export const rhythm = typography.rhythm
