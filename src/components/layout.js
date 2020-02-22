@@ -51,7 +51,7 @@ const Layout = ({ location, title, children }) => {
     )
 
   return (
-    <div>
+    <div style={{backgroundColor: "#F2F3F6"}}>
       <header>{header}</header>
       
       <div
@@ -60,6 +60,7 @@ const Layout = ({ location, title, children }) => {
           marginRight: `auto`,
           maxWidth: rhythm(24),
           padding: `${rhythm(1.5)} ${rhythm(3 / 4)}`,
+          backgroundColor: "#FFFFFF",
         }}
       >
         <main>{children}</main>
