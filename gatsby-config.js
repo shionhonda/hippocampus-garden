@@ -64,13 +64,13 @@ module.exports = {
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
-        name: `Gatsby Starter Blog`,
-        short_name: `GatsbyJS`,
+        name: `Hippocampus's Garden`,
+        short_name: `Hippocampus`,
         start_url: `/`,
         background_color: `#FFFFFF`,
         theme_color: `#663399`,
         display: `minimal-ui`,
-        icon: `content/assets/gatsby-icon.png`,
+        icon: `content/assets/profile-pic.png`,
       },
     },
     `gatsby-plugin-react-helmet`,
@@ -79,6 +79,16 @@ module.exports = {
       options: {
         pathToConfigModule: `src/utils/typography`,
       },
+      // resolve: `gatsby-plugin-manifest`,
+      // options: {
+      //   name: `Hippocampus's Garden`,
+      //   short_name: 'Hippocampus',
+      //   start_url: '/',
+      //   background_color: '#663399',
+      //   theme_color: '#663399',
+      //   display: 'minimal-ui',
+      //   icon: 'content/assets/profile-pic.png', // This path is relative to the root of the site.
+      // },
     },
     // this (optional) plugin enables Progressive Web App + Offline functionality
     // To learn more, visit: https://gatsby.dev/offline
