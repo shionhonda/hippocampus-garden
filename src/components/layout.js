@@ -64,6 +64,7 @@ const Layout = ({ location, title, children }) => {
         }}
       >
         <main>{children}</main>
+        <a class="twitter-timeline" data-width="300" data-height="600" href="https://twitter.com/shion_honda?ref_src=twsrc%5Etfw">Tweets by shion_honda</a> 
         <footer>
           © {new Date().getFullYear()}, Built with
           {` `}
