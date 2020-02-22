@@ -7,3 +7,31 @@
     flex-direction: column;
     justify-content: space-between;
 }
+
+.flexbox {
+    display: flex;
+    margin: auto;
+}
+.mainbox {
+    width: 70%;
+    margin: auto;
+    padding: 20px;
+    background-color: white;
+}
+.sidebar {
+    width: 300px;
+    margin-left: 1rem;
+}
+@media screen and (max-width: 1000px) {
+    .flexbox {
+        display: block;
+    }
+    .flexbox .mainbox {
+        width: 100%;
+        margin: 0 auto;
+    }
+    .flexbox .sidebar {
+        width: 100%;
+        margin: auto;
+    }
+}

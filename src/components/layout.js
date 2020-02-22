@@ -49,6 +49,29 @@ const Layout = ({ location, title, children }) => {
         <Header />
       </div>
     )
+  
+  let content
+  if (location.pathname==="/"
+      || location.pathname==="/blog/"
+      || location.pathname==="/misc/"){
+    content = (
+      <div class="flexbox">
+        <div class="mainbox">
+          <main>{children}</main>
+        </div>
+        <div class="sidebar">
+          <a class="twitter-timeline" data-width="300" data-height="600" 
+          href="https://twitter.com/shion_honda?ref_src=twsrc%5Etfw">Tweets by shion_honda
+          </a> 
+        </div>
+      </div>
+    )
+  } else {
+    content = (
+      <main>{children}</main>
+    )
+
+  }
 
   return (
     <div style={{backgroundColor: "#F2F3F6"}}>
@@ -58,20 +81,20 @@ const Layout = ({ location, title, children }) => {
         style={{
           marginLeft: `auto`,
           marginRight: `auto`,
-          maxWidth: rhythm(24),
-          padding: `${rhythm(1.5)} ${rhythm(3 / 4)}`,
-          backgroundColor: "#FFFFFF",
+          maxWidth: rhythm(36),
+          padding: `${rhythm(.5)} ${rhythm(.5)}`,
+          
         }}
       >
-        <main>{children}</main>
-        <a class="twitter-timeline" data-width="300" data-height="600" href="https://twitter.com/shion_honda?ref_src=twsrc%5Etfw">Tweets by shion_honda</a> 
-        <footer>
-          © {new Date().getFullYear()}, Built with
-          {` `}
-          <a href="https://www.gatsbyjs.org">Gatsby</a>
+        {content}
+        
+        <footer style={{clear:"both"}}>
+            © {new Date().getFullYear()}, Built with
+            {` `}
+            <a href="https://www.gatsbyjs.org">Gatsby</a>
         </footer>
       </div>
-    </div>
+    </div> 
   )
 }
 

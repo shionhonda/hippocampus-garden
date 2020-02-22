@@ -3,12 +3,15 @@ import { Link } from 'gatsby';
 import './header.css'
 
 const Header = (props) => {
-    const NavMenuItem = ["Home", "About", "Blog", "Misc"];
+    const NavMenuItem = ["Home", "About", "Blog", "Misc."];
 
     const NavMenuLiTag = NavMenuItem.map((item) => {
         let page_link = "";
         if (item === "Home") {
             page_link = "/";
+        }
+        else if (item === "Misc.") {
+            page_link = "/misc/";
         }
         else page_link = "/" + item.toLowerCase() + "/";
 

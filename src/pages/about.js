@@ -11,7 +11,7 @@ const About = ({ data, location }) => {
     return (
       <Layout location={location} title={siteTitle}>
         <SEO title="About" />
-        <div>
+        <div style={{backgroundColor: "white", padding:"20px"}}>
           <h1>Shion Honda</h1>
           <p>Hi, this is Shion.
           MScs in Information Scince and Technology.
