@@ -3,7 +3,7 @@ import { Link, graphql } from "gatsby"
 
 import Bio from "../components/bio"
 import Layout from "../components/layout"
-import SEO from "../components/seo"
+import SEO from "../components/seo.jsx"
 import { rhythm } from "../utils/typography"
 
 const BlogIndex = ({ data, location }) => {
@@ -13,7 +13,7 @@ const BlogIndex = ({ data, location }) => {
   return (
     <Layout location={location} title={siteTitle}>
       <SEO title="Home" />
-      <h4>Welcome to Hippocampus’s Garden, which is created and 
+      <h4>Welcome to {siteTitle}, which is created and 
         maintained by Shion Honda. 
         Let’s explore the world of wonder!
       </h4>

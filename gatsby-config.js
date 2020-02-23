@@ -1,12 +1,8 @@
+const config = require('./config/site');
+
 module.exports = {
   siteMetadata: {
-    title: `Hippocampus's Garden`,
-    author: `Shion Honda`,
-    description: `A blog on machine learning, data science, programming, and sometimes music.`,
-    siteUrl: `https://hippocampus-garden.netlify.com/`,
-    social: {
-      twitter: `shion_honda`,
-    },
+    ...config
   },
   plugins: [
     {
@@ -42,7 +38,7 @@ module.exports = {
           },
           {
             resolve: "gatsby-remark-embed-youtube",
-            options: {　// 固定サイズにする場合に指定
+            options: {
               width: 800,
               height: 400
             }
@@ -88,6 +84,19 @@ module.exports = {
       },
     },
     `gatsby-plugin-twitter`,
+    'gatsby-plugin-sitemap',
+    {
+      resolve: 'gatsby-plugin-manifest',
+      options: {
+        name: config.title,
+        short_name: config.shortName,
+        description: config.description,
+        start_url: config.pathPrefix,
+        display: 'standalone',
+        icon: config.favicon,
+      },
+    },
+ 'gatsby-plugin-offline'
 
     // this (optional) plugin enables Progressive Web App + Offline functionality
     // To learn more, visit: https://gatsby.dev/offline

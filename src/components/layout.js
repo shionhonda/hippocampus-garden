@@ -55,12 +55,12 @@ const Layout = ({ location, title, children }) => {
       || location.pathname==="/blog/"
       || location.pathname==="/misc/"){
     content = (
-      <div class="flexbox">
-        <div class="mainbox">
+      <div className="flexbox">
+        <div className="mainbox">
           <main>{children}</main>
         </div>
-        <div class="sidebar">
-          <a class="twitter-timeline" data-width="300" data-height="600" 
+        <div className="sidebar">
+          <a className="twitter-timeline" data-width="300" data-height="600" 
           href="https://twitter.com/shion_honda?ref_src=twsrc%5Etfw">Tweets by shion_honda
           </a> 
         </div>
