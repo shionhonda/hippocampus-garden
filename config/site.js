@@ -2,9 +2,10 @@ module.exports = {
     pathPrefix: '/',
     title: `Hippocampus's Garden`, 
     titleAlt: `Hippocampus's Garden`, 
-    description: '.',
+    description: 'A blog by Shion Honda. \
+    This garden displays what I learn about machine learning, statistics, and programming.',
     url: 'https://hippocampus-garden.com', 
-    siteURL: 'https://hippocampus-garden.com/', 
+    siteUrl: 'https://hippocampus-garden.com/', 
     siteLanguage: ['en', 'ja'],
     logo: 'content/assets/profile-pic.png',
     banner: 'content/assets/profile-pic.png',
