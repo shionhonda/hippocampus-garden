@@ -102,6 +102,7 @@ module.exports = {
         // add your own characters to escape, replacing the default ':/'
         specialChars: '/:',
       },
+    }
     'gatsby-plugin-offline',
     {
       resolve: `gatsby-plugin-styled-components`,
