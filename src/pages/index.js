@@ -8,12 +8,13 @@ import { rhythm } from "../utils/typography"
 
 const BlogIndex = ({ data, location }) => {
   const siteTitle = data.site.siteMetadata.title
+  const author = data.site.siteMetadata.author
   const posts = data.allMarkdownRemark.edges
 
   return (
     <Layout location={location} title={siteTitle}>
       <SEO title="Home" />
-      <h4>Welcome to {siteTitle}, which is created and 
+      <h4>Welcome to {siteTitle}, created and 
         maintained by Shion Honda. 
         Let’s explore the world of wonder!
       </h4>
