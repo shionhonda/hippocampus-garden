@@ -12,7 +12,6 @@ const Layout = ({ location, title, children }) => {
       || location.pathname==="/blog/"
       || location.pathname==="/misc/"){
     content = (
-      
       <div className="flexbox">
         <div className="mainbox">
           <main>{children}</main>

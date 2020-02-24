@@ -8,8 +8,20 @@ import { rhythm, scale } from "../utils/typography"
 
 const BlogPostTemplate = ({ data, pageContext, location }) => {
   const post = data.markdownRemark
-  const siteTitle = data.site.siteMetadata.title
+  // const siteTitle = data.site.siteMetadata.title
+  // const author = data.site.siteMetadata.author
+  // const social = data.site.siteMetadata.social
   const { previous, next } = pageContext
+  const { siteTitle, author, social } = data.site.siteMetadata
+  let content
+  content = (
+    <p>
+      Written by <strong>{author}</strong>.
+      Follow me on {` `}
+      <a href={`https://twitter.com/${social.twitter}`}>Twitter
+      </a>!
+    </p>
+  )
 
   return (
     <Layout location={location} title={siteTitle}>
@@ -42,7 +54,7 @@ const BlogPostTemplate = ({ data, pageContext, location }) => {
           }}
         />
         <footer>
-          <Bio />
+          <Bio>{content}</Bio>
         </footer>
       </article>
 
@@ -83,6 +95,10 @@ export const pageQuery = graphql`
     site {
       siteMetadata {
         title
+        author
+        social {
+          twitter
+        }
       }
     }
     markdownRemark(fields: { slug: { eq: $slug } }) {

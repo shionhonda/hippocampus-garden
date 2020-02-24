@@ -9,11 +9,11 @@ import { rhythm } from "../utils/typography"
 const BlogIndex = ({ data, location }) => {
     const siteTitle = data.site.siteMetadata.title
     const posts = data.allMarkdownRemark.edges
-  
+    const content  = "Random posts on music, gourmet, books, and films. Mostly written in Japanese."  
     return (
       <Layout location={location} title={siteTitle}>
         <SEO title="Miscellaneous" />
-        <Bio />
+        <Bio>{content}</Bio>
         {posts.map(({ node }) => {
           const title = node.frontmatter.title || node.fields.slug
           return (

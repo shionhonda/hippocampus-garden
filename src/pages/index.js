@@ -10,14 +10,17 @@ const BlogIndex = ({ data, location }) => {
   const siteTitle = data.site.siteMetadata.title
   const author = data.site.siteMetadata.author
   const posts = data.allMarkdownRemark.edges
+  const content  = (
+    <h4>Welcome to {siteTitle}, created and 
+        maintained by Shion Honda. 
+        Let’s explore the world of wonder!
+    </h4>
+  )
 
   return (
     <Layout location={location} title={siteTitle}>
       <SEO title="Home" />
-      <h4>Welcome to {siteTitle}, created and 
-        maintained by Shion Honda. 
-        Let’s explore the world of wonder!
-      </h4>
+      <Bio>{content}</Bio>
       {posts.map(({ node }) => {
         const title = node.frontmatter.title || node.fields.slug
         return (
