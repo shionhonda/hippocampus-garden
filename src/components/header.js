@@ -5,7 +5,7 @@ import styled from 'styled-components'
 import BackgroundImage from 'gatsby-background-image'
 import Navbar from './navbar'
 
-const BackgroundSection = ({ className }) => (
+const Header = ({ className }) => (
     <StaticQuery
       query={graphql`
         query {
@@ -26,10 +26,8 @@ const BackgroundSection = ({ className }) => (
             Tag="section"
             className={className}
             fluid={imageData}
-            backgroundColor={`#040e18`}
           >
             <div
-                className={`header`}
                 style={{
                 textAlign: `center`,
                 color: `#FFFFFF`,
@@ -71,11 +69,11 @@ const BackgroundSection = ({ className }) => (
     />
   )
   
-  const StyledBackgroundSection = styled(BackgroundSection)`
+  const StyledHeader = styled(Header)`
     width: 100%;
-    background-position: bottom center;
+    background-position: center center;
     background-repeat: repeat-y;
     background-size: cover;
   `
   
-  export default StyledBackgroundSection
+  export default StyledHeader

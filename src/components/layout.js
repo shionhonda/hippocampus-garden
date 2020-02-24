@@ -1,6 +1,6 @@
 import React from "react"
 
-import BackgroundSection from './top.js'
+import Header from './header.js'
 import './layout.css';
 import { rhythm, scale } from "../utils/typography"
 
@@ -34,7 +34,7 @@ const Layout = ({ location, title, children }) => {
 
   return (
     <div style={{backgroundColor: "#F2F3F6"}}>
-      <BackgroundSection></BackgroundSection>
+      <Header></Header>
       
       <div
         style={{
