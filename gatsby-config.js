@@ -96,7 +96,19 @@ module.exports = {
         icon: config.favicon,
       },
     },
- 'gatsby-plugin-offline'
+    {
+      resolve: 'gatsby-background-image-es5',
+      options: {
+        // add your own characters to escape, replacing the default ':/'
+        specialChars: '/:',
+      },
+    'gatsby-plugin-offline',
+    {
+      resolve: `gatsby-plugin-styled-components`,
+      options: {
+        // Add any options here
+      },
+    },
 
     // this (optional) plugin enables Progressive Web App + Offline functionality
     // To learn more, visit: https://gatsby.dev/offline
