@@ -4,22 +4,19 @@ import { Link, graphql } from "gatsby"
 import Bio from "../components/bio"
 import Layout from "../components/layout"
 import SEO from "../components/seo.jsx"
+import Share from "../components/share"
 import { rhythm, scale } from "../utils/typography"
 
 const BlogPostTemplate = ({ data, pageContext, location }) => {
   const post = data.markdownRemark
-  // const siteTitle = data.site.siteMetadata.title
-  // const author = data.site.siteMetadata.author
-  // const social = data.site.siteMetadata.social
   const { previous, next } = pageContext
-  const { siteTitle, author, social } = data.site.siteMetadata
+  const { siteTitle, author, url} = data.site.siteMetadata
+
   let content
   content = (
     <p>
       Written by <strong>{author}</strong>.
-      Follow me on {` `}
-      <a href={`https://twitter.com/${social.twitter}`}>Twitter
-      </a>!
+      If you like this, please share! {url + post.fields.slug}
     </p>
   )
 
@@ -42,20 +39,24 @@ const BlogPostTemplate = ({ data, pageContext, location }) => {
             style={{
               ...scale(-1 / 5),
               display: `block`,
-              marginBottom: rhythm(1),
+              marginBottom: rhythm(0),
             }}
           >
             {post.frontmatter.date}
           </p>
-        <section dangerouslySetInnerHTML={{ __html: post.html }} />
-        <hr
-          style={{
-            marginBottom: rhythm(1),
-          }}
-        />
-        <footer>
-          <Bio>{content}</Bio>
-        </footer>
+          
+          <Share title={post.frontmatter.title} url={url + post.fields.slug}></Share>
+
+          <section dangerouslySetInnerHTML={{ __html: post.html }} />
+          <hr
+            style={{
+              marginBottom: rhythm(1),
+            }}
+          />
+          <footer>
+            <Share title={post.frontmatter.title} url={url + post.fields.slug}></Share>
+            <Bio>{content}</Bio>
+          </footer>
       </article>
 
       <nav>
@@ -96,9 +97,7 @@ export const pageQuery = graphql`
       siteMetadata {
         title
         author
-        social {
-          twitter
-        }
+        url
       }
     }
     markdownRemark(fields: { slug: { eq: $slug } }) {
@@ -109,6 +108,9 @@ export const pageQuery = graphql`
         title
         date(formatString: "MMMM DD, YYYY")
         description
+      }
+      fields {
+        slug
       }
     }
   }
