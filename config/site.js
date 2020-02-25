@@ -7,9 +7,9 @@ module.exports = {
     url: 'https://hippocampus-garden.com', 
     siteUrl: 'https://hippocampus-garden.com/', 
     siteLanguage: ['en', 'ja'],
-    logo: 'content/assets/profile-pic.png',
-    banner: 'content/assets/profile-pic.png',
-    favicon: 'content/assets/profile-pic.png', 
+    logo: 'profile-pic.png',
+    banner: 'profile-pic.png',
+    favicon: 'profile-pic.png', 
     shortName: 'Hippocampus', 
     author: 'Shion Honda',
     social: {

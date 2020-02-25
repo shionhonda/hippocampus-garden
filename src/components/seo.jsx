@@ -26,7 +26,7 @@ const SEO = ({ title, desc, banner, pathname, article }) => (
     }) => {
     const seo = {
         title: title || defaultTitle,
-        image: `${siteUrl}${banner || defaultBanner}`,
+        image: `${siteUrl}/${banner || defaultBanner}`,
         description: desc || defaultDescription,
         url: `${siteUrl}${pathname || '/'}`,
         };
@@ -78,6 +78,9 @@ const SEO = ({ title, desc, banner, pathname, article }) => (
           },
         ];
       }
+      console.log("########");
+      console.log(banner);
+      console.log(seo.image);
       return (
         <>
           <Helmet title={seo.title}>

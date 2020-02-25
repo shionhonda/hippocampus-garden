@@ -25,8 +25,8 @@ const BlogPostTemplate = ({ data, pageContext, location }) => {
       <SEO
         title={post.frontmatter.title}
         desc={post.frontmatter.description || post.excerpt}
-        banner={post.frontmatter.banner}
-        article="true"
+        banner={post.frontmatter.featuredImage}
+        article={true}
       />
       <article>
           <h1
@@ -110,6 +110,7 @@ export const pageQuery = graphql`
         title
         date(formatString: "MMMM DD, YYYY")
         description
+        featuredImage
       }
       fields {
         slug
