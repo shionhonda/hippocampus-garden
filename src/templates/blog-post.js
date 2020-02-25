@@ -25,7 +25,7 @@ const BlogPostTemplate = ({ data, pageContext, location }) => {
       <SEO
         title={post.frontmatter.title}
         desc={post.frontmatter.description || post.excerpt}
-        banner={post.frontmatter}
+        banner={post.frontmatter.banner}
         article="true"
       />
       <article>

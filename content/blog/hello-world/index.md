@@ -2,6 +2,7 @@
 title: Hello World
 date: "2015-05-01T22:12:03.284Z"
 description: "Hello World. It's a sunny day!"
+banner: "content/blog/hello-world/salty_egg.jpg"
 ---
 
 Hello, world! This is my first post on my new blog!
