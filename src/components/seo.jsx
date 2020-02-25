@@ -99,8 +99,7 @@ const SEO = ({title, desc, banner, pathname, article }) => (
           },
         ];
       }
-      console.log("########");
-      console.log(seo.image);
+
       return (
         <>
           <Helmet title={seo.title}>
