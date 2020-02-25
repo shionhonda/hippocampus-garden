@@ -16,7 +16,7 @@ const BlogPostTemplate = ({ data, pageContext, location }) => {
   content = (
     <p>
       Written by <strong>{author}</strong>.
-      If you like this, please share! {url + post.fields.slug}
+      If you like this, please share!
     </p>
   )
 
@@ -24,7 +24,9 @@ const BlogPostTemplate = ({ data, pageContext, location }) => {
     <Layout location={location} title={siteTitle}>
       <SEO
         title={post.frontmatter.title}
-        description={post.frontmatter.description || post.excerpt}
+        desc={post.frontmatter.description || post.excerpt}
+        banner={post.frontmatter}
+        article="true"
       />
       <article>
           <h1

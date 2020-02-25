@@ -72,12 +72,6 @@ const Share = ({title, url}) => {
             </li>
         </ul>
             
-
-            
-
-            
-            
-
     );
 }
 

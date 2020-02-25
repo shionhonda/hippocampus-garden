@@ -27,7 +27,7 @@ const SEO = ({ title, desc, banner, pathname, article }) => (
     const seo = {
         title: title || defaultTitle,
         image: `${siteUrl}${banner || defaultBanner}`,
-        description: defaultDescription || desc,
+        description: desc || defaultDescription,
         url: `${siteUrl}${pathname || '/'}`,
         };
         const realPrefix = pathPrefix === '/' ? '' : pathPrefix;
