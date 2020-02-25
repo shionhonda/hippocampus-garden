@@ -3,92 +3,112 @@ import Helmet from 'react-helmet'
 import PropTypes from 'prop-types'
 import { StaticQuery, graphql } from 'gatsby'
 
-const SEO = ({ title, desc, banner, pathname, article }) => (
+const SEO = ({title, desc, banner, pathname, article }) => (
   <StaticQuery
-    query={query}
-    render={({
-      site: {
-        buildTime,
-        siteMetadata: {
-          defaultTitle,
-          titleAlt,
-          shortName,
-          author,
-          siteLanguage,
-          logo,
-          siteUrl,
-          pathPrefix,
-          defaultDescription,
-          defaultBanner,
-          twitter,
-        },
-      },
-    }) => {
-    const seo = {
-        title: title || defaultTitle,
-        image: `${siteUrl}/${banner || defaultBanner}`,
-        description: desc || defaultDescription,
-        url: `${siteUrl}${pathname || '/'}`,
-        };
-        const realPrefix = pathPrefix === '/' ? '' : pathPrefix;
-        let schemaOrgJSONLD = [
+    query={graphql`
+      query {
+        site {
+          buildTime(formatString: "MMMM DD, YYYY")
+          siteMetadata {
+            defaultTitle: title
+            titleAlt
+            shortName
+            author
+            siteLanguage
+            logo
+            url
+            pathPrefix
+            defaultDescription: description
+            defaultBanner: banner
+            social {
+                twitter
+            }
+          }
+        }
+        images: allFile {
+          edges {
+            node {
+              relativePath
+              name
+              childImageSharp {
+                sizes(maxWidth: 800) {
+                  ...GatsbyImageSharpSizes
+                }
+              }
+            }
+          }
+        }
+      }
+    `}
+
+    render={data => {
+      const imageNode = data.images.edges.find(n => {
+        return n.node.relativePath.includes(banner || data.site.siteMetadata.defaultBanner)
+      })     
+      const seo = {
+          title: title || data.site.siteMetadata.defaultTitle,
+          image: `${data.site.siteMetadata.url}${imageNode.node.childImageSharp.sizes.src}`,
+          description: desc || data.site.siteMetadata.defaultDescription,
+          url: `${data.site.siteMetadata.url}${pathname || '/'}`,
+      };
+      const realPrefix = data.site.siteMetadata.pathPrefix === '/' ? '' : data.site.siteMetadata.pathPrefix;
+      let schemaOrgJSONLD = [
         {
             '@context': 'http://schema.org',
             '@type': 'WebSite',
-            '@id': siteUrl,
-            url: siteUrl,
-            name: defaultTitle,
-            alternateName: titleAlt || '',
+            '@id': data.site.siteMetadata.url,
+            url: data.site.siteMetadata.url,
+            name: data.site.siteMetadata.defaultTitle,
+            alternateName: data.site.siteMetadata.titleAlt || '',
         },
-        ];
-        if (article) {
+      ];
+      if (article) {
         schemaOrgJSONLD = [
-            {
+          {
             '@context': 'http://schema.org',
             '@type': 'BlogPosting',
             '@id': seo.url,
             url: seo.url,
             name: title,
-            alternateName: titleAlt || '',
+            alternateName: data.site.siteMetadata.titleAlt || '',
             headline: title,
             image: {
                 '@type': 'ImageObject',
                 url: seo.image,
             },
             description: seo.description,
-            datePublished: buildTime,
-            dateModified: buildTime,
+            datePublished: data.site.buildTime,
+            dateModified: data.site.buildTime,
             author: {
                 '@type': 'Person',
-                name: author,
+                name: data.site.siteMetadata.author,
             },
             publisher: {
                 '@type': 'Organization',
-                name: author,
+                name: data.site.siteMetadata.author,
                 logo: {
                 '@type': 'ImageObject',
-                url: siteUrl + realPrefix + logo,
+                url: data.site.siteMetadata.url + realPrefix + data.site.siteMetadata.logo,
                 },
             },
-            isPartOf: siteUrl,
+            isPartOf: data.site.siteMetadata.url,
             mainEntityOfPage: {
                 '@type': 'WebSite',
-                '@id': siteUrl,
+                '@id': data.site.siteMetadata.url,
             },
           },
         ];
       }
       console.log("########");
-      console.log(banner);
       console.log(seo.image);
       return (
         <>
           <Helmet title={seo.title}>
-            <html lang={siteLanguage} />
+            <html lang={data.site.siteMetadata.siteLanguage} />
             <meta name="description" content={seo.description} />
             <meta name="image" content={seo.image} />
-            <meta name="apple-mobile-web-app-title" content={shortName} />
-            <meta name="application-name" content={shortName} />
+            <meta name="apple-mobile-web-app-title" content={data.site.siteMetadata.shortName} />
+            <meta name="application-name" content={data.site.siteMetadata.shortName} />
             <script type="application/ld+json">{JSON.stringify(schemaOrgJSONLD)}</script>
 
             {/* OpenGraph  */}
@@ -100,7 +120,7 @@ const SEO = ({ title, desc, banner, pathname, article }) => (
 
             {/* Twitter Card */}
             <meta name="twitter:card" content="summary_large_image" />
-            <meta name="twitter:creator" content={twitter} />
+            <meta name="twitter:creator" content={data.site.siteMetadata.social.twitter} />
             <meta name="twitter:title" content={seo.title} />
             <meta name="twitter:description" content={seo.description} />
             <meta name="twitter:image" content={seo.image} />
@@ -128,26 +148,3 @@ SEO.defaultProps = {
   pathname: null,
   article: false,
 };
-
-const query = graphql`
-  query SEO {
-    site {
-      buildTime(formatString: "MMMM DD, YYYY")
-      siteMetadata {
-        defaultTitle: title
-        titleAlt
-        shortName
-        author
-        siteLanguage
-        logo
-        siteUrl: url
-        pathPrefix
-        defaultDescription: description
-        defaultBanner: banner
-        social {
-            twitter
-        }
-      }
-    }
-  }
-`;
