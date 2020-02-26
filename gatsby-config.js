@@ -32,6 +32,12 @@ module.exports = {
       options: {
         plugins: [
           {
+            resolve: 'gatsby-remark-code-titles',
+            options: {
+              className: "gatsby-code-title"
+            },
+          }, // IMPORTANT: this must be ahead of other plugins that use code blocks
+          {
             resolve: `gatsby-remark-images`,
             options: {
               maxWidth: 590,
@@ -68,8 +74,8 @@ module.exports = {
                 margin       : '0',
                 'margin-top' : '0',
                 position     : 'relative',
-                top          : '0.125rem',
-                width        : '1.4rem',
+                top          : '0.5rem',
+                width        : '1.5rem',
                 border       : 'none'
               }
             }

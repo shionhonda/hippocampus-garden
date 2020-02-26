@@ -5,23 +5,36 @@ description: "Hello World. It's a sunny day!"
 featuredImage: hello-world/salty_egg.jpg
 ---
 
-My first post on my new blog :100: #100#  
-This blog is initialized with [Gatsby Starter Blog](https://www.gatsbyjs.org/starters/gatsbyjs/gatsby-starter-blog/).
+My first post on my new blog :confetti_ball::congratulations:  
 
+This blog is initialized with [gatsby-starter-blog](https://www.gatsbyjs.org/starters/gatsbyjs/gatsby-starter-blog/).  
+Do you like the navigation bar at the top of this page?  
+In this post, I introduce how to make a title bar with a background image and navigation menu.
 
-Oh, and here's a great quote from this Wikipedia on
-[salted duck eggs](http://en.wikipedia.org/wiki/Salted_duck_egg).
+The default blog should look like [this](https://templates.netlify.com/template/gatsby-starter-blog/).
 
-> A salted duck egg is a Chinese preserved food product made by soaking duck
-> eggs in brine, or packing each egg in damp, salted charcoal. In Asian
-> supermarkets, these eggs are sometimes sold covered in a thick layer of salted
-> charcoal paste. The eggs may also be sold with the salted paste removed,
-> wrapped in plastic, and vacuum packed. From the salt curing process, the
-> salted duck eggs have a briny aroma, a gelatin-like egg white and a
-> firm-textured, round yolk that is bright orange-red in color.
+![](2020-02-26-12-30-40.png)
 
-![Chinese Salty Egg](./salty_egg.jpg)
+Too simple? Let's beautify it :fire::fire:  
 
-<blockquote class="twitter-tweet">
-<p lang="ja" dir="ltr">今年はたくさん論文を読んだので、おもしろかった10本を厳選して振り返ってみました。<br>お正月休みにどうぞ！<br><br>2019年のおもしろかったDL/ML論文10選 <a href="https://t.co/hpcLCNS9nY">https://t.co/hpcLCNS9nY</a></p>&mdash; Shion Honda (@shion_honda) <a href="https://twitter.com/shion_honda/status/1211964266690961408?ref_src=twsrc%5Etfw">December 31, 2019</a>
-</blockquote> 
+First, install [gatsby-background-image](https://www.gatsbyjs.org/packages/gatsby-background-image/) and declare it in `gatsby-config.js` as described in the document.
+
+```bash
+npm install --save gatsby-background-image
+```
+
+```javascript:title=gatsby-config.js
+module.exports = {
+  plugins: [
+    ...
+    {
+      resolve: 'gatsby-background-image',
+      options: {
+        // add your own characters to escape, replacing the default ':/'
+        specialChars: '/:',
+      },
+    },
+    ...
+   ],
+};
+```

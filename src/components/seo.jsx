@@ -46,7 +46,7 @@ const SEO = ({title, desc, banner, pathname, article }) => (
         return n.node.relativePath.includes(banner || data.site.siteMetadata.defaultBanner)
       })     
       const seo = {
-          title: title || data.site.siteMetadata.defaultTitle,
+          title: title + ` | ` + data.site.siteMetadata.defaultTitle || data.site.siteMetadata.defaultTitle,
           image: `${data.site.siteMetadata.url}${imageNode.node.childImageSharp.sizes.src}`,
           description: desc || data.site.siteMetadata.defaultDescription,
           url: `${data.site.siteMetadata.url}${pathname || '/'}`,
