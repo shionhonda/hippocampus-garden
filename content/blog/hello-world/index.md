@@ -1,11 +1,13 @@
 ---
-title: Hello World
-date: "2015-05-01T22:12:03.284Z"
+title: Top Navbar for Gatsby
+date: "2020-02-26"
 description: "Hello World. It's a sunny day!"
 featuredImage: hello-world/salty_egg.jpg
 ---
 
-Hello, world! This is my first post on my new blog!
+My first post on my new blog :100: #100#  
+This blog is initialized with [Gatsby Starter Blog](https://www.gatsbyjs.org/starters/gatsbyjs/gatsby-starter-blog/).
+
 
 Oh, and here's a great quote from this Wikipedia on
 [salted duck eggs](http://en.wikipedia.org/wiki/Salted_duck_egg).

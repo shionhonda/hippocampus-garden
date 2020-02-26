@@ -50,7 +50,30 @@ module.exports = {
               wrapperStyle: `margin-bottom: 1.0725rem`,
             },
           },
-          `gatsby-remark-prismjs`,
+          {
+            resolve: "gatsby-remark-prismjs",
+            options: {
+              showLineNumbers: true,
+              noInlineHighlight: false,
+            },
+          },
+          {
+            resolve: 'gatsby-remark-emojis',
+            options: {
+              active : true,
+              class  : 'emoji-icon',
+              size   : 64,
+              styles : {
+                display      : 'inline',
+                margin       : '0',
+                'margin-top' : '0',
+                position     : 'relative',
+                top          : '0.125rem',
+                width        : '1.4rem',
+                border       : 'none'
+              }
+            }
+          },
           `gatsby-remark-mathjax`,
           `gatsby-remark-copy-linked-files`,
           `gatsby-remark-smartypants`,
