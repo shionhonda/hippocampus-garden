@@ -38,6 +38,7 @@ const About = ({ data, location }) => {
           
           <p style={{clear:"both"}}>See <a href="https://www.linkedin.com/in/shionhonda/" target="_blank" rel="noopener noreferrer">LinkedIn</a> for my education and work experiences
           and <a href="https://scholar.google.co.jp/citations?user=NhNlsZcAAAAJ" target="_blank" rel="noopener noreferrer">Google Scholar</a> for publications.</p>
+          
 
           <h2>External links</h2>
           You may also like:
@@ -54,6 +55,10 @@ const About = ({ data, location }) => {
             <li>
               <a href="https://www.slideshare.net/ShionHonda" target="_blank" rel="noopener noreferrer"><strong>SlideShare</strong></a> (mostly in Japanese).
               Here are some slides that I used in my talks and presentations.
+            </li>
+            <li>
+              <a href="https://www.amazon.jp/hz/wishlist/ls/3DA10HYL0KND7?ref_=wl_share" target="_blank" rel="noopener noreferrer"><strong>Amazon Wish List</strong></a>. 
+              I appreciate your kindness.
             </li>
           </ul>
           
