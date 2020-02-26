@@ -41,6 +41,7 @@ module.exports = {
    ],
 };
 ```
+  
 
 ## Navigation Menu
 In my case, the navigation menu has four items:
@@ -49,7 +50,7 @@ In my case, the navigation menu has four items:
 3. Blog (linked to '/blog/')
 4. Misc. (linked to '/misc/)
 
-These are implemented as the unorderd list.
+These are implemented as the unordered list.
 
 ```javascript:title=src/components/navbar.js
 import React from 'react';
@@ -228,7 +229,7 @@ const Header = ({ className }) => (
   export default StyledHeader
 ```
 
-I put the backgruond image in `content/assets/`.
+I put the background image in `content/assets/`.
 
 That's it! The full code is [here](https://github.com/shionhonda/hippocampus-garden)
 
