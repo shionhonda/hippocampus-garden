@@ -1,51 +1,67 @@
 ---
-title: Best Albums of 2010
-date: "2020-02-25"
-description: "Best Albums of 2010"
+title: 2010年のベストアルバム
+date: "2020-02-26T22:17:03.284Z"
+description: "2010年にリリースされたアルバムの個人的ベスト10枚を紹介します。"
+featuredImage: navbar/ogp.png
 ---
 
-1. The Suburbs - Arcade Fire
-2. My Beautiful Dark Twisted Fantasy - Kanye West
+最近、2010年代の音楽を改めて聴き直しています。  
+今の時点で聴いて気に入ったアルバムを1年につき10枚ずつ選んだので、少しずつ紹介しようと思います。
 
-hello
+## 10. *Body Talk* - Robyn
+<iframe src="https://open.spotify.com/embed/album/0le9TO3kU69m6iWHTjNs9Y" width="300" height="380" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
 
-```python
-print("heloo")
-print("heloo")
-print("heloo")
-```
+スウェーデン出身のポップSSWによるダンスミュージック。ユーロビートの流れを汲んでいるので、Jポップ好きの方にも親しみやすいかもしれません。
 
-$\sum$ is a capital letter of $\sigma$.
+**Highlights**: *Dancing On My Own*, *Call Your Girlfriend*
 
-$$
-\sin^2{x} + \cos^2{x} = 1
-$$
+## 9. *Teenage Dream*  - Katy Perry
+<iframe src="https://open.spotify.com/embed/album/5pFfazKn9rSiH3O6YlknW8" width="300" height="380" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
 
-```javascript
-// In your gatsby-config.js
-// Let's make this line very long so that our container has to scroll its overflow…
-plugins: [
-  {
-    resolve: `gatsby-transformer-remark`,
-    options: {
-      plugins: [
-        {
-          resolve: `gatsby-remark-images`,
-          options: {
-            maxWidth: 756,
-          },
-        },
-        {
-          resolve: `gatsby-remark-responsive-iframe`,
-          options: {
-            wrapperStyle: `margin-bottom: 1.0725rem`,
-          },
-        },
-        `gatsby-remark-copy-linked-files`,
-        `gatsby-remark-smartypants`,
-        `gatsby-remark-prismjs`,
-      ]
-    }
-  }
-]
-```
+説明不要のポップスター・Katy Perryの第3作。このアルバムで彼女の人気が決定的なものになったと思います。
+
+**Highlights**: *Teenage Dream*, *California Gurls*
+
+## 8. *Teen Dream* - Beach House
+<iframe src="https://open.spotify.com/embed/album/5BouX39qnrl5UxjB0Cs3lO" width="300" height="380" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+
+アメリカのドリームポップデュオによる第3作。タイトルかぶりですね。  
+**Highlights**:
+
+## 7. *Swim* - Caribou
+<iframe src="https://open.spotify.com/embed/album/198uSF0lTPBy7PtflbPhGT" width="300" height="380" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+
+**Highlights**:
+
+## 6. *Heligoland* - Massive Attack
+<iframe src="https://open.spotify.com/embed/album/1F8y2bg9V9nRoy8zuxo3Jt" width="300" height="380" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+
+**Highlights**: *Pray For Rain*, *Saturday Come Slow*, *Atlas Air*
+
+## 5. *High Violet* - The National
+<iframe src="https://open.spotify.com/embed/album/722zk0GySQPLbB0p2Rxxd6" width="300" height="380" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+
+**Highlights**: *Bloodbuzz Ohio*
+
+## 4. *Write About Love* - Belle And Sebastian
+<iframe src="https://open.spotify.com/embed/album/3fbLzeUrtOOsxeh0OCNuDZ" width="300" height="380" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+
+**Highlights**: *I Didn't See It Coming*, *Suicide Girl*
+
+## 3. *My Beautiful Dark Twisted Fantasy* - Kanye West
+<iframe src="https://open.spotify.com/embed/album/20r762YmB5HeofjMCiPMLv" width="300" height="380" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+
+**Highlights**: *All Of The Lights*, *Monster*
+
+## 2. *The ArchAndroid* - Janelle Monae
+<iframe src="https://open.spotify.com/embed/album/7MvSB0JTdtl1pSwZcgvYQX" width="300" height="380" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+
+**Highlights**: *Tightrope*, *Say You'll Go*
+
+## 1. *The Suburbs* - Arcade Fire
+<iframe src="https://open.spotify.com/embed/album/3DrgM5X3yX1JP1liNLAOHI" width="300" height="380" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+
+カナダの男女混声バンドによる第3作。  
+『Empty Room』は何度聴いても心が洗われます。
+
+**Highlights**: *Ready To Start*, *Empty Room*, *Sprawl II*

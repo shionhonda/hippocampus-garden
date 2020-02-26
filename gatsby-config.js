@@ -80,6 +80,12 @@ module.exports = {
               }
             }
           },
+          {
+            resolve: "gatsby-transformer-remark",
+            options: {
+              plugins: ["gatsby-remark-embed-spotify"]
+            }
+          },
           `gatsby-remark-mathjax`,
           `gatsby-remark-copy-linked-files`,
           `gatsby-remark-smartypants`,
