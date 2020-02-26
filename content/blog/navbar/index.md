@@ -40,8 +40,7 @@ module.exports = {
     ...
    ],
 };
-```
-  
+```  
 
 ## Navigation Menu
 In my case, the navigation menu has four items:

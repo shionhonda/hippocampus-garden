@@ -81,9 +81,10 @@ module.exports = {
             }
           },
           {
-            resolve: "gatsby-transformer-remark",
+            resolve: "gatsby-remark-embed-spotify",
             options: {
-              plugins: ["gatsby-remark-embed-spotify"]
+              // width: 600, // default is "100%"
+              height: 300 // default is 400
             }
           },
           `gatsby-remark-mathjax`,
