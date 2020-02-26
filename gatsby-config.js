@@ -74,8 +74,8 @@ module.exports = {
                 margin       : '0',
                 'margin-top' : '0',
                 position     : 'relative',
-                top          : '0.5rem',
-                width        : '1.5rem',
+                top          : '0.4rem',
+                width        : '1.4rem',
                 border       : 'none'
               }
             }
