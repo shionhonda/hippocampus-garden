@@ -11,7 +11,7 @@
 }
 .mainbox {
     width: 70%;
-    margin: auto;
+    margin: 0 auto auto auto;
     padding: 20px;
     background-color: white;
 }
