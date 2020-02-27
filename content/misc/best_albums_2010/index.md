@@ -88,3 +88,6 @@ https://open.spotify.com/album/3DrgM5X3yX1JP1liNLAOHI?si=kyv9We0LR1iYmZi7wo-L-Q
 [このレビュー](http://monchicon.jugem.jp/?eid=1220)がよかったです。
 
 **Highlights**: *Ready To Start*, *Empty Room*, *Half Light II*,  *Sprawl II*
+
+## おわりに
+書いていたらネットサーフィンが捗って、想定より時間がかかってしまいました。次回はしばらく先になると思います。

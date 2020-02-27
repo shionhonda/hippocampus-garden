@@ -11,7 +11,7 @@ const Header = ({ className }) => (
         query {
           desktop: file(relativePath: { eq: "background.jpg" }) {
             childImageSharp {
-              fluid(quality: 30, maxWidth: 920) {
+              fluid(quality: 60, maxWidth: 920) {
                 ...GatsbyImageSharpFluid_withWebp
               }
             }

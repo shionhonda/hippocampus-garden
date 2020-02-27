@@ -9,7 +9,7 @@ import { rhythm } from "../utils/typography"
 const BlogIndex = ({ data, location }) => {
     const siteTitle = data.site.siteMetadata.title
     const posts = data.allMarkdownRemark.edges
-    const content  = "Random posts on music, gourmet, books, and films. Mostly written in Japanese."  
+    const content  = "Random posts on music, gourmet, books, careers, and so on. Mostly written in Japanese."  
     return (
       <Layout location={location} title={siteTitle}>
         <SEO title="Miscellaneous" />
