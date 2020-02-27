@@ -71,17 +71,20 @@ Rihanna、Justin Vernon、John Legend、Jay-Zなど豪華ゲストが多数名�
 
 **Highlights**: *All Of The Lights*, *Runaway*, *Lost In The World*
 
-## 2. *The ArchAndroid* - Janelle Monae
+## 2. *The ArchAndroid* - Janelle Monáe
 https://open.spotify.com/album/7MvSB0JTdtl1pSwZcgvYQX?si=oAuPv8EJTZamZ0zjbzHLoA
 
-このアルバムは、今回の振り返りプロジェクトで初めて知りました。
+このアルバムは、今回の振り返りプロジェクトで初めて知りました。Janelle Monáe自体はfun.のヒット曲『We Are Young』の客演として知っていたくらいだったのですが、アルバムを聴いてみると、既存のR&Bの枠にとらわれない独創的な作品で驚きました。  
+彼女は音楽活動において一貫してCindi Mayweatherという名前のアンドロイドに仮託しているようで、ネオアフロフューチャリズムの代表的な存在だそうです。このあたりは[Wikipedia](https://en.wikipedia.org/wiki/Afrofuturism)にいろいろと書いてあったのでもう少し掘り下げていきたいです。  
+また、女優としても活動しているらしく、言われてみれば『Moonlight』に出ていました。
 
-**Highlights**: *Tightrope*, *Say You'll Go*
+**Highlights**: *Cold War* *Tightrope*, *Say You'll Go*
 
 ## 1. *The Suburbs* - Arcade Fire
 https://open.spotify.com/album/3DrgM5X3yX1JP1liNLAOHI?si=kyv9We0LR1iYmZi7wo-L-Q
 
-カナダの男女混声バンドによる第3作。  
-『Empty Room』は何度聴いても心が洗われます。
+カナダの男女混声バンドによる第3作。ボーカルのWin Butlerが「Depeche ModeとNeil Youngのミックス」と表現している通り、華やかなシンセポップの音の中にカントリーの哀愁があるようなアルバムです。アルバムのコンセプトにも合致しているのではないでしょうか。  
+『Empty Room』は何度聴いても心が洗われます。  
+[このレビュー](http://monchicon.jugem.jp/?eid=1220)がよかったです。
 
-**Highlights**: *Ready To Start*, *Empty Room*, *Sprawl II*
+**Highlights**: *Ready To Start*, *Empty Room*, *Half Light II*,  *Sprawl II*
