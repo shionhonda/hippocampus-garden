@@ -112,10 +112,11 @@ const SEO = ({title, desc, banner, pathname, article }) => (
 
             {/* OpenGraph  */}
             <meta property="og:url" content={seo.url} />
-            <meta property="og:type" content={article ? 'article' : null} />
+            <meta property="og:type" content={article ? 'article' : "website"} />
             <meta property="og:title" content={seo.title} />
             <meta property="og:description" content={seo.description} />
             <meta property="og:image" content={seo.image} />
+            <meta property="fb:app_id" content="125328685588673" />
 
             {/* Twitter Card */}
             <meta name="twitter:card" content="summary_large_image" />
