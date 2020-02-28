@@ -5,7 +5,7 @@ description: "This post introduces how to make top navigation bar with backgroun
 featuredImage: navbar/ogp.png
 ---
 
-My first post on my new blog :confetti_ball::congratulations:  
+My first post on my new blog 🎉🎊  
 
 This blog is initialized with [gatsby-starter-blog](https://www.gatsbyjs.org/starters/gatsbyjs/gatsby-starter-blog/).  
 Do you like the navigation bar at the top of this page?  
@@ -15,7 +15,7 @@ The default blog should look like [this](https://templates.netlify.com/template/
 
 ![](default.png)
 
-Too simple? Let's beautify it :fire::fire:  
+Too simple? Let's beautify it 🔥🔥   
 
 ## Install gatsby-background-image
 \* Skip if you don't use a background image  

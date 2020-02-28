@@ -64,23 +64,6 @@ module.exports = {
             },
           },
           {
-            resolve: 'gatsby-remark-emojis',
-            options: {
-              active : true,
-              class  : 'emoji-icon',
-              size   : 64,
-              styles : {
-                display      : 'inline',
-                margin       : '0',
-                'margin-top' : '0',
-                position     : 'relative',
-                top          : '0.4rem',
-                width        : '1.4rem',
-                border       : 'none'
-              }
-            }
-          },
-          {
             resolve: "gatsby-remark-embed-spotify",
             options: {
               // width: 600, // default is "100%"

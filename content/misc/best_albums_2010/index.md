@@ -78,7 +78,7 @@ https://open.spotify.com/album/7MvSB0JTdtl1pSwZcgvYQX?si=oAuPv8EJTZamZ0zjbzHLoA
 彼女は音楽活動において一貫してCindi Mayweatherという名前のアンドロイドに仮託しているようで、ネオアフロフューチャリズムの代表的な存在だそうです。このあたりは[Wikipedia](https://en.wikipedia.org/wiki/Afrofuturism)にいろいろと書いてあったのでもう少し掘り下げていきたいです。  
 また、女優としても活動しているらしく、言われてみれば『Moonlight』に出ていました。
 
-**Highlights**: *Cold War* *Tightrope*, *Say You'll Go*
+**Highlights**: *Cold War*, *Tightrope*, *Say You'll Go*
 
 ## 1. *The Suburbs* - Arcade Fire
 https://open.spotify.com/album/3DrgM5X3yX1JP1liNLAOHI?si=kyv9We0LR1iYmZi7wo-L-Q
