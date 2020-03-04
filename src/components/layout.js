@@ -2,6 +2,7 @@ import React from "react"
 import Link from "gatsby"
 
 import Header from './header.js'
+import Footer from './footer.js'
 import './layout.css';
 import { rhythm, scale } from "../utils/typography"
 
@@ -33,7 +34,7 @@ const Layout = ({ location, title, children }) => {
   }
 
   return (
-    <div style={{backgroundColor: "#F2F3F6"}}>
+    <div style={{height:"100%", backgroundColor: "#F2F3F6"}}>
       <Header></Header>
       
       <div
@@ -46,12 +47,7 @@ const Layout = ({ location, title, children }) => {
       >
         {content}
 
-        <footer style={{clear:"both"}}>
-            © {new Date().getFullYear()}, Built with
-            {` `}
-            <a href="https://www.gatsbyjs.org">Gatsby</a>
-            
-        </footer>
+        <Footer></Footer>
         
         
       </div>
