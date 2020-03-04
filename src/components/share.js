@@ -21,6 +21,7 @@ const Share = ({title, url}) => {
         query ShareQuery {
             site {
                 siteMetadata {
+                    defaultTitle: title
                     social {
                         twitter
                     }
@@ -28,7 +29,8 @@ const Share = ({title, url}) => {
             }
         }
     `)
-    const social = data.site.siteMetadata
+    const {social} = data.site.siteMetadata
+    title = title + ` | ` + data.site.siteMetadata.defaultTitle
     
 
     return (
@@ -39,7 +41,7 @@ const Share = ({title, url}) => {
             </Helmet>
             
             <li style={{display: "inline-block"}}>
-                <TwitterShareButton title={title} via="shion_honda" url={url}>
+                <TwitterShareButton title={title} via={social.twitter} url={url}>
                     <TwitterIcon size={40} square="true" />
                 </TwitterShareButton>
             </li>

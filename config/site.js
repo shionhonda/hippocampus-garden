@@ -10,7 +10,7 @@ module.exports = {
     logo: 'content/assets/profile-pic.png',
     banner: 'banner.png',
     favicon: 'content/assets/profile-pic.png', 
-    shortName: 'Hippocampus', 
+    shortName: `Hippocampus's Garden`, 
     author: 'Shion Honda',
     social: {
         twitter: `shion_honda`,

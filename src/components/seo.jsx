@@ -44,13 +44,16 @@ const SEO = ({title, desc, banner, pathname, article }) => (
     render={data => {
       const imageNode = data.images.edges.find(n => {
         return n.node.relativePath.includes(banner || data.site.siteMetadata.defaultBanner)
-      })     
+      })
+      console.log(data.site.siteMetadata.url)
+      console.log(pathname)
       const seo = {
           title: title + ` | ` + data.site.siteMetadata.defaultTitle || data.site.siteMetadata.defaultTitle,
           image: `${data.site.siteMetadata.url}${imageNode.node.childImageSharp.sizes.src}`,
           description: desc || data.site.siteMetadata.defaultDescription,
           url: `${data.site.siteMetadata.url}${pathname || '/'}`,
       };
+      console.log(seo.url)
       const realPrefix = data.site.siteMetadata.pathPrefix === '/' ? '' : data.site.siteMetadata.pathPrefix;
       let schemaOrgJSONLD = [
         {
