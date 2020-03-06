@@ -52,7 +52,7 @@ https://open.spotify.com/album/722zk0GySQPLbB0p2Rxxd6?si=8qlMX4IhTg67X3nYucTeqw
 アメリカのインディーロックバンド・Tha Nationalがその人気を不動のものとした作品です。低めの声と丁寧に重なり合う音が特徴的です。アルバムの最後の2曲（『England』と『Vanderlyle Crybaby Geeks』）も素晴らしい締めを飾っています。  
 Sufjan StevensやJustin Vernon (Bon Iver)が録音に参加しています。
 
-**Highlights**: *Afraid Of Anyone*, *Bloodbuzz Ohio*
+**Highlights**: *Afraid Of Everyone*, *Bloodbuzz Ohio*
 
 ## 4. *Belle and Sebastian Write About Love* - Belle And Sebastian
 https://open.spotify.com/album/3fbLzeUrtOOsxeh0OCNuDZ?si=k_l4cVZ9QP2G5C8C5XOSNA
