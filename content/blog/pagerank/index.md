@@ -48,12 +48,12 @@ M
 \end{pmatrix}.
 $$
 
-Each column of $M$ satisfies the probability axioms (for every column, all the elements are non-negative and the sum equals to 1). In other words, $M$ is **column-stochastic**.
+Each column of $M$ satisfies the probability axioms (for every column, all the elements are non-negative and the sum equals to 1). In other words, $M$ is **column stochastic**.
 
 ## Random Surfer
-Consider a random surfer who explore the web just by clicking the hyperlinks on the current page uniformly at random. For example, if the random surfer is viewing the page 2, the next page will be the page 0 or 3 at a 50-50 chance.  
+Consider a random surfer who explores the web just by clicking the hyperlinks on the current page uniformly at random. For example, if the random surfer is viewing the page 2, the next page will be the page 0 or 3 at a 50-50 chance.  
 
-How often does this random surfer reach each page? Let $v$ be the probability distribution over the 4 pages and initialized as the uniform distribution. We can get to the answer by multiplying the column-stocastic transition matrix $M$ from the left iteratively. Let's calculate **Markov chain**!
+How often does this random surfer reach each page? Let $v$ be the probability distribution over the 4 pages and initialized as the uniform distribution. We can get to the answer by multiplying the column stocastic transition matrix $M$ from the left iteratively. Let's calculate the **Markov chain**!
 
 $$
 v_{k+1} = Mv_k
@@ -74,15 +74,15 @@ $$
 |10|0.20|0.40|0.20|0.20|  
 |11|0.20|0.40|0.20|0.20|   
 
-Finally we get to the answer! The random surfer is viewing the page 1 for 40% of the time and page 0, 2, and 3 for 20% of the time. This final probability is called **PageRank** (some technical details follow) and *serves as an importance measure of a web page*.
+Finally we get to the answer! The random surfer is viewing the page 1 for 40% of the time and page 0, 2, and 3 for 20% of the time. This final probability is called **PageRank** (some technical details follow) and *serves as an importance measure for web pages*.
 
-Given that the above iterative multiplication converges to a constant PageRank vector $v$, *it is equivalent to calculating the eigenvector corresponding to the eigenvalue 1*. 
+Note that the above iterative multiplication has converged to a constant PageRank vector $v$. *It was equivalent to calculating the eigenvector corresponding to the eigenvalue 1* by the **power method** (a.k.a. **power iteration**). 
 
 $$
 v = Mv
 $$
 
-This perspective gives many insights, but I leave it to the Linear Algebra section.
+This perspective gives many insights, but I leave it to the linear algebra section.
 
 ## Technical Details
 We've seen the idea of PageRank in a simple example, but there are some problems when it is applied to general webgraphs.
@@ -151,10 +151,27 @@ $$
 where $n$ is the number of nodes and $J_n$ is a matrix of ones. This reformulated transition matrix is also referred to as **Google matrix**. Google matrix makes all the nodes connected and PageRank vectors unique to the webgraphs. Intuitively, the damping factor allows the bored random surfer to jump to another random page at the probability $d$. In the following part, I simply use $M$ for the transition matrix with a damping factor.
 
 ## Linear Algebra Point of View
-I mentioned that the iterative calculation of PageRank is equivalent to calculating the eigenvector corresponding to the eigenvalue 1. But some questions might occur. Does the transition (Google) matrix always have the eigenvalue 1 of multiplicity one? Does the iterative calculation always converge to a unique vector? How fast is the convergence? The following theorems answer these questions.
+I mentioned that the iterative calculation of PageRank is equivalent to calculating the eigenvector corresponding to the eigenvalue 1. But some questions might occur. Does the transition (Google) matrix always have the eigenvalue 1 of multiplicity one? Does the iterative calculation always converge to a unique vector? How fast is the convergence? The following theorem and algorithm answer these questions.
 
 ### Perron-Frobenius Theorem
-### Power Method Convergence Theorem
+The [Perron-Frobenius theorem](https://en.wikipedia.org/wiki/Perron%E2%80%93Frobenius_theorem) and that the Google matrix $M$ is positive and column stochastic assures that the following statements hold.
+
+1. $M$ has an eigenvalue 1 of multiplicity one.
+2. 1 is the largest eigenvalue: all the other eigenvalues have absolute value smaller than 1.
+3. For the eigenvalue 1 there exists a unique eigenvector with the sum of its entries equal to 1.
+
+These statements tell us that there is a unique eigenvector for eigenvalue 1 whose sum of its entries equal to 1 and that it exactly is the PageRank.
+
+### Power Method
+The [power method](https://en.wikipedia.org/wiki/Power_iteration) is a numerical algorithm for calculating the eigenvalue with the greatest absolute value and its eigenvector. We know that the greatest eigenvalue of the Google matrix $M$ is 1, so the power method is simple: just iteratively multiply $M$ to any initial vector. 
+
+Denoting the greatest and the second greatest (in absolute value) eigenvalue as $\lambda_1, \lambda_2$ respectively, the convergence ratio is 
+
+$$
+\left|{\frac  {\lambda _{2}}{\lambda _{1}}}\right| = \left| \lambda _{2} \right|.
+$$
+
+That is, the smaller $\left| \lambda _{2} \right|$ is, the faster the algorithm converges.
 
 ## Implementation
 That's it for the theoretical part of PageRank. We've seen that *PageRank can be calculated in two ways*: **eigendecomposition** and **power iteration**. Now, let's implement them with Python. First, import necessary libraries and preprare the function for calculating the Google matrix of the given graph.
@@ -166,8 +183,16 @@ import numpy as np
 def get_google_matrix(G, d=0.15):
     n = G.number_of_nodes()
     A = nx.to_numpy_array(G).T
+    # for sink nodes
+    is_sink = np.sum(A, axis=0)==0
+    B = (np.ones_like(A) - np.identity(n)) / (n-1)
+    A[:, is_sink] += B[:, is_sink]
+    
     D_inv = np.diag(1/np.sum(A, axis=0))
-    M = (1-d)*np.dot(A, D_inv) + d*np.ones((n,n))/n
+    M = np.dot(A, D_inv) 
+    
+    # for disconnected components
+    M = (1-d)*M + d*np.ones((n,n))/n
     return M
 
 def l1(x):
