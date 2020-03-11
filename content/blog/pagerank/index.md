@@ -76,7 +76,7 @@ $$
 
 Finally we get to the answer! The random surfer is viewing the page 1 for 40% of the time and page 0, 2, and 3 for 20% of the time. This final probability is called **PageRank** (some technical details follow) and *serves as an importance measure for web pages*.
 
-Note that the above iterative multiplication has converged to a constant PageRank vector $v$. *It was equivalent to calculating the eigenvector corresponding to the eigenvalue 1* by the **power method** (a.k.a. **power iteration**). 
+Note that the above iterative multiplication has converged to a constant PageRank vector $v$. *It was equivalent to calculating the eigenvector corresponding to the eigenvalue 1* by the **power method** (a.k.a. **power method**). 
 
 $$
 v = Mv
@@ -154,16 +154,16 @@ where $n$ is the number of nodes and $J_n$ is a matrix of ones. This reformulate
 I mentioned that the iterative calculation of PageRank is equivalent to calculating the eigenvector corresponding to the eigenvalue 1. But some questions might occur. Does the transition (Google) matrix always have the eigenvalue 1 of multiplicity one? Does the iterative calculation always converge to a unique vector? How fast is the convergence? The following theorem and algorithm answer these questions.
 
 ### Perron-Frobenius Theorem
-The [Perron-Frobenius theorem](https://en.wikipedia.org/wiki/Perron%E2%80%93Frobenius_theorem) and that the Google matrix $M$ is positive and column stochastic assures that the following statements hold.
+The [**Perron-Frobenius theorem**](https://en.wikipedia.org/wiki/Perron%E2%80%93Frobenius_theorem) and that the Google matrix $M$ is positive and column stochastic assures that the following statements hold.
 
 1. $M$ has an eigenvalue 1 of multiplicity one.
 2. 1 is the largest eigenvalue: all the other eigenvalues have absolute value smaller than 1.
 3. For the eigenvalue 1 there exists a unique eigenvector with the sum of its entries equal to 1.
 
-These statements tell us that there is a unique eigenvector for eigenvalue 1 whose sum of its entries equal to 1 and that it exactly is the PageRank.
+See [5] for the proof. These statements tell us that there is a unique eigenvector for eigenvalue 1 whose sum of its entries equal to 1. More casually, we only have to calculate the eigenvector for eigenvalue 1 to obtain the PageRank.
 
 ### Power Method
-The [power method](https://en.wikipedia.org/wiki/Power_iteration) is a numerical algorithm for calculating the eigenvalue with the greatest absolute value and its eigenvector. We know that the greatest eigenvalue of the Google matrix $M$ is 1, so the power method is simple: just iteratively multiply $M$ to any initial vector. 
+The [**power method**](https://en.wikipedia.org/wiki/Power_iteration) is a numerical algorithm for calculating the eigenvalue with the greatest absolute value and its eigenvector. We know that the greatest eigenvalue of the Google matrix $M$ is 1, so the power method is simple: just iteratively multiply $M$ to any initial vector. 
 
 Denoting the greatest and the second greatest (in absolute value) eigenvalue as $\lambda_1, \lambda_2$ respectively, the convergence ratio is 
 
@@ -174,7 +174,7 @@ $$
 That is, the smaller $\left| \lambda _{2} \right|$ is, the faster the algorithm converges.
 
 ## Implementation
-That's it for the theoretical part of PageRank. We've seen that *PageRank can be calculated in two ways*: **eigendecomposition** and **power iteration**. Now, let's implement them with Python. First, import necessary libraries and preprare the function for calculating the Google matrix of the given graph.
+That's it for the theoretical part of PageRank. We've seen that *PageRank can be calculated in two ways*: **eigendecomposition** and **power method**. Now, let's implement them with Python. First, import necessary libraries and preprare the function for calculating the Google matrix of the given graph.
 
 ```python
 import networkx as nx
@@ -213,8 +213,8 @@ def pagerank_edc(G, d=0.15):
 
 What is the Big-O time of this algorithm? As the eigendecomposition part is dominant, the time complexity is $O(n^3)$. The number of nodes (web pages) is more than a trillion, *this solution is prohibitively expensive*.
 
-### Power Iteration
-The second solution is power iteration. It initializes $v_0$ as the uniform distribution and iteratively multiply the Google matrix until it converges or it reaches the maximum number of iterations.
+### Power Method
+The second solution is power method. It initializes $v_0$ as the uniform distribution and iteratively multiply the Google matrix until it converges or it reaches the maximum number of iterations.
 
 ```python
 def pagerank_power(G, d=0.15, max_iter=100, eps=1e-9):
@@ -232,17 +232,35 @@ def pagerank_power(G, d=0.15, max_iter=100, eps=1e-9):
 As for the Big-O time, the matrix-vector multiplication is dominant in this algorithm because the number of iterations is bounded by `max_iter`. Therefore, the time complexity is $O(n^2)$. It is further reduced to $O(n)$ using **sparse matrix multiplication**. Remind that the Google matrix is the weighted sum of the transition matrix (sparse!) and the matrix of ones (just the sum operator).
 
 ## Experiments
+Finally, I conduct some experiments to validate that the above implementation behaves correctly from the theoretical point of view. 
+
+In the experiments, I use [Barabási–Albert network](https://en.wikipedia.org/wiki/Barab%C3%A1si%E2%80%93Albert_model) as a surrogate for the [webgraph](https://en.wikipedia.org/wiki/Webgraph). The NetworkX's function only produces undirected networks, so I converted them to directed ones by randomly removing half of the edges.
+
+```python
+def gen_webgraph(n, m):
+    G = nx.DiGraph(nx.barabasi_albert_graph(n,m))
+    rands = np.random.choice(n, n//2, replace=False)
+    G.remove_edges_from(np.array(G.edges)[rands])
+    return G
+```
+
+![](2020-03-11-22-13-07.png)
+
 ### Computation Time
+The figure below compares the eigendecomposition and the power method on the computation time of PageRank for Barabási–Albert network with different number of nodes ($m$, or the number of edges to attach from a new node is fixed to 3).
+
 ![](2020-03-11-18-29-24.png)
+
+The power method is faster than the eigendecomposition especially when there are many nodes.
+
+### Convergence Speed of Power Method
 
 ## Concluding Remarks
 Please link to this post to heighten the PageRank 😉
 
 ## References
 [1] Brin, Sergey, and Lawrence Page. "[The anatomy of a large-scale hypertextual web search engine](https://www.sciencedirect.com/science/article/abs/pii/S1389128612003611)." *Computer networks* 56.18 (2012): 3825-3833.  
-
-[2] [PageRank Algorithm - The Mathematics of Google Search](http://pi.math.cornell.edu/~mec/Winter2009/RalucaRemus/Lecture3/lecture3.html)
-
-[3] [PageRank - Wikipedia](https://en.wikipedia.org/wiki/PageRank)
-
-[4] [Link Analysis — NetworkX 2.4 documentation](https://networkx.github.io/documentation/stable/reference/algorithms/link_analysis.html)
+[2] [PageRank Algorithm - The Mathematics of Google Search](http://pi.math.cornell.edu/~mec/Winter2009/RalucaRemus/Lecture3/lecture3.html)  
+[3] [PageRank - Wikipedia](https://en.wikipedia.org/wiki/PageRank)  
+[4] [Link Analysis — NetworkX 2.4 documentation](https://networkx.github.io/documentation/stable/reference/algorithms/link_analysis.html)  
+[5] R. Clark Robinson. "[Perron-Frobenius Theorem](https://sites.math.northwestern.edu/~clark/354/2002/perron.pdf)." 2002.
