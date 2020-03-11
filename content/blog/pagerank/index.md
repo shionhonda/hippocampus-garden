@@ -1,6 +1,6 @@
 ---
 title: "PageRank Explained: Theory, Algorithm, and Some Experiments"
-date: "2020-03-10T22:15:03.284Z"
+date: "2020-03-12T22:01:03.284Z"
 description: "How does Google's PageRank work? Its theory and algorithm are exmplained, followed by numerical experiments."
 featuredImage: pagerank/ogp.png
 ---
