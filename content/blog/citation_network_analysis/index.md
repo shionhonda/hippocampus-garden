@@ -62,6 +62,6 @@ In conclusion, when PageRank is applied as an objective index of papers, the res
 The analysis was done with NetworkX. The code is [here](https://github.com/shionhonda/dblp/blob/master/main.ipynb)
 
 ## References
-[1] Brin, Sergey, and Lawrence Page. "[Reprint of: The anatomy of a large-scale hypertextual web search engine](https://www.sciencedirect.com/science/article/abs/pii/S1389128612003611)." *Computer networks* 56.18 (2012): 3825-3833.  
+[1] Brin, Sergey, and Lawrence Page. "[The anatomy of a large-scale hypertextual web search engine](https://www.sciencedirect.com/science/article/abs/pii/S1389128612003611)." *Computer networks* 56.18 (2012): 3825-3833.  
 [2] Tang, Jie, et al. "[Arnetminer: extraction and mining of academic social networks](https://dl.acm.org/doi/abs/10.1145/1401890.1402008)." *Proceedings of the 14th ACM SIGKDD international conference on Knowledge discovery and data mining*. 2008.  
 [3] Bollen, Johan, Marko A. Rodriquez, and Herbert Van de Sompel. "[Journal status](https://link.springer.com/article/10.1007/s11192-006-0176-z)." *Scientometrics* 69.3 (2006): 669-687.
