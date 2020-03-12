@@ -234,7 +234,7 @@ As for the Big-O time, the matrix-vector multiplication is dominant in this algo
 ## Experiments
 Finally, I conduct some experiments to validate that the above implementation works correctly from a theoretical point of view. 
 
-The experiments use the Baragraf-Albert network as a proxy for the [webgraph](https://en.wikipedia.org/wiki/Webgraph). Since the function of NetworkX generates only undirected graphs, half of the edges are randomly deleted and converted to directed graphs.
+The experiments use the [Barabási–Albert network](https://en.wikipedia.org/wiki/Barab%C3%A1si%E2%80%93Albert_model) as a proxy for the [webgraph](https://en.wikipedia.org/wiki/Webgraph). Since the function of NetworkX generates only undirected graphs, half of the edges are randomly deleted and converted to directed graphs.
 
 ```python
 def gen_webgraph(n, m):
