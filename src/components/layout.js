@@ -6,13 +6,13 @@ import Footer from './footer.js'
 import './layout.css';
 import { rhythm, scale } from "../utils/typography"
 
-const Layout = ({ location, title, children }) => {
+const Layout = ({ location, title, children, toc }) => {
   const rootPath = `${__PATH_PREFIX__}/`
   
   let content
   if (location.pathname==="/"
       || location.pathname==="/blog/"
-      || location.pathname==="/misc/"){
+      || location.pathname==="/misc/") {
     content = (
       <div className="flexbox">
         <div className="mainbox">
@@ -25,10 +25,20 @@ const Layout = ({ location, title, children }) => {
         </div>
       </div>
     )
+  } else if (location.pathname==="/about/") {
+    content = <main>{children}</main>
   } else {
     content = (
-      <div style={{backgroundColor: "white", padding: "20px"}}>
-        <main>{children}</main>
+      <div className="flexbox">
+        <div className="mainbox">
+          <main>{children}</main>
+        </div>
+        <div className="sidebar">
+          <div className="toc">
+            <h3>Table of Contents</h3>
+            <div dangerouslySetInnerHTML={{__html: toc}}/>
+          </div>
+        </div>
       </div>
     )
   }

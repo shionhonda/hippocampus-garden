@@ -11,8 +11,7 @@ const BlogIndex = ({ data, location }) => {
   const author = data.site.siteMetadata.author
   const posts = data.allMarkdownRemark.edges
   const content  = (
-    `Welcome to ${siteTitle}, created and 
-        maintained by Shion Honda. 
+    `Welcome to ${siteTitle}, produced by Shion Honda. 
         Let’s explore the world of wonder!`
   )
 

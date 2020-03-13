@@ -19,6 +19,7 @@
     width: 300px;
     margin-left: 1rem;
 }
+
 @media screen and (max-width: 1000px) {
     .flexbox {
         display: block;
@@ -32,6 +33,9 @@
         margin: auto;
         text-align: center;
     }
+    .flexbox .sidebar .toc{
+        display: none;
+    }
 }
 
 .twitter-tweet {
@@ -40,6 +44,21 @@
     text-align: center;
 }
 
+.toc {
+    background-color: white;
+    color: #000000;
+    padding: 1rem;
+    width: inherit;
+    /* position: fixed;  */
+}
+.toc a {
+    box-shadow: none;
+    text-decoration: none;
+    color: inherit;
+}
+.toc a:hover {
+    text-decoration: underline;
+}
 
 .gatsby-code-title {
     background: #f0f0f0;

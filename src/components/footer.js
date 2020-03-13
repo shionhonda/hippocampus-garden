@@ -5,7 +5,7 @@ const Footer = () => {
     const pageLink = "/privacy-policy/"
     return (
         <footer style={{clear:"both", fontSize:"14px"}}>
-          © {new Date().getFullYear()}, Built with
+          © {new Date().getFullYear()}, Shion Honda. Built with
           {` `}
           <a href="https://www.gatsbyjs.org">Gatsby</a>
           <br></br>

@@ -30,10 +30,8 @@
 .navbar-item ul li a {
     font-size: 20px;
     font-weight: bold;
-    text-decoration: none;
     line-height: 2.0;
     text-align: center;
     display: block;
     padding: auto;
-    border-radius: 3px;
 }

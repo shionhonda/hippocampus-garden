@@ -21,7 +21,7 @@ const BlogPostTemplate = ({ data, pageContext, location }) => {
   )
 
   return (
-    <Layout location={location} title={siteTitle}>
+    <Layout location={location} title={siteTitle} toc={post.tableOfContents}>
       <SEO
         title={post.frontmatter.title}
         desc={post.frontmatter.description || post.excerpt}
@@ -49,7 +49,6 @@ const BlogPostTemplate = ({ data, pageContext, location }) => {
           </p>
           
           <Share title={post.frontmatter.title} url={url + post.fields.slug}></Share>
-
           <section dangerouslySetInnerHTML={{ __html: post.html }} />
           <hr
             style={{
@@ -113,6 +112,7 @@ export const pageQuery = graphql`
         description
         featuredImage
       }
+      tableOfContents
       fields {
         slug
       }
