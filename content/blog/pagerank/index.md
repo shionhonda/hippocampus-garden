@@ -267,7 +267,7 @@ The convergence speed is calculated as the slope of the lines in the above figur
 ![](2020-03-11-23-54-07.png)
 
 ## Concluding Remarks
-PageRank is an excellent algorithm that can measure the trillions of web pages in linear time and has interesting theoretical backgrounds. 
+PageRank is an excellent algorithm that can measure the trillions of web pages in linear time and has interesting theoretical backgrounds. There are some extensions such as **Personalized PagreRank** (it uses distributions biased to each user to calculate the Google matrix rather than the uniform distribution $J_n$), and they are still used in many services.
 
 Please link to this post to heighten the PageRank 😉
 
