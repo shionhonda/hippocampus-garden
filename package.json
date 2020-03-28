@@ -79,5 +79,8 @@
     "serve": "gatsby serve",
     "clean": "gatsby clean",
     "test": "jest"
+  },
+  "resolutions": {
+    "sharp": "0.24.0"
   }
 }
