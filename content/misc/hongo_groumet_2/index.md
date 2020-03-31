@@ -83,7 +83,7 @@ featuredImage: hongo_groumet_2/ogp.png
 
 ![](figs/sesami2.jpg)
 
-先輩に教えてもらったのですが、瀬佐味亭は[レシピを公開しています](http://home.f00.itscom.net/sesami/)。OSS (open source tantanmen)というわけですね。クローンするのはそう簡単にはいかなさそうですが笑
+先輩に教えてもらったのですが、瀬佐味亭は[レシピを公開しています](http://home.f00.itscom.net/sesami/)。OST (open source tantanmen)というわけですね。クローンするのはそう簡単にはいかなさそうですが笑
 
 ## 麻辣湯
 「**麻辣湯**」は、最近春日通り沿いにできた麻辣スープ春雨のお店です。店名がこれで合っているのかよくわかりません。
