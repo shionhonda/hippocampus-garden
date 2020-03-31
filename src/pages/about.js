@@ -13,8 +13,13 @@ const About = ({ data, location }) => {
         <SEO title="About" />
         <div style={{backgroundColor: "white", padding:"20px"}}>
           <h1>Shion Honda</h1>
-          <p>Hi, this is Shion.
-          MScs in Information Science and Technology.
+          <p>
+            Hi, this is Shion. 
+            <br></br>
+            I am a data scientist at Recruit Inc., Ltd. 
+            MScs in Information Science and Technology.
+            <br></br>
+            Opinions are my own and not the views of my employer.
           </p>
           <div style={{ textAlign:"center"}}>
             <img src="https://media-exp1.licdn.com/dms/image/C5103AQGDS2utMiobKQ/profile-displayphoto-shrink_200_200/0?e=1587600000&v=beta&t=_HITxpVXkoPWiGKZsMKBLFUVlbZwrxWhF7noPpfcBXc"
@@ -63,7 +68,10 @@ const About = ({ data, location }) => {
           </ul>
           
           <h2>News</h2>
-          <ul></ul>   
+          <ul>
+            <li>Mar 2020: Completed my Master's course at the University of Tokyo.</li>
+            <li>Apr 2020: Start working at Recruit Inc., Ltd. in Tokyo.</li>
+          </ul>   
         </div>
       </Layout>
     )
