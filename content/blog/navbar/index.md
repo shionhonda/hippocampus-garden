@@ -47,7 +47,7 @@ In my case, the navigation menu has four items:
 1. Home (linked to '/')
 2. About (linked to '/about/')
 3. Blog (linked to '/blog/')
-4. Misc. (linked to '/misc/)
+4. Misc. (linked to '/misc/')
 
 These are implemented as the unordered list.
 

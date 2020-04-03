@@ -31,7 +31,7 @@ const Share = ({title, url}) => {
     `)
     const {social} = data.site.siteMetadata
     title = title + ` | ` + data.site.siteMetadata.defaultTitle
-    
+
 
     return (
         
