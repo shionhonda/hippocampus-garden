@@ -1,11 +1,11 @@
 ---
-title: SNS Share Button
-date: "2020-04-03T22:12:03.284Z"
+title: SNS Share Button for Gatsby Blog
+date: "2020-04-03T22:18:03.284Z"
 description: "This post introduces how to put arranged SNS share buttons for Gatsby blog posts."
 featuredImage: share_button/ogp.png
 ---
 
-Share buttons are an essential component of blogs in this “SNS era”. In this blog, too, you see them for several SNS at the top and bottom of each post. However, Gatsby blog does not have share buttons by default.
+Share buttons are an essential element of blogs in this “SNS era”. In this blog, too, you see them for several SNS at the top and bottom of each post. However, Gatsby blog does not have share buttons by default.
 
 Fortunately, there is an easy-to-use module in React.js. In this post, I demonstrate how it is used in the Gatsby blog. 
 
