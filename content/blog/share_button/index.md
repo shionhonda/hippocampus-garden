@@ -1,12 +1,13 @@
 ---
 title: SNS Share Button
 date: "2020-04-03T22:12:03.284Z"
-description: "This post introduces how to make top navigation bar with background image for Gatsby blog."
+description: "This post introduces how to put arranged SNS share buttons for Gatsby blog posts."
 featuredImage: share_button/ogp.png
 ---
 
-Share buttons are an essential component of blogs in this “SNS era”. In this blog, too, you see them for several SNS at the top and bottom of each posts. 
- In this post, I demonstrate how it is implemented with React.js. It is pretty easy to use it.
+Share buttons are an essential component of blogs in this “SNS era”. In this blog, too, you see them for several SNS at the top and bottom of each post. However, Gatsby blog does not have share buttons by default.
+
+Fortunately, there is an easy-to-use module in React.js. In this post, I demonstrate how it is used in the Gatsby blog. 
 
 ## Install
 
@@ -129,7 +130,7 @@ export default Share;
 <br>
 
 ### Hatena Bookmark
-*Hatena Bookmark* is not supported by `react-share`, so I use Helmet instead. As the last part, import `Helmet` from `react-helmet` first. The button component is taken from [here](https://b.hatena.ne.jp/guide/bbutton).
+*Hatena Bookmark* is not supported by `react-share`, so I use Helmet instead. As I showed earlier, import `Helmet` from `react-helmet` first. The button component is taken from [here](https://b.hatena.ne.jp/guide/bbutton).
 
 ```javascript:title=src/components/share.js
 ...
@@ -165,7 +166,7 @@ export default Share;
 <br>
 
 ## Blog Post Template
-Finally, let's import the share buttons from the blog post template `blog-post.js`. The `Share` component defined above displays the arraanged share buttons. I call it twice: the start and the end of the post.
+Finally, let's import the share buttons from the blog post template `blog-post.js`. The `Share` component defined above displays the arranged share buttons. I call it twice: at the start and the end of the post.
 
 ```javascript:title=src/templates/blog-post.js
 ...
@@ -226,3 +227,6 @@ export default BlogPostTemplate
 
 ...
 ```
+<br>
+
+Don't forget to set OGP images 😉
