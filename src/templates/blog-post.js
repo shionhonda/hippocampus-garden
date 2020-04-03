@@ -1,5 +1,6 @@
 import React from "react"
 import { Link, graphql } from "gatsby"
+import { Disqus, CommentCount } from 'gatsby-plugin-disqus'
 
 import Bio from "../components/bio"
 import Layout from "../components/layout"
@@ -19,6 +20,12 @@ const BlogPostTemplate = ({ data, pageContext, location }) => {
       If you like this, please share!
     </p>
   )
+
+  let disqusConfig = {
+    url: `${url + post.fields.slug}`,
+    identifier: post.fields.slug,
+    title: post.frontmatter.title,
+  }
 
   return (
     <Layout location={location} title={siteTitle} toc={post.tableOfContents}>
@@ -60,6 +67,16 @@ const BlogPostTemplate = ({ data, pageContext, location }) => {
             <Bio>{content}</Bio>
           </footer>
       </article>
+      
+      <CommentCount config={disqusConfig} placeholder={'...'} />
+      <Disqus config={disqusConfig} />
+ 
+
+        {/* <Disqus 
+        identifier={post.fields.slug}
+        title={post.frontmatter.title}
+        url={url + post.fields.slug}
+        /> */}
 
       <nav>
         <ul
