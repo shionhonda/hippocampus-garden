@@ -67,16 +67,6 @@ const BlogPostTemplate = ({ data, pageContext, location }) => {
             <Bio>{content}</Bio>
           </footer>
       </article>
-      
-      <CommentCount config={disqusConfig} placeholder={'...'} />
-      <Disqus config={disqusConfig} />
- 
-
-        {/* <Disqus 
-        identifier={post.fields.slug}
-        title={post.frontmatter.title}
-        url={url + post.fields.slug}
-        /> */}
 
       <nav>
         <ul
@@ -104,6 +94,9 @@ const BlogPostTemplate = ({ data, pageContext, location }) => {
           </li>
         </ul>
       </nav>
+
+      <CommentCount config={disqusConfig} placeholder={'...'} />
+      <Disqus config={disqusConfig} />
     </Layout>
   )
 }
