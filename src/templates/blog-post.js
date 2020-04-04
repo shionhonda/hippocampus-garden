@@ -1,6 +1,6 @@
 import React from "react"
 import { Link, graphql } from "gatsby"
-import { Disqus, CommentCount } from 'gatsby-plugin-disqus'
+import Disqus from 'gatsby-plugin-disqus'
 
 import Bio from "../components/bio"
 import Layout from "../components/layout"
