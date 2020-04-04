@@ -52,7 +52,8 @@ const BlogPostTemplate = ({ data, pageContext, location }) => {
               marginBottom: rhythm(0),
             }}
           >
-            {post.frontmatter.date}
+            {post.frontmatter.date}&nbsp; | &nbsp; 
+            {post.timeToRead} min read
           </p>
           
           <Share title={post.frontmatter.title} url={url + post.fields.slug}></Share>
@@ -96,7 +97,6 @@ const BlogPostTemplate = ({ data, pageContext, location }) => {
         </ul>
       </nav>
 
-      <CommentCount config={disqusConfig} placeholder={'...'} />
       <Disqus config={disqusConfig} />
     </Layout>
   )
@@ -124,6 +124,7 @@ export const pageQuery = graphql`
         featuredImage
       }
       tableOfContents
+      timeToRead
       fields {
         slug
       }

@@ -30,7 +30,7 @@ const BlogIndex = ({ data, location }) => {
               </h3>
               <small>
                 {node.frontmatter.date}&nbsp; | &nbsp; 
-                {node.timeToRead} mins read
+                {node.timeToRead} min read
               </small>
               <section>
                 <p
