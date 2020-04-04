@@ -76,16 +76,17 @@ const BlogPostTemplate = ({ data, pageContext, location }) => {
             justifyContent: `space-between`,
             listStyle: `none`,
             padding: 0,
+            margin: 0
           }}
         >
-          <li>
+          <li style={{width: `45%`}}>
             {previous && (
               <Link to={previous.fields.slug} rel="prev">
                 ← {previous.frontmatter.title}
               </Link>
             )}
           </li>
-          <li>
+          <li style={{width: `45%`}}>
             {next && (
               <Link to={next.fields.slug} rel="next">
                 {next.frontmatter.title} →
