@@ -69,8 +69,8 @@ const About = ({ data, location }) => {
           
           <h2>News</h2>
           <ul>
-            <li>Mar 2020: Completed my Master's course at the University of Tokyo.</li>
             <li>Apr 2020: Start working at Recruit Inc., Ltd. in Tokyo.</li>
+            <li>Mar 2020: Completed my Master's course at the University of Tokyo.</li>
           </ul>   
         </div>
       </Layout>
