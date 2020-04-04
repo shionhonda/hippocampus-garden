@@ -86,7 +86,7 @@ const BlogPostTemplate = ({ data, pageContext, location }) => {
               </Link>
             )}
           </li>
-          <li style={{width: `45%`}}>
+          <li style={{width: `45%`, textAlign: `right`}}>
             {next && (
               <Link to={next.fields.slug} rel="next">
                 {next.frontmatter.title} →
