@@ -163,4 +163,4 @@ This is how StyleGAN2 learns to generate human face images. Note that the time s
 <iframe width="560" height="315" src="https://www.youtube.com/embed/dR3-184rff4" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ## References
-[1] Karras, Tero, et al. "[Analyzing and improving the image quality of stylegan](https://arxiv.org/abs/1912.04958)." arXiv preprint arXiv:1912.04958 (2019).
+[1] Karras, Tero, et al. "[Analyzing and improving the image quality of stylegan](https://arxiv.org/abs/1912.04958)." *arXiv preprint arXiv:1912.04958* (2019).

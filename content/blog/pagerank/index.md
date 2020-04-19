@@ -76,7 +76,7 @@ $$
 
 Finally, we get to the answer! The random surfer is viewing the page 1 for 40% of the time and page 0, 2, and 3 for 20% of the time. This final probability is called **PageRank** (some technical details follow) and *serves as an importance measure for web pages*.
 
-Note that the above iterative multiplication has converged to a constant PageRank vector $v$. *It is equivalent to calculating the eigenvector corresponding to the eigenvalue 1* by the **power method** (a.k.a. **power method**). 
+Note that the above iterative multiplication has converged to a constant PageRank vector $v$. *It is equivalent to calculating the eigenvector corresponding to the eigenvalue 1* by the **power method** (a.k.a. **power iteration**). 
 
 $$
 v = Mv
@@ -267,9 +267,9 @@ The convergence speed is calculated as the slope of the lines in the above figur
 ![](2020-03-11-23-54-07.png)
 
 ## Concluding Remarks
-PageRank is an excellent algorithm that can measure the trillions of web pages in linear time and has interesting theoretical backgrounds. There are some extensions such as **Personalized PagreRank** (it uses distributions biased to each user to calculate the Google matrix rather than the uniform distribution $J_n$), and they are still used in many services.
+PageRank is an excellent algorithm that can measure the trillions of web pages in linear time and has interesting theoretical backgrounds. There are some extensions such as **Personalized PagreRank** (it uses distributions biased to each user instead of the uniform distribution $J_n$ to calculate the Google matrix), and they are still used in many services.
 
-Please link to this post to heighten the PageRank 😉
+Please link to this post to heighten its PageRank 😉
 
 ## References
 [1] Brin, Sergey, and Lawrence Page. "[The anatomy of a large-scale hypertextual web search engine](https://www.sciencedirect.com/science/article/abs/pii/S1389128612003611)." *Computer networks* 56.18 (2012): 3825-3833.  
