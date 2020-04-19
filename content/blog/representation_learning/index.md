@@ -1,11 +1,11 @@
 ---
 title: Recent Advances in Representation Learning
-date: "2020-04-18T22:18:03.284Z"
-description: "This post introduces how to put arranged SNS share buttons for Gatsby blog posts."
+date: "2020-04-20T22:01:03.284Z"
+description: '"Representation" is a way AIs understand the world. This post is a short introduction to the representation learning in "deep learning era."'
 featuredImage: representation_learning/ogp.png
 ---
 
-Recently, we've seen great advances in representation learning. For example, BERT  in natural language processing tasks and SimCLR in computer vision tasks.
+Recently, we've seen great advances in representation learning. For example, BERT [1] in natural language processing tasks and SimCLR in computer vision tasks.
 
 ## BERT Learns Good Representations of Texts
 BERT is well described in the following figure from [this great blog post](http://jalammar.github.io/illustrated-bert/). BERT is a Transformer-based model that is trained in two steps:
@@ -16,7 +16,7 @@ BERT is well described in the following figure from [this great blog post](http:
 
 <small>Figure taken from [The Illustrated BERT, ELMo, and co. (How NLP Cracked Transfer Learning) – Jay Alammar – Visualizing machine learning one concept at a time](http://jalammar.github.io/illustrated-bert/).</small>
 
-Just by the surrogate task of predicting the masked words, BERT acquires generalizable representations and shows great performance in downstream tasks from question answering to named entity recognition.
+Just by the surrogate task (predicting the masked words), BERT acquires generalizable representations and shows great performance in downstream tasks from question answering to named entity recognition. For its generalizability and simplicity, BERT became popular at once.
 
 ## Larger Model, More Data, Longer Training
 The impact that BERT made on the research area was so great that many works have followed it until today. Some explored different pre-training tasks, some reduced the model size while keeping its performance, and others further increased the model size to achieve state-of-the-art.
