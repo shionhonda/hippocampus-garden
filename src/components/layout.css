@@ -34,18 +34,18 @@
 @media screen and (max-width: 1000px) {
     .flexbox {
         display: block;
-    }
-    .flexbox .mainbox {
-        width: 100%;
-        margin: 0 auto;
-    }
-    .flexbox .sidebar {
-        width: 100%;
-        margin: auto;
-        text-align: center;
-    }
-    .flexbox .sidebar .toc{
-        display: none;
+        .mainbox {
+            width: 100%;
+            margin: 0 auto;
+        }
+        .sidebar {
+            width: 100%;
+            margin: auto;
+            text-align: center;
+            .toc{
+                display: none;
+            }
+        }
     }
 }
 

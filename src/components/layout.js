@@ -6,6 +6,7 @@ import Footer from './footer.js'
 import './layout.css';
 import { rhythm, scale } from "../utils/typography"
 
+
 const Layout = ({ location, title, children, toc }) => {
   const rootPath = `${__PATH_PREFIX__}/`
   
