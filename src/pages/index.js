@@ -20,34 +20,37 @@ const BlogIndex = ({ data, location }) => {
     <Layout location={location} title={siteTitle}>
       <SEO title="Home" />
       <Bio>{content}</Bio>
-      {posts.map(({ node }) => {
-        const title = node.frontmatter.title || node.fields.slug
-        return (
-          <Link style={{ boxShadow: `none`, textDecoration: `none`, color: `inherit`,}} to={node.fields.slug}>
-            <article key={node.fields.slug} style={{marginBottom: rhythm(2)}}>
-              <h3 style={{marginBottom: rhythm(1 / 4),}}>
-                {title}
-              </h3>
-              <small>
-                {node.frontmatter.date}&nbsp; | &nbsp; 
-                {node.timeToRead} min read
-              </small>
-              <section>
-                <p
-                  dangerouslySetInnerHTML={{
-                    __html: node.frontmatter.description || node.excerpt,
-                  }}
-                  style={{marginBottom: 0}}
-                />
-              </section>
-              <div style={{width: "70%", textAlign: "center", margin: "auto"}}>
-              <Image filename={node.frontmatter.featuredImage} />
+      <div className="posts">
+        {posts.map(({ node }) => {
+          const title = node.frontmatter.title || node.fields.slug
+          return (
+            <Link style={{ boxShadow: `none`, textDecoration: `none`, color: `inherit`,}} to={node.fields.slug}>
+              <article key={node.fields.slug} style={{marginBottom: rhythm(2)}}>
+                <h3 style={{marginBottom: rhythm(1 / 4),}}>
+                  {title}
+                </h3>
+                <small>
+                  {node.frontmatter.date}&nbsp; | &nbsp; 
+                  {node.timeToRead} min read
+                </small>
+                <section>
+                  <p
+                    dangerouslySetInnerHTML={{
+                      __html: node.frontmatter.description || node.excerpt,
+                    }}
+                    style={{marginBottom: 0}}
+                  />
+                </section>
+                <div style={{width: "70%", textAlign: "center", margin: "auto"}}>
+                <Image filename={node.frontmatter.featuredImage} />
 
-              </div>
-            </article>
-          </Link>
-        )
-      })}
+                </div>
+              </article>
+            </Link>
+          )
+        })}
+      </div>
+      
     </Layout>
   )
 }

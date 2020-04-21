@@ -15,7 +15,7 @@ const Layout = ({ location, title, children, toc }) => {
       || location.pathname==="/misc/") {
     content = (
       <div className="flexbox">
-        <div className="mainbox">
+        <div className="mainbox grid">
           <main>{children}</main>
         </div>
         <div className="sidebar">
@@ -25,7 +25,8 @@ const Layout = ({ location, title, children, toc }) => {
         </div>
       </div>
     )
-  } else if (location.pathname==="/about/") {
+  } else if (location.pathname==="/about/"
+             || location.pathname==="/privacy-policy/") {
     content = <main>{children}</main>
   } else {
     content = (

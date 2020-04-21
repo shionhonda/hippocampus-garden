@@ -39,6 +39,7 @@ const Bio = ({children}) => {
     <div
       style={{
         display: `flex`,
+        padding: rhythm(0.5),
         marginBottom: rhythm(0.5),
       }}
     >

@@ -10,11 +10,22 @@
     margin: auto;
 }
 .mainbox {
-    width: 70%;
+    /* width: 70%; */
     margin: 0 auto auto auto;
-    padding: 20px;
+    /* padding: 20px; */
     background-color: white;
 }
+
+.grid main .posts{
+    display: grid;
+    grid-auto-rows: 400px;
+    grid-template-columns: repeat(auto-fill, 300px);
+    grid-row-gap: 10px;
+    grid-column-gap: 10px;
+    justify-content: center;
+}
+
+
 .sidebar {
     width: 300px;
     margin-left: 1rem;
