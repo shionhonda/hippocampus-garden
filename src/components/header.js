@@ -61,7 +61,7 @@ const Header = ({ className }) => (
               }}>
                   {`Under the sea, in the hippocampus's garden...`}
                   </p>
-              <Navbar></Navbar>
+              <Navbar/>
           </div>
         </BackgroundImage>
       )

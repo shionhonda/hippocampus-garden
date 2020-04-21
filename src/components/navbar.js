@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link } from 'gatsby';
-import './navbar.css'
+import './navbar.scss'
 
-const Navbar = (props) => {
+const Navbar = () => {
     const navMenuItem = ["Home", "About", "Blog", "Misc."];
 
     const navMenuLiTag = navMenuItem.map((item) => {
@@ -16,15 +16,8 @@ const Navbar = (props) => {
         else pageLink = "/" + item.toLowerCase() + "/";
 
         return (
-            <li key={pageLink}>
-                <Link to={pageLink}
-                    className="page-link"
-                    style={{
-                        boxShadow: `none`,
-                        textDecoration: `none`,
-                        color: `inherit`,
-                    }}
-                >
+            <li>
+                <Link to={pageLink}>
                     {item}
                 </Link>
             </li>
@@ -33,8 +26,7 @@ const Navbar = (props) => {
 
     return (
         <nav className="navbar">
-            <div className="navbar-item"
-            style={{align: `center`}}>
+            <div className="navbar-item">
                 <ul>
                     {navMenuLiTag}
                 </ul>
