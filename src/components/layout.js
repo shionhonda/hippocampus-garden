@@ -50,7 +50,7 @@ const Layout = ({ location, title, children, toc }) => {
   }
 
   return (
-    <div style={{height:"100%", backgroundColor: "#F2F3F6"}}>
+    <div style={{width:"100%", height:"100%", backgroundColor: "#F2F3F6"}}>
       <Header/>
       <body
         style={{
