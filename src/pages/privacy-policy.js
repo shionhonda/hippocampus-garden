@@ -3,6 +3,7 @@ import { graphql } from "gatsby"
 
 import Layout from "../components/layout"
 import SEO from "../components/seo.jsx"
+import { rhythm } from "../utils/typography"
 
 const PrivacyPolicyPage = ({ data, location }) => {
   const siteTitle = data.site.siteMetadata.title
@@ -10,7 +11,7 @@ const PrivacyPolicyPage = ({ data, location }) => {
   return (
     <Layout location={location} title={siteTitle}>
       <SEO title="Privacy Policy" />
-      <div style={{backgroundColor: "white", padding:"20px"}}>
+      <div style={{backgroundColor: "white", padding: rhythm(1)}}>
         <h1>Privacy Policy of Hippocampus's Garden</h1>
         <p>Hippocampus's Garden operates the https://hippocampus-garden.com/ website, which provides the SERVICE.</p>
         <p>This page is used to inform website visitors regarding our policies with the collection, use, and disclosure of Personal Information if anyone decided to use our Service, the Hippocampus's Garden website.</p>

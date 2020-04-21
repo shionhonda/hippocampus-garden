@@ -19,34 +19,38 @@ const BlogIndex = ({ data, location }) => {
       <Layout location={location} title={siteTitle}>
         <SEO title="Tech Blog" />
         <Bio>{content}</Bio>
+        <div className="posts">
         {posts.map(({ node }) => {
           const title = node.frontmatter.title || node.fields.slug
           return (
-            <Link style={{ boxShadow: `none`, textDecoration: `none`, color: `inherit`,}} to={node.fields.slug}>
-            <article key={node.fields.slug} style={{marginBottom: rhythm(2)}}>
-              <h3 style={{marginBottom: rhythm(1 / 4),}}>
-                {title}
-              </h3>
-              <small>
-                {node.frontmatter.date}&nbsp; | &nbsp; 
-                {node.timeToRead} min read
-              </small>
-              <section>
-                <p
-                  dangerouslySetInnerHTML={{
-                    __html: node.frontmatter.description || node.excerpt,
-                  }}
-                  style={{marginBottom: 0}}
-                />
-              </section>
-              <div style={{width: "70%", textAlign: "center", margin: "auto"}}>
-              <Image filename={node.frontmatter.featuredImage} />
-
-              </div>
+            <article key={node.fields.slug} style={{
+              backgroundColor:"white", 
+              height: "100%",
+            }}>
+              <Link style={{boxShadow: `none`, textDecoration: `none`, color: `inherit`,}} to={node.fields.slug}>
+                <Image filename={node.frontmatter.featuredImage}/>
+                <div style={{padding:rhythm(0.5)}}>
+                  <h3 style={{marginTop: rhythm(1/4), marginBottom: rhythm(1/4),}}>
+                    {title}
+                  </h3>
+                  <small>
+                    {node.frontmatter.date}&nbsp; | &nbsp; 
+                    {node.timeToRead} min read
+                  </small>
+                  <section>
+                    <p
+                      dangerouslySetInnerHTML={{
+                        __html: node.frontmatter.description || node.excerpt,
+                      }}
+                      style={{marginBottom: 0}}
+                    />
+                  </section>
+                </div>
+              </Link>
             </article>
-          </Link>
           )
         })}
+      </div>
       </Layout>
     )
   }

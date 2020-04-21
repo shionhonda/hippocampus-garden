@@ -1,35 +1,32 @@
 
-.page-root{
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-}
-
 .flexbox {
     display: flex;
     margin: auto;
+    .mainbox {
+        width: 70%;
+        // margin: 0 auto auto auto;
+        /* padding: 20px; */
+        // background-color: white;
+    }
+
+    .sidebar {
+        width: 300px;
+        margin-left: 1rem; 
+    }
 }
-.mainbox {
-    /* width: 70%; */
-    margin: 0 auto auto auto;
-    /* padding: 20px; */
-    background-color: white;
-}
+
 
 .grid main .posts{
     display: grid;
-    grid-auto-rows: 400px;
-    grid-template-columns: repeat(auto-fill, 300px);
-    grid-row-gap: 10px;
-    grid-column-gap: 10px;
+    grid-auto-rows: 450px;
+    grid-template-columns: repeat(auto-fill, 350px);
+    grid-row-gap: 30px;
+    grid-column-gap: 30px;
     justify-content: center;
 }
 
 
-.sidebar {
-    width: 300px;
-    margin-left: 1rem;
-}
+
 
 @media screen and (max-width: 1000px) {
     .flexbox {
@@ -49,30 +46,28 @@
     }
 }
 
-.twitter-tweet {
-	margin-left: auto;
-    margin-right: auto;
-    text-align: center;
-}
+// .twitter-tweet {
+// 	margin-left: auto;
+//     margin-right: auto;
+//     text-align: center;
+// }
 
 .toc {
     background-color: white;
     color: #000000;
     padding: 1rem;
     width: inherit;
-}
-.toc a {
-    box-shadow: none;
-    text-decoration: none;
-    color: inherit;
-}
-.toc a:hover {
-    text-decoration: underline;
-}
-
-.toc ul {
-    list-style: none;
-    /* margin-left: 0; */
+    a {
+        box-shadow: none;
+        text-decoration: none;
+        color: inherit;
+        :hover {
+            text-decoration: underline;
+        }
+    }
+    ul {
+        list-style: none;
+    }
 }
 
 .gatsby-code-title {

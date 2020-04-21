@@ -36,13 +36,8 @@ const BlogPostTemplate = ({ data, pageContext, location }) => {
         pathname={post.fields.slug}
         article={true}
       />
-      <article>
-          <h1
-            style={{
-              marginTop: rhythm(1),
-              marginBottom: 0,
-            }}
-          >
+      <article style={{backgroundColor: "white", padding:rhythm(1)}}>
+          <h1 style={{marginBottom: 0}}>
             {post.frontmatter.title}
           </h1>
           <p
@@ -56,48 +51,46 @@ const BlogPostTemplate = ({ data, pageContext, location }) => {
             {post.timeToRead} min read
           </p>
           
-          <Share title={post.frontmatter.title} url={url + post.fields.slug}></Share>
+          <Share title={post.frontmatter.title} url={url + post.fields.slug}/>
           <section dangerouslySetInnerHTML={{ __html: post.html }} />
           <hr
             style={{
               marginBottom: rhythm(1),
             }}
           />
-          <footer>
-            <Share title={post.frontmatter.title} url={url + post.fields.slug}></Share>
-            <Bio>{content}</Bio>
-          </footer>
+          <Share title={post.frontmatter.title} url={url + post.fields.slug}/>
+          <Bio>{content}</Bio>
+      
+        <nav>
+          <ul
+            style={{
+              display: `flex`,
+              flexWrap: `wrap`,
+              justifyContent: `space-between`,
+              listStyle: `none`,
+              padding: 0,
+              margin: 0
+            }}
+          >
+            <li style={{width: `45%`}}>
+              {previous && (
+                <Link to={previous.fields.slug} rel="prev">
+                  ← {previous.frontmatter.title}
+                </Link>
+              )}
+            </li>
+            <li style={{width: `45%`, textAlign: `right`}}>
+              {next && (
+                <Link to={next.fields.slug} rel="next">
+                  {next.frontmatter.title} →
+                </Link>
+              )}
+            </li>
+          </ul>
+        </nav>
+
+        <Disqus config={disqusConfig} />
       </article>
-
-      <nav>
-        <ul
-          style={{
-            display: `flex`,
-            flexWrap: `wrap`,
-            justifyContent: `space-between`,
-            listStyle: `none`,
-            padding: 0,
-            margin: 0
-          }}
-        >
-          <li style={{width: `45%`}}>
-            {previous && (
-              <Link to={previous.fields.slug} rel="prev">
-                ← {previous.frontmatter.title}
-              </Link>
-            )}
-          </li>
-          <li style={{width: `45%`, textAlign: `right`}}>
-            {next && (
-              <Link to={next.fields.slug} rel="next">
-                {next.frontmatter.title} →
-              </Link>
-            )}
-          </li>
-        </ul>
-      </nav>
-
-      <Disqus config={disqusConfig} />
     </Layout>
   )
 }

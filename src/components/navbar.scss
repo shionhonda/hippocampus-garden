@@ -22,18 +22,18 @@
             li {
                 list-style: none;
                 width: 75px;
+                font-size: 20px;
+                font-weight: bold;
                 
                 a {
                     box-shadow: none;
                     text-decoration: none;
                     color: inherit;
-    
-                    font-size: 20px;
-                    font-weight: bold;
-                    line-height: 2.0;
-                    text-align: center;
-                    // display: block;
-                    padding: auto;
+                    :hover {
+                        text-decoration: underline;
+                    }
+                    
+                    
                 }
             }
         }

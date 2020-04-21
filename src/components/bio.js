@@ -41,6 +41,7 @@ const Bio = ({children}) => {
         display: `flex`,
         padding: rhythm(0.5),
         marginBottom: rhythm(0.5),
+        backgroundColor: "white"
       }}
     >
       <Image

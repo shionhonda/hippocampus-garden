@@ -1,9 +1,8 @@
 import React from "react"
-import Link from "gatsby"
 
 import Header from './header.js'
 import Footer from './footer.js'
-import './layout.css';
+import './layout.scss';
 import { rhythm, scale } from "../utils/typography"
 
 
@@ -11,6 +10,7 @@ const Layout = ({ location, title, children, toc }) => {
   const rootPath = `${__PATH_PREFIX__}/`
   
   let content
+
   if (location.pathname==="/"
       || location.pathname==="/blog/"
       || location.pathname==="/misc/") {
@@ -26,10 +26,14 @@ const Layout = ({ location, title, children, toc }) => {
         </div>
       </div>
     )
-  } else if (location.pathname==="/about/"
+  } 
+  
+  else if (location.pathname==="/about/"
              || location.pathname==="/privacy-policy/") {
     content = <main>{children}</main>
-  } else {
+  } 
+  
+  else {
     content = (
       <div className="flexbox">
         <div className="mainbox">
@@ -47,22 +51,18 @@ const Layout = ({ location, title, children, toc }) => {
 
   return (
     <div style={{height:"100%", backgroundColor: "#F2F3F6"}}>
-      <Header></Header>
-      
-      <div
+      <Header/>
+      <body
         style={{
           marginLeft: `auto`,
           marginRight: `auto`,
-          maxWidth: rhythm(36),
+          maxWidth: rhythm(40),
           padding: `${rhythm(.5)} ${rhythm(.5)}`,
         }}
       >
         {content}
-
-        <Footer></Footer>
-        
-        
-      </div>
+      </body>
+      <Footer/>
     </div> 
   )
 }

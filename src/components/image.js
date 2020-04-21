@@ -38,7 +38,6 @@ export default ({ filename }) => (
       const image = data.images.edges.find(n => {
         return n.node.relativePath.includes(filename)
       })
-      console.log(filename)
       if (!image) {
           console.log(filename + 'image not found')
           return
