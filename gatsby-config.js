@@ -7,9 +7,6 @@ require('dotenv').config({
 });
 
 const privateKey = process.env.PRIVATE_KEY.replace(new RegExp('\\\\n', '\g'), '\n')
-console.log(process.env.CLIENT_EMAIL);
-console.log(privateKey);
-
 
 module.exports = {
   siteMetadata: {

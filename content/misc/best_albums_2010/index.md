@@ -2,7 +2,7 @@
 title: Best Albums of 2010
 date: "2020-02-26T22:17:03.284Z"
 description: "2010年にリリースされたアルバムの個人的ベスト10枚を紹介します。"
-featuredImage: best_albums_2010/ogp.png
+featuredImage: best_albums_2010/ogp.jpg
 ---
 
 最近、2010年代の音楽を改めて聴き直しています。  

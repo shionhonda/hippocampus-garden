@@ -19,7 +19,7 @@ https://open.spotify.com/playlist/1wX67h2VXQuwBvRHiKoBrO?si=OHMQoRLpTqWtkYG-u7_X
 『The World is a Hungry Place』は、Wild Nothingによる没入感のあるシンセポップです。  
 Tame ImpalaはThe Strokesとともに、[フジロックフェスティバル2020](https://www.fujirockfestival.com/artist/index)にヘッドライナーとして出演することが決まりましたね。
 
-![](2020-04-04-12-45-41.png)
+![](2020-04-04-12-45-41.jpg)
 
 同じくフジロックへの出演が決まっているTom Mischは、気鋭のジャズドラマーYussef Dayesとのコラボアルバム『What Kinda Music』を4月24日にリリースする予定です。  
 同じく出演予定のDisclosureも、シングルをリリースするなど活発な動きを見せています。  

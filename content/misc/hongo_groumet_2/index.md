@@ -2,7 +2,7 @@
 title: 本郷グルメマップ（後編）
 date: "2020-03-31T22:07:00.284Z"
 description: "東京・本郷で気軽に行ける美味しいお店を紹介します。後編は辛いものを主に取り扱う16軒です。"
-featuredImage: hongo_groumet_2/ogp.png
+featuredImage: hongo_groumet_2/ogp.jpg
 ---
 
 辛いもの好きの方、お待たせしました。[前回](https://hippocampus-garden.com/hongo_groumet/)紹介したグルメマップの続きです。
