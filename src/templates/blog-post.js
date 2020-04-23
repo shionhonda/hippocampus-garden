@@ -12,7 +12,7 @@ const BlogPostTemplate = ({ data, pageContext, location }) => {
   const post = data.markdownRemark;
   const { previous, next } = pageContext;
   const { siteTitle, author, url} = data.site.siteMetadata;
-  const n_views = data.pageViews.totalCount;
+  const pageViews = data.pageViews ? data.pageViews.totalCount : 0;
   const formatter = new Intl.NumberFormat('ja-JP');
 
   const content = (
@@ -50,7 +50,7 @@ const BlogPostTemplate = ({ data, pageContext, location }) => {
           >
             {post.frontmatter.date}&nbsp; | &nbsp; 
             {post.timeToRead} min read&nbsp; | &nbsp; 
-            {formatter.format(n_views)} views
+            {formatter.format(pageViews)} views
           </p>
           
           <Share title={post.frontmatter.title} url={url + post.fields.slug}/>
