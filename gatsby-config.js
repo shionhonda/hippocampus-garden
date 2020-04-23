@@ -6,8 +6,9 @@ require('dotenv').config({
   path: `.env.${activeEnv}`,
 });
 
+const privateKey = process.env.PRIVATE_KEY.replace(new RegExp('\\\\n', '\g'), '\n')
 console.log(process.env.CLIENT_EMAIL);
-console.log(process.env.PRIVATE_KEY);
+console.log(privateKey);
 
 
 module.exports = {
@@ -100,7 +101,7 @@ module.exports = {
       resolve: `gatsby-source-google-analytics-reporting-api`,
       options: {
         email: process.env.CLIENT_EMAIL,
-        key: process.env.PRIVATE_KEY,
+        key: privateKey,
         viewId: `211975708`,
         startDate: `2020-02-21`,
       },
