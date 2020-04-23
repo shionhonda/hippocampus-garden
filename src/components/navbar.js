@@ -16,7 +16,7 @@ const Navbar = () => {
         else pageLink = "/" + item.toLowerCase() + "/";
 
         return (
-            <li>
+            <li key={pageLink}>
                 <Link to={pageLink}>
                     {item}
                 </Link>

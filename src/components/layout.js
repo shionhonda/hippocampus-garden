@@ -2,6 +2,7 @@ import React from "react"
 
 import Header from './header.js'
 import Footer from './footer.js'
+import PopularPost from './popular'
 import './layout.scss';
 import { rhythm, scale } from "../utils/typography"
 
@@ -23,6 +24,7 @@ const Layout = ({ location, title, children, toc }) => {
           <a className="twitter-timeline" data-width="300" data-height="600" 
           href="https://twitter.com/shion_honda?ref_src=twsrc%5Etfw">Tweets by shion_honda
           </a> 
+          <PopularPost/>
         </div>
       </div>
     )
@@ -44,6 +46,7 @@ const Layout = ({ location, title, children, toc }) => {
             <h3>Table of Contents</h3>
             <div dangerouslySetInnerHTML={{__html: toc}}/>
           </div>
+          <PopularPost/>
         </div>
       </div>
     )
@@ -52,7 +55,7 @@ const Layout = ({ location, title, children, toc }) => {
   return (
     <div style={{width:"100%", height:"100%", backgroundColor: "#F2F3F6"}}>
       <Header/>
-      <body
+      <div
         style={{
           marginLeft: `auto`,
           marginRight: `auto`,
@@ -61,7 +64,7 @@ const Layout = ({ location, title, children, toc }) => {
         }}
       >
         {content}
-      </body>
+      </div>
       <Footer/>
     </div> 
   )
