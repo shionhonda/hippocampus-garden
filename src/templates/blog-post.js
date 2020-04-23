@@ -9,19 +9,20 @@ import Share from "../components/share"
 import { rhythm, scale } from "../utils/typography"
 
 const BlogPostTemplate = ({ data, pageContext, location }) => {
-  const post = data.markdownRemark
-  const { previous, next } = pageContext
-  const { siteTitle, author, url} = data.site.siteMetadata
+  const post = data.markdownRemark;
+  const { previous, next } = pageContext;
+  const { siteTitle, author, url} = data.site.siteMetadata;
+  const n_views = data.pageViews.totalCount;
+  const formatter = new Intl.NumberFormat('ja-JP');
 
-  let content
-  content = (
+  const content = (
     <p>
       Written by <strong>{author}</strong>.
       If you like this, please share!
     </p>
   )
 
-  let disqusConfig = {
+  const disqusConfig = {
     url: `${url + post.fields.slug}`,
     identifier: post.fields.slug,
     title: post.frontmatter.title,
@@ -48,7 +49,8 @@ const BlogPostTemplate = ({ data, pageContext, location }) => {
             }}
           >
             {post.frontmatter.date}&nbsp; | &nbsp; 
-            {post.timeToRead} min read
+            {post.timeToRead} min read&nbsp; | &nbsp; 
+            {formatter.format(n_views)} views
           </p>
           
           <Share title={post.frontmatter.title} url={url + post.fields.slug}/>
@@ -121,6 +123,9 @@ export const pageQuery = graphql`
       fields {
         slug
       }
+    }
+    pageViews(id: {eq: $slug }) {
+      totalCount
     }
   }
 `

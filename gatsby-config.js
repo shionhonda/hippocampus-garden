@@ -6,6 +6,10 @@ require('dotenv').config({
   path: `.env.${activeEnv}`,
 });
 
+console.log(process.env.CLIENT_EMAIL);
+console.log(process.env.PRIVATE_KEY);
+
+
 module.exports = {
   siteMetadata: {
     ...config
@@ -96,9 +100,8 @@ module.exports = {
       resolve: `gatsby-source-google-analytics-reporting-api`,
       options: {
         email: process.env.CLIENT_EMAIL,
-        key: Buffer.from(process.env.PRIVATE_KEY, 'base64').toString(),
+        key: process.env.PRIVATE_KEY,
         viewId: `211975708`,
-        // 使い始めの日を指定
         startDate: `2020-02-21`,
       },
     },
