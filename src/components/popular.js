@@ -52,16 +52,13 @@ const PopularPost = () => {
             <h3>Popular Posts</h3>
           {results.slice(0,5).map(result => (
             <article key={result.id} >
-              <Link to={result.fields.slug}>
+              <Link  style={{boxShadow: `none`, textDecoration: `none`, color: `inherit`,}}　to={result.fields.slug}>
                   <div style={{display:"flex", flexFlow: "row", 
                                 marginTop: rhythm(0.5)}}>
                     <div style={{width:"120px", paddingRight: rhythm(0.5)}}>
                         <Image filename={result.frontmatter.featuredImage}/>
                     </div>
-                    <small style={{width:"150px",
-                                    boxShadow: "none",
-                                    textDecoration: "none !important",
-                                    color: "black",}}>
+                    <small style={{width:"150px",}}>
                         {result.frontmatter.title}                  
                     </small>   
                   </div>
