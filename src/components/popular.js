@@ -48,20 +48,19 @@ const PopularPost = () => {
     console.log(results);
 
     return (
-        <div>
-            Popular Posts
+        <div style={{marginBottom: rhythm(0.5), backgroundColor:"white", padding: rhythm(0.5)}}>
+            <h3>Popular Posts</h3>
           {results.slice(0,5).map(result => (
             <article key={result.id} >
               <Link to={result.fields.slug}>
                   <div style={{display:"flex", flexFlow: "row", 
-                                backgroundColor:"white",
-                                padding: rhythm(0.5)}}>
-                    <div style={{width:"120px"}}>
+                                marginTop: rhythm(0.5)}}>
+                    <div style={{width:"120px", paddingRight: rhythm(0.5)}}>
                         <Image filename={result.frontmatter.featuredImage}/>
                     </div>
                     <small style={{width:"150px",
                                     boxShadow: "none",
-                                    textDecoration: "none",
+                                    textDecoration: "none !important",
                                     color: "black",}}>
                         {result.frontmatter.title}                  
                     </small>   

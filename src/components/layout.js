@@ -20,11 +20,11 @@ const Layout = ({ location, title, children, toc }) => {
         <div className="mainbox grid">
           <main>{children}</main>
         </div>
-        <div className="sidebar">
+        <div className="sidebar" >
+          <PopularPost/> 
           <a className="twitter-timeline" data-width="300" data-height="600" 
           href="https://twitter.com/shion_honda?ref_src=twsrc%5Etfw">Tweets by shion_honda
           </a> 
-          <PopularPost/>
         </div>
       </div>
     )
