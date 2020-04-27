@@ -22,7 +22,7 @@ const About = ({ data, location }) => {
             Opinions are my own and not the views of my employer.
           </p>
           <div style={{ textAlign:"center"}}>
-            <img src="https://media-exp1.licdn.com/dms/image/C5103AQGDS2utMiobKQ/profile-displayphoto-shrink_200_200/0?e=1587600000&v=beta&t=_HITxpVXkoPWiGKZsMKBLFUVlbZwrxWhF7noPpfcBXc"
+            <img src="https://media-exp1.licdn.com/dms/image/C5103AQGDS2utMiobKQ/profile-displayphoto-shrink_200_200/0?e=1593648000&v=beta&t=NNf_SuWBotPchHG2Euoz4dp-jqqQP0w8GTG4haZfKEU"
             alt="profile" width="200px"></img>
           </div>
 
