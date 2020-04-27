@@ -1,7 +1,7 @@
 ---
 title: "Meet Pandas: loc, iloc, at & iat"
 date: "2020-04-27T22:10:03.284Z"
-description: "Have you ever confused Pandas methods loc, at, and iloc with each other? It's no more confusing when you understand this table."
+description: "Have you ever confused Pandas methods loc, at, and iloc with each other? It's no more confusing when you have this table in mind."
 featuredImage: pandas_loc/ogp.jpg
 ---
 
