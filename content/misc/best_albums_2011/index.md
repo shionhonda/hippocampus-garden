@@ -1,6 +1,6 @@
 ---
 title: Best Albums of 2011
-date: "2020-04-30T22:17:03.284Z"
+date: "2020-05-02T22:14:03.284Z"
 description: "2011年にリリースされたアルバムの個人的ベスト10枚を紹介します。"
 featuredImage: best_albums_2011/ogp.jpg
 ---
@@ -58,7 +58,8 @@ https://open.spotify.com/album/1gIC63gC3B7o7FfpPACZQJ?si=owKxFCk2SuKwYPl1VIMzeQ
 
 Beyoncéのソロ活動における第4作。  
 それまでマネジメントを担っていた父のMathew Knowlesと決別し、内省的で探索的な作風にシフトしました。ベースがR&Bであることは変わりませんが、『1+1』は彼女の力強い歌声と泣きのブルースギターの組み合わせが素晴らしいですし、Frank Oceanと共作した『I Miss You』も間違いなく新境地と言えるでしょう。もちろん、『Run The World (Girls)』や『Best Thing I Never Had』のような従来路線の魅力も健在です。  
-『Party』ではAndré 3000がラップを担当しています。
+『Party』ではAndré 3000がラップを担当しています。  
+\*リンクを張ったのはデラックス版で、通常版とは曲目や曲順がかなり違います。
 
 **Highlights**: *Love On Top*, *Party*, *1+1*
 
