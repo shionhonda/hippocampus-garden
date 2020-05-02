@@ -5,10 +5,18 @@ description: "2011年にリリースされたアルバムの個人的ベスト10
 featuredImage: best_albums_2011/ogp.jpg
 ---
 
-最近、2010年代の音楽を改めて聴き直しています。  
-今の時点で聴いて気に入ったアルバムを1年につき10枚ずつ選んだので、少しずつ紹介しようと思います。
+「2010年代の音楽を振り返るシリーズ」の続きです。前回の記事は[こちら](https://hippocampus-garden.com/best_albums_2010/)。  
+個人的な歴史を振り返ると、2011年くらいから洋楽を聴き始めたので、今回からはリアルタイムで出会った作品が登場します。
 
-## 10. *James Blake* - James Blake
+## 10. *Dive* - Tycho
+https://open.spotify.com/album/3I3PmRvn5iFY8i6zzvEcci?si=mrfGvtFXQhOke1_aW8CCQw
+
+アメリカのアンビエントミュージシャンであるScott Hansenによるソロプロジェクトの第2作。  
+分類するなら「チルウェイブ」と呼ばれるジャンルに該当する音楽で、「踊れると同時に癒やされる」のが特徴です。全編インストです。
+
+**Highlights**: *A Walk*, *Daydream*
+
+## 9. *James Blake* - James Blake
 https://open.spotify.com/album/4L9qXAXmnMEIvnvG8xon3F?si=G87mPOJdQcuPfZAMNHLrSA
 
 イギリスのSSWによるデビュー作。打ち込み、ピアノ、オートチューンで加工した声で構成されるミニマルな音楽が特徴で、ポスト・ダブステップと称されることもあります。  
@@ -18,43 +26,38 @@ https://open.spotify.com/album/4L9qXAXmnMEIvnvG8xon3F?si=G87mPOJdQcuPfZAMNHLrSA
 
 **Highlights**: *The Wilhelm Scream*, *Limit To Your Love*, *I Mind*
 
-## 9. *The King Of Limbs*  - Radiohead
+## 8. *+* - Ed Sheeran
+https://open.spotify.com/album/0W5GGnapMz0VwemQvJDqa7?si=xIYB3tydRsWjvqnPirCCDA
+
+イギリスのフォーク/ポップSSWのデビュー作。  
+最近の節操のないコラボレーションと比較すると、この頃はアコースティックギターがメインの素朴な曲が多かったですね。一方で、『You Need Me, I Don't Need You』で見られるようなラップ風の歌い方が当時から確立されていたこともわかります。
+
+**Highlights**: *The A Team*, *Lego House*, *You Need Me, I Don't Need You*
+
+## 7. *The King Of Limbs*  - Radiohead
 https://open.spotify.com/album/1DBkJIEoeHrTX4WCBQGcCi?si=UF4_L3i8TKaJTuEkAwkxsw
 
 イギリスのロックバンドによる第8作。  
-この頃からThom YorkeはFlying LotusやFour Tet達から強い影響を受けるようになり、ロックから更に離れた実験的な音楽を作るようになりました。本作はで、ルーピングやサンプリングを駆使してバンドとしてエレクトロニカを作っています。  
+この頃からThom YorkeはFlying LotusやFour Tet達から強い影響を受けるようになり、ロックから更に離れた実験的な音楽を作るようになりました。本作では、ルーピングやサンプリングを駆使してバンドとしてエレクトロニカを作っています。  
 本作を初めて聴いたときは（美しいバラードの『Codex』以外で）何が良いのかさっぱりだったのですが、100回くらい聴くと、例えば『Bloom』の豊かなリズムの重なりや、最後のリバーブのかかったギターの音が心地よく感じるようになりました。あと1000回聴いたらもっと好きになるかもしれません。  
 『Lotus Flower』は、Thom Yorkeが暗闇の中で奇妙な踊りをするという[MV](https://youtu.be/cfOa1a8hYP8)でも有名です。
 
 **Highlights**: *Bloom*, *Lotus Flower*, *Codex*
 
-## 8. *+* - Ed Sheeran
-https://open.spotify.com/album/1slAnKc9Ykyght8EI9Y0dM?si=oYyPa_zJTcOifb0DQMtceg
-
-アメリカのドリームポップデュオによる第3作。タイトルかぶりですね。  
-ドリームポップは、遅めのテンポとリバーブがかかった電子音が生み出す幻惑的な音像が特徴のジャンルです。あまり主流の音楽ではありませんが、個人的にはかなり好きなので、この振り返りでも度々登場します。Beach Houseは2010年代のドリームポップを代表するユニットです。
-
-**Highlights**: *Silver Soul*, *Norway*, *Take Care*
-
-## 7. *Dive* - Tycho
-https://open.spotify.com/album/3I3PmRvn5iFY8i6zzvEcci?si=mrfGvtFXQhOke1_aW8CCQw
-
-カナダ出身のDan Snaithによるソロプロジェクトの第3作。本作はテクノからの影響を色濃く反映しており、ミニマルでストイックな曲が多いです。
-
-**Highlights**: *Odessa*, *Sun*
-
 ## 6. *Born This Way* - Lady Gaga
 https://open.spotify.com/album/05Cv9ThcMko3zObfa3ZU7E?si=o90eTxmTRqqgIc_KEW8-cg
 
-イギリスの音楽ユニットによるレゲエ、ヒップホップ、ジャズなどを取り込んだ暗く重いエレクトロニカ。不安を掻き立てるような不気味さが癖になります。  
-『Splitting The Atom』にはレゲエのSSWであるHorace Andyが、『Saturday Come Slow』にはBlur/GorillazのDamon Albarnがボーカルで参加しています。
+説明不要、Lady Gagaの第2作です。日本でも大いに話題になりました。  
+前作の仰々しいシンセ・ポップ的作風を踏襲しつつ、本作ではハードロックやヘビーメタルの要素を随所に散りばめています。11-12曲目の『Heavy Metal Lover』、『Electric Chapel』の並びは曲名にも顕著に反映されていますね。アルバム全体で聴くと胃もたれ感があるのは否めません。  
+『You And I』はQueenのBrian Mayがバックコーラスとギターで参加しており、さらに『We Will Rock You』のリフをサンプリングしています。両者の関係は特別なもので、Lady Gagaの名前はQueenの『Radio Ga Ga』に由来していますし、Queenは再結成のときに彼女にボーカルを依頼したこともあるそうです。
 
-**Highlights**: *Splitting The Atom*, *Saturday Come Slow*, *Atlas Air*
+**Highlights**: *Born This Way*, *You And I*, *The Edge Of Glory*
 
 ## 5. *4* - Beyoncé
 https://open.spotify.com/album/1gIC63gC3B7o7FfpPACZQJ?si=owKxFCk2SuKwYPl1VIMzeQ
 
-Beyoncéのソロ活動における第4作。それまでマネジメントを担っていた父のMathew Knowlesと決別し、内省的で探索的な作風にシフトしました。ベースがR&Bであることは変わりませんが、『1+1』は彼女の力強い歌声と泣きのブルースギターの組み合わせが素晴らしいですし、Frank Oceanと共作した『I Miss You』も間違いなく新境地と言えるでしょう。もちろん、『Run The World (Girls)』や『Best Thing I Never Had』のような従来路線の魅力も健在です。  
+Beyoncéのソロ活動における第4作。  
+それまでマネジメントを担っていた父のMathew Knowlesと決別し、内省的で探索的な作風にシフトしました。ベースがR&Bであることは変わりませんが、『1+1』は彼女の力強い歌声と泣きのブルースギターの組み合わせが素晴らしいですし、Frank Oceanと共作した『I Miss You』も間違いなく新境地と言えるでしょう。もちろん、『Run The World (Girls)』や『Best Thing I Never Had』のような従来路線の魅力も健在です。  
 『Party』ではAndré 3000がラップを担当しています。
 
 **Highlights**: *Love On Top*, *Party*, *1+1*
@@ -62,37 +65,39 @@ Beyoncéのソロ活動における第4作。それまでマネジメントを�
 ## 4. *Mylo Xyloto* - Coldplay
 https://open.spotify.com/album/5GykKNn2KjofEoA8SpNnuw?si=CfcYMoMbStOhOeOWS3ixSA
 
-こちらはスコットランドのインディーロックバンドの第8作。音楽的には、アコースティックな点など同郷のThe Smithsと似ているところがありますが、もっと明るくかわいい曲が多いです。  
-『Little Lou, Ugly Jack, Prophet John』ではNorah Jonesとデュエットをして話題になりました。
+イギリスのロックバンドによる第5作。  
+前作『Viva La Vida』と同じくBrian Enoとの共作で、ポップ路線を引き継ぎつつ電子音の装飾をきらびやかに施しています。2大シングル『Paradise』と『Every Teardrop Is A Waterfall』をはじめ、これまで以上にキャッチーな曲が多く収録されています。  
+本作はSilenciaという仮想の全体主義社会を舞台にしたコンセプトアルバムになっています。Major Minus率いる政府によって光と音を奪われた世界で、政府軍の兵士Myloと反乱者のXylotoが出会い恋に落ちる、というような物語が描かれています。  
+『Princess Of China』ではRihannaがボーカルで参加しています。
 
-**Highlights**: *I Didn't See It Coming*, *Suicide Girl*
+**Highlights**: *Paradise*, *Every Teardrop Is A Waterfall*, *Don't Let It Break Your Heart*
 
 ## 3. *21* - Adele
 https://open.spotify.com/album/7n3QJc7TBOxXtlYh4Ssll8?si=Y8Z34N2BR6uhEJoFEctg6Q
 
-音楽界の問題児による第5作。Kanyeらしい創造性が存分に発揮された傑作で、各音楽雑誌の「2010年代の最も優れたアルバム選」では軒並み上位にランクインしています。各所に散りばめられた創意工夫と、私のようなヒップホップに明るくない人でも楽しめるわかりやすさを兼ね備えたアルバムです。  
-『POWER』では大胆にもKing Crimsonの『21st Century Schizoid Man』をサンプリングしています。  
-Rihanna、Justin Vernon、John Legend、Jay-Zなど豪華ゲストが多数名を連ねています。
+イギリスのSSWによる第2作。  
+デビュー作で既に高い評価を受けていたプレッシャーに加えて失恋の悲しみがある中で生み出された作品ですが、前作を超える素晴らしい楽曲が数多く収録されています。  
+『Lovesong』はThe Cureのカバーです。『Rumour Has It』と『Turning Tables』は、OneRepublicのフロントマンとしても知られるRyan Tedderとの共作です。
 
-**Highlights**: *All Of The Lights*, *Runaway*, *Lost In The World*
+**Highlights**: *Rolling In The Deep*, *Lovesong*, *Someone Like You*
 
 ## 2. *Hurry Up, We're Dreaming* - M83
 https://open.spotify.com/album/6EB14IXV5oyOiItGBv7mtG?si=vpB8cgl8Rsynj55Qx2eohw
 
-このアルバムは、今回の振り返りプロジェクトで初めて知りました。Janelle Monáe自体はfun.のヒット曲『We Are Young』の客演として知っていたくらいだったのですが、アルバムを聴いてみると、既存のR&Bの枠にとらわれない独創的な作品で驚きました。  
-彼女は音楽活動において一貫してCindi Mayweatherという名前のアンドロイドに仮託しているようで、ネオアフロフューチャリズムの代表的な存在だそうです。このあたりは[Wikipedia](https://en.wikipedia.org/wiki/Afrofuturism)にいろいろと書いてあったのでもう少し掘り下げていきたいです。  
-また、女優としても活動しているらしく、言われてみれば『Moonlight』に出ていました。
+フランスのミュージシャンであるAnthony Gonzalezによるソロプロジェクトによる第6作。70分超に渡るダブルアルバムです。  
+ギターやシンセサイザーを使ってシューゲイザーのようなドリーミーな音を作りつつ、盛り上がりの部分ではシャウトを入れたり、ストリングスや空白を効果的に使ったりすることで、M83銀河の名にふさわしいエピックな雰囲気に仕上げています。最後の『Outro』はまさにカタルシスです。
 
-**Highlights**: *Cold War*, *Tightrope*, *Say You'll Go*
+**Highlights**: *Midnight City*, *Wait*, *Outro*
 
 ## 1. *Bon Iver* - Bon Iver
 https://open.spotify.com/album/1JlvIsP2f6ckoa62aN7kLn?si=YCSspEruRx2Ynxgfep-1Cw
 
-カナダの男女混声バンドによる第3作。ボーカルのWin Butlerが「Depeche ModeとNeil Youngのミックス」と表現している通り、華やかなシンセポップの音の中にカントリーの哀愁があるようなアルバムです。アルバムのコンセプトにも合致しているのではないでしょうか。  
-『Empty Room』は何度聴いても心が洗われます。  
-[このレビュー](http://monchicon.jugem.jp/?eid=1220)がよかったです。
+Justin Vernon率いるアメリカのバンドによる第2作。  
+デビュー作は素朴なインディーフォークと位置づけられていましたが、本作ではバンドメンバーを9人に増員し、サックスやオートチューンなどを多用した実験的な音作りに一転しています。Justin Vernonの試みは野心的でしたが、結果的には大成功で、それまで誰も聴いたことがなく、それでいて息を呑むように美しい音楽を生み出すことができました。  
+個人的には、2010年代全体で見ても群を抜いて素晴らしいアルバムだと思います。その中でも『Beth/Rest』は白眉です。あまりライブで演奏してくれないのが惜しいですね。  
+本作は「春」をひとつのテーマにしているそうですが、個人的には"bon hiver"（フランス語で「良い冬」）から雪で覆われた大自然の情景を連想してしまいます。
 
-**Highlights**: *Ready To Start*, *Empty Room*, *Half Light II*,  *Sprawl II*
+**Highlights**: *Perth*, *Holocene*, *Beth/Rest*
 
 ## おわりに
-書いていたらネットサーフィンが捗って、想定より時間がかかってしまいました。次回はしばらく先になると思います。
+Lady Gaga、Coldplay、Adeleあたりは日本でも当時話題になっていたように記憶しています。『Bon Iver』は改めて聴き直しても傑作でした。
