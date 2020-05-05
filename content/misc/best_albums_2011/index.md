@@ -32,7 +32,7 @@ https://open.spotify.com/album/0W5GGnapMz0VwemQvJDqa7?si=xIYB3tydRsWjvqnPirCCDA
 イギリスのフォーク/ポップSSWのデビュー作。  
 最近の節操のないコラボレーションと比較すると、この頃はアコースティックギターがメインの素朴な曲が多かったですね。一方で、『You Need Me, I Don't Need You』で見られるようなラップ風の歌い方が当時から確立されていたこともわかります。
 
-**Highlights**: *The A Team*, *Lego House*, *You Need Me, I Don't Need You*
+**Highlights**: *The A Team*, *Lego House*, *"You Need Me, I Don't Need You"*
 
 ## 7. *The King Of Limbs*  - Radiohead
 https://open.spotify.com/album/1DBkJIEoeHrTX4WCBQGcCi?si=UF4_L3i8TKaJTuEkAwkxsw
