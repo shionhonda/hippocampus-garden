@@ -7,7 +7,7 @@ featuredImage: incremental_build/ogp.jpg
 
 Recently, Netlify started supporting Gatsby's incremental builds. It remarkably reduces the build time by caching the previous build! [The official blog]((https://www.netlify.com/blog/2020/04/23/enable-gatsby-incremental-builds-on-netlify/)) says this feature is easy to enable, but I came into an error at the first trial. I write this post for those who are in trouble with the same error.
 
-# Environment
+## Environment
 
 ```shell
 $ gatsby --version
@@ -22,7 +22,7 @@ $ npm --version
 ```
 <br/>
 
-# Error
+## Error
 I just followed the instruction in [the official blog]((https://www.netlify.com/blog/2020/04/23/enable-gatsby-incremental-builds-on-netlify/). I saw no errors in the development environment, so I pushed the code, and got this error on Netlify.
 
 ```shell
@@ -50,7 +50,7 @@ I just followed the instruction in [the official blog]((https://www.netlify.com/
 
 <br/>
 
-# How to Solve
+## How to Solve
 This error was totally unfamiliar to me. Searching by the error message did not help.  
 
 Since the error was happning in `netlify.toml`, I checked the file and went to [the official repository](https://github.com/jlengstorf/netlify-plugin-gatsby-cache) of `netlify-plugin-gatsby-cache`.
