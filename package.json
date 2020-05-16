@@ -11,7 +11,7 @@
     "babel-plugin-styled-components": "^1.10.7",
     "disqus-react": "^1.0.8",
     "dotenv": "^8.2.0",
-    "gatsby": "^2.19.7",
+    "gatsby": "^2.21.33",
     "gatsby-background-image": "^0.10.2",
     "gatsby-image": "^2.2.39",
     "gatsby-plugin-disqus": "^1.1.4",
@@ -78,7 +78,7 @@
     "url": "git+https://github.com/gatsbyjs/gatsby-starter-blog.git"
   },
   "scripts": {
-    "build": "gatsby build",
+    "build": "GATSBY_EXPERIMENTAL_PAGE_BUILD_ON_DATA_CHANGES=true gatsby build --log-pages",
     "develop": "gatsby develop",
     "format": "prettier --write \"**/*.{js,jsx,json,md}\"",
     "start": "npm run develop",
