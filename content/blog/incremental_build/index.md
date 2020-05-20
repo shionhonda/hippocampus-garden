@@ -1,7 +1,7 @@
 ---
-title: Small Tips for Gatsby Incremental Builds on Netlify
+title: Tiny Tips for Gatsby Incremental Builds on Netlify
 date: "2020-05-16T23:12:03.284Z"
-description: "Have you got an error when enabling Gatsby incremental builds on Netlify? This post might help it."
+description: "Stuck in an error when enabling Gatsby incremental builds on Netlify? This post might help it."
 featuredImage: incremental_build/ogp.jpg
 ---
 
