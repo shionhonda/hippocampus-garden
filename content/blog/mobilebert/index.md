@@ -111,5 +111,5 @@ BERT is now more friendly to real-world applications. Let's develop your app wit
 ## References
 [1] Zhiqing Sun, Hongkun Yu, Xiaodan Song, Renjie Liu, Yiming Yang, and Denny Zhou. “[MobileBERT: a Compact Task-Agnostic BERT for Resource-Limited Devices](http://arxiv.org/abs/2004.02984).” ACL. 2020.  
 [2] [Exploring helpful uses for BERT in your browser with Tensorflow.js — The TensorFlow Blog](https://blog.tensorflow.org/2020/03/exploring-helpful-uses-for-bert-in-your-browser-tensorflow-js.html)  
-[3] Zhenzhong Lan, Mingda Chen, Sebastian Goodman, Kevin Gimpel, Piyush Sharma, and Radu Soricut. "[ALBERT: A Lite BERT for Self-supervised Learning of Language Representations](https://arxiv.org/abs/1909.11942)." ICLR. 2020.
-[4] [](https://blog.tensorflow.org/2020/04/how-tensorflow-lite-helps-you-from-prototype-to-product.html)
+[3] Zhenzhong Lan, Mingda Chen, Sebastian Goodman, Kevin Gimpel, Piyush Sharma, and Radu Soricut. "[ALBERT: A Lite BERT for Self-supervised Learning of Language Representations](https://arxiv.org/abs/1909.11942)." ICLR. 2020.  
+[4] [How TensorFlow Lite helps you from prototype to product — The TensorFlow Blog](https://blog.tensorflow.org/2020/04/how-tensorflow-lite-helps-you-from-prototype-to-product.html)
