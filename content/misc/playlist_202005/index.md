@@ -16,7 +16,7 @@ https://open.spotify.com/playlist/1BIU7yAycL7f1uLHOW0udd?si=pnRoEAO1Syuz3YElbYTz
 ## 新作
 2曲目は、Soccer Mommyの新譜『color theory』から。MitskiやJapanese Breakfast周辺のインディー系SSWです。  
 Phoebe Bridgersも同じくインディー系SSWですが、最近『Kyoto』という名前のシングルを発表しました。この界隈では日本にちなんだテーマが流行っているみたいです。  
-そのPhoebe Bridgersは、The 1975の新曲『Jesus Christ 2005 God Bless America』にもボーカルで参加しています。アコースティックの演奏に抽象的な機械音を混ぜていくこの曲はBon Iverへのオマージュとも言われています。三者のファンとしてはなんとも嬉しいコラボレーションです。   
+そのPhoebe Bridgersは、The 1975の新曲『Jesus Christ 2005 God Bless America』にもボーカルで参加しています。アコースティックの演奏に抽象的な機械音を混ぜていくこの曲はBon Iverへのオマージュとも言われています。三者のファンとしてはなんとも嬉しいコラボレーションです。また、この曲はデュエットの形式をとっていますが、そこで歌われているのはそれぞれの同性愛、またその信仰との葛藤であり、今の時代らしいラブソングだと思いました。[こちらのブログ](https://yamapip.hatenablog.com/entry/2020/04/03/The_1975%E3%80%8CJesus_Christ_2005_God_Bless_America%E3%80%8D%E6%AD%8C%E8%A9%9E%E5%92%8C%E8%A8%B3%E3%83%BB%E8%A7%A3%E9%87%88)で非常に詳しく解説されていたので紹介します。   
 そして、The 1975待望の新譜『Notes On A Conditional Form』が本日リリースされました！🎉　パンクもありヒップホップもありと、バンドとしての表現力の限界を試すような80分の大作です。これからもっと聴き込んでいきたいです。
 
 https://open.spotify.com/album/0o5xjCboti8vXhdoUG9LYi?si=MjC9y51-QvqdVuPxzCRXCA
