@@ -5,7 +5,7 @@ description: "Have you ever confused Pandas methods loc, at, and iloc with each 
 featuredImage: pandas_loc/ogp.jpg
 ---
 
-Have you ever confused [**Pandas**](https://pandas.pydata.org/pandas-docs/stable/index.html) methods `loc`, `iloc`, `at`, and `iat` with each other? Pandas is a great library for handling table data, but its API is somewhat unintuitive. But understanding its design concepts might help it to some extent 🐼
+Have you ever confused [**Pandas**](https://pandas.pydata.org/pandas-docs/stable/index.html) methods `loc`, `iloc`, `at`, and `iat` with each other? Pandas is a great library for handling tabular data, but its API is too diverse and somewhat unintuitive. Understanding its design concepts might help it to some extent 🐼
 
 So, this post aims to help understand differences between Pandas `loc`, `iloc`, `at`, and `iat` methods. In short, the differences are summarized in the table below:
 
