@@ -10,11 +10,11 @@ const PopularPost = () => {
                 edges {
                   node {
                     frontmatter {
-                        title
-                        featuredImage
+                      title
+                      featuredImage
                     }
                     fields {
-                        slug
+                      slug
                     }
                   }
                 }
@@ -22,8 +22,8 @@ const PopularPost = () => {
             allPageViews(limit: 10, sort: {fields: totalCount, order: DESC}) {
                 edges {
                     node {
-                        id
-                        totalCount
+                      id
+                      totalCount
                     }
                 }
             }
@@ -53,7 +53,7 @@ const PopularPost = () => {
     <div style={{ marginBottom: rhythm(0.5), backgroundColor: "white", padding: rhythm(0.5) }}>
       <h3>Popular Posts</h3>
       {results.map(result => (
-        <article key={result.id} >
+        <article key={result.fields.slug} >
           <Link style={{ boxShadow: `none`, textDecoration: `none`, color: `inherit`, }} to={result.fields.slug}>
             <div style={{
               display: "flex", flexFlow: "row",
