@@ -12,14 +12,15 @@ If you are reading this post, you've probably heard of **bias-variance trade-off
 
 But, do you know that there is a continuation of the U-shaped test risk curve? Surprisingly, once the model capacity exceeds a threshold where it achieves zero training risk (**over-parameterized**), *the test risk drops again!*
 
-
 ![](double_descent.png)
 
 <div style="text-align: center;"><small>Figure taken from [1]</small></div>
 
-Belkin *et al*. [1]
+Belkin *et al*. empirically demonstrated that this double-U-shaped risk curve is universal to the choice of models and datasets and reconciled the recently observed success of over-parameterized models and the classical bias-variance trade-off [1]. They also claimed that behind the "modern" interpolating regime are:
+- The models have some *inductive bias* that leads to the generalized solution.
+- Larger models are “easy” to optimize as local methods such as SGD
 
-## Deep Double Descent
+Following their research, Nakkiran *et al.* [2]
 
 ![](2020-06-11-00-20-59.png)
 
