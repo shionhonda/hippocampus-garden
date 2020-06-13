@@ -1,6 +1,6 @@
 ---
 title: "Reproducing Deep Double Descent"
-date: "2020-06-10T22:10:03.284Z"
+date: "2020-06-13T22:10:03.284Z"
 description: "Have you ever confused Pandas methods loc, at, and iloc with each other? It's no more confusing when you have this table in mind."
 featuredImage: double_descent/ogp.jpg
 ---
@@ -34,12 +34,13 @@ I hope this post in some way helps people who are not convinced just by reading 
 
 ## Reproducing Deep Double Descent
 ### Settings
-I carefully read the original paper [2] and copy the settings of the ResNet-18/CIFAR-10 experiment as closely as possible. Due to the limitation of conputing resoruces, I didn't try every width from 1 to 64, and I trained for 500 epochs instead of 4,000. Other configurations are unchanged from the original paper [2]. These settings are feasible for Colaboratory (you'll need P100 or T4 instances when $k \leq 32$).
+I carefully read the original paper [2] and copy the settings of the ResNet-18/CIFAR-10 experiment as closely as possible. Due to the limitation of conputing resoruces, I didn't try every width from 1 to 64, and I trained for 500 epochs instead of 4,000. Other configurations are unchanged from the original paper [2]. These settings are feasible for Colaboratory GPU instances (you'll need P100 or T4 for $k \leq 32$).
 
 |      Config       |         Value          |
 | :---------------: | :--------------------: |
 |      Dataset      |        CIFAR-10        |
 |       Model       |       ResNet-18        |
+|       Loss        | Softmax cross entropy  |
 |    Width ($k$)    | 1, 2, 4, 8, 16, 32, 64 |
 |      Epochs       |          500           |
 |    Label noise    |          20%           |
@@ -52,6 +53,7 @@ I carefully read the original paper [2] and copy the settings of the ResNet-18/C
 [The repository](https://gitlab.com/harvard-machine-learning/double-descent/-/tree/master) provided by the authors includes codes for the model and plotting, but they don't publish the code for training somehow. [Here](https://colab.research.google.com/drive/1lT2dUqal90NbLVQIGvseyAdKzH19MH2T?usp=sharing) I share the code I used to reproduce the result.
 
 ### How to Plot
+Plotting was a little bit tricky. I *interpolated the model sizes linearly* to draw smooth colormap.
 
 ```python
 import matplotlib.pyplot as plt
@@ -114,29 +116,66 @@ plt.show()
 <br/>
 
 ### Results
-Original:
+The experiment was successful! Here is the original deep double descent figure:
 
 ![](2020-06-11-00-20-59.png)
 
-Reproduced:
+And here is the reproduced one:
 
 ![](2020-06-11-00-24-22.png)
 
+Even though I stopped training at the 500th epoch, I see the same pattern both in train errors and test errors. In the right panels, the wider model and the longer training result in lower train errors. In the left panels, however, there is no such monotonic trend. Instead, there is a "loss valley" lying from upper left to lower right, followed by a downhill slope to the upper right. To see the deep double descent more clearly, I plotted the test errors against the model size and the training epochs separately, which corresponds to the two white dashed arrows in the original figure.
+
 ![](2020-06-11-00-28-23.png)
 
-## Key Findings
-Label smoothing is critical.
-## Flooding: A New Regularization Technique
-## Discussion
-Test loss 
+Now the double-U-shaped curves are clearly shown. Double descent is real! 
+
+\* Please note that the model-wise curve on the left panel is not really sure because the training was not fully converged.
+
+### Findings & Questions
+Here I share some findings from this experiment.
+
+**Label smoothing is critical to double descent but hurts the model.** When I removed label noising for the model ($k=64$), the epoch-wise double descent did not occur.
+
+![](2020-06-13-12-56-25.png)
+
+This result is consistent to the model-wise double descent with varied label noise shown in the original paper [2].
+
+![](2020-06-13-12-51-46.png)
+
+<div style="text-align: center;"><small>Figure taken from [2]</small></div>
+
+OK, label noise seems to play a critical role in the double descent phenomenon. But what about the minimum test error achieved with and without label noise? Both in terms of epoch-wise and model-wise, *the minimum test error achieved without label noise is far better than that with label noise (double descent).* Then, what is the benefit of double descent after all? 🤔🤔
+
+**Test loss is not likely to converge.** I plotted the similar figures for the loss, instead of the error. 
 
 ![](2020-06-11-00-29-27.png)
 
 ![](2020-06-11-00-29-39.png)
+
+This time, the test loss keeps increasing after the interpolation threshold! I understand that the loss decreases *after* the error does (i.e. memorization), but this steady increase is very confusing. Unfortunately, the original paper [2] doesn't tell anything about the loss curves.
+
+## Flooding: A New Regularization Technique
+![](2020-06-13-13-38-29.png)
+
+<div style="text-align: center;"><small>Figure taken from [3]</small></div>
+
+The algorithm of flooding is remarkably simple.
+
+$$
+\tilde{J}(\boldsymbol{\theta}) = | J(\boldsymbol{\theta}) - b | + b
+$$
+
+### Reproducing the Results
+![](2020-06-13-13-48-50.png)
+
+### Flooding v.s. Label Noise
+![](2020-06-13-13-49-06.png)
 
 ## Concluding Remarks
 
 ## References
 [1] Mikhail Belkin, Daniel Hsu, Siyuan Ma, Soumik Mandal. [Reconciling modern machine learning practice and the bias-variance trade-off](https://arxiv.org/abs/1812.11118). *PNAS*. 2019.  
 [2] Preetum Nakkiran, Gal Kaplun, Yamini Bansal, Tristan Yang, Boaz Barak, Ilya Sutskever. [Deep Double Descent: Where Bigger Models and More Data Hurt](https://arxiv.org/abs/1912.02292). In *ICLR*. 2020.  
-[3] Lilian Weng. [Are Deep Neural Networks Dramatically Overfitted?](http://lilianweng.github.io/lil-log/2019/03/14/are-deep-neural-networks-dramatically-overfitted.html). 2019.
+[3] Takashi Ishida, Ikko Yamane, Tomoya Sakai, Gang Niu, Masashi Sugiyama. [Do We Need Zero Training Loss After Achieving Zero Training Error?](https://arxiv.org/abs/2002.08709). In *ICML*. 2020.  
+[4] Lilian Weng. [Are Deep Neural Networks Dramatically Overfitted?](http://lilianweng.github.io/lil-log/2019/03/14/are-deep-neural-networks-dramatically-overfitted.html). 2019.
