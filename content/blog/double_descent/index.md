@@ -1,7 +1,7 @@
 ---
 title: "Reproducing Deep Double Descent"
 date: "2020-06-13T22:10:03.284Z"
-description: "Double descent is one of the mysteries of modern machine learning. I reproduced the results of the recent paper by Nakkiran et al. and posed some questions that occurred to me."
+description: "Double descent is one of the mysteries of modern machine learning. I reproduced the main results of the recent paper by Nakkiran et al. and posed some questions that occurred to me."
 featuredImage: double_descent/ogp.jpg
 ---
 If you are a reader of this blog, you've probably heard of **bias-variance trade-off**, a well-known concept of machine learning, typically represented by the following curves.
