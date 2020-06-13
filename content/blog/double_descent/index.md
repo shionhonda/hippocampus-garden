@@ -1,7 +1,7 @@
 ---
 title: "Reproducing Deep Double Descent"
 date: "2020-06-13T22:10:03.284Z"
-description: "Have you ever confused Pandas methods loc, at, and iloc with each other? It's no more confusing when you have this table in mind."
+description: "Double descent is one of the mysteries of modern machine learning. I reproduced the results of the recent paper by Nakkiran et al. and posed some questions that occurred to me."
 featuredImage: double_descent/ogp.jpg
 ---
 If you are a reader of this blog, you've probably heard of **bias-variance trade-off**, a well-known concept of machine learning, typically represented by the following curves.
@@ -156,23 +156,50 @@ OK, label noise seems to play a critical role in the double descent phenomenon. 
 This time, the test loss keeps increasing after the interpolation threshold! I understand that the loss decreases *after* the error does (i.e. memorization), but this steady increase is very confusing. Unfortunately, the original paper [2] doesn't tell anything about the loss curves.
 
 ## Flooding: A New Regularization Technique
+On top of the deep double descent experiment, I further reproduced another related work by Ishida *et al.* [3]. They proposed a new regulaization technique called "flooding". The concept of flooding is remarkably simple. To prevent model from reaching zero training loss, they proposed to add a small constant to the priginal loss function, and it worked surprisingly well. They report that flooding induced a epoch-wise double descent faster and lead to better generalization.
+
 ![](2020-06-13-13-38-29.png)
 
 <div style="text-align: center;"><small>Figure taken from [3]</small></div>
 
-The algorithm of flooding is remarkably simple.
+Let $J$ be the original loss function of the model parameterized by $\boldsymbol{\theta}$, and $b$ be the constant flooding level. The new loss function with flooding is defined as follows:
 
 $$
-\tilde{J}(\boldsymbol{\theta}) = | J(\boldsymbol{\theta}) - b | + b
+\tilde{J}(\boldsymbol{\theta}) = | J(\boldsymbol{\theta}) - b | + b.
 $$
 
 ### Reproducing the Results
+The authors also evaluates flooding by ResNet-18/CIFAR-10 experiments, I simply reproduced one of the main results in the following settings. Since the settings are basically the same as above, I highlight configurations that are different. Note that flooding is equipped instead of label noise.
+
+|        Config        |            Value            |
+| :------------------: | :-------------------------: |
+|     Width ($k$)      |             64              |
+|     Label noise      |             0%              |
+| Flooding level ($b$) |             0.1             |
+|  Data augmentation   |            None             |
+|      Optimizer       | SGD (lr=1e-1, momentum=0.9) |
+
+Again, I got similar results to the one shown in the paper (e.g., Figure 2(c) of [3]). This time, *epoch-wise double descent is observed for the test loss*, and the test error decreases almost monotonically, which is different from the double descent seen in [2].
+
 ![](2020-06-13-13-48-50.png)
 
 ### Flooding v.s. Label Noise
+Is flooding really the factor that made the difference? I conducted a further experiment to answer this question. In this experiment, flooding is equipped instead of label noise, and the other configurations are unchanged from the ones in [2].
+
+|        Config        |         Value         |
+| :------------------: | :-------------------: |
+|     Width ($k$)      |          64           |
+|     Label noise      |          0%           |
+| Flooding level ($b$) |          0.1          |
+|  Data augmentation   | Crop, Horizontal flip |
+|      Optimizer       |    Adam (lr=1e-4)     |
+
+Here is the result. Ther is no double descent, and the test error and loss are lower than the ones with double descent.
+
 ![](2020-06-13-13-49-06.png)
 
 ## Concluding Remarks
+Is double descent so sensitive to some configurations? Does double descent really lead to better generalization? To my knowledge, these remain open questions. 
 
 ## References
 [1] Mikhail Belkin, Daniel Hsu, Siyuan Ma, Soumik Mandal. [Reconciling modern machine learning practice and the bias-variance trade-off](https://arxiv.org/abs/1812.11118). *PNAS*. 2019.  
