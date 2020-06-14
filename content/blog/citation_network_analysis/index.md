@@ -1,7 +1,7 @@
 ---
 title: Evaluating Academic Papers by PageRank
 date: "2020-02-28T22:15:03.284Z"
-description: "Apply Google's PageRank to evaluating academic papers from the citation network."
+description: "Citation counts shouldn't be the only measurement of the impact of academic papers. I applied Google's PageRank to evaluating academic papers's importance."
 featuredImage: citation_network_analysis/ogp.png
 ---
 In this post, I apply Google's PageRank to evaluating academic papers from the citation network. It discovers that PageRank reflects the prestige of the paper while the citation count reflects its popularity.
@@ -18,9 +18,9 @@ In 1998, Sergey Brin and Larry Page, the founders of Google, proposed an algorit
 ## Basic Analysis of the Citation Network
 I use the citation network built from the 2010 version of the data provided by AMiner [2]. This is a dataset of computer science papers including citations. Newer and larger versions are available, but I choose the smallest version due to the limited machine resources. The basic information is as follows.
 
-|# Nodes|# Edges|Mean citation counts (mean degree)|  
-|:-:|:-:|:-:|  
-|629,814|632,751|1.005|
+| # Nodes | # Edges | Mean citation counts (mean degree) |
+| :-----: | :-----: | :--------------------------------: |
+| 629,814 | 632,751 |               1.005                |
 
 First, the distribution of the in-degree (number of citations) is shown below. It is almost linear on the log-log scale, which confirms the scale-free nature of the network.
 
