@@ -19,7 +19,7 @@ So, this post aims to help understand differences between Pandas `loc`, `iloc`, 
 Let's find the differences using a simple example!
 
 ## Load Example Data
-In this post, I use the iris dataset in the scikit-learn. The snippets in this post are supposed to be executed on Jupyter Notebook, Colaboratory and stuff.
+In this post, I use the iris dataset in the scikit-learn. The snippets in this post are supposed to be executed on Jupyter Notebook, Colaboratory, and stuff.
 
 ```python
 import pandas as pd
