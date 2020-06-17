@@ -1,13 +1,5 @@
 const config = require('./config/site');
 
-const activeEnv =
-  process.env.GATSBY_ACTIVE_ENV || process.env.NODE_ENV || 'development';
-require('dotenv').config({
-  path: `.env.${activeEnv}`,
-});
-
-const privateKey = process.env.PRIVATE_KEY.replace(new RegExp('\\\\n', '\g'), '\n')
-
 module.exports = {
   siteMetadata: {
     ...config
@@ -92,15 +84,6 @@ module.exports = {
       resolve: `gatsby-plugin-google-analytics`,
       options: {
         trackingId: `UA-97236498-2`,
-      },
-    },
-    {
-      resolve: `gatsby-source-google-analytics-reporting-api`,
-      options: {
-        email: process.env.CLIENT_EMAIL,
-        key: privateKey,
-        viewId: `211975708`,
-        startDate: `2020-02-21`,
       },
     },
     `gatsby-plugin-feed`,

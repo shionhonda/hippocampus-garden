@@ -11,8 +11,8 @@ import { rhythm, scale } from "../utils/typography"
 const BlogPostTemplate = ({ data, pageContext, location }) => {
   const post = data.markdownRemark;
   const { previous, next } = pageContext;
-  const { siteTitle, author, url} = data.site.siteMetadata;
-  const pageViews = data.pageViews ? data.pageViews.totalCount : 0;
+  const { siteTitle, author, url } = data.site.siteMetadata;
+  const pageViews = data.totalPageViews ? data.totalPageViews.totalCount : 0;
   const formatter = new Intl.NumberFormat('ja-JP');
 
   const content = (
@@ -37,32 +37,32 @@ const BlogPostTemplate = ({ data, pageContext, location }) => {
         pathname={post.fields.slug}
         article={true}
       />
-      <article style={{backgroundColor: "white", padding:rhythm(1)}}>
-          <h1 style={{marginBottom: 0}}>
-            {post.frontmatter.title}
-          </h1>
-          <p
-            style={{
-              ...scale(-1 / 5),
-              display: `block`,
-              marginBottom: rhythm(0),
-            }}
-          >
-            {post.frontmatter.date}&nbsp; | &nbsp; 
-            {post.timeToRead} min read&nbsp; | &nbsp; 
+      <article style={{ backgroundColor: "white", padding: rhythm(1) }}>
+        <h1 style={{ marginBottom: 0 }}>
+          {post.frontmatter.title}
+        </h1>
+        <p
+          style={{
+            ...scale(-1 / 5),
+            display: `block`,
+            marginBottom: rhythm(0),
+          }}
+        >
+          {post.frontmatter.date}&nbsp; | &nbsp;
+            {post.timeToRead} min read&nbsp; | &nbsp;
             {formatter.format(pageViews)} views
           </p>
-          
-          <Share title={post.frontmatter.title} url={url + post.fields.slug}/>
-          <section dangerouslySetInnerHTML={{ __html: post.html }} />
-          <hr
-            style={{
-              marginBottom: rhythm(1),
-            }}
-          />
-          <Share title={post.frontmatter.title} url={url + post.fields.slug}/>
-          <Bio>{content}</Bio>
-      
+
+        <Share title={post.frontmatter.title} url={url + post.fields.slug} />
+        <section dangerouslySetInnerHTML={{ __html: post.html }} />
+        <hr
+          style={{
+            marginBottom: rhythm(1),
+          }}
+        />
+        <Share title={post.frontmatter.title} url={url + post.fields.slug} />
+        <Bio>{content}</Bio>
+
         <nav>
           <ul
             style={{
@@ -74,14 +74,14 @@ const BlogPostTemplate = ({ data, pageContext, location }) => {
               margin: 0
             }}
           >
-            <li style={{width: `45%`}}>
+            <li style={{ width: `45%` }}>
               {previous && (
                 <Link to={previous.fields.slug} rel="prev">
                   ← {previous.frontmatter.title}
                 </Link>
               )}
             </li>
-            <li style={{width: `45%`, textAlign: `right`}}>
+            <li style={{ width: `45%`, textAlign: `right` }}>
               {next && (
                 <Link to={next.fields.slug} rel="next">
                   {next.frontmatter.title} →
@@ -124,7 +124,7 @@ export const pageQuery = graphql`
         slug
       }
     }
-    pageViews(id: {eq: $slug }) {
+    totalPageViews(id: {eq: $slug }) {
       totalCount
     }
   }

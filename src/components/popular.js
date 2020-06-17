@@ -19,7 +19,7 @@ const PopularPost = () => {
                   }
                 }
             }
-            allPageViews(limit: 10, sort: {fields: totalCount, order: DESC}) {
+            allTotalPageViews(limit: 10, sort: {fields: totalCount, order: DESC}) {
                 edges {
                     node {
                       id
@@ -27,49 +27,97 @@ const PopularPost = () => {
                     }
                 }
             }
+            allRecentPageViews(limit: 10, sort: {fields: recentCount, order: DESC}) {
+              edges {
+                  node {
+                    id
+                    recentCount
+                  }
+              }
+          }
         }
     `)
 
   const allPosts = data.allMarkdownRemark.edges;
-  const popularPosts = data.allPageViews.edges;
-  const results = [];
+  const totalPopularPosts = data.allTotalPageViews.edges;
+  const recentPopularPosts = data.allRecentPageViews.edges;
+  const totalResults = [];
+  const recentResults = [];
 
-  for (const a of popularPosts) {
+  for (const a of totalPopularPosts) {
     const popularPost = allPosts.find(b => b.node.fields.slug === a.node.id);
     if (popularPost == null) {
       continue;
     } else {
-      results.push({
+      totalResults.push({
         count: a.node.totalCount,
         ...popularPost.node,
       });
     }
-    if (results.length >= 5) {
+    if (totalResults.length >= 5) {
+      break;
+    }
+  };
+  for (const a of recentPopularPosts) {
+    const popularPost = allPosts.find(b => b.node.fields.slug === a.node.id);
+    if (popularPost == null) {
+      continue;
+    } else {
+      recentResults.push({
+        count: a.node.recentCount,
+        ...popularPost.node,
+      });
+    }
+    if (recentResults.length >= 5) {
       break;
     }
   };
 
   return (
-    <div style={{ marginBottom: rhythm(0.5), backgroundColor: "white", padding: rhythm(0.5) }}>
-      <h3>Popular Posts</h3>
-      {results.map(result => (
-        <article key={result.fields.slug} >
-          <Link style={{ boxShadow: `none`, textDecoration: `none`, color: `inherit`, }} to={result.fields.slug}>
-            <div style={{
-              display: "flex", flexFlow: "row",
-              marginTop: rhythm(0.5)
-            }}>
-              <div style={{ width: "120px", paddingRight: rhythm(0.5) }}>
-                <Image filename={result.frontmatter.featuredImage} />
+    <div>
+      <div style={{ width: "300px", marginBottom: rhythm(0.5), backgroundColor: "white", padding: rhythm(0.5) }}>
+        <h3>Trending</h3>
+        {recentResults.map(recentResult => (
+          <article key={recentResult.fields.slug} >
+            <Link style={{ boxShadow: `none`, textDecoration: `none`, color: `inherit`, }} to={recentResult.fields.slug}>
+              <div style={{
+                display: "flex", flexFlow: "row",
+                marginTop: rhythm(0.5)
+              }}>
+                <div style={{ width: "120px", paddingRight: rhythm(0.5) }}>
+                  <Image filename={recentResult.frontmatter.featuredImage} />
+                </div>
+                <small style={{ width: "150px", }}>
+                  {recentResult.frontmatter.title}
+                </small>
               </div>
-              <small style={{ width: "150px", }}>
-                {result.frontmatter.title}
-              </small>
-            </div>
 
-          </Link>
-        </article>
-      ))}
+            </Link>
+          </article>
+        ))}
+      </div>
+
+      <div style={{ width: "300px", marginBottom: rhythm(0.5), backgroundColor: "white", padding: rhythm(0.5) }}>
+        <h3>Most Read</h3>
+        {totalResults.map(totalResult => (
+          <article key={totalResult.fields.slug} >
+            <Link style={{ boxShadow: `none`, textDecoration: `none`, color: `inherit`, }} to={totalResult.fields.slug}>
+              <div style={{
+                display: "flex", flexFlow: "row",
+                marginTop: rhythm(0.5)
+              }}>
+                <div style={{ width: "120px", paddingRight: rhythm(0.5) }}>
+                  <Image filename={totalResult.frontmatter.featuredImage} />
+                </div>
+                <small style={{ width: "150px", }}>
+                  {totalResult.frontmatter.title}
+                </small>
+              </div>
+
+            </Link>
+          </article>
+        ))}
+      </div>
     </div>
   )
 };
