@@ -73,50 +73,37 @@ const PopularPost = () => {
     }
   };
 
+  const TrendBox = ({ results }) => (
+    results.map(result => (
+      <article key={result.fields.slug} >
+        <Link style={{ boxShadow: `none`, textDecoration: `none`, color: `inherit`, }} to={result.fields.slug}>
+          <div style={{
+            display: "flex", flexFlow: "row",
+            marginTop: rhythm(0.5)
+          }}>
+            <div style={{ width: "120px", paddingRight: rhythm(0.5) }}>
+              <Image filename={result.frontmatter.featuredImage} />
+            </div>
+            <small style={{ width: "150px", }}>
+              {result.frontmatter.title}
+            </small>
+          </div>
+        </Link>
+      </article>
+    ))
+  )
+
+
   return (
     <div>
       <div style={{ width: "300px", marginBottom: rhythm(0.5), backgroundColor: "white", padding: rhythm(0.5) }}>
         <h3>Trending</h3>
-        {recentResults.map(recentResult => (
-          <article key={recentResult.fields.slug} >
-            <Link style={{ boxShadow: `none`, textDecoration: `none`, color: `inherit`, }} to={recentResult.fields.slug}>
-              <div style={{
-                display: "flex", flexFlow: "row",
-                marginTop: rhythm(0.5)
-              }}>
-                <div style={{ width: "120px", paddingRight: rhythm(0.5) }}>
-                  <Image filename={recentResult.frontmatter.featuredImage} />
-                </div>
-                <small style={{ width: "150px", }}>
-                  {recentResult.frontmatter.title}
-                </small>
-              </div>
-
-            </Link>
-          </article>
-        ))}
+        <TrendBox results={recentResults} />
       </div>
 
       <div style={{ width: "300px", marginBottom: rhythm(0.5), backgroundColor: "white", padding: rhythm(0.5) }}>
         <h3>Most Read</h3>
-        {totalResults.map(totalResult => (
-          <article key={totalResult.fields.slug} >
-            <Link style={{ boxShadow: `none`, textDecoration: `none`, color: `inherit`, }} to={totalResult.fields.slug}>
-              <div style={{
-                display: "flex", flexFlow: "row",
-                marginTop: rhythm(0.5)
-              }}>
-                <div style={{ width: "120px", paddingRight: rhythm(0.5) }}>
-                  <Image filename={totalResult.frontmatter.featuredImage} />
-                </div>
-                <small style={{ width: "150px", }}>
-                  {totalResult.frontmatter.title}
-                </small>
-              </div>
-
-            </Link>
-          </article>
-        ))}
+        <TrendBox results={totalResults} />
       </div>
     </div>
   )
