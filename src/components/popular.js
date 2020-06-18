@@ -5,73 +5,57 @@ import { rhythm, scale } from "../utils/typography"
 
 const PopularPost = () => {
   const data = useStaticQuery(graphql`
-        query allPagesAndViews {
-            allMarkdownRemark(limit: 1000, sort: {order: DESC, fields: frontmatter___date}) {
-                edges {
-                  node {
-                    frontmatter {
-                      title
-                      featuredImage
-                    }
-                    fields {
-                      slug
-                    }
+      query allPagesAndViews {
+          allMarkdownRemark(limit: 1000, sort: {order: DESC, fields: frontmatter___date}) {
+              edges {
+                node {
+                  frontmatter {
+                    title
+                    featuredImage
+                  }
+                  fields {
+                    slug
                   }
                 }
-            }
-            allTotalPageViews(limit: 10, sort: {fields: totalCount, order: DESC}) {
-                edges {
-                    node {
-                      id
-                      totalCount
-                    }
-                }
-            }
-            allRecentPageViews(limit: 10, sort: {fields: recentCount, order: DESC}) {
+              }
+          }
+          allTotalPageViews(limit: 10, sort: {fields: totalCount, order: DESC}) {
               edges {
                   node {
                     id
-                    recentCount
+                    totalCount
                   }
               }
           }
-        }
-    `)
+          allRecentPageViews(limit: 10, sort: {fields: recentCount, order: DESC}) {
+            edges {
+                node {
+                  id
+                  recentCount
+                }
+            }
+          }
+      }
+  `)
 
-  const allPosts = data.allMarkdownRemark.edges;
-  const totalPopularPosts = data.allTotalPageViews.edges;
-  const recentPopularPosts = data.allRecentPageViews.edges;
-  const totalResults = [];
-  const recentResults = [];
-
-  for (const a of totalPopularPosts) {
-    const popularPost = allPosts.find(b => b.node.fields.slug === a.node.id);
-    if (popularPost == null) {
-      continue;
-    } else {
-      totalResults.push({
-        count: a.node.totalCount,
-        ...popularPost.node,
-      });
-    }
-    if (totalResults.length >= 5) {
-      break;
-    }
-  };
-  for (const a of recentPopularPosts) {
-    const popularPost = allPosts.find(b => b.node.fields.slug === a.node.id);
-    if (popularPost == null) {
-      continue;
-    } else {
-      recentResults.push({
-        count: a.node.recentCount,
-        ...popularPost.node,
-      });
-    }
-    if (recentResults.length >= 5) {
-      break;
-    }
-  };
+  function chooseTop5(allPosts, popularPosts) {
+    const results = [];
+    for (const a of popularPosts) {
+      const popularPost = allPosts.find(b => b.node.fields.slug === a.node.id);
+      if (popularPost == null) {
+        continue;
+      } else {
+        results.push({
+          count: a.node.totalCount,
+          ...popularPost.node,
+        });
+      }
+      if (results.length >= 5) {
+        break;
+      }
+    };
+    return results;
+  }
 
   const TrendBox = ({ results }) => (
     results.map(result => (
@@ -93,6 +77,9 @@ const PopularPost = () => {
     ))
   )
 
+  const allPosts = data.allMarkdownRemark.edges;
+  const totalResults = chooseTop5(allPosts, data.allTotalPageViews.edges);
+  const recentResults = chooseTop5(allPosts, data.allRecentPageViews.edges);
 
   return (
     <div>
