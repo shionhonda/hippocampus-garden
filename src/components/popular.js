@@ -19,19 +19,19 @@ const PopularPost = () => {
                 }
               }
           }
-          allTotalPageViews(limit: 10, sort: {fields: totalCount, order: DESC}) {
+          allTotalPageViews(limit: 10, sort: {fields: count, order: DESC}) {
               edges {
                   node {
                     id
-                    totalCount
+                    count
                   }
               }
           }
-          allRecentPageViews(limit: 10, sort: {fields: recentCount, order: DESC}) {
+          allRecentPageViews(limit: 10, sort: {fields: count, order: DESC}) {
             edges {
                 node {
                   id
-                  recentCount
+                  count
                 }
             }
           }
@@ -46,7 +46,7 @@ const PopularPost = () => {
         continue;
       } else {
         results.push({
-          count: a.node.totalCount,
+          count: a.node.count,
           ...popularPost.node,
         });
       }
@@ -80,6 +80,7 @@ const PopularPost = () => {
   const allPosts = data.allMarkdownRemark.edges;
   const totalResults = chooseTop5(allPosts, data.allTotalPageViews.edges);
   const recentResults = chooseTop5(allPosts, data.allRecentPageViews.edges);
+  console.log(recentResults)
 
   return (
     <div>

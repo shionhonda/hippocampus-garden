@@ -78,37 +78,21 @@ exports.sourceNodes = async ({ actions }, configOptions) => {
   const { createNode } = actions
   const email = process.env.CLIENT_EMAIL
   const viewId = `211975708`
-  const startDate = `2020-02-21`
   const scopes = 'https://www.googleapis.com/auth/analytics.readonly'
 
   const jwt = new google.auth.JWT(email, null, key, scopes)
   await jwt.authorize()
 
-  const resultTotal = await google.analytics('v3').data.ga.get({
+  const totalResult = await google.analytics('v3').data.ga.get({
     'auth': jwt,
     'ids': 'ga:' + viewId,
-    'start-date': startDate,
+    'start-date': `2020-02-21`,
     'end-date': 'today',
     'dimensions': 'ga:pagePath',
     'metrics': 'ga:pageviews',
     'sort': '-ga:pageviews',
   })
-
-  for (let [path, totalCount] of resultTotal.data.rows) {
-    createNode({
-      path,
-      totalCount: Number(totalCount),
-      id: path,
-      internal: {
-        type: `TotalPageViews`,
-        contentDigest: crypto.createHash(`md5`).update(JSON.stringify({ path, totalCount })).digest(`hex`),
-        mediaType: `text/plain`,
-        description: `Page views per path`,
-      }
-    })
-  }
-
-  const resultRecent = await google.analytics('v3').data.ga.get({
+  const recentResult = await google.analytics('v3').data.ga.get({
     'auth': jwt,
     'ids': 'ga:' + viewId,
     'start-date': moment().add(-30, 'days').format('YYYY-MM-DD'),
@@ -117,18 +101,24 @@ exports.sourceNodes = async ({ actions }, configOptions) => {
     'metrics': 'ga:pageviews',
     'sort': '-ga:pageviews',
   })
-  console.log(resultRecent.data.rows)
-  for (let [path, recentCount] of resultRecent.data.rows) {
-    createNode({
-      path,
-      recentCount: Number(recentCount),
-      id: path,
-      internal: {
-        type: `RecentPageViews`,
-        contentDigest: crypto.createHash(`md5`).update(JSON.stringify({ path, recentCount })).digest(`hex`),
-        mediaType: `text/plain`,
-        description: `Page views per path`,
-      }
-    })
+
+
+  function createNodes(GAResult, nodeName) {
+    for (let [path, count] of GAResult.data.rows) {
+      createNode({
+        path,
+        count: Number(count),
+        id: path,
+        internal: {
+          type: nodeName,
+          contentDigest: crypto.createHash(`md5`).update(JSON.stringify({ path, count })).digest(`hex`),
+          mediaType: `text/plain`,
+          description: `Page views per path`,
+        }
+      })
+    }
   }
+
+  createNodes(totalResult, `TotalPageViews`);
+  createNodes(recentResult, `RecentPageViews`)
 }

@@ -12,7 +12,7 @@ const BlogPostTemplate = ({ data, pageContext, location }) => {
   const post = data.markdownRemark;
   const { previous, next } = pageContext;
   const { siteTitle, author, url } = data.site.siteMetadata;
-  const pageViews = data.totalPageViews ? data.totalPageViews.totalCount : 0;
+  const pageViews = data.totalPageViews ? data.totalPageViews.count : 0;
   const formatter = new Intl.NumberFormat('ja-JP');
 
   const content = (
@@ -125,7 +125,7 @@ export const pageQuery = graphql`
       }
     }
     totalPageViews(id: {eq: $slug }) {
-      totalCount
+      count
     }
   }
 `
