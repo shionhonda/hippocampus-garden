@@ -111,7 +111,7 @@ exports.sourceNodes = async ({ actions }, configOptions) => {
         id: path,
         internal: {
           type: nodeName,
-          contentDigest: crypto.createHash(`md5`).update(JSON.stringify({ path, count })).digest(`hex`),
+          contentDigest: crypto.createHash(`md5`).update(JSON.stringify({ nodeName, path, count })).digest(`hex`),
           mediaType: `text/plain`,
           description: `Page views per path`,
         }
@@ -119,6 +119,7 @@ exports.sourceNodes = async ({ actions }, configOptions) => {
     }
   }
 
-  createNodes(totalResult, `TotalPageViews`);
   createNodes(recentResult, `RecentPageViews`)
+  createNodes(totalResult, `TotalPageViews`)
+
 }
