@@ -74,7 +74,7 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
   }
 }
 
-exports.sourceNodes = async ({ actions }, configOptions) => {
+exports.sourceNodes = async ({ actions }) => {
   const { createNode } = actions
   const email = process.env.CLIENT_EMAIL
   const viewId = `211975708`
@@ -83,27 +83,20 @@ exports.sourceNodes = async ({ actions }, configOptions) => {
   const jwt = new google.auth.JWT(email, null, key, scopes)
   await jwt.authorize()
 
-  const totalResult = await google.analytics('v3').data.ga.get({
-    'auth': jwt,
-    'ids': 'ga:' + viewId,
-    'start-date': `2020-02-21`,
-    'end-date': 'today',
-    'dimensions': 'ga:pagePath',
-    'metrics': 'ga:pageviews',
-    'sort': '-ga:pageviews',
-  })
-  const recentResult = await google.analytics('v3').data.ga.get({
-    'auth': jwt,
-    'ids': 'ga:' + viewId,
-    'start-date': moment().add(-30, 'days').format('YYYY-MM-DD'),
-    'end-date': 'today',
-    'dimensions': 'ga:pagePath',
-    'metrics': 'ga:pageviews',
-    'sort': '-ga:pageviews',
-  })
-
+  function getGA(date) {
+    return google.analytics('v3').data.ga.get({
+      'auth': jwt,
+      'ids': 'ga:' + viewId,
+      'start-date': date,
+      'end-date': 'today',
+      'dimensions': 'ga:pagePath',
+      'metrics': 'ga:pageviews',
+      'sort': '-ga:pageviews',
+    })
+  }
 
   function createNodes(GAResult, nodeName) {
+    console.log(GAResult)
     for (let [path, count] of GAResult.data.rows) {
       createNode({
         path,
@@ -119,7 +112,10 @@ exports.sourceNodes = async ({ actions }, configOptions) => {
     }
   }
 
+
+  const recentResult = await getGA(moment().add(-30, 'days').format('YYYY-MM-DD'))
   createNodes(recentResult, `RecentPageViews`)
+  const totalResult = await getGA(`2020-02-21`)
   createNodes(totalResult, `TotalPageViews`)
 
 }
