@@ -96,7 +96,6 @@ exports.sourceNodes = async ({ actions }) => {
   }
 
   function createNodes(GAResult, nodeName) {
-    console.log(GAResult)
     for (let [path, count] of GAResult.data.rows) {
       createNode({
         path,
@@ -112,10 +111,8 @@ exports.sourceNodes = async ({ actions }) => {
     }
   }
 
-
   const recentResult = await getGA(moment().add(-30, 'days').format('YYYY-MM-DD'))
   createNodes(recentResult, `RecentPageViews`)
   const totalResult = await getGA(`2020-02-21`)
   createNodes(totalResult, `TotalPageViews`)
-
 }

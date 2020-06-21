@@ -1,7 +1,7 @@
 import React from 'react'
 import { graphql, useStaticQuery, Link } from 'gatsby'
 import Image from "../components/image"
-import { rhythm, scale } from "../utils/typography"
+import { rhythm } from "../utils/typography"
 
 const PopularPost = () => {
   const data = useStaticQuery(graphql`
@@ -80,7 +80,6 @@ const PopularPost = () => {
   const allPosts = data.allMarkdownRemark.edges;
   const totalResults = chooseTop5(allPosts, data.allTotalPageViews.edges);
   const recentResults = chooseTop5(allPosts, data.allRecentPageViews.edges);
-  console.log(recentResults)
 
   return (
     <div>
