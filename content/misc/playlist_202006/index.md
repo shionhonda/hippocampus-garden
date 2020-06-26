@@ -25,8 +25,11 @@ Yumi Zoumaの『Lonely After』は、The Japanese Houseを思わせるような�
 ## 旧作
 1曲目は、alt-Jの『This Is All Yours』の最初に収録されている曲です。  
 4曲目の『Bitch, Don't Kill My Vibe』はチルな雰囲気が気に入っています。Jay-Zとのコラボバージョンもあるようです。  
+リフが耳に残る『Another Star』はStevie Wonderの2枚組の傑作『Songs In The Key Of Life』から。  
 『Tutti Frutti』は、先月他界したLittle Richardの代表曲。  
-『Dear Landlord』はBob Dylanの曲で、他にもJansis Joplinなど多くのアーティストにカバーされています。  
+『Dear Landlord』はBob Dylanの曲で、他にもJansis Joplinなど多くのアーティストにカバーされています。Bob Dylanといえば、『We Are The World』のあの個性的な歌い回しはStevie Wonderのアドバイスによるものだったようです。Stevie Wonderはどんな歌でも自分のものにできる能力がありますよね。
+<iframe width="560" height="315" src="https://www.youtube.com/embed/1UfVmJBF-OY?start=26" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 The Wannadiesというバンドは知らなかったのですが、『You & Me Song』はジャケットも相まってBelle & Sebastianを彷彿とさせます。
 
 ## おわりに
