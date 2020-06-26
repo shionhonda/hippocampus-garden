@@ -59,20 +59,20 @@ $$
 v_{k+1} = Mv_k
 $$
 
-|Iteration|Page 0|Page 1|Page 2|Page 3|  
-|:-:|:-:|:-:|:-:|:-:|  
-|00|0.25|0.25|0.25|0.25|  
-|01|0.12|0.50|0.25|0.12|  
-|02|0.25|0.38|0.12|0.25|  
-|03|0.19|0.38|0.25|0.19|  
-|04|0.19|0.44|0.19|0.19|  
-|05|0.22|0.38|0.19|0.22|  
-|06|0.19|0.41|0.22|0.19|  
-|07|0.20|0.41|0.19|0.20|  
-|08|0.20|0.39|0.20|0.20|  
-|09|0.20|0.41|0.20|0.20|  
-|10|0.20|0.40|0.20|0.20|  
-|11|0.20|0.40|0.20|0.20|   
+| Iteration | Page 0 | Page 1 | Page 2 | Page 3 |
+| :-------: | :----: | :----: | :----: | :----: |
+|    00     |  0.25  |  0.25  |  0.25  |  0.25  |
+|    01     |  0.12  |  0.50  |  0.25  |  0.12  |
+|    02     |  0.25  |  0.38  |  0.12  |  0.25  |
+|    03     |  0.19  |  0.38  |  0.25  |  0.19  |
+|    04     |  0.19  |  0.44  |  0.19  |  0.19  |
+|    05     |  0.22  |  0.38  |  0.19  |  0.22  |
+|    06     |  0.19  |  0.41  |  0.22  |  0.19  |
+|    07     |  0.20  |  0.41  |  0.19  |  0.20  |
+|    08     |  0.20  |  0.39  |  0.20  |  0.20  |
+|    09     |  0.20  |  0.41  |  0.20  |  0.20  |
+|    10     |  0.20  |  0.40  |  0.20  |  0.20  |
+|    11     |  0.20  |  0.40  |  0.20  |  0.20  |
 
 Finally, we get to the answer! The random surfer is viewing the page 1 for 40% of the time and page 0, 2, and 3 for 20% of the time. This final probability is called **PageRank** (some technical details follow) and *serves as an importance measure for web pages*.
 
@@ -154,7 +154,7 @@ where $n$ is the number of nodes and $J_n$ is a matrix of ones. This reformulate
 I mentioned that the iterative calculation of PageRank is equivalent to calculating the eigenvector corresponding to the eigenvalue 1. But some questions might occur. Does the transition (Google) matrix always have the eigenvalue 1 of multiplicity one? Does the iterative calculation always converge to a unique vector? How fast is the convergence? The following theorem and algorithm answer these questions.
 
 ### Perron-Frobenius Theorem
-The [**Perron-Frobenius theorem**](https://en.wikipedia.org/wiki/Perron%E2%80%93Frobenius_theorem) and that the Google matrix $M$ is positive and column stochastic guarantees that the following statements hold.
+From the [**Perron-Frobenius theorem**](https://en.wikipedia.org/wiki/Perron%E2%80%93Frobenius_theorem), as the Google matrix $M$ is positive and column stochastic, the following statements hold.
 
 1. $M$ has an eigenvalue 1 of multiplicity one.
 2. 1 is the largest eigenvalue: all the other eigenvalues have absolute values smaller than 1.
