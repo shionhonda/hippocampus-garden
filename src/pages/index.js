@@ -11,9 +11,9 @@ const BlogIndex = ({ data, location }) => {
   const siteTitle = data.site.siteMetadata.title
   const author = data.site.siteMetadata.author
   const posts = data.allMarkdownRemark.edges
-  const content  = (
+  const content = (
     `Welcome to ${siteTitle}, produced by ${author}. 
-        Let’s explore the world of wonder!`
+    I regularly post about machine learning, statistics, programming, and my hobbies.`
   )
 
   return (
@@ -25,17 +25,17 @@ const BlogIndex = ({ data, location }) => {
           const title = node.frontmatter.title || node.fields.slug
           return (
             <article key={node.fields.slug} style={{
-              backgroundColor:"white", 
+              backgroundColor: "white",
               height: "100%",
             }}>
-              <Link style={{boxShadow: `none`, textDecoration: `none`, color: `inherit`,}} to={node.fields.slug}>
-                <Image filename={node.frontmatter.featuredImage}/>
-                <div style={{padding:rhythm(0.5)}}>
-                  <h3 style={{marginTop: rhythm(1/4), marginBottom: rhythm(1/4),}}>
+              <Link style={{ boxShadow: `none`, textDecoration: `none`, color: `inherit`, }} to={node.fields.slug}>
+                <Image filename={node.frontmatter.featuredImage} />
+                <div style={{ padding: rhythm(0.5) }}>
+                  <h3 style={{ marginTop: rhythm(1 / 4), marginBottom: rhythm(1 / 4), }}>
                     {title}
                   </h3>
                   <small>
-                    {node.frontmatter.date}&nbsp; | &nbsp; 
+                    {node.frontmatter.date}&nbsp; | &nbsp;
                     {node.timeToRead} min read
                   </small>
                   <section>
@@ -43,7 +43,7 @@ const BlogIndex = ({ data, location }) => {
                       dangerouslySetInnerHTML={{
                         __html: node.frontmatter.description || node.excerpt,
                       }}
-                      style={{marginBottom: 0}}
+                      style={{ marginBottom: 0 }}
                     />
                   </section>
                 </div>
@@ -52,7 +52,7 @@ const BlogIndex = ({ data, location }) => {
           )
         })}
       </div>
-      
+
     </Layout>
   )
 }

@@ -9,32 +9,30 @@ import { rhythm, scale } from "../utils/typography"
 
 const Layout = ({ location, title, children, toc }) => {
   const rootPath = `${__PATH_PREFIX__}/`
-  
+
   let content
 
-  if (location.pathname==="/"
-      || location.pathname==="/blog/"
-      || location.pathname==="/misc/") {
+  if (location.pathname === "/") {
     content = (
       <div className="flexbox">
         <div className="mainbox grid">
           <main>{children}</main>
         </div>
         <div className="sidebar" >
-          <PopularPost/> 
-          <a className="twitter-timeline" data-width="300" data-height="600" 
-          href="https://twitter.com/shion_honda?ref_src=twsrc%5Etfw">Tweets by shion_honda
-          </a> 
+          <PopularPost />
+          <a className="twitter-timeline" data-width="300" data-height="600"
+            href="https://twitter.com/shion_honda?ref_src=twsrc%5Etfw">Tweets by shion_honda
+          </a>
         </div>
       </div>
     )
-  } 
-  
-  else if (location.pathname==="/about/"
-             || location.pathname==="/privacy-policy/") {
+  }
+
+  else if (location.pathname === "/about/"
+    || location.pathname === "/privacy-policy/") {
     content = <main>{children}</main>
-  } 
-  
+  }
+
   else {
     content = (
       <div className="flexbox">
@@ -44,17 +42,17 @@ const Layout = ({ location, title, children, toc }) => {
         <div className="sidebar">
           <div className="toc">
             <h3>Table of Contents</h3>
-            <div dangerouslySetInnerHTML={{__html: toc}}/>
+            <div dangerouslySetInnerHTML={{ __html: toc }} />
           </div>
-          <PopularPost/>
+          <PopularPost />
         </div>
       </div>
     )
   }
 
   return (
-    <div style={{width:"100%", height:"100%", backgroundColor: "#F2F3F6"}}>
-      <Header/>
+    <div style={{ width: "100%", height: "100%", backgroundColor: "#F2F3F6" }}>
+      <Header />
       <div
         style={{
           marginLeft: `auto`,
@@ -65,8 +63,8 @@ const Layout = ({ location, title, children, toc }) => {
       >
         {content}
       </div>
-      <Footer/>
-    </div> 
+      <Footer />
+    </div>
   )
 }
 

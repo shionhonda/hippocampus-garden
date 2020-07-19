@@ -12,14 +12,14 @@ const About = ({ data, location }) => {
     <Layout location={location} title={siteTitle}>
       <SEO title="About" />
       <div style={{ backgroundColor: "white", padding: rhythm(1) }}>
-        <h1>Shion Honda</h1>
+        <h1>About</h1>
         <p>
-          Hi, this is Shion.
-            <br></br>
+          Hi! I'm Shion Honda, and welcome to {siteTitle}!! I built this website to write about machine learning, statistics, programming, and sometimes my hobbies.
+            <br />
             I am a data scientist at Recruit Inc., Ltd.
             MScs in Information Science and Technology.
-            <br></br>
-            Opinions are my own and not the views of my employer.
+            <br />
+            Opinions presented here are my own and not the views of my employer.
           </p>
         <div style={{ textAlign: "center" }}>
           <Img fixed={data.face.childImageSharp.fixed} />
