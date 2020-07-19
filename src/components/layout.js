@@ -8,11 +8,16 @@ import { rhythm, scale } from "../utils/typography"
 
 
 const Layout = ({ location, title, children, toc }) => {
-  const rootPath = `${__PATH_PREFIX__}/`
+  const isRootPath = location.pathname === `${__PATH_PREFIX__}/`
+  const pageNumber = location.pathname
+    .split('/')
+    .filter(Boolean)
+    .pop()
+  const isPaginatedPath = pageNumber && Boolean(pageNumber.match(/^[0-9]+$/))
 
   let content
 
-  if (location.pathname === "/") {
+  if (isRootPath || isPaginatedPath) {
     content = (
       <div className="flexbox">
         <div className="mainbox grid">
