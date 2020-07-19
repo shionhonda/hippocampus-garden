@@ -16,11 +16,6 @@ const BlogListTemplate = ({ data, pageContext, location }) => {
     I regularly post about machine learning, statistics, programming, and my hobbies.`
   )
   const { currentPage, numPages } = pageContext
-  const isFirst = currentPage === 1
-  const isLast = currentPage === numPages
-  const prevPage = currentPage - 1 === 1 ? '/' : (currentPage - 1).toString()
-  const nextPage = (currentPage + 1).toString()
-
   return (
     <Layout location={location} title={siteTitle}>
       <SEO title="Home" />
@@ -57,120 +52,44 @@ const BlogListTemplate = ({ data, pageContext, location }) => {
           )
         })}
       </div>
-      <ul
-        style={{
-          display: 'flex',
-          flexWrap: 'wrap',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          listStyle: 'none',
-          padding: 0,
-        }}
-      >
-        {!isFirst && (
-          <Link to={prevPage} rel="prev">
-            ← Previous Page
-          </Link>
-        )}
-        {Array.from({ length: numPages }, (_, i) => (
-          <li
-            key={`pagination-number${i + 1}`}
-            style={{
-              margin: 0,
-            }}
-          >
-            <Link
-              to={`/${i === 0 ? '' : i + 1}`}
+      <nav>
+        <ul
+          style={{
+            display: `flex`,
+            justifyContent: `center`,
+            listStyle: `none`,
+            padding: 0,
+            marginTop: rhythm(1 / 2)
+
+          }}
+        >
+
+          {Array.from({ length: numPages }, (_, i) => (
+            <li
+              key={`pagination-number${i + 1}`}
               style={{
-                padding: rhythm(1 / 4),
-                textDecoration: 'none',
-                color: i + 1 === currentPage ? '#ffffff' : '',
-                background: i + 1 === currentPage ? '#007acc' : '',
+                margin: 0,
               }}
             >
-              {i + 1}
-            </Link>
-          </li>
-        ))}
-        {!isLast && (
-          <Link to={nextPage} rel="next">
-            Next Page →
-          </Link>
-        )}
-      </ul>
+              <Link
+                to={`/${i === 0 ? '' : i + 1}`}
+                style={{
+                  padding: rhythm(1 / 2),
+                  textDecoration: 'none',
+                  color: i + 1 === currentPage ? '#000000' : '',
+                  fontWeight: i + 1 === currentPage ? 'bold' : 'normal'
+                }}
+              >
+                {i + 1}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </nav>
 
     </Layout>
   )
 }
-//   return (
-//     <Layout location={this.props.location} title={siteTitle}>
-//       <SEO
-//         title={siteTitle}
-//         keywords={[`blog`, `gatsby`, `javascript`, `react`]}
-//       />
-//       <Bio />
-//       {posts.map(({ node }) => {
-//         const title = node.frontmatter.title || node.fields.slug
-//         return (
-//           <div key={node.fields.slug}>
-//             <h3
-//               style={{
-//                 marginBottom: rhythm(1 / 4),
-//               }}
-//             >
-//               <Link style={{ boxShadow: 'none' }} to={node.fields.slug}>
-//                 {title}
-//               </Link>
-//             </h3>
-//             <small>{node.frontmatter.date}</small>
-//             <p dangerouslySetInnerHTML={{ __html: node.excerpt }} />
-//           </div>
-//         )
-//       })}
-//       <ul
-//         style={{
-//           display: 'flex',
-//           flexWrap: 'wrap',
-//           justifyContent: 'space-between',
-//           alignItems: 'center',
-//           listStyle: 'none',
-//           padding: 0,
-//         }}
-//       >
-//         {!isFirst && (
-//           <Link to={prevPage} rel="prev">
-//             ← Previous Page
-//           </Link>
-//         )}
-//         {Array.from({ length: numPages }, (_, i) => (
-//           <li
-//             key={`pagination-number${i + 1}`}
-//             style={{
-//               margin: 0,
-//             }}
-//           >
-//             <Link
-//               to={`/${i === 0 ? '' : i + 1}`}
-//               style={{
-//                 padding: rhythm(1 / 4),
-//                 textDecoration: 'none',
-//                 color: i + 1 === currentPage ? '#ffffff' : '',
-//                 background: i + 1 === currentPage ? '#007acc' : '',
-//               }}
-//             >
-//               {i + 1}
-//             </Link>
-//           </li>
-//         ))}
-//         {!isLast && (
-//           <Link to={nextPage} rel="next">
-//             Next Page →
-//           </Link>
-//         )}
-//       </ul>
-//     </Layout>
-//   )
-// }
 
 export default BlogListTemplate
 
