@@ -118,6 +118,7 @@ export const pageQuery = graphql`
             title
             description
             featuredImage
+            tags
           }
         }
       }

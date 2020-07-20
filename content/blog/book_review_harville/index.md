@@ -3,6 +3,7 @@ title: 書評『統計のための行列代数』
 date: "2020-07-19T23:02:03.284Z"
 description: "『統計のための行列代数』のまとめと感想です．末尾に誤植と思われる箇所を挙げています．"
 featuredImage: book_review_harville/ogp.jpg
+tags: ["ja", "book", "math"]
 ---
 ## はじめに
 『統計のための行列代数』（D. A. Harville 著 伊理正夫 監訳 丸善出版）を読んだので，まとめと感想を書きます．

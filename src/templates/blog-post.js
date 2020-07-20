@@ -5,6 +5,7 @@ import Disqus from 'gatsby-plugin-disqus'
 import Bio from "../components/bio"
 import Layout from "../components/layout"
 import SEO from "../components/seo.jsx"
+import Tags from "../components/tags"
 import Share from "../components/share"
 import { rhythm, scale } from "../utils/typography"
 
@@ -14,7 +15,8 @@ const BlogPostTemplate = ({ data, pageContext, location }) => {
   const { siteTitle, author, url } = data.site.siteMetadata;
   const pageViews = data.totalPageViews ? data.totalPageViews.count : 0;
   const formatter = new Intl.NumberFormat('ja-JP');
-
+  console.log("tags")
+  console.log(post.frontmatter.tags)
   const content = (
     <p>
       Written by <strong>{author}</strong>.
@@ -48,10 +50,12 @@ const BlogPostTemplate = ({ data, pageContext, location }) => {
             marginBottom: rhythm(0),
           }}
         >
+
           {post.frontmatter.date}&nbsp; | &nbsp;
             {post.timeToRead} min read&nbsp; | &nbsp;
             {formatter.format(pageViews)} views
-          </p>
+        </p>
+        <Tags tags={post.frontmatter.tags} />
 
         <Share title={post.frontmatter.title} url={url + post.fields.slug} />
         <section dangerouslySetInnerHTML={{ __html: post.html }} />
@@ -81,7 +85,7 @@ const BlogPostTemplate = ({ data, pageContext, location }) => {
                 </Link>
               )}
             </li>
-            <li style={{ width: `45%`, textAlign: `right` }}>
+            <li style={{ width: `45%`, textAlign: `right` }} >
               {next && (
                 <Link to={next.fields.slug} rel="next">
                   Next → <br />{next.frontmatter.title}
@@ -93,7 +97,7 @@ const BlogPostTemplate = ({ data, pageContext, location }) => {
 
         <Disqus config={disqusConfig} />
       </article>
-    </Layout>
+    </Layout >
   )
 }
 
@@ -117,6 +121,7 @@ export const pageQuery = graphql`
         date(formatString: "MMMM DD, YYYY")
         description
         featuredImage
+        tags
       }
       tableOfContents
       timeToRead
