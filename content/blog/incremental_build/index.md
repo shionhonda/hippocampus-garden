@@ -3,6 +3,7 @@ title: Tiny Tips for Gatsby Incremental Builds on Netlify
 date: "2020-05-16T23:12:03.284Z"
 description: "Stuck in an error when enabling Gatsby incremental builds on Netlify? This post might help it."
 featuredImage: incremental_build/ogp.jpg
+tags: ["en", "gatsby", "programming"]
 ---
 
 Recently, Netlify started supporting Gatsby's incremental builds. It remarkably reduces the build time by caching the previous build! [The official blog]((https://www.netlify.com/blog/2020/04/23/enable-gatsby-incremental-builds-on-netlify/)) says this feature is easy to enable, but I came into an error at the first trial. I write this post for those who are in trouble with the same error.

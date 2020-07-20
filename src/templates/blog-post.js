@@ -15,8 +15,6 @@ const BlogPostTemplate = ({ data, pageContext, location }) => {
   const { siteTitle, author, url } = data.site.siteMetadata;
   const pageViews = data.totalPageViews ? data.totalPageViews.count : 0;
   const formatter = new Intl.NumberFormat('ja-JP');
-  console.log("tags")
-  console.log(post.frontmatter.tags)
   const content = (
     <p>
       Written by <strong>{author}</strong>.

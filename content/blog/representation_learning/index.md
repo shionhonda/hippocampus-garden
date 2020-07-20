@@ -3,6 +3,7 @@ title: Recent Advances in Representation Learning
 date: "2020-04-20T22:01:03.284Z"
 description: '"Representation" is a way AIs understand the world. This post is a short introduction to the representation learning in the "deep learning era."'
 featuredImage: representation_learning/ogp.png
+tags: ["en", "deep-learning"]
 ---
 
 Recently, we've seen great progress in representation learning. For example, trained in a self-supervised manner, BERT [1] beats humans in some natural language processing tasks and SimCLR [2] shows comparable performance to a supervised model in a computer vision task. Also, extensions to different modalities of data such as graphs are emerging.

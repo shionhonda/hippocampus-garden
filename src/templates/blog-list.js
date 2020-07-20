@@ -5,6 +5,7 @@ import Image from "../components/image"
 import Bio from "../components/bio"
 import Layout from "../components/layout"
 import SEO from "../components/seo.jsx"
+import Tags from "../components/tags"
 import { rhythm } from "../utils/typography"
 
 const BlogListTemplate = ({ data, pageContext, location }) => {
@@ -37,7 +38,9 @@ const BlogListTemplate = ({ data, pageContext, location }) => {
                   <small>
                     {node.frontmatter.date}&nbsp; | &nbsp;
                     {node.timeToRead} min read
+                    <Tags tags={node.frontmatter.tags} />
                   </small>
+
                   <section>
                     <p
                       dangerouslySetInnerHTML={{

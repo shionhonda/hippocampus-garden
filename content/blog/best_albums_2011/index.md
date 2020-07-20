@@ -3,6 +3,8 @@ title: Best Albums of 2011
 date: "2020-05-02T22:14:03.284Z"
 description: "2011年にリリースされたアルバムの個人的ベスト10枚を紹介します。"
 featuredImage: best_albums_2011/ogp.jpg
+tags: ["ja", "music", "baoy"]
+
 ---
 
 「2010年代の音楽を振り返るシリーズ」の続きです。前回の記事は[こちら](https://hippocampus-garden.com/best_albums_2010/)。  

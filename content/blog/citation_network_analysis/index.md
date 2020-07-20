@@ -3,6 +3,8 @@ title: Evaluating Academic Papers by PageRank
 date: "2020-02-28T22:15:03.284Z"
 description: "Citation counts shouldn't be the only measurement of the impact of academic papers. I applied Google's PageRank to evaluating academic papers's importance."
 featuredImage: citation_network_analysis/ogp.png
+tags: ["en", "graph", "data-analysis"]
+
 ---
 In this post, I apply Google's PageRank to evaluating academic papers from the citation network. It discovers that PageRank reflects the prestige of the paper while the citation count reflects its popularity.
 

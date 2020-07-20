@@ -3,6 +3,7 @@ title: BERT That Works on Browser
 date: "2020-05-22T22:00:03.284Z"
 description: "This post explains how MobileBERT succeeded in reducing both model size and inference time and introduce its implementation in TensorFlow.js that works on web browsers."
 featuredImage: mobilebert/ogp.jpg
+tags: ["en", "deep-leaning", "nlp"]
 ---
 \* This post is based on my previous presentation at "BERT Applications Seminar." The slide is available [here](https://www.slideshare.net/ShionHonda/bertmobileberttensorflowjs) (in Japanese).
 

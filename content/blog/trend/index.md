@@ -3,6 +3,7 @@ title: Count Page Views & Show Popular Posts in Gatsby Blog
 date: "2020-06-21T23:12:03.284Z"
 description: "This post introduces how to count page views and show popular posts in the sidebar of Gatsby Blog. Google Analytics saves you the trouble of preparing databases and APIs."
 featuredImage: trend/ogp.jpg
+tags: ["en", "gatsby", "programming"]
 ---
 Blogs built with WordPress and such have a feature to count page views and show popular posts. It helps visitors look around the web site and improves the average dwell time. Unfortunately, Gatsby does not support such features by default (remember that Gatsby is a Single Page App generator).
 

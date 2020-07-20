@@ -3,6 +3,7 @@ title: Top Navbar for Gatsby Blog
 date: "2020-02-26T22:12:03.284Z"
 description: "This post introduces how to make top navigation bar with background image for Gatsby blog."
 featuredImage: navbar/ogp.png
+tags: ["en", "gatsby", "programming"]
 ---
 
 My first post on my new blog 🎉🎊  

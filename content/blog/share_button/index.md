@@ -3,6 +3,7 @@ title: SNS Share Button for Gatsby Blog
 date: "2020-04-03T22:18:03.284Z"
 description: "This post introduces how to put arranged SNS share buttons for Gatsby blog posts."
 featuredImage: share_button/ogp.png
+tags: ["en", "gatsby", "programming"]
 ---
 
 Share buttons are an essential element of blogs in this “SNS era”. In this blog, too, you see them for several SNS at the top and bottom of each post. However, Gatsby blog does not have share buttons by default.

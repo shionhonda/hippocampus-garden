@@ -3,6 +3,7 @@ title: Playlist for June 2020
 date: "2020-06-25T22:13:03.284Z"
 description: "2020年6月のプレイリストを作りました。"
 featuredImage: playlist_202006/ogp.jpg
+tags: ["ja", "music", "monthly"]
 ---
 
 今月のプレイリストはこちらです。
