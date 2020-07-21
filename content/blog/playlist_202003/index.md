@@ -3,7 +3,7 @@ title: Playlist for March 2020
 date: "2020-03-04T22:17:03.284Z"
 description: "2020年3月のプレイリストを作りました。"
 featuredImage: playlist_202003/ogp.png
-tags: ["ja", "music", "monthly"]
+tags: ["ja", "music", "playlist"]
 ---
 
 Spotifyで毎月50曲入りのプレイリストを作るという習慣を2年以上続けています。せっかくブログを始めたので、こちらで公開しようと思います。

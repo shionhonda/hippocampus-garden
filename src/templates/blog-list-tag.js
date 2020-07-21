@@ -10,19 +10,17 @@ import { rhythm } from "../utils/typography"
 
 const BlogListTemplate = ({ data, pageContext, location }) => {
   const siteTitle = data.site.siteMetadata.title
-  const author = data.site.siteMetadata.author
-  const posts = data.allMarkdownRemark.edges
+  const { edges, totalCount } = data.allMarkdownRemark
+  const { tag } = pageContext
   const content = (
-    `Welcome to ${siteTitle}, produced by ${author}. 
-    I regularly post about machine learning, statistics, programming, and my hobbies.`
+    `${totalCount} post${totalCount === 1 ? '' : 's'} tagged with "${tag}"`
   )
-  const { currentPage, numPages } = pageContext
   return (
     <Layout location={location} title={siteTitle}>
       <SEO title="Home" />
       <Bio>{content}</Bio>
       <div className="posts">
-        {posts.map(({ node }) => {
+        {edges.map(({ node }) => {
           const title = node.frontmatter.title || node.fields.slug
           return (
             <article key={node.fields.slug} style={{
@@ -54,40 +52,6 @@ const BlogListTemplate = ({ data, pageContext, location }) => {
           )
         })}
       </div>
-      <nav>
-        <ul
-          style={{
-            display: `flex`,
-            justifyContent: `center`,
-            listStyle: `none`,
-            padding: 0,
-            marginTop: rhythm(1 / 2)
-
-          }}
-        >
-
-          {Array.from({ length: numPages }, (_, i) => (
-            <li
-              key={`pagination-number${i + 1}`}
-              style={{
-                margin: 0,
-              }}
-            >
-              <Link
-                to={`/${i === 0 ? '' : i + 1}`}
-                style={{
-                  padding: rhythm(1 / 2),
-                  textDecoration: 'none',
-                  color: i + 1 === currentPage ? '#000000' : '',
-                  fontWeight: i + 1 === currentPage ? 'bold' : 'normal'
-                }}
-              >
-                {i + 1}
-              </Link>
-            </li>
-          ))}
-        </ul>
-      </nav>
 
     </Layout>
   )
@@ -96,17 +60,15 @@ const BlogListTemplate = ({ data, pageContext, location }) => {
 export default BlogListTemplate
 
 export const pageQuery = graphql`
-  query blogPageQuery($skip: Int!, $limit: Int!) {
+  query blogListTagQuery($tag: String) {
     site {
       siteMetadata {
-        author
         title
       }
     }
     allMarkdownRemark(
       sort: { fields: [frontmatter___date], order: DESC }
-      limit: $limit
-      skip: $skip
+      filter: { frontmatter: { tags: { in: [$tag] } } }
     ) {
       edges {
         node {
@@ -124,6 +86,7 @@ export const pageQuery = graphql`
           }
         }
       }
+      totalCount
     }
   }
 `

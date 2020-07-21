@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'gatsby';
 import kebabCase from 'lodash/kebabCase';
-import { rhythm, scale } from "../utils/typography"
+import { rhythm } from "../utils/typography"
 
 
 const Tag = ({ tag }) => {
@@ -15,8 +15,8 @@ const Tag = ({ tag }) => {
       paddingRight: rhythm(1 / 4),
       fontSize: 16,
       textDecoration: `none`,
-      color: `#000000`,
-      backgroundColor: `#DDD`,
+      color: `black`,
+      backgroundColor: `#f0f0f0`,
       borderRadius: rhythm(1 / 4),
       lineHeight: 0.5,
     }}>
@@ -26,7 +26,6 @@ const Tag = ({ tag }) => {
 };
 
 const Tags = ({ tags }) => {
-  console.log(tags)
   return (
     <ul style={{
       display: `flex`,

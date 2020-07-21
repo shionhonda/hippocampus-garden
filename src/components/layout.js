@@ -3,8 +3,9 @@ import React from "react"
 import Header from './header.js'
 import Footer from './footer.js'
 import PopularPost from './popular'
+import TagList from './tag-list'
 import './layout.scss';
-import { rhythm, scale } from "../utils/typography"
+import { rhythm } from "../utils/typography"
 
 
 const Layout = ({ location, title, children, toc }) => {
@@ -14,10 +15,11 @@ const Layout = ({ location, title, children, toc }) => {
     .filter(Boolean)
     .pop()
   const isPaginatedPath = pageNumber && Boolean(pageNumber.match(/^[0-9]+$/))
+  const isTagPath = Boolean(location.pathname.match(/tags\/.+$/))
 
   let content
 
-  if (isRootPath || isPaginatedPath) {
+  if (isRootPath || isPaginatedPath || isTagPath) {
     content = (
       <div className="flexbox">
         <div className="mainbox grid">
@@ -28,6 +30,7 @@ const Layout = ({ location, title, children, toc }) => {
           <a className="twitter-timeline" data-width="300" data-height="600"
             href="https://twitter.com/shion_honda?ref_src=twsrc%5Etfw">Tweets by shion_honda
           </a>
+          <TagList />
         </div>
       </div>
     )
@@ -50,6 +53,7 @@ const Layout = ({ location, title, children, toc }) => {
             <div dangerouslySetInnerHTML={{ __html: toc }} />
           </div>
           <PopularPost />
+          <TagList />
         </div>
       </div>
     )

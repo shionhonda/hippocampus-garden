@@ -24,16 +24,12 @@ const Bio = ({ children }) => {
       site {
         siteMetadata {
           author
-          social {
-            twitter
-          }
         }
       }
     }
   `)
 
-  const { author, social } = data.site.siteMetadata
-  const rootPath = `${__PATH_PREFIX__}/`
+  const author = data.site.siteMetadata
 
   return (
     <div
@@ -46,16 +42,12 @@ const Bio = ({ children }) => {
     >
       <Image
         fixed={data.avatar.childImageSharp.fixed}
-        alt={author}
+        alt={author.toString()}
         style={{
           marginRight: rhythm(1 / 2),
           marginBottom: 0,
           minWidth: 50,
-          // borderRadius: `100%`,
         }}
-      // imgStyle={{
-      //   borderRadius: `50%`,
-      // }}
       />
       {children}
     </div>

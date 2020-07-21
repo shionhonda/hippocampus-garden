@@ -3,7 +3,7 @@ title: Playlist for April 2020
 date: "2020-04-04T22:13:03.284Z"
 description: "2020年4月のプレイリストを作りました。"
 featuredImage: playlist_202004/ogp.png
-tags: ["ja", "music", "monthly"]
+tags: ["ja", "music", "playlist"]
 ---
 
 3月くらいから外出を控えているので、音楽鑑賞がはかどります。
