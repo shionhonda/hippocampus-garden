@@ -29,9 +29,13 @@ const Layout = ({ location, title, children, toc }) => {
         </div>
         <div className="sidebar" >
           <PopularPost />
-          <a className="twitter-timeline lazyload" data-width="300" data-height="600"
-            href="https://twitter.com/shion_honda?ref_src=twsrc%5Etfw">Tweets by shion_honda
+
+          <blockquote class="twitter-tweet lazyload" data-lang="en"
+            data-script="https://platform.twitter.com/widgets.js" style={{ margin: 0 }}>
+            <a className="twitter-timeline" width="300" data-height="600"
+              href="https://twitter.com/shion_honda?ref_src=twsrc%5Etfw">Tweets by shion_honda
           </a>
+          </blockquote>
           <TagList />
         </div>
       </div>
