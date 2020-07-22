@@ -1,4 +1,6 @@
 import React from "react"
+import 'lazysizes'
+import 'lazysizes/plugins/parent-fit/ls.parent-fit'
 
 import Header from './header.js'
 import Footer from './footer.js'
@@ -27,7 +29,7 @@ const Layout = ({ location, title, children, toc }) => {
         </div>
         <div className="sidebar" >
           <PopularPost />
-          <a className="twitter-timeline" data-width="300" data-height="600"
+          <a className="twitter-timeline lazyload" data-width="300" data-height="600"
             href="https://twitter.com/shion_honda?ref_src=twsrc%5Etfw">Tweets by shion_honda
           </a>
           <TagList />
