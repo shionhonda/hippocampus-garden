@@ -13,7 +13,6 @@
     "dotenv": "^8.2.0",
     "gatsby": "^2.21.33",
     "gatsby-awesome-pagination": "^0.3.6",
-    "gatsby-background-image": "^0.10.2",
     "gatsby-image": "^2.2.39",
     "gatsby-plugin-disqus": "^1.1.4",
     "gatsby-plugin-feed": "^2.3.26",
@@ -32,10 +31,8 @@
     "gatsby-remark-copy-linked-files": "^2.1.36",
     "gatsby-remark-embed-spotify": "^2.1.1",
     "gatsby-remark-embed-youtube": "0.0.7",
-    "gatsby-remark-emojis": "^0.4.2",
     "gatsby-remark-images": "^3.1.42",
     "gatsby-remark-katex": "^3.3.10",
-    "gatsby-remark-mathjax": "^1.0.0",
     "gatsby-remark-prismjs": "^3.3.30",
     "gatsby-remark-responsive-iframe": "^2.2.31",
     "gatsby-remark-smartypants": "^2.1.20",
@@ -61,8 +58,7 @@
     "typescript": "^3.8.2",
     "typography": "^0.16.19",
     "typography-theme-ocean-beach": "^0.16.19",
-    "typography-theme-wordpress-2016": "^0.16.19",
-    "use-lazyload-ref": "^0.1.3"
+    "typography-theme-wordpress-2016": "^0.16.19"
   },
   "devDependencies": {
     "babel-jest": "^25.1.0",
