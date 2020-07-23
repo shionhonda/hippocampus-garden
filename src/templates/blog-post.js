@@ -8,6 +8,7 @@ import SEO from "../components/seo.jsx"
 import Tags from "../components/tags"
 import Share from "../components/share"
 import { rhythm, scale } from "../utils/typography"
+require(`katex/dist/katex.min.css`)
 
 const BlogPostTemplate = ({ data, pageContext, location }) => {
   const post = data.markdownRemark;

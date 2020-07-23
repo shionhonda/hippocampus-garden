@@ -9,7 +9,6 @@ import TagList from './tag-list'
 import './layout.scss';
 import { rhythm } from "../utils/typography"
 
-
 const Layout = ({ location, title, children, toc }) => {
   const isRootPath = location.pathname === `${__PATH_PREFIX__}/`
   const pageNumber = location.pathname
