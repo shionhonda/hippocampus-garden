@@ -13,6 +13,7 @@
     "dotenv": "^8.2.0",
     "gatsby": "^2.21.33",
     "gatsby-awesome-pagination": "^0.3.6",
+    "gatsby-background-image": "^1.1.1",
     "gatsby-image": "^2.2.39",
     "gatsby-plugin-disqus": "^1.1.4",
     "gatsby-plugin-feed": "^2.3.26",
