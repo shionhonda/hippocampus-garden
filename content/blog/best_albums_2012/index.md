@@ -1,8 +1,8 @@
 ---
-title: Best Albums of 2011
-date: "2020-05-02T22:14:03.284Z"
-description: "2011年にリリースされたアルバムの個人的ベスト10枚を紹介します。"
-featuredImage: best_albums_2011/ogp.jpg
+title: Best Albums of 2012
+date: "2020-08-02T22:14:03.284Z"
+description: "2012年にリリースされたアルバムの個人的ベスト10枚を紹介します。"
+featuredImage: best_albums_2012/ogp.jpg
 tags: ["ja", "music", "baoy"]
 
 ---
@@ -10,16 +10,8 @@ tags: ["ja", "music", "baoy"]
 「2010年代の音楽を振り返るシリーズ」の続きです。前回の記事は[こちら](https://hippocampus-garden.com/best_albums_2010/)。  
 個人的な歴史を振り返ると、2011年くらいから洋楽を聴き始めたので、今回からはリアルタイムで出会った作品が登場します。
 
-## 10. *Dive* - Tycho
-https://open.spotify.com/album/3I3PmRvn5iFY8i6zzvEcci?si=mrfGvtFXQhOke1_aW8CCQw
-
-アメリカのアンビエントミュージシャンであるScott Hansenによるソロプロジェクトの第2作。  
-分類するなら「チルウェイブ」と呼ばれるジャンルに該当する音楽で、「踊れると同時に癒やされる」のが特徴です。全編インストです。
-
-**Highlights**: *A Walk*, *Daydream*
-
-## 9. *James Blake* - James Blake
-https://open.spotify.com/album/4L9qXAXmnMEIvnvG8xon3F?si=G87mPOJdQcuPfZAMNHLrSA
+## 10. *good kid, m.A.A.d city* - Kendrick Lamar
+https://open.spotify.com/album/0Oq3mWfexhsjUh0aNNBB5u?si=NXiMCdYgSXK2Fvf6hFfP7w
 
 イギリスのSSWによるデビュー作。打ち込み、ピアノ、オートチューンで加工した声で構成されるミニマルな音楽が特徴で、ポスト・ダブステップと称されることもあります。  
 『The Wilhelm Scream』は、プログレッシブ・ロック/ジャズのバンド・Colosseumの創設メンバーとして知られる父・James Litherlandの『[Where To Turn](https://open.spotify.com/track/2otu7rCdh00SdDHpviTch9?si=911u7yy-SImLDhCwpwWSXw)』のカバーだそうです。原曲もかっこいいです。  
@@ -28,16 +20,24 @@ https://open.spotify.com/album/4L9qXAXmnMEIvnvG8xon3F?si=G87mPOJdQcuPfZAMNHLrSA
 
 **Highlights**: *The Wilhelm Scream*, *Limit To Your Love*, *I Mind*
 
-## 8. *+* - Ed Sheeran
-https://open.spotify.com/album/0W5GGnapMz0VwemQvJDqa7?si=xIYB3tydRsWjvqnPirCCDA
+## 9. *Red* - Taylor Swift
+https://open.spotify.com/album/1KVKqWeRuXsJDLTW0VuD29?si=15J9kTccSRKBPMU1YGK2XA
+
+アメリカのアンビエントミュージシャンであるScott Hansenによるソロプロジェクトの第2作。  
+分類するなら「チルウェイブ」と呼ばれるジャンルに該当する音楽で、「踊れると同時に癒やされる」のが特徴です。全編インストです。
+
+**Highlights**: *A Walk*, *Daydream*
+
+## 8. *Born To Die* - Lana Del Rey
+https://open.spotify.com/album/5IjSLZhlg0qVq62r2PSfM1?si=FHSf5TcESkWRgz2uqPQCMg
 
 イギリスのフォーク/ポップSSWのデビュー作。  
 最近の節操のないコラボレーションと比較すると、この頃はアコースティックギターがメインの素朴な曲が多かったですね。一方で、『You Need Me, I Don't Need You』で見られるようなラップ風の歌い方が当時から確立されていたこともわかります。
 
 **Highlights**: *The A Team*, *Lego House*, *"You Need Me, I Don't Need You"*
 
-## 7. *The King Of Limbs*  - Radiohead
-https://open.spotify.com/album/1DBkJIEoeHrTX4WCBQGcCi?si=UF4_L3i8TKaJTuEkAwkxsw
+## 7. *Lonerism*  - Tame Impala
+https://open.spotify.com/album/5IjSLZhlg0qVq62r2PSfM1?si=FHSf5TcESkWRgz2uqPQCMg
 
 イギリスのロックバンドによる第8作。  
 この頃からThom YorkeはFlying LotusやFour Tet達から強い影響を受けるようになり、ロックから更に離れた実験的な音楽を作るようになりました。本作では、ルーピングやサンプリングを駆使してバンドとしてエレクトロニカを作っています。  
@@ -46,8 +46,8 @@ https://open.spotify.com/album/1DBkJIEoeHrTX4WCBQGcCi?si=UF4_L3i8TKaJTuEkAwkxsw
 
 **Highlights**: *Bloom*, *Lotus Flower*, *Codex*
 
-## 6. *Born This Way* - Lady Gaga
-https://open.spotify.com/album/05Cv9ThcMko3zObfa3ZU7E?si=o90eTxmTRqqgIc_KEW8-cg
+## 6. *Valtari* - Sigur Ros
+https://open.spotify.com/album/784AinfJcPwVdpbXR4U8mN?si=fiYQKtA4RlqF7088V9Xc0w
 
 説明不要、Lady Gagaの第2作です。日本でも大いに話題になりました。  
 前作の仰々しいシンセ・ポップ的作風を踏襲しつつ、本作ではハードロックやヘビーメタルの要素を随所に散りばめています。11-12曲目の『Heavy Metal Lover』、『Electric Chapel』の並びは曲名にも顕著に反映されていますね。アルバム全体で聴くと胃もたれ感があるのは否めません。  
@@ -55,18 +55,27 @@ https://open.spotify.com/album/05Cv9ThcMko3zObfa3ZU7E?si=o90eTxmTRqqgIc_KEW8-cg
 
 **Highlights**: *Born This Way*, *You And I*, *The Edge Of Glory*
 
-## 5. *4* - Beyoncé
-https://open.spotify.com/album/1gIC63gC3B7o7FfpPACZQJ?si=owKxFCk2SuKwYPl1VIMzeQ
+## 5. *Babel* - Mumford & Sons
+https://open.spotify.com/album/0jcOOqw8oVjs2ngnrndbsO?si=3oP3BOC1SaOYmyMKMpd-GQ
 
 Beyoncéのソロ活動における第4作。  
 それまでマネジメントを担っていた父のMathew Knowlesと決別し、内省的で探索的な作風にシフトしました。ベースがR&Bであることは変わりませんが、『1+1』は彼女の力強い歌声と泣きのブルースギターの組み合わせが素晴らしいですし、Frank Oceanと共作した『I Miss You』も間違いなく新境地と言えるでしょう。もちろん、『Run The World (Girls)』や『Best Thing I Never Had』のような従来路線の魅力も健在です。  
 『Party』ではAndré 3000がラップを担当しています。  
-\*リンクを貼ったのはデラックス版で、通常版とは曲目や曲順がかなり違います。
+\*リンクを張ったのはデラックス版で、通常版とは曲目や曲順がかなり違います。
 
 **Highlights**: *Love On Top*, *Party*, *1+1*
 
-## 4. *Mylo Xyloto* - Coldplay
-https://open.spotify.com/album/5GykKNn2KjofEoA8SpNnuw?si=CfcYMoMbStOhOeOWS3ixSA
+## 4. *Bloom* - Beach House
+https://open.spotify.com/album/600BVck2XflTAsEo0KhIfm?si=hdESaaXqRx6QivsL_A7UnA
+
+イギリスのSSWによる第2作。  
+デビュー作で既に高い評価を受けていたプレッシャーに加えて失恋の悲しみがある中で生み出された作品ですが、前作を超える素晴らしい楽曲が数多く収録されています。  
+『Lovesong』はThe Cureのカバーです。『Rumour Has It』と『Turning Tables』は、OneRepublicのフロントマンとしても知られるRyan Tedderとの共作です。
+
+**Highlights**: *Rolling In The Deep*, *Lovesong*, *Someone Like You*
+
+## 3. *An Awesome Wave* - alt-J
+https://open.spotify.com/album/2AxfZb5aQHIXgsB1HA6OLL?si=aBq5xtNjRwiqP-0C81zdLQ
 
 イギリスのロックバンドによる第5作。  
 前作『Viva La Vida』と同じくBrian Enoとの共作で、ポップ路線を引き継ぎつつ電子音の装飾をきらびやかに施しています。2大シングル『Paradise』と『Every Teardrop Is A Waterfall』をはじめ、これまで以上にキャッチーな曲が多く収録されています。  
@@ -75,25 +84,16 @@ https://open.spotify.com/album/5GykKNn2KjofEoA8SpNnuw?si=CfcYMoMbStOhOeOWS3ixSA
 
 **Highlights**: *Paradise*, *Every Teardrop Is A Waterfall*, *Don't Let It Break Your Heart*
 
-## 3. *21* - Adele
-https://open.spotify.com/album/7n3QJc7TBOxXtlYh4Ssll8?si=Y8Z34N2BR6uhEJoFEctg6Q
-
-イギリスのSSWによる第2作。  
-デビュー作で既に高い評価を受けていたプレッシャーに加えて失恋の悲しみがある中で生み出された作品ですが、前作を超える素晴らしい楽曲が数多く収録されています。  
-『Lovesong』はThe Cureのカバーです。『Rumour Has It』と『Turning Tables』は、OneRepublicのフロントマンとしても知られるRyan Tedderとの共作です。
-
-**Highlights**: *Rolling In The Deep*, *Lovesong*, *Someone Like You*
-
-## 2. *Hurry Up, We're Dreaming* - M83
-https://open.spotify.com/album/6EB14IXV5oyOiItGBv7mtG?si=vpB8cgl8Rsynj55Qx2eohw
+## 2. *The 2nd Law* - Muse
+https://open.spotify.com/album/3KuXEGcqLcnEYWnn3OEGy0?si=Y8Vwb4TLRMuPOUGSpyWfTQ
 
 フランスのミュージシャンであるAnthony Gonzalezによるソロプロジェクトによる第6作。70分超に渡るダブルアルバムです。  
 ギターやシンセサイザーを使ってシューゲイザーのようなドリーミーな音を作りつつ、盛り上がりの部分ではシャウトを入れたり、ストリングスや空白を効果的に使ったりすることで、M83銀河の名にふさわしいエピックな雰囲気に仕上げています。最後の『Outro』はまさにカタルシスです。
 
 **Highlights**: *Midnight City*, *Wait*, *Outro*
 
-## 1. *Bon Iver* - Bon Iver
-https://open.spotify.com/album/1JlvIsP2f6ckoa62aN7kLn?si=YCSspEruRx2Ynxgfep-1Cw
+## 1. *channel ORANGE* - Frank Ocean
+https://open.spotify.com/album/6vzH59tobnxE5WXMiqvBIx?si=S9DH8LIaSfOWJCAqhngBMw
 
 Justin Vernon率いるアメリカのバンドによる第2作。  
 デビュー作は素朴なインディーフォークと位置づけられていましたが、本作ではバンドメンバーを9人に増員し、サックスやオートチューンなどを多用した実験的な音作りに一転しています。Justin Vernonの試みは野心的でしたが、結果的には大成功で、それまで誰も聴いたことがなく、それでいて息を呑むように美しい音楽を生み出すことができました。  
