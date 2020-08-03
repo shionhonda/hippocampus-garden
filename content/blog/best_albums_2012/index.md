@@ -3,7 +3,7 @@ title: Best Albums of 2012
 date: "2020-08-02T22:14:03.284Z"
 description: "2012年にリリースされたアルバムの個人的ベスト10枚を紹介します。"
 featuredImage: best_albums_2012/ogp.jpg
-tags: ["ja", "music", "baoy"]
+tags: ["ja", "music", "aoty"]
 
 ---
 

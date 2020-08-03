@@ -3,7 +3,7 @@ title: Best Albums of 2011
 date: "2020-05-02T22:14:03.284Z"
 description: "2011年にリリースされたアルバムの個人的ベスト10枚を紹介します。"
 featuredImage: best_albums_2011/ogp.jpg
-tags: ["ja", "music", "baoy"]
+tags: ["ja", "music", "aoty"]
 
 ---
 
