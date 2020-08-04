@@ -8,6 +8,7 @@ tags: ["ja", "music", "aoty"]
 ---
 
 「2010年代の音楽を振り返るシリーズ」の続きです。前回の記事は[こちら](https://hippocampus-garden.com/best_albums_2011/)。  
+この頃はまだ高校生で、音楽との出会いは主にラジオ、YouTube、図書館というやや特殊な聴き方をしていました。
 
 ## 10. *good kid, m.A.A.d city* - Kendrick Lamar
 https://open.spotify.com/album/0Oq3mWfexhsjUh0aNNBB5u?si=NXiMCdYgSXK2Fvf6hFfP7w
@@ -67,8 +68,12 @@ https://open.spotify.com/album/0jcOOqw8oVjs2ngnrndbsO?si=3oP3BOC1SaOYmyMKMpd-GQ
 ## 4. *An Awesome Wave* - alt-J
 https://open.spotify.com/album/2AxfZb5aQHIXgsB1HA6OLL?si=aBq5xtNjRwiqP-0C81zdLQ
 
+イギリスのロックバンドによるデビュー作。  
+サイケなコーラスと電子音が特徴的なインディーフォークです。デビューからエキゾチックさを全開にしています。  
+初めて聴いたときは珍妙な印象を受けましたが、何度か聴いていくうちにその独特な音楽性に引き込まれていきました。そんな中でも『Taro』などは彼らの魅力を感じやすいのではないでしょうか。  
+ちなみに、『Matilda』は映画『Léon: The Professional』でNatalie Portmanが演じたあのキャラクターのことだとか。
 
-<!-- **Highlights**: *Paradise*, *Every Teardrop Is A Waterfall*, *Don't Let It Break Your Heart* -->
+**Highlights**: *Breezeblocks*, *Ms*, *Taro*
 
 ## 3. *Bloom* - Beach House
 https://open.spotify.com/album/600BVck2XflTAsEo0KhIfm?si=hdESaaXqRx6QivsL_A7UnA
@@ -81,14 +86,19 @@ https://open.spotify.com/album/600BVck2XflTAsEo0KhIfm?si=hdESaaXqRx6QivsL_A7UnA
 ## 2. *The 2nd Law* - Muse
 https://open.spotify.com/album/3KuXEGcqLcnEYWnn3OEGy0?si=Y8Vwb4TLRMuPOUGSpyWfTQ
 
+イギリスのロックバンドによる第6作。  
+イントロから仰々しい『Supremacy』で幕を開け、ダブステップをバラードに昇華した『Madness』やウォール街の取引所の音声を取り入れた『Animals』など、音楽的な実験性とロックバンドらしさを同時に楽しむことができます。  
+フロントマンのMatt Bellamyは相当のSF好きのようで、アルバムタイトルは熱力学第2法則から付けられています（最後に収録されている『The 2nd Law: Isolated System』では、「In an isolated system, the entropy can only increase」という言葉が繰り返されています）。ジャケットはHuman Connectome Projectの[この画像](http://www.humanconnectomeproject.org/gallery/)です。  
+当時最も聴いていたアルバムです。
 
-
-<!-- **Highlights**: *Midnight City*, *Wait*, *Outro* -->
+**Highlights**: *Supremacy*, *Madness*, *Survival*
 
 ## 1. *channel ORANGE* - Frank Ocean
 https://open.spotify.com/album/6vzH59tobnxE5WXMiqvBIx?si=S9DH8LIaSfOWJCAqhngBMw
 
+アメリカのSSWによるデビュー作。とはいっても、デビュー前からTyler, the Creatorなども所属するヒップホップグループのOdd Futureとしての活動やKanye WestやJay-Zとのコラボレーションでその才能を知られていました。Odd FutureのメンバーやPharrell Williamsも参加しているということや、セクシュアリティの公表などもあり、リリース前からかなり注目された作品だったようですね。  
+甘いファルセットとソウルフルな歌声を使い分け、ときにアンビエント、ときにジャジーなバックトラックに乗せていくさまは流石です。歌詞も、コンテクストを理解するのが難しいのですが、小説や映画への参照と言葉遊びを巧みに織り込んであって読みがいがあります。  
+Earl Sweatshirtとコラボレーションした『Super Rich Kids』は、Elton Johnの『Bennie and the Jets』を想起させるベースのようなピアノにラップを乗せているのがおもしろいです。  
+恥ずかしながら、Frank Oceanを好きになったのは昨年のことで、いわゆるにわかファンなのですが、この作品は聴くたびに新しい良さを発見するので、1位にしてしまいました。各種メディアが年間ベストに選んでいるのも納得です。
 
-<!-- **Highlights**: *Perth*, *Holocene*, *Beth/Rest* -->
-
-## おわりに
+**Highlights**: *Thinkin Bout You*, *Sierra Leone*, *Super Rich Kids*, *Pyramids*
