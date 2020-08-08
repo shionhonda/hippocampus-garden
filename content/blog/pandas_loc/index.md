@@ -3,7 +3,7 @@ title: "Meet Pandas: loc, iloc, at & iat"
 date: "2020-04-27T22:10:03.284Z"
 description: "Have you ever confused Pandas methods loc, at, and iloc with each other? It's no more confusing when you have this table in mind."
 featuredImage: pandas_loc/ogp.jpg
-tags: ["en", "pandas", "data-analysis"]
+tags: ["en", "pandas", "data-analysis", "python"]
 ---
 
 Have you ever confused [**Pandas**](https://pandas.pydata.org/pandas-docs/stable/index.html) methods `loc`, `iloc`, `at`, and `iat` with each other? Pandas is a great library for handling tabular data, but its API is too diverse and somewhat unintuitive. Understanding its design concepts might help it to some extent 🐼

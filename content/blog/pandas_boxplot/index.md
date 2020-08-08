@@ -3,7 +3,7 @@ title: "Meet Pandas: Grouping and Boxplot"
 date: "2020-06-14T22:10:03.284Z"
 description: "This post summarizes how to group data by some variable and draw boxplots on it using Pandas and Seaborn."
 featuredImage: pandas_boxplot/ogp.jpg
-tags: ["en", "pandas", "data-analysis"]
+tags: ["en", "pandas", "data-analysis", "python"]
 ---
 🐼Welcome to the "Meet Pandas" series (a.k.a. my memorandum of understanding Pandas)!🐼
 

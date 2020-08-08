@@ -3,7 +3,7 @@ title: "PageRank Explained: Theory, Algorithm, and Some Experiments"
 date: "2020-03-12T22:01:03.284Z"
 description: "How does Google's PageRank work? Its theory and algorithm are explained, followed by numerical experiments."
 featuredImage: pagerank/ogp.png
-tags: ["en", "graph", "math"]
+tags: ["en", "graph", "math", "python"]
 ---
 In [this previous post](https://hippocampus-garden.com/citation_network_analysis/), I used Google's PageRank to analyze a citation network, but I skipped explaining what it is. Here I'd like to take a closer look into the theory, algorithm, and experimental results of PageRank.
 
