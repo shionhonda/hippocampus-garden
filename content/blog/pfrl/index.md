@@ -8,9 +8,9 @@ tags: ["en", "reinforcement-learning", "python"]
 
 Last month, Preferred Networks, Inc. (PFN) released a new PyTorch-based library for **deep reinforcement learning (DRL)**, which is called [**PFRL**](https://github.com/pfnet/pfrl). PFRL, which inherits [ChainerRL](https://github.com/chainer/chainerrl), implements a comprehensive set of DRL algorithms from DQN to Soft Actor-Critic. [Here](https://github.com/pfnet/pfrl/blob/master/examples/quickstart/quickstart.ipynb) is an official quickstart guide.
 
-In this post, I apply one of the PFRL's algorithms to the Slime Volleyball game with the GPU instance of Colaboratory. My agent (the yellow slime) worked hard to play at first and finally learned to play volleyball. It's so adorable!
+In this post, I apply one of the PFRL's algorithms to the Slime Volleyball game with the GPU instance of Colaboratory. My agent (the yellow slime) worked hard to play at first and kind of learned to play volleyball. It's so adorable!
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/bjIGZNSKZrY" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/GAcC5ni6zQw" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 <br/>
 
 ## Slime Volleyball
@@ -185,8 +185,14 @@ main()
 <br/>
 
 ## Result
+I trained my PPO agent for 2.75M steps and obtained the following learning curve.
 
-It is worth noting that the random seed for initializing the network does matter. The author of the Slime Volleyball environment trained the PPO agent 17 times with different random seeds and got significantly different learning curves! The best agent reached the average score of 0 at around 1.2M timesteps, and the worst one took more than 12M timesteps to reach the same level.
+![](2020-08-09-08-13-22.png)
+
+
+My agent seems to have learned a good policy, but the average reward converged between -2 and -1. A careful look at the video above shows that after the 1.5M step, the agent repeatedly tries to lift the ball just to spend time. I think this happened because the agent didn't receive enough positive rewards. It couldn't even know that there was a positive reward, so it tried its best not to receive a negative reward. How to get out of this locally optimum policy? I leave it to a future post😉
+
+Also, it is worth noting that the random seed for initializing the network does matter. The author of the Slime Volleyball environment trained the PPO agent 17 times with different random seeds and got significantly different learning curves! The best agent reached the average score of 0 at around 1.2M timesteps, and the worst one took more than 12M timesteps to reach the same level.
 
 ![](2020-08-08-18-32-34.png)
 
