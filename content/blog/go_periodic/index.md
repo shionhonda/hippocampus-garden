@@ -6,7 +6,7 @@ featuredImage: go_periodic/ogp.jpg
 tags: ["en", "golang"]
 ---
 
-In this post, I introduce an example code that calls some function periodically for a specified amount of time. It was a good exercise for a golang beginner like me to use goroutines.
+In this post, I introduce a golang example code that calls some function periodically for a specified amount of time. It was a good exercise for a beginner like me to use goroutines.
 
 The sample code consists of the 3 elements.
 
