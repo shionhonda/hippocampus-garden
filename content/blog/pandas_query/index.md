@@ -1,7 +1,7 @@
 ---
 title: "Meet Pandas: Query Dataframe"
 date: "2020-08-25T22:10:03.284Z"
-description: "This post summarizes how to group data by some variable and draw boxplots on it using Pandas and Seaborn."
+description: "This post introduces the query method of pandas, which allows us to query dataframes in a SQL-like manner."
 featuredImage: pandas_query/ogp.jpg
 tags: ["en", "pandas", "data-analysis", "python"]
 ---
