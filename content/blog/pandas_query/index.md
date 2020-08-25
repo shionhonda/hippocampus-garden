@@ -1,7 +1,7 @@
 ---
 title: "Meet Pandas: Query Dataframe"
 date: "2020-08-25T22:10:03.284Z"
-description: "This post introduces the query method of pandas, which allows us to query dataframes in a SQL-like manner."
+description: "This post introduces the query method of pandas, which allows us to query dataframes in an SQL-like manner."
 featuredImage: pandas_query/ogp.jpg
 tags: ["en", "pandas", "data-analysis", "python"]
 ---
@@ -51,7 +51,7 @@ df[ (df['tip']>2) & (df['tip']<3)  & (df['day'] in ['Sat', 'Sun']) ]
 <br/>
 
 ## query Method
-Pandas has `query` method, which is easier to read and write than Boolean indexing. This method allows you to specify querying conditions in a SQL-like manner.
+Pandas has `query` method, which is easier to read and write than Boolean indexing. This method allows you to specify querying conditions in an SQL-like manner.
 
 ```python
 df.query('2 < tip < 3 and day in ["Sat", "Sun"]')
