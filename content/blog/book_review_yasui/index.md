@@ -7,7 +7,7 @@ tags: ["ja", "book", "causal-inference"]
 ---
 ## はじめに
 
-『効果検証入門 正しい比較のための因果推論／計量経済学の基礎』（安井翔太 著 株式会社ホクソエム 監修 技術評論社）を読んだので，まとめと感想を書きます．
+『効果検証入門 正しい比較のための因果推論／計量経済学の基礎』（安井翔太 著 株式会社ホクソエム 監修， 技術評論社，2020年）を読んだので，まとめと感想を書きます．
 
 <iframe style="width:120px;height:240px;" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="//rcm-fe.amazon-adsystem.com/e/cm?lt1=_blank&bc1=000000&IS2=1&bg1=FFFFFF&fc1=000000&lc1=0000FF&t=hippocampus09-22&language=ja_JP&o=9&p=8&l=as4&m=amazon&f=ifr&ref=as_ss_li_til&asins=B0834JN23Y&linkId=35022c21b344c6be11cad5d4c6a15cc4"></iframe>
 
@@ -47,7 +47,7 @@ tags: ["ja", "book", "causal-inference"]
 本書はここまでで因果推論の様々な分析手法やその実装例を紹介してきましたが，本書が目的とする「ビジネスにおける正しい意思決定」を実現するのにはそれだけでは足りません．最終章では，分析手法としての因果推論とビジネスにおける意思決定のギャップを埋めるために，「施策の目的の明確化」と「手法を使えるようにするための環境整備」が重要であるとしています．前者は，手当たり次第に測定を行って都合の良い結果のみを取り上げるのではなく，経営において重要かつ測定可能な指標（KPI）を絞って，そこに焦点を当てた議論をするということです．後者は，施策を考案するときに分析者としての意見を反映させるということで，必要な情報をデータとして収集することや，施策を確率的に行うなどの制約条件を満たすことが含まれます．
 
 ## 関連書籍
-最後に，少し趣向は変わるのですが「効果検証」に関しておもしろかった他書を紹介します．Jerry Z. Muller 著，松本裕 訳の『測りすぎ――なぜパフォーマンス評価は失敗するのか？』（みすず書房）です．
+最後に，少し趣向は変わるのですが「効果検証」に関しておもしろかった他書を紹介します．Jerry Z. Muller 著，松本裕 訳の『測りすぎ――なぜパフォーマンス評価は失敗するのか？』（みすず書房，2019年）です．
 
 <iframe style="width:120px;height:240px;" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="//rcm-fe.amazon-adsystem.com/e/cm?lt1=_blank&bc1=000000&IS2=1&bg1=FFFFFF&fc1=000000&lc1=0000FF&t=hippocampus09-22&language=ja_JP&o=9&p=8&l=as4&m=amazon&f=ifr&ref=as_ss_li_til&asins=4622087936&linkId=bf0bd2b99ec95dd1235912a91d294eaa"></iframe>
 
