@@ -1,11 +1,11 @@
 ---
 title: "Different Measures of Feature Importance Behave Differently"
 date: "2020-09-05T22:10:03.284Z"
-description: "This post compares the behaviors of different feature importance measures in the tricky situations."
+description: "This post compares the behaviors of different feature importance measures in tricky situations."
 featuredImage: feature_importance/ogp.jpg
 tags: ["en", "machine-learning", "python"]
 ---
-Feature importance is a useful measure when deciding which feature is necessary and which is not. But it can be misleading in tricky situations, for example, when features are strongly correlated with each other. In this post, I inspect the behaviors of different importance measures in the tricky situations and compare.
+Feature importance is a helpful indicator when deciding which feature is necessary and which is not. But it can be misleading in tricky situations, such as when features are strongly correlated with each other. In this post, I inspect the behaviors of various importance measures in tricky situations and compare them.
 
 ## Popular Measures of Feature Importance
 First of all, I summarize the popular measures of feature importance that I compare in this post: **Gini importance**, **split importance**, **drop-column importance**, and **permutation importance**.
