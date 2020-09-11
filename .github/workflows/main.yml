@@ -1,0 +1,12 @@
+name: Daily Build
+on:
+  schedule:
+    # Run at 0800 daily
+    - cron: '00 8 * * *'
+jobs:
+  build:
+    name: Request Netlify Webhook
+    runs-on: ubuntu-latest
+    steps:
+      - name: Curl request
+        run: curl -X POST -d {} https://api.netlify.com/build_hooks/5f5ac1722fe12140629ac7fd
