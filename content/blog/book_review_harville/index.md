@@ -6,7 +6,7 @@ featuredImage: book_review_harville/ogp.jpg
 tags: ["ja", "book", "math"]
 ---
 ## はじめに
-『統計のための行列代数』（D. A. Harville 著 伊理正夫 監訳 丸善出版）を読んだので，まとめと感想を書きます．
+『統計のための行列代数』（D. A. Harville 著，伊理正夫 監訳，丸善出版，2012年）を読んだので，まとめと感想を書きます．
 
 <iframe style="width:120px;height:240px;" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="//rcm-fe.amazon-adsystem.com/e/cm?lt1=_blank&bc1=000000&IS2=1&bg1=FFFFFF&fc1=000000&lc1=0000FF&t=hippocampus09-22&language=ja_JP&o=9&p=8&l=as4&m=amazon&f=ifr&ref=as_ss_li_til&asins=4621061453&linkId=0b657b7c2b505f31c46440ab682ea53f"></iframe>
 
