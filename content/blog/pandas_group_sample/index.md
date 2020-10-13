@@ -77,7 +77,7 @@ df_sampled["user_id"].nunique()
 # >> 100
 ```
 
-This solution always return a sampled dataset of 100 users!
+This solution always returns a sampled dataset of 100 users!
 
 ## References
 [1] [Group by: split-apply-combine — pandas 1.1.3 documentation](https://pandas.pydata.org/pandas-docs/stable/user_guide/groupby.html#filtration)  
