@@ -7,7 +7,7 @@ tags: ["en", "pandas", "data-analysis", "python"]
 ---
 🐼Welcome to the "Meet Pandas" series (a.k.a. my memorandum of understanding Pandas)!🐼
 
-[Last time](https://hippocampus-garden.com/pandas_loc/), I discussed differences between Pandas `loc`, `iloc`, `at`, and `iat` methods. 
+[Last time](https://hippocampus-garden.com/pandas_loc/), I discussed differences between Pandas methods `loc`, `iloc`, `at`, and `iat`. 
 
 Today, I summarize how to group data by some variable and draw boxplots on it using Pandas and Seaborn. Let's begin!
 
@@ -30,7 +30,7 @@ The dataframe should look something like this:
 ![](2020-06-15-14-21-03.png)
 
 ## Group by Categorical or Discrete Variable
-First, let's group by the categorical variable `time` and create a boxplot for `tip`. This is done just by two pandas methods: `groupby` and `boxplot`.
+First, let's group by the categorical variable `time` and create a boxplot for `tip`. This is done just by two pandas methods `groupby` and `boxplot`.
 
 ```python
 df.groupby("time").boxplot(column="tip");

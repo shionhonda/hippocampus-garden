@@ -1,7 +1,7 @@
 ---
 title: "Meet Pandas: Query Dataframe"
 date: "2020-08-25T22:10:03.284Z"
-description: "This post introduces the query method of pandas, which allows us to query dataframes in an SQL-like manner."
+description: "This post introduces the Pandas method of `query`, which allows us to query dataframes in an SQL-like manner."
 featuredImage: pandas_query/ogp.jpg
 tags: ["en", "pandas", "data-analysis", "python"]
 ---
@@ -50,8 +50,8 @@ df[ (df['tip']>2) & (df['tip']<3)  & (df['day'] in ['Sat', 'Sun']) ]
 ```
 <br/>
 
-## query Method
-Pandas has `query` method, which is easier to read and write than Boolean indexing. This method allows you to specify querying conditions in an SQL-like manner.
+## Method `query`
+Pandas has a method `query`, which is easier to read and write than Boolean indexing. This method allows you to specify querying conditions in an SQL-like manner.
 
 ```python
 df.query('2 < tip < 3 and day in ["Sat", "Sun"]')
@@ -60,7 +60,7 @@ df.query('2 < tip < 3 and day in ["Sat", "Sun"]')
 I usually prefer `query` to Boolean indexing because its SQL-like syntax enhances readability and reduces potential errors. But `query` is not always the better choice. Please note the following:
 
 - If the column name includes spaces or periods, you can't use `query`
-- `pandas.Series` objects do not have `query` method
+- `pandas.Series` objects do not have a method `query`
 - Boolean indexing is a bit faster than `query`
 
 ## References
