@@ -50,7 +50,7 @@ But, in this case, random split leads to data leakage because this dataset inclu
 
 ![](2020-10-13-09-48-03.png)
 
-## Group-wise Sampling with `groupby` and `filter`
+## Group-wise Sampling
 Again, this dataset contains 10,000 unique users.
 
 ```python
@@ -61,7 +61,7 @@ df["user_id"].nunique()
 Let's say we are sampling 100 users to obtain a set of approximately 10,000 records. This is achieved by chaining `groupby` and `filter`.
 
 ```python
-df_sampled = df.groupby('user_id').filter(lambda _: np.random.rand() < 0.01)
+df_sampled = df.query('user_id in @').filter(lambda _: np.random.rand() < 0.01)
 df_sampled["user_id"].nunique()
 # >> 107
 ```
@@ -75,9 +75,20 @@ sampled_users = np.random.choice(df["user_id"].unique(), 100)
 df_sampled = df.groupby('user_id').filter(lambda x: x["user_id"].values[0] in sampled_users)
 df_sampled["user_id"].nunique()
 # >> 100
+# Wall time: 1.8 s
 ```
 
-This solution always returns a sampled dataset of 100 users!
+This solution always returns a sampled dataset of 100 users! But, there is still room for improvement. The following code is 10 times faster and produces exactly the same result.
+
+```python
+sampled_users = np.random.choice(df["user_id"].unique(), 100)
+df_sampled = df.query('user_id in @sampled_users')
+df_sampled["user_id"].nunique()
+# >> 100
+# Wall time: 117 ms
+```
+
+If you are not familiar with the method `query`, take a look at [my last post on Pandas](https://hippocampus-garden.com/pandas_query/).
 
 ## References
 [1] [Group by: split-apply-combine — pandas 1.1.3 documentation](https://pandas.pydata.org/pandas-docs/stable/user_guide/groupby.html#filtration)  
