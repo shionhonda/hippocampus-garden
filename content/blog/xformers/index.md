@@ -2,8 +2,8 @@
 title: Recent Advances in Transformers
 date: "2020-10-25T22:01:03.284Z"
 description: 'WIP'
-featuredImage: transformers/ogp.jpg
-tags: ["en", "deep-learning", "nlp"]
+featuredImage: xformers/ogp.jpg
+tags: ["en", "deep-learning", "nlp", "transformer"]
 ---
 
 
@@ -15,7 +15,7 @@ There are plenty of efficient Transformers, often named in the form of X-former:
 
 ![](2020-10-24-11-25-16.png)
 
-<div style="text-align: center;"><small>Images from [1]. It is not clear from the paper whether the "Complexity" column of the table refers to computational or memory complexity.</small></div>
+<div style="text-align: center;"><small>Images taken from [1]. It is not clear from the paper whether the "Complexity" column of the table refers to computational or memory complexity.</small></div>
 
 They propose the following taxonomy for X-formers: 
 
@@ -29,12 +29,12 @@ They propose the following taxonomy for X-formers:
 
 Let's take a closer look at individual models.
 
-### Sparse Transformer [Child+, 2019]
+### Sparse Transformer \[Child+, 2019]
 [**Sparse Transformer** [Child+, 2019]](https://arxiv.org/abs/1904.10509) sparsifies the attention matrix by adopting local attention (lightblue) and strided attention (lightgreen), as described in the figure below.
 
 ![](2020-10-31-09-54-09.png)
 
-<div style="text-align: center;"><small>Images from [1].</small></div>
+<div style="text-align: center;"><small>Image taken from [1].</small></div>
 
 This modification reduces the memory complexity of the attention
 layer from $\mathcal{O}(n^2)$ to $\mathcal{O}(n\log{n})$. However, it requires a custom GPU kernels to implement a block-sparse *matmul* (i.e., matrix-matrix multiplication) operation.
@@ -43,16 +43,45 @@ The paper by a team from OpenAI presents impressive results. The autoregressive 
 
 Sparse Transformer is inherited to another research work called [Jukebox](https://arxiv.org/abs/2005.00341), which successfully generates music waveforms in a variety of genres. Jukebox can generate minutes-length music conditioned by genres, lyrics, and artists (from Ella Fitzgerald to Kanye West). All 7,131 generated samples are available [here](https://jukebox.openai.com/). They do make sense!
 
-### Routing Transformer [Roy+, 2020]
+### Routing Transformer \[Roy+, 2020]
 [**Routing Transformer** [Roy+, 2020]](https://arxiv.org/abs/2003.05997) uses learnable patterns to sparsify the attention matrix. It clusters the input tokens with **k-means** algorithm in an online fashion so that each token only attend to the tokens beloging to the same cluster.
 
-### Reformer [Kitaev+, 2020]
-[**Reformer** [Kitaev+, 2020]](https://arxiv.org/abs/2001.04451) uses **locality sensitive hashing (LSH)** to learn attention patterns.
+### Reformer \[Kitaev+, 2020]
+[**Reformer** [Kitaev+, 2020]](https://arxiv.org/abs/2001.04451) uses **locality sensitive hashing (LSH)** to learn attention patterns. LSH projects nearby vectors to similar hashes, which can be used to classify tokens into some buckets. 
 
+Reformer also introduces reversible layers, where activations of the $L$-th layer can be restored from those of the $(L+1)$-th layer. This mechanism allows the model to discard activations of all but one layer to enable further memory savings.
 
-### Linformer
-### Performer
-### Transformer-XL
+### Linformer \[Wang+, 2020]
+[**Linformer** [Wang+, 2020]](https://arxiv.org/abs/2006.04768) dares to reduce length dimension of key and value matrices with additional projection layers. As a result,  $N\times d$ dimensional matrices are projected to $k\times d$ dimensional matrices, where $k<<N$. The size of the attention matrix $\mathrm{softmax}(Q'K')$ is now $N \times k$ instead of $N \times N$. This low-rank approximation reduces computational and memory complexity to $\mathcal{O}(n)$, but Linformer cannot decode tokens as causal masking is broken.
+
+![](2020-10-31-14-56-50.png)
+
+<div style="text-align: center;"><small>Image taken from <a href="https://arxiv.org/abs/2006.04768">Linformer: Self-Attention with Linear Complexity</a>. The projection matrix (lightblue) is multiplied from the left.</small></div>
+<br/>
+
+### Performer \[Choromanski+, 2020]
+[**Performer** [Choromanski+, 2020]](https://arxiv.org/abs/2009.14794) leverages orthogonal random features to approximate the attention matrix with provable accuracy. The proposed **FAVOR+** algorithm allows Performer to scale linearly with the number of tokens. I refer interested readers to [the original paper](https://arxiv.org/abs/2009.14794).
+
+### Synthesizer \[Tay+, 2020]
+Unlike other X-formers, [**Synthesizer** [Tay+, 2020]](https://arxiv.org/abs/2005.00743) doesn't aim at creating more efficient Transformers. The main argument of the paper is that the self-attention is, surprisingly, not so important because replacing the attention maps with randomly-initialized (trainable) matrices does not really hurt the model performance. This result itself is very intriguing, but there is an additional benefit of saving memory. 
+
+One version of Synthesizers called Random Synthesizer uses a randomly-initialized trainable matrix $R$ to compute an attention map by $\mathrm{softmax}(R)$. This eliminates the need of computing the attention matrix by $\mathrm{softmax}(QK)$. Factorized Random Synthesizer reduces the number of parameters as well by factorizing the attention matrix as $\mathrm{softmax}(R_1R_2^{\mathrm{T}})$.
+
+![](2020-10-31-18-32-31.png)
+
+<div style="text-align: center;"><small>Image taken from <a href="https://arxiv.org/abs/2005.00743">Synthesizer: Rethinking Self-Attention in Transformer Models</a>.</small></div>
+<br/>
+
+### Transformer-XL \[Dai+, 2019]
+[**Transformer-XL** [Dai+, 2019]](https://arxiv.org/abs/1901.02860) takes a unique approach to the long-term context problem. It processes a long text in a segment-by-segment fashion, but the representations of the previous segment are reused when processing the next segment as an external context. It is worth mentioning that this recurrence mechanism also resolves the context fragmentation issue.
+
+![](transformer-xl.gif)
+
+<div style="text-align: center;"><small>Image taken from <a href="https://ai.googleblog.com/2019/01/transformer-xl-unleashing-potential-of.html">Google AI Blog: Transformer-XL: Unleashing the Potential of Attention Models</a>.</small></div>
+<br/>
+
+There are some applications of Transformer-XL (e.g., [language model pre-training](https://arxiv.org/abs/1906.08237) and [reinforcement learning](https://arxiv.org/abs/1910.06764)).
+
 ### Long Range Arena: Benchmarking X-formers
 
 ![](2020-10-24-11-20-59.png)
