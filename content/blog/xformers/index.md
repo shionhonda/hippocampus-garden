@@ -83,13 +83,26 @@ One version of Synthesizers called Random Synthesizer uses a randomly-initialize
 There are some applications of Transformer-XL (e.g., [language model pre-training](https://arxiv.org/abs/1906.08237) and [reinforcement learning](https://arxiv.org/abs/1910.06764)).
 
 ### Long Range Arena: Benchmarking X-formers
+There are many X-formers claiming their superiority over the vanilla Transformer, but unfortunately, the evaluation protocols differ from paper to paper. Long Range Arena (LRA) [3] tackles this problem by proposing a unified benchmark that focuses on evaluating model quality under long-context scenarios. LRA score is defined as the average score of the following six tasks:
+
+- Long ListOps: Calculating nested set functions (e.g., MEAN(2, 3, MAX(2, 7)) = 4)
+- Byte-level Text Classification
+- Byte-level Document Retrieval
+- Image Classification on Sequence of Pixels
+- Pathfinder: Determining whether the two white circles in a 32x32-sized image are connected or not (c.f. the image below)
+- Pathfinder-X: More difficult version of Pathfinder with 128x128-sized images.
+
+![](2020-10-31-23-30-35.png)
+
+<div style="text-align: center;"><small>Image taken from [3]. The answer of this Pathfinder sample is "connected".</small></div>
+</br>
+
+The authors locates X-formers in the following plot. The area of the circles represents the memory complexity. It tells us that Big Bird achieves the highest score, while Performer Linformer, and Linear Transformer are making a good trade-off in terms of performance, speed, and memory consumption.
 
 ![](2020-10-24-11-20-59.png)
 
-Performance (y axis), speed (x axis),
-and memory footprint (size of the circles) of different models.
-
-
+<div style="text-align: center;"><small>Image taken from [3].</small></div>
+</br>
 
 ## Image
 ### Image Transformer
@@ -112,14 +125,11 @@ Out of scope, but uses transformer or similar attention-based architecture.
 <div style="text-align: center;"><small>Image from [How Language-Neutral is Multilingual BERT?](https://arxiv.org/abs/1911.03310).</small></div>
 
 ## References
-[1] Yi Tay, Mostafa Dehghani, Dara Bahri, Donald Metzler. "[Efficient Transformers: A Survey](https://arxiv.org/abs/2009.06732)". 2020.
-
-[A Survey of Long-Term Context in Transformers](https://www.pragmatic.ml/a-survey-of-methods-for-incorporating-long-term-context/) Another (older) survey of Efficient Transformers
-
-[Long range arena](https://openreview.net/forum?id=qVyeW-grC2k) Nice figure
-
-
-[The Transformer Family](https://lilianweng.github.io/lil-log/2020/04/07/the-transformer-family.html) Lil'log
+[1] Yi Tay, Mostafa Dehghani, Dara Bahri, Donald Metzler. "[Efficient Transformers: A Survey](https://arxiv.org/abs/2009.06732)". 2020.  
+[2] Madison May. "[A Survey of Long-Term Context in Transformers](https://www.pragmatic.ml/a-survey-of-methods-for-incorporating-long-term-context/)
+". 2020.   
+[3] Anonymous Authors. "[Long Range Arena : A Benchmark for Efficient Transformers](https://openreview.net/forum?id=qVyeW-grC2k)". 2020.  
+[4] Lilian Weng. "[The Transformer Family](https://lilianweng.github.io/lil-log/2020/04/07/the-transformer-family.html)". Lil'Log. 2020.
 
 [A Primer in BERTology: What we know about how BERT works](https://arxiv.org/abs/2002.12327)
 
