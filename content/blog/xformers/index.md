@@ -113,7 +113,7 @@ So far, I've presented the recent advances of X-formers in terms of their effici
 Sparse Transformer came after this and succeeded in generating more high-quality images.
 
 ### Image GPT \[Chen+, 2020]
-[**Image GPT** [Chen+, 2020]](https://openai.com/blog/image-gpt/) is also based on the same idea. It empirically proves that OpenAI's [GPT-2](https://d4mucfpksywv.cloudfront.net/better-language-models/language-models.pdf) is so generalizable that it can be trained on image pixels and generate visually impressive images. The image completion experiment is fun!
+[**Image GPT** [Chen+, 2020]](https://openai.com/blog/image-gpt/) is also based on the same idea. It empirically proves that OpenAI's [**GPT-2**](https://d4mucfpksywv.cloudfront.net/better-language-models/language-models.pdf) is so generalizable that it can be trained on image pixels and generate visually impressive images. The image completion experiment is fun!
 
 ![](2020-11-01-10-10-41.png)
 
@@ -136,7 +136,7 @@ There is [a concurrent work](https://arxiv.org/abs/2004.13621) that explores sel
 While the computational power of RNNs have been investigated since 1990s, that of Transformers is limited. Is the computational power of Transformers/self-attention theoretically guranteed? If so, what about X-formers? To answer these questions, I conducted a quick survey though I'm pretty new to this area. Note that this section is far from thorough because I didn't find a good preciding suvey. I list some works that are interesting to me.
 
 ### Universal Transformer \[Dehghani+, 2018]
-[**Universal Transformer** [Dehghani+, 2018]](https://arxiv.org/abs/1807.03819) proposes to combines the benefit of Transformers and RNNs. It shares parameters among layers and dynamically changes the number of layers (so it's a recurrent function). The authors assume that given sufficient memory, this recurrent mechanism makes Transformers computationally universal (Turing-complete; it can simulate any Turing machine.)
+[**Universal Transformer** [Dehghani+, 2018]](https://arxiv.org/abs/1807.03819) proposes to combines the benefit of Transformers and RNNs. It shares parameters among layers and dynamically changes the number of layers (so it's a recurrent function). The authors assume that given sufficient memory, *this recurrent mechanism makes Transformers computationally universal* (Turing-complete; it can simulate any Turing machine.)
 
 ![](2020-11-01-11-40-34.png)
 
@@ -150,35 +150,41 @@ The authors empirically validate the superiority of Universal Transformer over v
 On the other hand, [Pérez et al. (2019)](https://arxiv.org/abs/1901.03429) showed that *Transformers with hard attention (and Neural GPUs) are Turing complete*. It is noted that, however, there are some differences between the two works. For example, [Dehghani et al. (2018)](https://arxiv.org/abs/1901.03429) assumed fixed precision, while [Pérez et al. (2019)](https://arxiv.org/abs/1901.03429) allowed arbitrary precision during computation.
 
 ### Transformers are Turing Complete even without Positional Encoding \[Bhattamishra+, 2020]
-https://arxiv.org/abs/2006.09286
+[Bhattamishra et al. (2020)](https://arxiv.org/abs/2006.09286) took a further step on Transformer's Turing completeness, stating that *Transformers without positional encoding are also Turing complete* and *decoder-encoder attentions and its residual connections together play a critical role*. They also provide some experimental results to support their theoretical analysis. 
+
+![](2020-11-01-16-14-04.png)
+
+<div style="text-align: center;"><small>Image taken from <a href="https://arxiv.org/abs/2006.09286">On the Computational Power of Transformers and its Implications in Sequence Modelings</a>. "The components marked red are essential for the Turing-completeness whereas for the pairs of blocks and residual connections marked green, either one of the component is enough. The dashed residual connection is not necessary for Turing completeness of the network". </small></div>
+</br>
 
 ### Limitations of Self-attention \[Hahn, 2019]
-https://arxiv.org/abs/1906.06755
-
-Self-attention cannot Model Periodic Finite-state Languages nor Hierarchical Structure
+[Hahn (2019)](https://arxiv.org/abs/1906.06755) focused on self-attention rather than Transformer, showing the theoretical limitations of the computational abilities of hard and soft self-attention. It is stated that *self-attention cannot model periodic finite-state languages nor hierarchical structure*. Empirical results using synthetic datasets are provided.
 
 ## Pre-trained Language Models & BERTology
-Out of scope, but uses transformer or similar attention-based architecture.
-### BERT
-BERTology
+Pre-trained language models and "BERTology" account for a large portion of the Transformer applications, but this is too large to include in this post so I'd like to make it brief.
 
+### BERT \[Devlin+, 2018]
+[**BERT** [Devlin+, 2018]](https://arxiv.org/abs/1810.04805) sparked a boom of language model pre-training using Transformer or similar architecture. There are even research works on BERT itself, whici is called **BERTology**. For instance, it includes analises on the learned weights, attempts to reduce parameters, memory consumption, and the amount of data required for fine-tuning, distillation, and so on. I refer interested readers to [an excellent survey paper](https://arxiv.org/abs/2002.12327) [5].
+
+My favorite work from BERTology is [the one by Libovický et al.](https://arxiv.org/abs/1911.03310) They created the impressive figure below to probe language neutrality of Multilingual BERT.
 
 ![](2020-10-24-10-47-15.png)
 
-<div style="text-align: center;"><small>Image from [How Language-Neutral is Multilingual BERT?](https://arxiv.org/abs/1911.03310).</small></div>
+<div style="text-align: center;"><small>Image taken from <a href="https://arxiv.org/abs/1911.03310">How Language-Neutral is Multilingual BERT?</a></small></div>
+</br>
 
-### GPT-3
+
+### GPT-3 \[Brown+, 2020]
+[**GPT-3** [Brown+, 2020]](https://arxiv.org/abs/2005.14165) is basically a natural extention of [GPT-2](https://d4mucfpksywv.cloudfront.net/better-language-models/language-models.pdf), with 175B parameters and 300B tokens for training. But it's not just saying that larger model, larger dataset, and longer training lead to better accuracy and generalizability. GPT-3 acquires, surprisingly, the ability of few-shot (in-context) learning,
 ### mT5
-### SOTA
 
 ## References
 [1] Yi Tay, Mostafa Dehghani, Dara Bahri, Donald Metzler. "[Efficient Transformers: A Survey](https://arxiv.org/abs/2009.06732)". 2020.  
 [2] Madison May. "[A Survey of Long-Term Context in Transformers](https://www.pragmatic.ml/a-survey-of-methods-for-incorporating-long-term-context/)
 ". 2020.   
 [3] Anonymous Authors. "[Long Range Arena : A Benchmark for Efficient Transformers](https://openreview.net/forum?id=qVyeW-grC2k)". 2020.  
-[4] Lilian Weng. "[The Transformer Family](https://lilianweng.github.io/lil-log/2020/04/07/the-transformer-family.html)". Lil'Log. 2020.
-
-[A Primer in BERTology: What we know about how BERT works](https://arxiv.org/abs/2002.12327)
+[4] Lilian Weng. "[The Transformer Family](https://lilianweng.github.io/lil-log/2020/04/07/the-transformer-family.html)". Lil'Log. 2020.  
+[5] Anna Rogers, Olga Kovaleva, Anna Rumshisky. "[A Primer in BERTology: What we know about how BERT works](https://arxiv.org/abs/2002.12327)". 2020.
 
 ## Appendix
 Layer normalization
