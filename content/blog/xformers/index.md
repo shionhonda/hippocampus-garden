@@ -1,5 +1,5 @@
 ---
-title: Recent Advances in Transformers
+title: "Transformers Now: A Survey"
 date: "2020-10-25T22:01:03.284Z"
 description: 'WIP'
 featuredImage: xformers/ogp.jpg
@@ -97,32 +97,79 @@ There are many X-formers claiming their superiority over the vanilla Transformer
 <div style="text-align: center;"><small>Image taken from [3]. The answer of this Pathfinder sample is "connected".</small></div>
 </br>
 
-The authors locates X-formers in the following plot. The area of the circles represents the memory complexity. It tells us that Big Bird achieves the highest score, while Performer Linformer, and Linear Transformer are making a good trade-off in terms of performance, speed, and memory consumption.
+The authors locate X-formers in the following plot. The area of the circles represents the memory complexity. It tells us that Big Bird achieves the highest score, while Performer and Linformer are making a good trade-off in terms of performance, speed, and memory consumption.
 
 ![](2020-10-24-11-20-59.png)
 
 <div style="text-align: center;"><small>Image taken from [3].</small></div>
 </br>
 
-## Image
-### Image Transformer
-### Training on Pixels
-### ViT
-### Video
+## Modeling Images
+So far, I've presented the recent advances of X-formers in terms of their efficiency and modeling long-term context. This enabled X-formers to model data from other modals such as image. In fact, Vision Transformer achieved state-of-the-art performance on many benchmarks such as ImageNet with higher scores compared to CNN-based models like Big Transfer (ResNet152x4).
 
-[(Self-attention Network)](https://arxiv.org/abs/2004.13621)
+### Image Transformer \[Parmar+, 2018]
+[**Image Transformer** [Parmar+, 2018]](https://arxiv.org/abs/1802.05751) is probably the first successful attempt to generating images with Transformer. With localized 1D and 2D attention (i.e., a combination of fixed patterns), Image Transformer is trained on pixel sequences of images autoregressively just like language modeling.
 
-## Theory of Computation
+Sparse Transformer came after this and succeeded in generating more high-quality images.
+
+### Image GPT \[Chen+, 2020]
+[**Image GPT** [Chen+, 2020]](https://openai.com/blog/image-gpt/) is also based on the same idea. It empirically proves that OpenAI's [GPT-2](https://d4mucfpksywv.cloudfront.net/better-language-models/language-models.pdf) is so generalizable that it can be trained on image pixels and generate visually impressive images. The image completion experiment is fun!
+
+![](2020-11-01-10-10-41.png)
+
+<div style="text-align: center;"><small>Image taken from <a href="https://openai.com/blog/image-gpt/">OpenAI Blog: Image GPT</a>.</small></div>
+</br>
+
+### Vision Transformer \[Anonymous, 2020]
+[**Vision Transformer (ViT)** [Anonymous, 2020]](https://openreview.net/forum?id=YicbFdNTTy) shows that, with the large JFT-300M dataset, Transformer encoder model achieves state-of-the-art accuracy on image classification, where it has long been believed that CNN is the optimal architecture. Importantly, the largest model (ViT-Huge) has only 632M parameters (30% smaller than BiT-L) and the training process is fast in terms of TPU-days.
+
+![](2020-11-01-10-36-11.png)
+
+![](2020-11-01-10-39-19.png)
+
+<div style="text-align: center;"><small>Images taken from <a href="https://openreview.net/forum?id=YicbFdNTTy">An Image is Worth 16x16 Words: Transformers for Image Recognition at Scale | OpenReview</a>.</small></div>
+</br>
+
+There is [a concurrent work](https://arxiv.org/abs/2004.13621) that explores self-attention-based architecture for image recognition and outperforms CNN baselines on ImageNet.
+
+## From a Perspective of Theory of Computation
+While the computational power of RNNs have been investigated since 1990s, that of Transformers is limited. Is the computational power of Transformers/self-attention theoretically guranteed? If so, what about X-formers? To answer these questions, I conducted a quick survey though I'm pretty new to this area. Note that this section is far from thorough because I didn't find a good preciding suvey. I list some works that are interesting to me.
+
+### Universal Transformer \[Dehghani+, 2018]
+[**Universal Transformer** [Dehghani+, 2018]](https://arxiv.org/abs/1807.03819) proposes to combines the benefit of Transformers and RNNs. It shares parameters among layers and dynamically changes the number of layers (so it's a recurrent function). The authors assume that given sufficient memory, this recurrent mechanism makes Transformers computationally universal (Turing-complete; it can simulate any Turing machine.)
+
+![](2020-11-01-11-40-34.png)
+
+![](2020-11-01-11-41-21.png)
+
+<div style="text-align: center;"><small>Images taken from <a href="https://arxiv.org/abs/1807.03819">Universal Transformers</a>.</small></div>
+
+The authors empirically validate the superiority of Universal Transformer over vanilla Transformer and LSTM by a variety of tasks including simple algorithmic operations and LAMBADA.
+
+### Transformers are Turing Complete \[Pérez+, 2019]
+On the other hand, [Pérez et al. (2019)](https://arxiv.org/abs/1901.03429) showed that *Transformers with hard attention (and Neural GPUs) are Turing complete*. It is noted that, however, there are some differences between the two works. For example, [Dehghani et al. (2018)](https://arxiv.org/abs/1901.03429) assumed fixed precision, while [Pérez et al. (2019)](https://arxiv.org/abs/1901.03429) allowed arbitrary precision during computation.
+
+### Transformers are Turing Complete even without Positional Encoding \[Bhattamishra+, 2020]
+https://arxiv.org/abs/2006.09286
+
+### Limitations of Self-attention \[Hahn, 2019]
+https://arxiv.org/abs/1906.06755
+
+Self-attention cannot Model Periodic Finite-state Languages nor Hierarchical Structure
 
 ## Pre-trained Language Models & BERTology
 Out of scope, but uses transformer or similar attention-based architecture.
-### XLNet
-### mT5
-### SOTA
+### BERT
+BERTology
+
 
 ![](2020-10-24-10-47-15.png)
 
 <div style="text-align: center;"><small>Image from [How Language-Neutral is Multilingual BERT?](https://arxiv.org/abs/1911.03310).</small></div>
+
+### GPT-3
+### mT5
+### SOTA
 
 ## References
 [1] Yi Tay, Mostafa Dehghani, Dara Bahri, Donald Metzler. "[Efficient Transformers: A Survey](https://arxiv.org/abs/2009.06732)". 2020.  
