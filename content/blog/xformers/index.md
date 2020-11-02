@@ -1,7 +1,7 @@
 ---
 title: "Transformers Now: A Survey of Recent Advances"
-date: "2020-10-25T22:01:03.284Z"
-description: 'WIP'
+date: "2020-11-02T22:01:03.284Z"
+description: 'Transformer has undergone various application studies, model enhancements etc. This post aims to provide an overview of these studies.'
 featuredImage: xformers/ogp.jpg
 tags: ["en", "deep-learning", "nlp", "transformer"]
 ---
