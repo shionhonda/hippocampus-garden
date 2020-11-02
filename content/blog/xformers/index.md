@@ -1,15 +1,31 @@
 ---
-title: "Transformers Now: A Survey"
+title: "Transformers Now: A Survey of Recent Advances"
 date: "2020-10-25T22:01:03.284Z"
 description: 'WIP'
 featuredImage: xformers/ogp.jpg
 tags: ["en", "deep-learning", "nlp", "transformer"]
 ---
 
+Transformer has become a de-facto standard choice when modeling texts and sequence-like data. It is also one of the hottest research topic. Since [its publication in 2017 by Vaswani et al.](https://arxiv.org/abs/1706.03762), Transformer has undergone various application studies, model enhancements, and attempts to uncover the principles of its ability. This post aims to provide an overview of those studies in terms of computational efficiency, applications to images, computational theory and language models. 
 
+I omit for brevity the introduction to Transformer itself. If you are not familiar with it, [a latest survey by Tay et al.](https://arxiv.org/abs/2009.06732) [1] and [a blog post by Lilian Weng](https://lilianweng.github.io/lil-log/2020/04/07/the-transformer-family.html) [4] include a clear and concise introduction section.
+
+Please be reminded that "Transformers" can be used in three ways:
+- encoder-only (e.g., BERT)
+- decoder-only (e.g., for language modeling)
+- encoder-decoder (e.g.,
+for machine translation).
+
+The key difference is their causality. The encoder does not have to be causal, while the decoder have to be.
 
 ## Efficiency & Long-term Context
-There are plenty of efficient Transformers, often named in the form of X-former: Reformer, Linformer, Performer, ... just to name a few. Recently, a team from Google published an excellent survey on this topic [1]. Here is the representative figure and table.
+The well-known problem of Transformer is that its computation has quadratic time and memory complexity in the input sequence length $n$, which comes from the matrix multiplication in the self-attention blocks. This prevents Transformers from being applied long sequences such as high-resoluted images, audio signals, and protein sequences.
+
+![](2020-11-02-09-45-33.png)
+
+<div style="text-align: center;"><small>Image taken from [1].</small></div>
+
+To tackle this problem, a plenty of efficient Transformers have been proposed, most of which are named in the form of X-former: Reformer, Linformer, Performer, ... just to name a few. Recently, a team from Google published an excellent survey on this topic [1]. Here is the representative figure and table to grasp X-formers.
 
 ![](2020-10-24-11-19-36.png)
 
@@ -23,7 +39,7 @@ They propose the following taxonomy for X-formers:
 - **Combination of Patterns**: This simply combines two or more of the fixed patterns to improve the coverage.
 - **Learnable Patterns**: The patterns are parametrized and learned through training just as other weights.
 - **Memory**: The core idea of this approach is to create some "global tokens" that can access multiple tokens at once. These tokens are supposed to serve as a memory module.
-- **Low Rank**: Low-rank methods reduce the length dimensions of keys and values to $k~(<n)$, which results in the complexity reduction from $\mathcal{O}(n^2d)$ to $\mathcal{O}(nkd)$.
+- **Low Rank**: Low-rank methods reduce the length dimensions of keys and values to $k~(<n)$, which results in the complexity reduction from $\mathcal{O}(n^2d)$ to $\mathcal{O}(nkd)$, where $d$ represents the model dimension (usually negligible).
 - **Kernel**: This utilizes kernelization to approximate the attention matrix with smaller complexity.
 - **Recurrence**: Blockwise attentions are connected with reccurent mechanism.
 
@@ -52,7 +68,7 @@ Sparse Transformer is inherited to another research work called [Jukebox](https:
 Reformer also introduces reversible layers, where activations of the $L$-th layer can be restored from those of the $(L+1)$-th layer. This mechanism allows the model to discard activations of all but one layer to enable further memory savings.
 
 ### Linformer \[Wang+, 2020]
-[**Linformer** [Wang+, 2020]](https://arxiv.org/abs/2006.04768) dares to reduce length dimension of key and value matrices with additional projection layers. As a result,  $N\times d$ dimensional matrices are projected to $k\times d$ dimensional matrices, where $k<<N$. The size of the attention matrix $\mathrm{softmax}(Q'K')$ is now $N \times k$ instead of $N \times N$. This low-rank approximation reduces computational and memory complexity to $\mathcal{O}(n)$, but Linformer cannot decode tokens as causal masking is broken.
+[**Linformer** [Wang+, 2020]](https://arxiv.org/abs/2006.04768) dares to reduce length dimension of key and value matrices with additional projection layers. As a result,  $n\times d$ dimensional matrices are projected to $k\times d$ dimensional matrices, where $k<<n$. The size of the attention matrix $\mathrm{softmax}(Q'K')$ is now $n \times k$ instead of $n \times n$. This low-rank approximation reduces computational and memory complexity to $\mathcal{O}(n)$, but Linformer cannot decode tokens as causal masking is broken.
 
 ![](2020-10-31-14-56-50.png)
 
@@ -160,11 +176,13 @@ On the other hand, [Pérez et al. (2019)](https://arxiv.org/abs/1901.03429) show
 ### Limitations of Self-attention \[Hahn, 2019]
 [Hahn (2019)](https://arxiv.org/abs/1906.06755) focused on self-attention rather than Transformer, showing the theoretical limitations of the computational abilities of hard and soft self-attention. It is stated that *self-attention cannot model periodic finite-state languages nor hierarchical structure*. Empirical results using synthetic datasets are provided.
 
+It is interesting that, from these results and the recent success of self-attention in natural language understanding, the authors suggest that the complexity of natural language is limited by human capacity.
+
 ## Pre-trained Language Models & BERTology
 Pre-trained language models and "BERTology" account for a large portion of the Transformer applications, but this is too large to include in this post so I'd like to make it brief.
 
 ### BERT \[Devlin+, 2018]
-[**BERT** [Devlin+, 2018]](https://arxiv.org/abs/1810.04805) sparked a boom of language model pre-training using Transformer or similar architecture. There are even research works on BERT itself, whici is called **BERTology**. For instance, it includes analises on the learned weights, attempts to reduce parameters, memory consumption, and the amount of data required for fine-tuning, distillation, and so on. I refer interested readers to [an excellent survey paper](https://arxiv.org/abs/2002.12327) [5].
+[**BERT** [Devlin+, 2018]](https://arxiv.org/abs/1810.04805) sparked a boom of language model pre-training using Transformer or similar architecture by outperforming previous SOTA model on many benchmarks. There are even research works on BERT itself, whici is called **BERTology**. For instance, it includes analises on the learned weights, attempts to reduce parameters, memory consumption, and the amount of data required for fine-tuning, distillation, and so on. I refer interested readers to [an excellent survey paper](https://arxiv.org/abs/2002.12327) [5].
 
 My favorite work from BERTology is [the one by Libovický et al.](https://arxiv.org/abs/1911.03310) They created the impressive figure below to probe language neutrality of Multilingual BERT.
 
@@ -175,8 +193,31 @@ My favorite work from BERTology is [the one by Libovický et al.](https://arxiv.
 
 
 ### GPT-3 \[Brown+, 2020]
-[**GPT-3** [Brown+, 2020]](https://arxiv.org/abs/2005.14165) is basically a natural extention of [GPT-2](https://d4mucfpksywv.cloudfront.net/better-language-models/language-models.pdf), with 175B parameters and 300B tokens for training. But it's not just saying that larger model, larger dataset, and longer training lead to better accuracy and generalizability. GPT-3 acquires, surprisingly, the ability of few-shot (in-context) learning,
-### mT5
+[**GPT-3** [Brown+, 2020]](https://arxiv.org/abs/2005.14165) is basically a natural extention of [GPT-2](https://d4mucfpksywv.cloudfront.net/better-language-models/language-models.pdf), with 175B parameters and 300B tokens for training. But it's not just saying that larger model, larger dataset, and longer training lead to better accuracy and generalizability. GPT-3 acquires, surprisingly, the ability of few-shot (in-context) learning. Each input for in-context learning typically consists of three parts: task description, examples, and prompt, and GPT-3 returns an appropriate answer without fine-tuning. For example, when the input is like:  
+"*Translate English to French.*  
+*sea otter => loutre de mer*  
+*peppermint => menthe poivrée*  
+*plush girafe => girafe peluche*  
+*cheese =>*"  
+the output should be "*fromage*".
+
+Soon after OpenAI released an API of this model, some people found that it can do more than translation and generating text. For example, it is reported that it can translate English to JSX code.
+
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">This is mind blowing.<br><br>With GPT-3, I built a layout generator where you just describe any layout you want, and it generates the JSX code for you.<br><br>W H A T <a href="https://t.co/w8JkrZO4lk">pic.twitter.com/w8JkrZO4lk</a></p>&mdash; Sharif Shameem (@sharifshameem) <a href="https://twitter.com/sharifshameem/status/1282676454690451457?ref_src=twsrc%5Etfw">July 13, 2020</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+</br>
+
+### mT5 \[Xue+, 2020]
+[**mT5** [Xue+, 2020]](https://arxiv.org/abs/2010.11934) is a multilingual version of [**Text-to-Text Transfer Transformer (T5)**](https://arxiv.org/abs/1910.10683), which frames any text-based task into a text-to-text format and solve it in a unified way. mT5 covers as many as 101 languages and its largest variant has 13B parameters. The authors released the xustom-made dataset [mC4](https://www.tensorflow.org/datasets/catalog/c4#c4multilingual_nights_stay) as well as [the model](https://github.com/google-research/multilingual-t5).
+
+![](2020-11-02-09-12-02.png)
+
+<div style="text-align: center;"><small>Image taken from <a href="https://arxiv.org/abs/1910.10683">Exploring the Limits of Transfer Learning with a Unified Text-to-Text Transformer</a>.</small></div>
+</br>
+
+## Concluding Remarks
+We've seen the recent advances of Transformers, namely in terms of computational efficiency, applications to images, computational theory and language models. Now it's safe to say Transformer is one of the most important breakthroughs in machine learning.
+
+This post has become the longest one written in English. Thanks for reading, and I appreciate your comments and feedbacks!
 
 ## References
 [1] Yi Tay, Mostafa Dehghani, Dara Bahri, Donald Metzler. "[Efficient Transformers: A Survey](https://arxiv.org/abs/2009.06732)". 2020.  
@@ -185,10 +226,3 @@ My favorite work from BERTology is [the one by Libovický et al.](https://arxiv.
 [3] Anonymous Authors. "[Long Range Arena : A Benchmark for Efficient Transformers](https://openreview.net/forum?id=qVyeW-grC2k)". 2020.  
 [4] Lilian Weng. "[The Transformer Family](https://lilianweng.github.io/lil-log/2020/04/07/the-transformer-family.html)". Lil'Log. 2020.  
 [5] Anna Rogers, Olga Kovaleva, Anna Rumshisky. "[A Primer in BERTology: What we know about how BERT works](https://arxiv.org/abs/2002.12327)". 2020.
-
-## Appendix
-Layer normalization
-
-![](2020-10-24-11-14-35.png)
-
-https://paperswithcode.com/method/layer-normalization
