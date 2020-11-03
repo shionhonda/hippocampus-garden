@@ -20,8 +20,8 @@ export default ({ filename }) => (
               relativePath
               name
               childImageSharp {
-                sizes(maxWidth: 800) {
-                  ...GatsbyImageSharpSizes
+                fluid(maxWidth: 800) {
+                  ...GatsbyImageSharpFluid
                 }
               }
             }
@@ -39,13 +39,13 @@ export default ({ filename }) => (
         return n.node.relativePath.includes(filename)
       })
       if (!image) {
-          console.log(filename + 'image not found')
-          return
+        console.log(filename + 'image not found')
+        return
       }
-      
+
       // Imgタグでgatsby-imageで最適化された画像を表示する
-      const imageSizes = image.node.childImageSharp.sizes
-      return <Img　sizes={imageSizes} />
+      const imageSizes = image.node.childImageSharp.fluid
+      return <Img fluid={imageSizes} />
     }}
   />
 )

@@ -31,8 +31,8 @@ const SEO = ({ title, desc, banner, pathname, article }) => (
               relativePath
               name
               childImageSharp {
-                sizes(maxWidth: 800) {
-                  ...GatsbyImageSharpSizes
+                fluid(maxWidth: 800) {
+                  ...GatsbyImageSharpFluid
                 }
               }
             }
@@ -47,7 +47,7 @@ const SEO = ({ title, desc, banner, pathname, article }) => (
       })
       const seo = {
         title: title + ` | ` + data.site.siteMetadata.defaultTitle || data.site.siteMetadata.defaultTitle,
-        image: `${data.site.siteMetadata.url}${imageNode.node.childImageSharp.sizes.src}`,
+        image: `${data.site.siteMetadata.url}${imageNode.node.childImageSharp.fluid.src}`,
         description: desc || data.site.siteMetadata.defaultDescription,
         url: `${data.site.siteMetadata.url}${pathname || '/'}`,
       };
