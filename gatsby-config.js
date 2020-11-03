@@ -49,7 +49,7 @@ module.exports = {
               wrapperStyle: `margin-bottom: 1.0725rem`,
             },
           },
-          `gatsby-remark-autolink-headers`,
+          // `gatsby-remark-autolink-headers`,
           {
             resolve: "gatsby-remark-prismjs",
             options: {
