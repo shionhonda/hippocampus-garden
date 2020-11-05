@@ -182,7 +182,7 @@ It is interesting that, from these results and the recent success of self-attent
 Pre-trained language models and "BERTology" account for a large portion of the Transformer applications, but thye are too large to include in this post so I'll try to keep it brief.
 
 ### BERT \[Devlin+, 2018]
-[**BERT** [Devlin+, 2018]](https://arxiv.org/abs/1810.04805) has sparked a boom of language model pre-training using Transformer or similar architecture by outperforming previous SOTA model on many benchmarks. There are even research works on BERT itself, which is called **BERTology**. For instance, it includes analyses on the learned weights, attempts to reduce parameters, memory consumption, and the amount of data required for fine-tuning, distillation, and so on. I refer interested readers to [an excellent survey paper](https://arxiv.org/abs/2002.12327) [5].
+[**BERT** [Devlin+, 2018]](https://arxiv.org/abs/1810.04805) has sparked a boom of language model pre-training using Transformer or similar architecture by outperforming previous SOTA model on many benchmarks. There are even research works on BERT itself, which is called **BERTology**. For instance, it includes analyses on the learned weights, attempts to reduce parameters, memory consumption, and the amount of data required for fine-tuning, distillation, and so on. I featured a distilled version of BERT, which is called MobileBERT, in [a previous post](https://hippocampus-garden.com/mobilebert/). I refer interested readers to [an excellent survey paper](https://arxiv.org/abs/2002.12327) [5].
 
 My favorite work from BERTology is [the one by Libovický et al.](https://arxiv.org/abs/1911.03310) They created the impressive figure below to probe the language neutrality of Multilingual BERT.
 
