@@ -174,7 +174,7 @@ On the other hand, [Pérez et al. (2019)](https://arxiv.org/abs/1901.03429) show
 </br>
 
 ### Limitations of Self-attention \[Hahn, 2019]
-[Hahn (2019)](https://arxiv.org/abs/1906.06755) focused on self-attention rather than Transformer, showing the theoretical limitations of the computational abilities of hard and soft self-attention. It is stated that *self-attention cannot model periodic finite-state languages nor hierarchical structure*. Empirical results using synthetic datasets are provided.
+[Hahn (2019)](https://arxiv.org/abs/1906.06755) focused on self-attention rather than Transformer, showing the theoretical limitations of the computational abilities of hard and soft self-attention. It is stated that *self-attention cannot model periodic finite-state languages nor hierarchical structure*. Theoretical results using synthetic tasks are provided.
 
 It is interesting that, from these results and the recent success of self-attention in natural language understanding, the author suggests that the complexity of natural languages is limited by human capabilities.
 
