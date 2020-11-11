@@ -46,7 +46,7 @@ They propose the following taxonomy for X-formers:
 Let's take a closer look at individual models.
 
 ### Sparse Transformer \[Child+, 2019]
-[**Sparse Transformer** [Child+, 2019]](https://arxiv.org/abs/1904.10509) sparsifies the attention matrix by adopting local attention (light blue) and strided attention (light green), as described in the figure below.
+[**Sparse Transformer** [Child+, 2019]](https://arxiv.org/abs/1904.10509) sparsifies the attention matrix by adopting local attention (illustrated in the figure below) and strided attention.
 
 ![](2020-10-31-09-54-09.png)
 
