@@ -1,7 +1,7 @@
 ---
 title: 油そばを作るのに最適な袋麺はどれか
 date: "2020-11-03T22:12:03.284Z"
-description: "袋麺で油そばを作りたくて試行錯誤した結果をまとめました。Optunaは使っていません。"
+description: "袋麺で油そばを作りたくて試行錯誤した結果をまとめました。Optunaは使用しておりません。"
 featuredImage: noodle/ogp.jpg
 tags: ["ja", "food"]
 ---
