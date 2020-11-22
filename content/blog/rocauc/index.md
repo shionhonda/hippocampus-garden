@@ -1,7 +1,7 @@
 ---
 title: "A Deeper Look at ROC-AUC"
 date: "2020-11-15T22:01:03.284Z"
-description: 'How come ROC-AUC is equal to the probability of a positive sample ranked higher than negative samples? This post provides a quick answer with a fun example.'
+description: 'How come ROC-AUC is equal to the probability of a positive sample ranked higher than negative ones? This post provides an answer with a fun example.'
 featuredImage: rocauc/ogp.jpg
 tags: ["en", "math", "statistics"]
 ---
