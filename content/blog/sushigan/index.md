@@ -15,7 +15,7 @@ You may already know https://thispersondoesnotexist.com/, where you can get an i
 I've been a big fan of this series, and today, I finally got to release [🍣This Sushi Does Not Exist🍣](https://thissushidoesnotexist.com/), a variant that generates sushi images. Unlike other similar works, I here present how I built it so you can easily build your own "This Stuff Does Not Exist"!
 
 ## Lightweight GAN
-Recent GANs are able to generate super realistic images, while they often require a vast number of training images and prohibitively expensive computation. But recently, a paper by anonymous authors (currently under blind review of ICLR 2021), known as "**Lightweight GAN**", proposed a solution to this issue in an elegant way. They made it possible to generate *1024x1024-sized images with a few hours of training on a single GPU with 100 training samples*, using two simple technique: a skip-layer excitation module and an autoencoder-like discriminator. As well as common FFHQ face images, Lightweight GAN can even generate pokemon images, which are not so bad.
+Recent GANs are able to generate super realistic images, while they often require a vast number of training images and prohibitively expensive computation. But recently, a paper by anonymous authors (currently under blind review of ICLR 2021), known as "**Lightweight GAN**", proposed a solution to this issue in an elegant way. They made it possible to generate *1024x1024-sized images with a few hours of training on a single GPU with 100 training samples*, using two simple techniques: a skip-layer excitation module and an autoencoder-like discriminator. As well as common FFHQ face images, Lightweight GAN can even generate pokemon images, which are not so bad.
 
 ![](2020-12-19-17-26-47.png)
 
@@ -33,11 +33,11 @@ $ lightweight_gan \
     --num-train-steps 200000
 ```
 
-Check out the repository for more detailed instructions.
+Check out the repository for detailed instructions.
 
 Here are some notes about what I did particularly for generating sushi images.
 - I collected 250 sushi images with [sushiscraper](https://github.com/harupy/sushicraper/pull/1).
-- I resized all images to 256x256, and painted the background black.
+- I resized all images to 256x256 and painted the background black.
 - I found the cutout augmentation leads to undesirable artifacts (see below), so I set `--aug-types [translation]` when training.
 
 ![](2020-12-19-17-46-24.png)
@@ -112,7 +112,7 @@ if __name__ == '__main__':
 </br>
 
 ## Concluding Remarks
-In this post, I present [🍣This Sushi Does Not Exist🍣](https://thissushidoesnotexist.com/) and how I built it with GAE. Lightweight GAN has brought GANs back to citizens, so let's create your GAN applications!
+In this post, I present [🍣This Sushi Does Not Exist🍣](https://thissushidoesnotexist.com/) and how I built it with GAE. Lightweight GAN has brought GANs back to citizens. Now, let's create your GAN applications!
 
 ## References
 [1] Tero Karras, Samuli Laine, Miika Aittala, Janne Hellsten, Jaakko Lehtinen, Timo Aila. "[Analyzing and Improving the Image Quality of StyleGAN](https://arxiv.org/abs/1912.04958)." CVPR. 2020.  
