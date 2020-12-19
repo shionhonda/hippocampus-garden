@@ -46,6 +46,9 @@ After 8 hours of training, the model generated impressive sushi images!
 
 ![](16-ema.jpg)
 
+<iframe width="560" height="315" src="https://www.youtube.com/embed/3QKFBuwQvC8" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<br/>
+
 ## Google App Engine
 To present the generated images on the internet like "This Stuff Does Not Exist", I built https://thissushidoesnotexist.com/ with **Google App Engine (GAE)** and Flask. It could cost much if generating images in an online fashion, so I saved the pre-generated images in **Google Cloud Storage (GCS)** and made the app randomly get an image to present each time. For communicating between GAE and GCS, [this official tutorial](https://cloud.google.com/appengine/docs/flexible/python/using-cloud-storage) would be a good starter. My app is also based on this tutorial.
 
