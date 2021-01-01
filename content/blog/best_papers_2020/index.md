@@ -90,12 +90,26 @@ More surprisingly, it is reported that GPT-3 can translate English to JSX code. 
 
 OpenAI releases the GPT-3 model as an API instead of pre-trained weights. If you wish to use it, join the [waitlist](https://beta.openai.com/) for the beta version.
 
-## Bootstrap your own latent: A new approach to self-supervised Learning
+## Bootstrap Your Own Latent A New Approach to Self-Supervised Learning
 - Authors: Jean-Bastien Grill, Florian Strub, Florent Altché, Corentin Tallec, Pierre H. Richemond, Elena Buchatskaya, Carl Doersch, Bernardo Avila Pires, Zhaohan Daniel Guo, Mohammad Gheshlaghi Azar, Bilal Piot, Koray Kavukcuoglu, Rémi Munos, Michal Valko
 - Link: https://arxiv.org/abs/2006.07733
 - Released in: June 2020
 - Accepted to: NeurIPS 2020
-  
+
+**Contrastive learning**, a variant of self-supervised learning algorithm that leverages information from negative samples, was probably one of the hottest research topics in 2020. Many methods such as **MoCo**, **SimCLR**, and **InfoMin** competed for the higher accuracy on ImageNet classification [8-10]. They are based on the assumption that the distance between representations of different augmented views of the same image should be small while the distance between different images should be large.
+
+As opposed to them, the proposed **Bootstrap Your Own Latent** (**BYOL**) do not use negative pairs at all and outperformed all the contrastive learning methods, closing the gap between self-supervised and supervised learning.
+
+![](2021-01-01-23-57-06.png)
+
+As shown in the figure below, BYOL uses two networks: *online* ($\theta$) and *target* ($\xi$), where the target network is simply the exponential (slow-)moving average of the online network.
+
+![](2021-01-01-23-57-59.png)
+
+An input image $x$ is transformed to two views $v$ and $v'$ with different augmentations ($t$ and $t'$), which are then fed into the online and the target network, respectively. BYOL is trained to minimize the L2 distance between the prediction by the online network ($q_{\theta}(z_{\theta})$) and the projected representation by the target network ($\mathrm{sg}(z'_{\xi})$), where $\mathrm{sg}$ means the stop-gradient operator. This is how BYOL bootstraps its latents.
+
+Additional benefit of BYOL is the robustness on the choice of batch size and the set of image augmentations compared to the contrastive baselines. Also, there is a discussion on how to avoid collapsed solutions in the paper. Please check it out if you are interested.
+
 ## Implicit Neural Representations with Periodic Activation Functions
 - Authors: Vincent Sitzmann, Julien N. P. Martel, Alexander W. Bergman, David B. Lindell, Gordon Wetzstein
 - Link: https://arxiv.org/abs/2006.09661
@@ -135,4 +149,7 @@ OpenAI releases the GPT-3 model as an API instead of pre-trained weights. If you
 [4] Ali Razavi, Aaron van den Oord, Oriol Vinyals. "[Generating Diverse High-Fidelity Images with VQ-VAE-2](https://arxiv.org/abs/1906.00446)". *NeurIPS*. 2019.  
 [5] Rewon Child, Scott Gray, Alec Radford, Ilya Sutskever. "[Generating Long Sequences with Sparse Transformers](https://arxiv.org/abs/1904.10509)". 2019.  
 [6] Alec Radford, Karthik Narasimhan, Tim Salimans, Ilya Sutskever. "[Improving Language Understanding by Generative Pre-Training](https://www.cs.ubc.ca/~amuham01/LING530/papers/radford2018improving.pdf)". 2018.  
-[7] Alec Radford, Jeffrey Wu, Rewon Child, David Luan, Dario Amodei, Ilya Sutskever. "[Language Models are Unsupervised Multitask Learners](http://www.persagen.com/files/misc/radford2019language.pdf)". 2019.
+[7] Alec Radford, Jeffrey Wu, Rewon Child, David Luan, Dario Amodei, Ilya Sutskever. "[Language Models are Unsupervised Multitask Learners](http://www.persagen.com/files/misc/radford2019language.pdf)". 2019.  
+[8] Kaiming He, Haoqi Fan, Yuxin Wu, Saining Xie, Ross Girshick. "[Momentum Contrast for Unsupervised Visual Representation Learning](https://arxiv.org/abs/1911.05722)". *CVPR*. 2020.  
+[9] Ting Chen, Simon Kornblith, Mohammad Norouzi, Geoffrey Hinton. "[A Simple Framework for Contrastive Learning of Visual Representations](https://arxiv.org/abs/2002.05709)". *ICML*. 2020.  
+[10] Yonglong Tian, Chen Sun, Ben Poole, Dilip Krishnan, Cordelia Schmid, Phillip Isola. "[What Makes for Good Views for Contrastive Learning?](https://arxiv.org/abs/2005.10243)". *NeurIPS*. 2020.
