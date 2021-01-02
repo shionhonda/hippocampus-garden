@@ -1,12 +1,12 @@
 ---
 title: "Best Machine Learning Papers of 2020"
-date: "2021-01-01T22:01:03.284Z"
+date: "2021-01-02T22:01:03.284Z"
 description: 'Transformer has undergone various application studies, model enhancements, etc. This post aims to provide an overview of these studies.'
 featuredImage: best_papers_2020/ogp.jpg
-tags: ["en", "deep-learning", "nlp", "transformer"]
+tags: ["en","machine-learning", "deep-learning"]
 ---
 
-## Rigging the Lottery: Making All Tickets Winners
+### Rigging the Lottery: Making All Tickets Winners
 - Authors: Utku Evci, Trevor Gale, Jacob Menick, Pablo Samuel Castro, Erich Elsen
 - Link: https://arxiv.org/abs/1911.11134
 - Released in: November 2019
@@ -24,7 +24,7 @@ RigL achieves higher test accuracy with fewer training FLOPs and parameter count
 ![](2021-01-01-10-25-44.png)
 
 
-## PIFuHD: Multi-Level Pixel-Aligned Implicit Function for High-Resolution 3D Human Digitization
+### PIFuHD: Multi-Level Pixel-Aligned Implicit Function for High-Resolution 3D Human Digitization
 - Authors: Shunsuke Saito, Tomas Simon, Jason Saragih, Hanbyul Joo
 - Link: https://arxiv.org/abs/2004.00452
 - Released in: April 2020
@@ -44,7 +44,7 @@ For technical details, I'd like to recommend the excellent presentation video by
 
 </br>
 
-## Jukebox: A Generative Model for Music
+### Jukebox: A Generative Model for Music
 - Authors: Prafulla Dhariwal, Heewoo Jun, Christine Payne, Jong Wook Kim, Alec Radford, Ilya Sutskever
 - Link: https://arxiv.org/abs/2005.00341
 - Released in: May 2020
@@ -68,7 +68,7 @@ The appendix of the paper is also worth reading. The figure below is a t-SNE plo
 
 </br>
 
-## Language Models are Few-Shot Learners
+### Language Models are Few-Shot Learners
 - Authors: Tom B. Brown, Benjamin Mann, Nick Ryder, Melanie Subbiah, Jared Kaplan, Prafulla Dhariwal, Arvind Neelakantan, Pranav Shyam, Girish Sastry, Amanda Askell, Sandhini Agarwal, Ariel Herbert-Voss, Gretchen Krueger, Tom Henighan, Rewon Child, Aditya Ramesh, Daniel M. Ziegler, Jeffrey Wu, Clemens Winter, Christopher Hesse, Mark Chen, Eric Sigler, Mateusz Litwin, Scott Gray, Benjamin Chess, Jack Clark, Christopher Berner, Sam McCandlish, Alec Radford, Ilya Sutskever, Dario Amodei
 - Link: https://arxiv.org/abs/2005.14165
 - Released in: May 2020
@@ -90,7 +90,7 @@ More surprisingly, it is reported that GPT-3 can translate English to JSX code. 
 
 OpenAI releases the GPT-3 model as an API instead of pre-trained weights. If you wish to use it, join the [waitlist](https://beta.openai.com/) for the beta version.
 
-## Bootstrap Your Own Latent A New Approach to Self-Supervised Learning
+### Bootstrap Your Own Latent A New Approach to Self-Supervised Learning
 - Authors: Jean-Bastien Grill, Florian Strub, Florent Altché, Corentin Tallec, Pierre H. Richemond, Elena Buchatskaya, Carl Doersch, Bernardo Avila Pires, Zhaohan Daniel Guo, Mohammad Gheshlaghi Azar, Bilal Piot, Koray Kavukcuoglu, Rémi Munos, Michal Valko
 - Link: https://arxiv.org/abs/2006.07733
 - Released in: June 2020
@@ -110,32 +110,60 @@ An input image $x$ is transformed to two views $v$ and $v'$ with different augme
 
 Additional benefit of BYOL is the robustness on the choice of batch size and the set of image augmentations compared to the contrastive baselines. Also, there is a discussion on how to avoid collapsed solutions in the paper. Please check it out if you are interested.
 
-## Implicit Neural Representations with Periodic Activation Functions
+### Implicit Neural Representations with Periodic Activation Functions
 - Authors: Vincent Sitzmann, Julien N. P. Martel, Alexander W. Bergman, David B. Lindell, Gordon Wetzstein
 - Link: https://arxiv.org/abs/2006.09661
 - Released in: June 2020
 - Accepted to: NeurIPS 2020
 
+Many scientific problems fall into learning **implicit neural representations**. For instance, implicit neural representations can model images, audio signals, and 3D shapes and can solve boundary value problems. However, the popular ReLU-MLP networks fail to represent fine details in the signals and their derivatives well, partly because the second derivative of ReLU is zero everywhere. Other nonlinearities such as tanh or softplus can represent higher-order derivatives, but they also fail to represent fine details.
+
+To address this issue, the authors present neural networks that leverage periodic, $n$-times differentiable $\sin(\cdot)$ activation
+, which is named **sinusoidal representation networks** (**SIREN**). The benefits of sinusoidal activation are best described in the figure below, which compares different implicit networks fitted to the ground truth image. Unlike other activations, SIREN is able to learn by itself the Gaussian and Laplacian well. 
+
+![](2021-01-02-10-42-39.png)
+
+This nature of SIREN seems especially benefitial when modeling 3D shapes.
+
+![](2021-01-02-11-52-10.png)
+
+One may wonder "why no one has ever come up with this simple solution?" Well, periodic activation functions have been studied more than 10 years, but I guess there two factors that makes this work still new in 2020. First, it hasn't been explored very much how to apply periodic activations to implicit neural representations. Second, SIREN requires a special initialization scheme. To preserve the distribution of activations through the network, the initial weights of SIREN have to be drawn from a carefully designed uniform distribution.
+
+More samples including audio and differential equations and their presentation video can be found at [the project page](https://vsitzmann.github.io/siren/).
   
-## Graph Structure of Neural Networks
+### Graph Structure of Neural Networks
 - Authors: Jiaxuan You, Jure Leskovec, Kaiming He, Saining Xie
 - Link: https://arxiv.org/abs/2007.06559
 - Released in: July 2020
 - Accepted to: ICML 2020
 
-## Towards Faster and Stabilized GAN Training for High-fidelity Few-shot Image Synthesis
+This exciting work was done by a collaboration between graph and computer vision researchers. 
+
+What do neural networks with good predictive performance have in common? To anwer this question, this paper analyzes neural networks from the point of view of graph theory. First, the authors define a novel graph-based representation of neural networks called **relational graph** (a,b). Then, they design a graph generator that systematically explores the design space of relational graphs. The idea of relational graph enables neural networks to be characterized by two graph statistics: **average path length** and c**lustering coefficient** (c). Finally, they conducted an extensive study on the relationship between the predictive performance of generated neural networks and the graph statistics of the corresponding relational graphs (d).
+
+![](2021-01-02-12-21-18.png)
+
+Their observations include:
+
+- there is a sweet spot in the design space that leads to significantly better predictive performance
+- predictive performance of neural networks can be approximated by a smooth function of the clustering coefficient and average path length of its relational graph
+- the graph statistics of top-performing neural networks are similar to those of macaque's. 
+
+![](2021-01-02-12-43-01.png)
+
+### Towards Faster and Stabilized GAN Training for High-fidelity Few-shot Image Synthesis
 - Authors: Anonymous
 - Link: https://openreview.net/forum?id=1Fqg133qRaI
 - Released in: September 2020
 - Accepted to: None
   
-## An Image is Worth 16x16 Words: Transformers for Image Recognition at Scale
+### An Image is Worth 16x16 Words: Transformers for Image Recognition at Scale
 - Authors: Alexey Dosovitskiy, Lucas Beyer, Alexander Kolesnikov, Dirk Weissenborn, Xiaohua Zhai, Thomas Unterthiner, Mostafa Dehghani, Matthias Minderer, Georg Heigold, Sylvain Gelly, Jakob Uszkoreit, Neil Houlsby
 - Link: https://arxiv.org/abs/2010.11929
 - Released in: October 2020
 - Accepted to: None
   
-## Pre-training without Natural Images
+### Pre-training without Natural Images
 - Authors: Hirokatsu Kataoka, Kazushige Okayasu, Asato Matsumoto, Eisuke Yamagata, Ryosuke Yamada, Nakamasa Inoue, Akio Nakamura, Yutaka Satoh
 - Link: https://openaccess.thecvf.com/content/ACCV2020/html/Kataoka_Pre-training_without_Natural_Images_ACCV_2020_paper.html
 - Released in: November 2020
