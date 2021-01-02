@@ -48,7 +48,6 @@ For technical details, I'd like to recommend the excellent presentation video by
 - Authors: Prafulla Dhariwal, Heewoo Jun, Christine Payne, Jong Wook Kim, Alec Radford, Ilya Sutskever
 - Link: https://arxiv.org/abs/2005.00341
 - Released in: May 2020
-- Accepted to: None
 
 Generating realistic images is not surprising any more, but generating realistic music is still a hard challenge due to its extremely long-range dependency. Specifically, a 4-minute song at CD quality (44 kHz) has more than 10 million timestamps with high-level semantics (c.f., intro, verse, chorus). OpenAI boldly tackled the generation of raw audio in a variety of genres, and their **Jukebox** succeeded in producing pretty impressive music! 
 
@@ -155,20 +154,58 @@ Their observations include:
 - Authors: Anonymous
 - Link: https://openreview.net/forum?id=1Fqg133qRaI
 - Released in: September 2020
-- Accepted to: None
-  
+
+There is no doubt that StyleGAN2 is great and successful [11], but it is still problematic that it requires huge amount of data and computation. In fact, for learning to generate 1024x1024 sized FFHQ face images, StyleGAN2 used 8 Tesla V100 GPUs and 70,000 images, and it took 9 days for the entire traning process. This is almost impossible for small laboratories and companies who want reproduce the results. Also, that huge demand limits the potential applications of GANs in production.
+
+This limitation was quite obvious, and 6 months after the publication of StyleGAN2, the authors released **StyleGAN2-ADA** (**StyleGAN2 with adaptive discriminator augmentation**). They introduced a new technique in data augmentation for the discriminator, allowing StyleGAN2 to generate as fine images as the original model with *a few thousand* training images.
+
+The anonymous authors of this paper made a step even further. This paper proposes so-called **Lightweight GAN**, which adopts skip-layer excitation modules and an autoencoder-like discriminator to generate FFHQ images by training for a few hours with *a few hundred* images on a single RTX-2080 GPU!
+
+![](2021-01-02-17-41-41.png)
+
+And fortunately, [Phil Wang](https://github.com/lucidrains) released [a beautiful and easy-to-use implementation of Lightweight GAN](https://github.com/lucidrains/lightweight-gan) at GitHub. Now, using Colaboratory or any GPU at your disposal, it's possible to generate almost any image you like. They indeed democratized GANs! 
+
+I tried it out to train Lightweight GAN with just 200 sushi images. After training, it generated faily realistic sushi images as shown below. The generated images are also displayed at "[This Sushi Does Not Exist](https://thispersondoesnotexist.com/)". So, what GANs do you want to create?
+
+![](2021-01-02-17-43-36.png)
+
+For more details, please refer to the original paper and [my previous post](https://hippocampus-garden.com/sushigan/).
+
 ### An Image is Worth 16x16 Words: Transformers for Image Recognition at Scale
 - Authors: Alexey Dosovitskiy, Lucas Beyer, Alexander Kolesnikov, Dirk Weissenborn, Xiaohua Zhai, Thomas Unterthiner, Mostafa Dehghani, Matthias Minderer, Georg Heigold, Sylvain Gelly, Jakob Uszkoreit, Neil Houlsby
 - Link: https://arxiv.org/abs/2010.11929
 - Released in: October 2020
-- Accepted to: None
-  
+
+This year has seen a lot of attempts to apply Transformers to computer vision tasks. Cordonnier et al. investigated the equivalence of self-attention and convolutional layers [13]. Chen et al. used GPT to generate images in an autoregressive way [14]. Carion et al. applied Transformers to object detection [15]. With such studies in mind, it's not unnatural to create a Transformer-based pre-trained model for image classification. 
+
+Motivated by this, a team from Google Research trained **Vision Transformer** (**ViT**), achieving the new state-of-the-art over CNN baselines such as **Big Transfer** (**BiT**) and **Noisy Student**. Let's get an overview of ViT from the figure below, because "a picture is worth a thousand words".
+
+![](2021-01-02-18-25-11.png)
+
+As the title implies, images are split into small patches (16x16) and fed into the projection layer with position embeddings, in the same way as the tokens are embedded and fed into the encoder in the vanilla Transformer. The entire model is trained to minimize the classification loss (so, it is supervised learning). 
+
+The authors report that ViT does not generalize well when trained with "mid-sized" ImageNet dataset due to its smaller inductive bias, but it outperforms CNN baselines when trained with 300 times larger JFT-300M dataset. Nevertheless, ViT uses up significantly fewer computational resources than BiT and Noisy Student.
+
+![](2021-01-02-20-57-14.png)
+
+Now that it is found that supervised pre-training works for image classification with a huge Transformer model, I guess a seld-supervised version will appear this year.
+
 ### Pre-training without Natural Images
 - Authors: Hirokatsu Kataoka, Kazushige Okayasu, Asato Matsumoto, Eisuke Yamagata, Ryosuke Yamada, Nakamasa Inoue, Akio Nakamura, Yutaka Satoh
 - Link: https://openaccess.thecvf.com/content/ACCV2020/html/Kataoka_Pre-training_without_Natural_Images_ACCV_2020_paper.html
 - Released in: November 2020
 - Accepted to: ACCV 2020
-  
+
+We've seen that pre-training with a large dataset is a key to better accuracy. However, such datasets often involves issues such as mistaken labels, copyright violation, privacy violation, and unethical biases. To address these, this paper shows that artificial images can be used for pre-training.
+
+
+Specifically, the authors prepared **Fractal Database** (**FractalDB**) by a certain algorithm and pre-trained ResNet-50 with it.
+
+![](2021-01-02-21-29-09.png)
+
+The model pre-trained with FractalDB does not outperform the ones pre-trained with ImageNet-1k, but the result is promising. Considering the issues listed above, FractalDB can be a good option.
+
+![](2021-01-02-21-35-07.png)
 
 ## References
 [1] Jonathan Frankle, Michael Carbin. "[The Lottery Ticket Hypothesis: Finding Sparse, Trainable Neural Networks](https://arxiv.org/abs/1803.03635)". *ICLR*. 2019.  
@@ -180,4 +217,12 @@ Their observations include:
 [7] Alec Radford, Jeffrey Wu, Rewon Child, David Luan, Dario Amodei, Ilya Sutskever. "[Language Models are Unsupervised Multitask Learners](http://www.persagen.com/files/misc/radford2019language.pdf)". 2019.  
 [8] Kaiming He, Haoqi Fan, Yuxin Wu, Saining Xie, Ross Girshick. "[Momentum Contrast for Unsupervised Visual Representation Learning](https://arxiv.org/abs/1911.05722)". *CVPR*. 2020.  
 [9] Ting Chen, Simon Kornblith, Mohammad Norouzi, Geoffrey Hinton. "[A Simple Framework for Contrastive Learning of Visual Representations](https://arxiv.org/abs/2002.05709)". *ICML*. 2020.  
-[10] Yonglong Tian, Chen Sun, Ben Poole, Dilip Krishnan, Cordelia Schmid, Phillip Isola. "[What Makes for Good Views for Contrastive Learning?](https://arxiv.org/abs/2005.10243)". *NeurIPS*. 2020.
+[10] Yonglong Tian, Chen Sun, Ben Poole, Dilip Krishnan, Cordelia Schmid, Phillip Isola. "[What Makes for Good Views for Contrastive Learning?](https://arxiv.org/abs/2005.10243)". *NeurIPS*. 2020.  
+[11] Tero Karras, Samuli Laine, Miika Aittala, Janne Hellsten, Jaakko Lehtinen, Timo Aila. "[Analyzing and Improving the Image Quality of StyleGAN](https://arxiv.org/abs/1912.04958)". *CVPR*. 2020.  
+[12] Tero Karras, Miika Aittala, Janne Hellsten, Samuli Laine, Jaakko Lehtinen, Timo Aila. "[Training Generative Adversarial Networks with Limited Data](https://arxiv.org/abs/2006.06676)". *NeurIPS*. 2020.  
+[13] Jean-Baptiste Cordonnier, Andreas Loukas, Martin Jaggi. "[On the Relationship between Self-Attention and Convolutional Layers](https://arxiv.org/abs/1911.03584)". *ICLR*. 2020.  
+[14] Mark Chen, Alec Radford, Rewon Child, Jeff Wu, Heewoo Jun, Prafulla Dhariwal, David Luan,
+Ilya Sutskever. "[Generative Pretraining from Pixels](https://openai.com/blog/image-gpt/)". *ICML* 2020.  
+[15] Alexander Kolesnikov, Lucas Beyer, Xiaohua Zhai, Joan Puigcerver, Jessica Yung, Sylvain Gelly, Neil Houlsby. "[Big Transfer (BiT): General Visual Representation Learning](https://arxiv.org/abs/1912.11370)". *ECCV*. 2020.  
+[16] Qizhe Xie, Minh-Thang Luong, Eduard Hovy, Quoc V. Le. "[Self-training with Noisy Student improves ImageNet classification](https://arxiv.org/abs/1911.04252)". *CVPR*. 2020.  
+[17] Nicolas Carion, Francisco Massa, Gabriel Synnaeve, Nicolas Usunier, Alexander Kirillov, Sergey Zagoruyko. "[End-to-End Object Detection with Transformers](https://arxiv.org/abs/2005.12872)".  *ECCV*. 2020.
