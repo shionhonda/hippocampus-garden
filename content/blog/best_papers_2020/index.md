@@ -6,6 +6,7 @@ featuredImage: best_papers_2020/ogp.jpg
 tags: ["en","machine-learning", "deep-learning"]
 ---
 
+
 Happy New Year!🎉🎉
 
 In 2020, the Machine Learning community has seen a lot of new achievements. I believe winter vacation is a good time to look back on the year, so this post will cover 10 representative papers that I found interesting and worth reading.
