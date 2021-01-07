@@ -30,7 +30,7 @@ Read [the paper](https://proceedings.neurips.cc//paper_files/paper/2020/hash/53c
 
 ## Posters
 ### GANSpace: Discovering Interpretable GAN Controls
-This paper discovers interpretable controls of GANs by principal component analysis on latent space or feature space. With the proposed method, BigGAN can be controlled with layer-wise inputs in a StyleGAN-like way.
+This paper discovers interpretable controls of GANs by principal component analysis on latent space or feature space. The principal components represent zooming, angle, color etc. With the proposed method, BigGAN can be controlled with layer-wise inputs in a StyleGAN-like way.
 
 ![](2021-01-07-23-23-45.png)
 
