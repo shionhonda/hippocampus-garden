@@ -6,6 +6,7 @@ featuredImage: neurips_2020/ogp.jpg
 tags: ["en","machine-learning", "deep-learning"]
 ---
 
+
 Last month, I attended the [NeurIPS](https://neurips.cc/) virtual conference. In 2020, approximately 1,900 papers were accepted. Of course I couldn't cover them all but saw many interesting presentations at the conference, so here I'd like to list some notable ones with brief introductions.
 
 DISCLAIMER: The figures in this post are borrowed from the corresponding papers. Links to the papers are presented at the bottom of each subsection.

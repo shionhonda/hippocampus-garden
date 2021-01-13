@@ -5,6 +5,7 @@ description: "This post compares the behaviors of different feature importance m
 featuredImage: feature_importance/ogp.jpg
 tags: ["en", "machine-learning", "python"]
 ---
+
 Feature importance is a helpful indicator when deciding which features are necessary and which are not. But it can be misleading in tricky situations, such as when some features are strongly correlated with each other, as discussed in [1-3]. In this post, I inspect the behaviors of various importance measures in tricky situations and compare them, including some topics such as LightGBM's built-in importance and scikit-learn's permutation importance function.
 
 ## Popular Importance Measures
