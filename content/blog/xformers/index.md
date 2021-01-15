@@ -136,14 +136,14 @@ Sparse Transformer came after this and succeeded in generating more high-quality
 <div style="text-align: center;"><small>Image taken from <a href="https://openai.com/blog/image-gpt/">OpenAI Blog: Image GPT</a>.</small></div>
 </br>
 
-### Vision Transformer \[Anonymous, 2020]
-[**Vision Transformer (ViT)** [Anonymous, 2020]](https://openreview.net/forum?id=YicbFdNTTy) shows that, with the large JFT-300M dataset, Transformer encoder model can achieve state-of-the-art accuracy on image classification, where it has long been believed that CNN is the optimal architecture. Importantly, the largest model (ViT-Huge) has only 632M parameters (30% smaller than BiT-L) and the training process is fast in terms of TPU-days.
+### Vision Transformer \[Dosovitskiy+, 2020]
+[**Vision Transformer (ViT)** [Dosovitskiy+, 2020]](https://arxiv.org/abs/2010.11929) shows that, with the large JFT-300M dataset, Transformer encoder model can achieve state-of-the-art accuracy on image classification, where it has long been believed that CNN is the optimal architecture. Importantly, the largest model (ViT-Huge) has only 632M parameters (30% smaller than BiT-L) and the training process is fast in terms of TPU-days.
 
 ![](2020-11-01-10-36-11.png)
 
 ![](2020-11-01-10-39-19.png)
 
-<div style="text-align: center;"><small>Images taken from <a href="https://openreview.net/forum?id=YicbFdNTTy">An Image is Worth 16x16 Words: Transformers for Image Recognition at Scale | OpenReview</a>.</small></div>
+<div style="text-align: center;"><small>Images taken from <a href="hhttps://arxiv.org/abs/2010.11929">An Image is Worth 16x16 Words: Transformers for Image Recognition at Scale</a>.</small></div>
 </br>
 
 There is [a concurrent work](https://arxiv.org/abs/2004.13621) that explores self-attention-based architecture for image recognition and outperforms CNN baselines on ImageNet.

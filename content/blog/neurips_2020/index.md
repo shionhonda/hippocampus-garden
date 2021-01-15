@@ -144,6 +144,8 @@ Data augmentation for GAN training is not as straightforward as it seems. To mak
 
 ![](2021-01-10-17-33-41.png)
 
+If you are interested in efficient GAN training, I'd recommend [StyleGAN-ADA](https://arxiv.org/abs/2006.06676) (also appeared at NeuriPS 2020) and [Lightweight GAN](https://arxiv.org/abs/2101.04775) as well.
+
 Read [the paper](https://proceedings.neurips.cc//paper_files/paper/2020/hash/55479c55ebd1efd3ff125f1337100388-Abstract.html) for more details.
 
 

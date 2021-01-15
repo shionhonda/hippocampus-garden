@@ -2,7 +2,7 @@
 title: "Creating a Face Swapping Model in 10 Minutes"
 date: "2021-01-13T22:10:03.284Z"
 description: "Let's re-inplement face swapping in 10 minutes! This post shows a naive solution using a pre-trained CNN and OpenCV."
-featuredImage: face-swap/ogp.jpg
+featuredImage: face_swap/ogp.jpg
 tags: ["en", "machine-learning", "python", "cv"]
 ---
 

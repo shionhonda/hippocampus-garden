@@ -170,15 +170,16 @@ Their observations include:
 ![](2021-01-02-12-43-01.png)
 
 ### Towards Faster and Stabilized GAN Training for High-fidelity Few-shot Image Synthesis
-- Authors: Anonymous
-- Link: https://openreview.net/forum?id=1Fqg133qRaI
+- Authors: Bingchen Liu, Yizhe Zhu, Kunpeng Song, Ahmed Elgammal
+- Link: https://arxiv.org/abs/2101.04775
 - Released in: September 2020
+- Accepted to: ICLR 2021
 
 There is no doubt that StyleGAN2 is great and successful [11], but it still has a problem of requiring a huge amount of data and computation. In fact, for learning to generate 1024x1024 sized FFHQ face images, StyleGAN2 used 8 Tesla V100 GPUs and 70,000 images, and it took 9 days for the entire training process. This is almost impossible for small laboratories and companies who want to reproduce the results. Also, that huge demand limits the potential applications of GANs in production.
 
-This limitation was quite obvious, and 6 months after the publication of StyleGAN2, the authors released **StyleGAN2-ADA** (**StyleGAN2 with adaptive discriminator augmentation**). They introduced a new technique in data augmentation for the discriminator, allowing StyleGAN2 to generate as fine images as the original model with *a few thousand* training images.
+This limitation was quite obvious, and 6 months after the publication of StyleGAN2, the authors released **StyleGAN2-ADA** (**StyleGAN2 with adaptive discriminator augmentation**) [12]. They introduced a new technique in data augmentation for the discriminator, allowing StyleGAN2 to generate as fine images as the original model with *a few thousand* training images.
 
-The anonymous authors of this paper made a step even further. This paper proposes the so-called **Lightweight GAN**, which adopts skip-layer excitation modules and an autoencoder-like discriminator to generate FFHQ images by training for a few hours with *a few hundred* images on a single RTX-2080 GPU!
+The authors of this paper made a step even further. This paper proposes the so-called **Lightweight GAN**, which adopts skip-layer excitation modules and an autoencoder-like discriminator to generate FFHQ images by training for a few hours with *a few hundred* images on a single RTX-2080 GPU!
 
 ![](2021-01-02-17-41-41.png)
 
@@ -194,6 +195,7 @@ For more details, please refer to the original paper and [my previous post](http
 - Authors: Alexey Dosovitskiy, Lucas Beyer, Alexander Kolesnikov, Dirk Weissenborn, Xiaohua Zhai, Thomas Unterthiner, Mostafa Dehghani, Matthias Minderer, Georg Heigold, Sylvain Gelly, Jakob Uszkoreit, Neil Houlsby
 - Link: https://arxiv.org/abs/2010.11929
 - Released in: October 2020
+- Accepted to: ICLR 2021
 
 This year has seen a lot of attempts to apply Transformers to computer vision tasks. Cordonnier et al. investigated the equivalence of self-attention and convolutional layers [13]. Chen et al. used GPT to generate images in an autoregressive way [14]. Carion et al. applied Transformers to object detection [15]. With such studies in mind, it's not unnatural to create a Transformer-based pre-trained model for image classification. 
 
