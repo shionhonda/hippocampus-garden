@@ -150,7 +150,7 @@ $$
 X_1+X_2+\ldots+X_n = n\bar{X}.
 $$
 
-So, given the sample mean $\bar{X}$, the $n$ samples have only $n-1$ degrees of freedom.
+So, given the sample mean $\bar{X}$, the $n$ samples have only $n-1$ degrees of freedom. When I called the function `np.var()` in the experiment, I specified `ddof=0` or `ddof=1`. This argument is short for delta degree of freedom, meaning how many degrees of freedom are reduced.
 
 ## Intuition
 The bias of the biased variance can be explained in a more intuitive way. By definition, the sample mean is always closer to the samples than the population mean, which leads to the smaller variance estimation if divided by the sample size $n$. For more explanations, I'd recommend this video:
