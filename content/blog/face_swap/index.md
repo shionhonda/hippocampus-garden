@@ -16,7 +16,7 @@ I'm going to implement face swapping as follows:
 The code is available at: https://github.com/shionhonda/face-swap.
 
 ## Face Parsing
-For face parsing, I used [the pre-trained BiSeNet](8https://github.com/zllrunning/face-parsing.PyTorch) because it's  accurate and easy to use. This model parses a given face into 19 classes such as left eyebrow, upper lip, and neck.
+For face parsing, I used [the pre-trained BiSeNet](https://github.com/zllrunning/face-parsing.PyTorch) because it's  accurate and easy to use. This model parses a given face into 19 classes such as left eyebrow, upper lip, and neck.
 
 ![](2021-01-13-22-22-53.png)
 

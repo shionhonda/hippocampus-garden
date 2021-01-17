@@ -3,7 +3,7 @@ title: "A Deeper Look at ROC-AUC"
 date: "2020-11-15T22:01:03.284Z"
 description: 'How come ROC-AUC is equal to the probability of a positive sample ranked higher than negative ones? This post provides an answer with a fun example.'
 featuredImage: rocauc/ogp.jpg
-tags: ["en", "math", "statistics"]
+tags: ["en", "math", "stats"]
 ---
 
 You've probably heard about the **ROC-AUC**, or simply **AUC**,  which is defined as the area under the **receiver operating characteristic (ROC)**  curve. This is indicated by the blue area in the figure below and is used to evaluate the performance of classification models.
