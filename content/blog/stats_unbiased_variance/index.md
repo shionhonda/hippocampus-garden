@@ -1,12 +1,12 @@
 ---
 title: "Stats with Python: Unbiased Variance"
 date: "2021-01-17T22:10:03.284Z"
-description: "What is unbiased sample variance? Why devide by n-1? With a little programming with Python, it's easier to understand."
+description: "What is unbiased sample variance? Why divide by n-1? With a little programming with Python, it's easier to understand."
 featuredImage: stats_unbiased_variance/ogp.jpg
 tags: ["en", "stats", "python"]
 ---
 
-Are you wondering what unbiased sample variance is? Or, why it is devided by n-1? If so, this post answers them with a simple simulation and a more solid proof.
+Are you wondering what unbiased sample variance is? Or, why it is divided by n-1? If so, this post answers them for you with a simple simulation, proof, and an intuitive explanation.
 
 Consider you have $n$ i.i.d. samples: $X_1,...,X_n$, and you want to estimate the **population mean** $\mu$ and the **population variance** $\sigma ^2$ from these samples. The **sample mean** is defined as:
 
@@ -20,7 +20,7 @@ $$
 s^2 = \frac{1}{n-1}\sum_{i=1}^n (X_i-\bar{X})^2 .
 $$
 
-When I first saw this, it looked wierd. Where does $n-1$ come from? The professor said "this term makes the estimation unbiased", which I didn't quite understand. But now, thanks to Python, it's much clearer than it was then. So, in this post, I'll make a concise and clear explanations of unbiased variance.
+When I first saw this, it looked weird. Where does $n-1$ come from? The professor said "this term makes the estimation unbiased", which I didn't quite understand. But now, thanks to Python, it's much clearer than it was then. So, in this post, I'll make a concise and clear explanation of unbiased variance.
 
 ## Visualizing How Unbiased Variance is Great
 Consider a "biased" version of variance estimator:
@@ -29,7 +29,7 @@ $$
 S^2 = \frac{1}{n}\sum_{i=1}^n (X_i-\bar{X})^2.
 $$
 
-In fact, as well as unbiased variance, this estimator converges to the population variance as the sample size approches infinity. However, the "biased variance" estimates the variance slightly smaller.
+In fact, as well as unbiased variance, this estimator converges to the population variance as the sample size approaches infinity. However, the "biased variance" estimates the variance slightly smaller.
 
 Let's see how these esitmators are different. Suppose you are drawing samples, one by one up to 100, from a **continuous uniform distribution** $\mathcal{U}(0,1)$. The population mean is $0.5$ and the population variance is
 
@@ -96,7 +96,7 @@ plt.title("Sample variance (averaged over 10,000 trials)");
 Now it's clear how the biased variance is biased. Even when there are 100 samples, its estimate is expected to be 1% smaller than the ground truth. In contrast, the unbiased variance is actually "unbiased" to the ground truth.
 
 ## Proof
-Though it is a little complicated, here is a formal explanation about the above experiment. Recall that the variance of sample mean follows this equation:
+Though it is a little complicated, here is a formal explanation of the above experiment. Recall that the variance of the sample mean follows this equation:
 
 $$
 \begin{aligned}
@@ -153,7 +153,7 @@ $$
 So, given the sample mean $\bar{X}$, the $n$ samples have only $n-1$ degrees of freedom.
 
 ## Intuition
-The bias of the biased variance can be explained in a more intuitive way. By definition, the sample mean is always closer to the samples than the population mean, which leads to the smaller variance estimation if devided by the sample size $n$. For more explanations, I'd recommend this video:
+The bias of the biased variance can be explained in a more intuitive way. By definition, the sample mean is always closer to the samples than the population mean, which leads to the smaller variance estimation if divided by the sample size $n$. For more explanations, I'd recommend this video:
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/sHRBg6BhKjI?start=214" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
