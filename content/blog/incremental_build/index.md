@@ -24,7 +24,7 @@ $ npm --version
 <br/>
 
 ## Error
-I just followed the instruction in [the official blog]((https://www.netlify.com/blog/2020/04/23/enable-gatsby-incremental-builds-on-netlify/). I saw no errors in the development environment, so I pushed the code, and got this error on Netlify.
+I just followed the instruction in [the official blog](https://www.netlify.com/blog/2020/04/23/enable-gatsby-incremental-builds-on-netlify/). I saw no errors in the development environment, so I pushed the code, and got this error on Netlify.
 
 ```shell
 6:53:11 PM: success run queries - 44.036s - 29/29 0.66/s

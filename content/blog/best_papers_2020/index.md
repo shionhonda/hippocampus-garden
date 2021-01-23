@@ -18,7 +18,7 @@ Here are the 10 best ML papers of 2020 that I chose (in chronological order).
 2. PIFuHD: Multi-Level Pixel-Aligned Implicit Function for High-Resolution 3D Human Digitization
 3. Jukebox: A Generative Model for Music
 4. Language Models are Few-Shot Learners
-5. Bootstrap Your Own Latent A New Approach to Self-Supervised Learning
+5. Bootstrap Your Own Latent: A New Approach to Self-Supervised Learning
 6. Implicit Neural Representations with Periodic Activation Functions
 7. Graph Structure of Neural Networks
 8. Towards Faster and Stabilized GAN Training for High-fidelity Few-shot Image Synthesis
@@ -93,7 +93,7 @@ The appendix of the paper is also worth reading. The figure below is a t-SNE plo
 - Released in: May 2020
 - Accepted to: NeurIPS 2020
 
-**GPT-3**, the latest version of **GPT** [6,7], is a pre-trained language model that has as many as 175B parameters (10 times larger than [Turing-NLG]((https://www.microsoft.com/en-us/research/blog/turing-nlg-a-17-billion-parameter-language-model-by-microsoft/))!) and is trained with 300B tokens. The authors found that scaling up the model significantly improves the performance of few-shot learning without fine-tuning, which they call **in-context learning**. The following figure compares in-context learning with traditional fine-tuning.
+**GPT-3**, the latest version of **GPT** [6,7], is a pre-trained language model that has as many as 175B parameters (10 times larger than [Turing-NLG](https://www.microsoft.com/en-us/research/blog/turing-nlg-a-17-billion-parameter-language-model-by-microsoft/)!) and is trained with 300B tokens. The authors found that scaling up the model significantly improves the performance of few-shot learning without fine-tuning, which they call **in-context learning**. The following figure compares in-context learning with traditional fine-tuning.
 
 ![](2021-01-01-21-42-21.png)
 
@@ -109,7 +109,7 @@ More surprisingly, it is reported that GPT-3 can translate English into JSX code
 
 OpenAI releases the GPT-3 model as an API instead of pre-trained weights. If you wish to use it, join the [waitlist](https://beta.openai.com/) for the beta version.
 
-### Bootstrap Your Own Latent A New Approach to Self-Supervised Learning
+### Bootstrap Your Own Latent: A New Approach to Self-Supervised Learning
 - Authors: Jean-Bastien Grill, Florian Strub, Florent Altché, Corentin Tallec, Pierre H. Richemond, Elena Buchatskaya, Carl Doersch, Bernardo Avila Pires, Zhaohan Daniel Guo, Mohammad Gheshlaghi Azar, Bilal Piot, Koray Kavukcuoglu, Rémi Munos, Michal Valko
 - Link: https://arxiv.org/abs/2006.07733
 - Released in: June 2020
@@ -157,7 +157,7 @@ More samples including audio and differential equations and their presentation v
 
 This exciting work was done by a collaboration between graph and computer vision researchers. 
 
-What do neural networks with good predictive performance have in common? To answer this question, this paper analyzes neural networks from the point of view of graph theory. First, the authors define a novel graph-based representation of neural networks called **relational graph** (a,b). Then, they design a graph generator that systematically explores the design space of relational graphs. The idea of relational graphs enables neural networks to be characterized by two graph statistics: **average path length** and c**lustering coefficient** (c). Finally, they conducted an extensive study on the relationship between the predictive performance of generated neural networks and the graph statistics of the corresponding relational graphs (d).
+What do neural networks with good predictive performance have in common? To answer this question, this paper analyzes neural networks from the point of view of graph theory. First, the authors define a novel graph-based representation of neural networks called **relational graph** (a,b). Then, they design a graph generator that systematically explores the design space of relational graphs. The idea of relational graphs enables neural networks to be characterized by two graph statistics: **average path length** and **clustering coefficient** (c). Finally, they conducted an extensive study on the relationship between the predictive performance of generated neural networks and the graph statistics of the corresponding relational graphs (d).
 
 ![](2021-01-02-12-21-18.png)
 
@@ -209,7 +209,7 @@ The authors report that ViT does not generalize well when trained with "mid-size
 
 ![](2021-01-02-20-57-14.png)
 
-Now that it is found that supervised pre-training works for image classification with a huge Transformer model, I guess a seld-supervised version will appear this year.
+Now that it is found that supervised pre-training works for image classification with a huge Transformer model, I guess a self-supervised version will appear this year.
 
 ### Pre-training without Natural Images
 - Authors: Hirokatsu Kataoka, Kazushige Okayasu, Asato Matsumoto, Eisuke Yamagata, Ryosuke Yamada, Nakamasa Inoue, Akio Nakamura, Yutaka Satoh
