@@ -10,7 +10,7 @@ tags: ["ja", "book", "programming"]
 
 <iframe style="width:120px;height:240px;" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="//rcm-fe.amazon-adsystem.com/e/cm?lt1=_blank&bc1=000000&IS2=1&bg1=FFFFFF&fc1=000000&lc1=0000FF&t=hippocampus09-22&language=ja_JP&o=9&p=8&l=as4&m=amazon&f=ifr&ref=as_ss_li_til&asins=4873115655&linkId=b0ffe0bddcdadb86e8332509e7caaa60"></iframe>
 
-本書は，サブタイトルにある通り「読みやすいコードを書くために心がけるべきこと」を説いた本です．出版が2012年と技術書にしては古めですが，「新人エンジニアが読むべき技術書」として必ずと言っていいほど挙げられる「殿堂入りの技術書」でもあります．
+原題は『The Art of Readable Code: Simple and Practical Techniques for Writing Better』で，サブタイトルにある通り「読みやすいコードを書くために心がけるべきこと」を説いた本です．出版が2012年と技術書にしては古めですが，「新人エンジニアが読むべき技術書」として必ずと言っていいほど挙げられる「殿堂入りの技術書」でもあります．
 
 本書を読んで，読みやすいコードを書くのはそのコードを読む「他の誰か」だけではなく，後でそのコードを読み返す「自分」やバグのないコードを書きたい「自分」にとっても極めて重要だと改めて感じました．
 
