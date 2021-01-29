@@ -95,7 +95,7 @@ sns.boxplot(x="bin", y="tip", data=df);
 
 Or, use `qcut()` (quantile-based cut) if you want equal-sized bins.
 
-```
+```python
 df["qbin"] = pd.qcut(df["total_bill"], 3)
 sns.boxplot(x="qbin", y="tip", data=df);
 ```

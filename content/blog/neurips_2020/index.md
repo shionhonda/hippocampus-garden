@@ -74,7 +74,7 @@ Recent studies on **neural tangent kernels** (**NTK**) have discovered that cert
 Read [the paper](https://proceedings.neurips.cc//paper_files/paper/2020/hash/b7ae8fecf15b8b6c3c69eceae636d203-Abstract.html) for more details.
 
 ### NVAE: A Deep Hierarchical Variational Autoencoder
-As opposed to the majority of VAE studies focusing on its statistical aspects, this paper designs an improved hierarchical architecture for VAES, dubbed **Nouveau VAE** (**NVAE**).
+As opposed to the majority of VAE studies focusing on its statistical aspects, this paper designs an improved hierarchical architecture for VAEs, dubbed **Nouveau VAE** (**NVAE**).
 
 ![](2021-01-10-16-05-01.png)
 
