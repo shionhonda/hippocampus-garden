@@ -124,13 +124,7 @@ module.exports = {
         icon: config.favicon,
       },
     },
-    {
-      resolve: 'gatsby-background-image',
-      options: {
-        // add your own characters to escape, replacing the default ':/'
-        specialChars: '/:',
-      },
-    },
+
     'gatsby-plugin-offline',
     {
       resolve: `gatsby-plugin-styled-components`,

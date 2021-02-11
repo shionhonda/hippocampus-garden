@@ -33,7 +33,7 @@ const Footer = () => {
       style={{
         clear: "both",
         textAlign: "center",
-        backgroundColor: "#41899E",
+        backgroundImage: `linear-gradient(to top, #30506e, #41899e)`,
         color: "white",
         padding: rhythm(0.5)
       }}
