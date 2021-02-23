@@ -1,16 +1,17 @@
 ---
 title: "Ready Steady GO: Dispatcher-Worker with errgroup"
 date: "2021-02-14T22:10:03.284Z"
-description: "A golang implementation of dispatcher-worker pattern with errgroup. It cancels the other jobs when an error occurs in any goroutine."
+description: "A golang implementation of dispatcher-worker pattern with errgroup. It immediately cancels the other jobs when an error occurs in any goroutine."
 featuredImage: go_dispatcher/ogp.jpg
 tags: ["en", "golang"]
 ---
+
 
 Suppose you are asked to write a golang program that:
 
 1. processes multiple jobs concurrently
 2. can limit the number of goroutines
-3. cancels the other jobs when an error occurs in any goroutine
+3. immediately cancels the other jobs when an error occurs in any goroutine
 
 To satisfy the requirement #1 and #2, you can adopt a dispatcher-worker pattern. The common pattern often utilizes `sync.WaitGroup`, but in this case, to satisfy the other requirement #3, you might want to use [golang.org/x/sync/errgroup](https://pkg.go.dev/golang.org/x/sync/errgroup).
 
