@@ -1,13 +1,14 @@
 ---
 title: "Stats with Python: Sample Correlation Coefficient is Biased"
 date: "2021-02-24T22:10:03.284Z"
-description: "The correlation coefficient is a familiar statistic, but there are several variations whose differences should be noted. This post recaps the definitions of these common measures."
-featuredImage: stats_correlation_bias/result.png
+description: "Is the sample correlation coefficient an unbiased estimator? No! This post visualizes how large its bias is and shows how to fix it."
+featuredImage: stats_correlation_bias/ogp.jpg
 tags: ["en", "stats", "python", "math"]
 ---
 
+Have you ever wondered how much bias the sample correlation coefficient $r$ has with respect to the population correlation coefficient $\rho$? In fact, even if the sample size is about 20, there will be a bias of up to 5%, depending on the value of $\rho$. This post visualizes how large the bias is and shows how to fix it.
 
-## Pearson's r Definition
+## Definition: Pearson's r
 As already discussed in [the previous post](https://hippocampus-garden.com/stats_rank_correlation/#pearson-correlation-coefficient), **Pearson product-moment correlation coefficient**, or simply **Pearson's r** of the paired sequences $\{(x_i,y_i)\}_{i=1}^n$ is given as:
 
 $$
@@ -23,7 +24,7 @@ $$
 \rho = \frac{Cov[X,Y]}{\sqrt{V[X]}\sqrt{V[Y]}}.
 $$
 
-## Pearson's r is Biased!
+## Pearson's r For a Sample is Biased!
 So, is the sample correlation coefficient $r$ an unbiased estimator of the population correlation coefficient $\rho$? Unfortunately, the answer is no. $r$ is only asymptotically unbiased, so when the sample size is small, you need to care about its bias.
 
 In this post, I assume *the data $X$ and $Y$ follow a bivariate normal distribution* and experiment with unbiased estimators of the correlation coefficient. Then, the exact density function is given as:
@@ -40,7 +41,7 @@ $$
 r_{mvu} = r~  \mathbf{_2F_1}\Bigl( \frac{1}{2},\frac{1}{2};\frac{n-1}{2};1-r^2 \Bigr).
 $$
 
-This formula is too complicated, so there is a approximated version:
+This formula is too complicated, so there is an approximated version:
 
 $$
 r_{adj} = r\Bigl( 1+\frac{1-r^2}{2(n-3)} \Bigr).
@@ -68,13 +69,13 @@ Cov[X,Y] = Cov[X,pX+(1-p)E] = p.
 \end{gathered}
 $$
 
-Therefore, the population correlation coeffciient $\rho$ is expressed as a function of $p$:
+Therefore, the population correlation coefficient $\rho$ is expressed as a function of $p$:
 
 $$
 \rho = \frac{p}{\sqrt{2p^2-2p+1}}.
 $$
 
-First, for different values of $\rho$ and $n$ (sample size), I plotted the biased, the unbiased, and the adjusted correlation coefficients to see their bias from the population statistic and their asymptotic behavior. For calculating $\mathbf{_2F_1}(\cdot,\cdot;\cdot;\cdot)$, scipy provides `hyp2f1` function.
+First, for different values of $\rho$ and $n$ (sample size), I plotted the biased, the unbiased, and the adjusted correlation coefficients to see their bias from the population statistic and their asymptotic behavior. To alleviate the effects of stochastic noise, I took an average over 10,000 trials. For calculating $\mathbf{_2F_1}(\cdot,\cdot;\cdot;\cdot)$, scipy provides `hyp2f1` function.
 
 ```python
 import numpy as np
@@ -138,19 +139,19 @@ plt.show()
 
 One can observe the following:
 
-- The "biased estimator" is indeed asymtotically unbiased, but the bias remains non-subtle even when $n\sim 50$.
+- The "biased estimator" is indeed asymptotically unbiased, but the bias remains non-subtle even when $n\sim 50$.
 - It looks like neither the "unbiased" estimator nor the "adjusted" estimator is completely unbiased. Still, they are significantly more accurate than the biased estimator.
 - The bias depends on $\rho$ as well as $n$. It seems that the smaller $|\rho|$ is, the larger the relative  bias is. 
 - When $\rho=1$ (perfect correlation), $r=r_{mvu}=r_{adj}=\rho=1$.
 - When $\rho=0$ (zero correlation), $r\simeq r_{mvu} \simeq r_{adj}$.
 
-To better picture how the bias changes according to $\rho$, let's think about absolute bias $\rho - r$. This is untractable due to the hypergeometric term, so I consider the approximated version:
+To better picture how the bias changes according to $\rho$, let's think about absolute bias $\rho - r$ for the case where $n=10$. This is untractable due to the hypergeometric term, so I consider the approximated version:
 
 $$
 r_{adj} - r = \frac{1}{2(n-3)}r(1-r^2)
 $$
 
-The absolute bias reaches it maximum when $r=1/\sqrt{3}$ (i.e. $\rho \simeq 0.6$) because:
+The absolute bias reaches its maximum when $r=1/\sqrt{3}$ (i.e. $\rho \simeq 0.6$) because:
 
 $$
 \begin{aligned}
@@ -160,13 +161,19 @@ r &= \pm \frac{1}{\sqrt{3}}.
 \end{aligned}
 $$
 
-
+The numerical experiment produced the expected result.
 
 ![](2021-02-23-21-18-03.png)
 
-$(r_{adj} - r)/r_{adj}$ takes its maximum value when $r=0$.
+In a similar way, the approximated relative bias $(r_{adj} - r)/r_{adj}$ takes its maximum value when $r=0$.
 
 ![](2021-02-23-21-03-49.png)
+
+## Conclusion
+- The sample correlation coefficient $r$ is *not* an unbiased estimator of the population correlation coefficient $\rho$. The bias remains untrivial when $n\sim 50$
+- For the data that follow a bivariate normal distribution, the exact form of minimum variance unbiased estimator $r_{mvu}$ is known
+- The approximated version $r_{adj}$ is accurate enough and far handier
+- The smaller $|\rho|$ is, the larger the relative bias of $r$ is
 
 ## References
 [1] Ingram Olkin, John W. Pratt. "[Unbiased Estimation of Certain Correlation Coefficients](https://projecteuclid.org/journals/annals-of-mathematical-statistics/volume-29/issue-1/Unbiased-Estimation-of-Certain-Correlation-Coefficients/10.1214/aoms/1177706717.full)". *Ann. Math. Statist.* 1958.   
