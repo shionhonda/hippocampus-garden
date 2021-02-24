@@ -19,7 +19,7 @@ First of all, I summarize some popular importance measures to compare in this po
 |    Permutation     |     Any model     |         Yes          |        No         |
 <br/>
 
-This section briefly review the definition of these metrics. If you are already familiar with them, please skip to [the experiment section](https://hippocampus-garden/feature_importance/#random-target).
+This section briefly review the definition of these metrics. If you are already familiar with them, please skip to [the experiment section](https://hippocampus-garden.com/feature_importance/#random-target).
 
 ### Gini Importance
 In tree-based models, each node split the data from its parent node on the feature that gives the greatest improvement in **Gini impurity**. Let's say the node $n$ has the child nodes $n_L$ and $n_R$. Now, the node $n$'s improvement in Gini impurity is:
