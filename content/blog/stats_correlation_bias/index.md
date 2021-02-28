@@ -6,6 +6,7 @@ featuredImage: stats_correlation_bias/ogp.jpg
 tags: ["en", "stats", "python", "math"]
 ---
 
+
 Have you ever wondered how much bias the sample correlation coefficient $r$ has with respect to the population correlation coefficient $\rho$? In fact, even if the sample size is about 20, there will be a bias of up to 5%, depending on the value of $\rho$. This post visualizes how large the bias is and shows how to fix it.
 
 ## Definition: Pearson's r
