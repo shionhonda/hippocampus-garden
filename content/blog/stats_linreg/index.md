@@ -1,8 +1,8 @@
 ---
 title: "Stats with Python: Simple Linear Regression"
-date: "2021-03-21T22:10:03.284Z"
-description: "The correlation coefficient is a familiar statistic, but there are several variations whose differences should be noted. This post recaps the definitions of these common measures."
-featuredImage: stats_linreg/ogp.jpg
+date: "2021-03-22T22:10:03.284Z"
+description: "This post summarizes the basics of simple linear regression --method of least squares and coefficient of determination."
+featuredImage: stats_linreg/ogp.png
 tags: ["en", "stats", "python", "math"]
 ---
 
@@ -66,7 +66,7 @@ $$
 R^2 \coloneqq \frac{ESS}{TSS} = \frac{ \sum_{i=1}^n (\hat{y_i}-\bar{y})^2}{\sum_{i=1}^n (y_i-\bar{y})^2}.
 $$
 
-The coefficient of determination is the ratio of ESS (explained sum of squares) to TSS (total sum of squares). As you may imagin from its notation, *the coefficient of determination $R^2$ is the square of the correlation coefficient $r$*.
+The coefficient of determination is the ratio of ESS (explained sum of squares) to TSS (total sum of squares). As you may imagin from its notation, *the coefficient of determination $R^2$ is the square of the Pearson correlation coefficient $r$*.
 
 ### Proof
 Using the equation: $\hat{y}_i - \bar{y} = \beta_1(x_i - \bar{x})$,
@@ -83,7 +83,48 @@ $$
 $$
 
 ## Experiment
+Lastly, let's confirm that $R^2=r^2$, introducing how to use linear regression with Python. As done in [the previous post](https://hippocampus-garden.com/stats_rank_correlation/), I generated 100 pairs of correlated random samples (x and y).
 
+```python
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+sns.set_style("darkgrid")
+
+n = 100
+x = np.random.rand(n)
+y = x + 0.5*np.random.rand(n)
+```
+
+![](2021-03-22-22-19-16.png)
+
+Scikit-learn implements linear regression as `LinearRegression` and coefficient of determination as `r2_score`. After fitting the model, we can plot the regression line like below:
+
+```python
+from sklearn.linear_model import LinearRegression
+from sklearn.metrics import r2_score
+
+model = LinearRegression()
+model.fit(x.reshape(-1, 1), y.reshape(-1, 1))
+
+sns.scatterplot(x, y)
+plt.plot(x, model.predict(x.reshape(-1, 1)), color="k")
+```
+
+![](ogp.png)
+
+As expected, $R^2=r^2$ is confirmed.
+
+```python
+r2_score(y, model.predict(x.reshape(-1, 1)))
+# >> 0.7922606713476185
+
+np.corrcoef(x, y)[0,1]**2
+# >> 0.7922606713476184
+```
+
+<br/>
 
 ## References
-[1] 東京大学教養学部統計学教室 編. "[統計学入門](http://www.utp.or.jp/book/b300857.html)"（第3章）. 東京大学出版会. 1991.  
+[1] 倉田 博史, 星野 崇宏. "[入門統計解析](https://www.saiensu.co.jp/search/?isbn=978-4-88384-140-0&y=2009)"（第3章）. 新世社. 2009.  
