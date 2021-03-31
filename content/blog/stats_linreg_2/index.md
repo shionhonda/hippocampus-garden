@@ -117,3 +117,4 @@ r2_score(y, model.predict(X))
 
 ## References
 [1] 倉田 博史, 星野 崇宏. "[入門統計解析](https://www.saiensu.co.jp/search/?isbn=978-4-88384-140-0&y=2009)"（第9章）. 新世社. 2009.  
+[2] [Multiple Linear Regression and Visualization in Python | Pythonic Excursions](https://aegis4048.github.io/mutiple_linear_regression_and_visualization_in_python)
