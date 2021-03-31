@@ -6,6 +6,7 @@ featuredImage: book_review_miyake/ogp.jpg
 tags: ["ja", "book", "programming"]
 ---
 
+
 ## はじめに
 『新しいLinuxの教科書』（三宅英明, 大角祐介 著，SBクリエイティブ，2015年）を読んだので，まとめと感想を書きます．
 

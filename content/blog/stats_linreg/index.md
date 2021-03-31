@@ -6,7 +6,8 @@ featuredImage: stats_linreg/ogp.png
 tags: ["en", "stats", "python", "math"]
 ---
 
-We've seen several aspects of correlation coefficient in the [previous posts](https://hippocampus-garden.com/stats_correlation_bias/). The correlation coefficient treats two variables equally; they are symmetrical. When two variables are not symmetrical, that is, when you want to explain $y$ by $x$, correlation analysis alone is not sufficient. Instead, you might want to conduct **regression analysis**.
+
+We've seen several aspects of the correlation coefficient in the [previous posts](https://hippocampus-garden.com/stats_correlation_bias/). The correlation coefficient treats two variables equally; they are symmetrical. When two variables are not symmetrical, that is, when you want to explain $y$ by $x$, correlation analysis alone is not sufficient. Instead, you might want to conduct a **regression analysis**.
 
 The simplest approach, **simple linear regression**, considers a single **explanatory variable** (**independent variable**) $x$ for explaining the **objective variable** (**dependent variable**) $y$.
 
@@ -16,7 +17,7 @@ $$
 
 ## Least Square Estimates
 
-How to determin the coefficients $\beta_0$ and $\beta_1$ in the above equation? Given the paired data $\{(x_i,y_i)\}_{i=1}^n$, they are determined by the **method of least squares**. That is, they are chosen to minimize the sum of the squared error between the predicted $\hat{y}_i = b_0+b_1x_i$ and the actual $y_i$:
+How to determine the parameters $\beta_0$ and $\beta_1$ in the above equation? Given the paired data $\{(x_i,y_i)\}_{i=1}^n$, they are determined by the **method of least squares**. That is, they are chosen to minimize the sum of the squared error between the predicted $\hat{y}_i = b_0+b_1x_i$ and the actual $y_i$:
 
 $$
 \mathcal{L}(b_0,b_1) \coloneqq \sum_{i=1}^n \{ y_i - (b_0+b_1x_i) \}^2.
@@ -66,7 +67,7 @@ $$
 R^2 \coloneqq \frac{ESS}{TSS} = \frac{ \sum_{i=1}^n (\hat{y_i}-\bar{y})^2}{\sum_{i=1}^n (y_i-\bar{y})^2}.
 $$
 
-The coefficient of determination is the ratio of ESS (explained sum of squares) to TSS (total sum of squares). As you may imagin from its notation, *the coefficient of determination $R^2$ is the square of the Pearson correlation coefficient $r$*.
+The coefficient of determination is the ratio of ESS (explained sum of squares) to TSS (total sum of squares). As you may imagine from its notation, *the coefficient of determination $R^2$ is the square of the Pearson correlation coefficient $r$*.
 
 ### Proof
 Using the equation: $\hat{y}_i - \bar{y} = \beta_1(x_i - \bar{x})$,

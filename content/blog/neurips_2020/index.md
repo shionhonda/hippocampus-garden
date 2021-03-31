@@ -1,5 +1,5 @@
 ---
-title: "NeurIPS 2020 Personal Paper List"
+title: "NeurIPS 2020 Favorite Papers"
 date: "2021-01-10T22:01:03.284Z"
 description: "NeurIPS 2020 virtual conference was full of exciting presentations! Here I list some notable ones with brief introductions."
 featuredImage: neurips_2020/ogp.jpg
