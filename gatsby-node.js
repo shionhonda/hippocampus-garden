@@ -8,6 +8,9 @@ const activeEnv =
 require('dotenv').config({
   path: `.env.${activeEnv}`,
 });
+console.log(`Using environment config: '${activeEnv}'`)
+console.log(process.env.CLIENT_EMAIL)
+console.log(process.env.GATSBY_ALGOLIA_APP_ID)
 
 const key = process.env.PRIVATE_KEY.replace(new RegExp('\\\\n', '\g'), '\n')
 const moment = require('moment');
