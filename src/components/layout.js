@@ -6,8 +6,13 @@ import Header from './header.js'
 import Footer from './footer.js'
 import PopularPost from './popular'
 import TagList from './tag-list'
+import Search from "./search"
 import './layout.scss';
 import { rhythm } from "../utils/typography"
+
+
+const searchIndices = [{ name: `Pages`, title: `Pages` }]
+
 
 const Layout = ({ location, title, children, toc }) => {
   const isRootPath = location.pathname === `${__PATH_PREFIX__}/`
@@ -70,6 +75,7 @@ const Layout = ({ location, title, children, toc }) => {
   return (
     <div style={{ width: "100%", height: "100%", backgroundColor: "#F2F3F6" }}>
       <Header />
+      <Search indices={searchIndices} />
       <div
         style={{
           marginLeft: `auto`,
