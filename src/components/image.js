@@ -2,7 +2,7 @@
 
 import React from 'react'
 import { StaticQuery, graphql } from 'gatsby'
-import Img from 'gatsby-image'
+import { GatsbyImage } from "gatsby-plugin-image";
 
 // 画像ファイルパスをプロパティに取るようなコンポーネントを定義
 const Image = ({ filename }) => (
@@ -12,23 +12,20 @@ const Image = ({ filename }) => (
   <StaticQuery
 
     // GraphQLのクエリ引数には何も指定しない！
-    query={graphql`
-      query {
-        images: allFile {
-          edges {
-            node {
-              relativePath
-              name
-              childImageSharp {
-                fluid(maxWidth: 800) {
-                  ...GatsbyImageSharpFluid
-                }
-              }
-            }
-          }
+    query={graphql`{
+  images: allFile {
+    edges {
+      node {
+        relativePath
+        name
+        childImageSharp {
+          gatsbyImageData(width: 800, layout: CONSTRAINED)
         }
       }
-    `}
+    }
+  }
+}
+`}
 
     // 全画像情報がdataに代入されている
     render={(data) => {
@@ -44,8 +41,8 @@ const Image = ({ filename }) => (
       }
 
       // Imgタグでgatsby-imageで最適化された画像を表示する
-      const imageSizes = image.node.childImageSharp.fluid
-      return <Img fluid={imageSizes} />
+      const imageSizes = image.node.childImageSharp.gatsbyImageData
+      return <GatsbyImage image={imageSizes} alt="post" />;
     }}
   />
 )

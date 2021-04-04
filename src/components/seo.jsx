@@ -5,41 +5,38 @@ import { StaticQuery, graphql } from 'gatsby'
 
 const Seo = ({ title, desc, banner, pathname, article }) => (
   <StaticQuery
-    query={graphql`
-      query {
-        site {
-          buildTime(formatString: "MMMM DD, YYYY")
-          siteMetadata {
-            defaultTitle: title
-            titleAlt
-            shortName
-            author
-            siteLanguage
-            logo
-            url
-            pathPrefix
-            defaultDescription: description
-            defaultBanner: banner
-            social {
-                twitter
-            }
-          }
-        }
-        images: allFile {
-          edges {
-            node {
-              relativePath
-              name
-              childImageSharp {
-                fluid(maxWidth: 800) {
-                  ...GatsbyImageSharpFluid
-                }
-              }
-            }
-          }
+    query={graphql`{
+  site {
+    buildTime(formatString: "MMMM DD, YYYY")
+    siteMetadata {
+      defaultTitle: title
+      titleAlt
+      shortName
+      author
+      siteLanguage
+      logo
+      url
+      pathPrefix
+      defaultDescription: description
+      defaultBanner: banner
+      social {
+        twitter
+      }
+    }
+  }
+  images: allFile {
+    edges {
+      node {
+        relativePath
+        name
+        childImageSharp {
+          gatsbyImageData(width: 800, layout: CONSTRAINED)
         }
       }
-    `}
+    }
+  }
+}
+`}
 
     render={data => {
       const imageNode = data.images.edges.find(n => {
@@ -47,7 +44,7 @@ const Seo = ({ title, desc, banner, pathname, article }) => (
       })
       const seo = {
         title: title + ` | ` + data.site.siteMetadata.defaultTitle || data.site.siteMetadata.defaultTitle,
-        image: `${data.site.siteMetadata.url}${imageNode.node.childImageSharp.fluid.src}`,
+        image: `${data.site.siteMetadata.url}${imageNode.node.childImageSharp.gatsbyImageData.src}`,
         description: desc || data.site.siteMetadata.defaultDescription,
         url: `${data.site.siteMetadata.url}${pathname || '/'}`,
       };

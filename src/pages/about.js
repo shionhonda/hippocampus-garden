@@ -1,12 +1,14 @@
 import React from "react"
 import { graphql } from "gatsby"
-import Img from 'gatsby-image'
+import { StaticImage } from "gatsby-plugin-image";
 import Layout from "../components/layout"
 import Seo from "../components/seo.jsx"
 import { rhythm } from "../utils/typography"
 
 const About = ({ data, location }) => {
   const siteTitle = data.site.siteMetadata.title
+  const l50 = 50
+  const l200 = 200
 
   return (
     <Layout location={location} title={siteTitle}>
@@ -22,21 +24,26 @@ const About = ({ data, location }) => {
             Opinions presented here are my own and not the views of my employer.
           </p>
         <div style={{ textAlign: "center" }}>
-          <Img fixed={data.face.childImageSharp.fixed} />
+          <StaticImage src="../../content/assets/face.jpg" alt="face"
+            width={l200} />
         </div>
 
         <div style={{ textAlign: "center" }}>
           <a href="https://twitter.com/shion_honda/" target="_blank" rel="noopener noreferrer">
-            <Img fixed={data.twitterIcon.childImageSharp.fixed} />
+            <StaticImage src="../../content/assets/twitter.png" alt="twitter"
+              width={l50} height={l50} />
           </a>
           <a href="https://github.com/shionhonda/" target="_blank" rel="noopener noreferrer">
-            <Img fixed={data.githubIcon.childImageSharp.fixed} />
+            <StaticImage src="../../content/assets/github.png" alt="github"
+              width={l50} height={l50} />
           </a>
           <a href="https://www.linkedin.com/in/shionhonda/" target="_blank" rel="noopener noreferrer">
-            <Img fixed={data.linkedinIcon.childImageSharp.fixed} />
+            <StaticImage src="../../content/assets/linkedin.png" alt="linkedin"
+              width={l50} height={l50} />
           </a>
           <a href="https://scholar.google.co.jp/citations?user=NhNlsZcAAAAJ" target="_blank" rel="noopener noreferrer">
-            <Img fixed={data.googlescholarIcon.childImageSharp.fixed} />
+            <StaticImage src="../../content/assets/google-scholar.png" alt="google-scholar"
+              width={l50} height={l50} />
           </a>
         </div>
 
@@ -73,7 +80,7 @@ const About = ({ data, location }) => {
         </ul>
       </div>
     </Layout>
-  )
+  );
 };
 
 export default About;
@@ -102,24 +109,18 @@ export const pageQuery = graphql`
     }
   }
 `
-export const fixedImage50 = graphql`
-  fragment fixedImage50 on File {
-    childImageSharp {
-      fixed(width: 50) {
-        ...GatsbyImageSharpFixed
-      }
-    }
+export const fixedImage50 = graphql`fragment fixedImage50 on File {
+  childImageSharp {
+    gatsbyImageData(width: 50, layout: FIXED)
   }
+}
 `
 
-export const fixedImage200 = graphql`
-  fragment fixedImage200 on File {
-    childImageSharp {
-      fixed(width: 200) {
-        ...GatsbyImageSharpFixed
-      }
-    }
+export const fixedImage200 = graphql`fragment fixedImage200 on File {
+  childImageSharp {
+    gatsbyImageData(width: 200, layout: FIXED)
   }
+}
 `
 
 
