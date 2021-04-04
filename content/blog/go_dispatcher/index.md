@@ -111,7 +111,7 @@ func main() {
 
 You can try the above code [here](https://play.golang.org/p/8nyavxlrEsf). It results in:
 
-```
+```shell
 $ go run main.go 
 Working on the job #6. Wait for 425 ms.
 Working on the job #7. Wait for 540 ms.

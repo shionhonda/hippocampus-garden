@@ -23,7 +23,7 @@ Recent GANs are able to generate super realistic images, while they often requir
 
 Fortunately, [Phil Wang](https://github.com/lucidrains) released [a beautiful and easy-to-use implementation of Lightweight GAN](https://github.com/lucidrains/lightweight-gan) at GitHub. With this, you can train your own Lightweight GAN on Colaboratory (or any single GPU) with just two commands!
 
-```sh
+```shell
 $ pip install lightweight-gan
 $ lightweight_gan \
     --data ./path/to/images \

@@ -182,7 +182,7 @@ const BlogPostTemplate = ({ data, pageContext, location }) => {
 
   return (
     <Layout location={location} title={siteTitle} toc={post.tableOfContents}>
-      <SEO
+      <Seo
         title={post.frontmatter.title}
         desc={post.frontmatter.description || post.excerpt}
         banner={post.frontmatter.featuredImage}

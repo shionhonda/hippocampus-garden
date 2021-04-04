@@ -4,7 +4,7 @@ import { Link, graphql } from 'gatsby'
 import Image from "../components/image"
 import Bio from "../components/bio"
 import Layout from "../components/layout"
-import SEO from "../components/seo.jsx"
+import Seo from "../components/seo.jsx"
 import Tags from "../components/tags"
 import { rhythm } from "../utils/typography"
 
@@ -17,7 +17,7 @@ const BlogListTemplate = ({ data, pageContext, location }) => {
   )
   return (
     <Layout location={location} title={siteTitle}>
-      <SEO title="Home" />
+      <Seo title="Home" />
       <Bio>{content}</Bio>
       <div className="posts">
         {edges.map(({ node }) => {

@@ -4,7 +4,7 @@ import Disqus from 'gatsby-plugin-disqus'
 
 import Bio from "../components/bio"
 import Layout from "../components/layout"
-import SEO from "../components/seo.jsx"
+import Seo from "../components/seo.jsx"
 import Tags from "../components/tags"
 import Share from "../components/share"
 import { rhythm, scale } from "../utils/typography"
@@ -31,7 +31,7 @@ const BlogPostTemplate = ({ data, pageContext, location }) => {
 
   return (
     <Layout location={location} title={siteTitle} toc={post.tableOfContents}>
-      <SEO
+      <Seo
         title={post.frontmatter.title}
         desc={post.frontmatter.description || post.excerpt}
         banner={post.frontmatter.featuredImage}

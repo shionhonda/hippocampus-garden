@@ -3,7 +3,7 @@ import Helmet from 'react-helmet'
 import PropTypes from 'prop-types'
 import { StaticQuery, graphql } from 'gatsby'
 
-const SEO = ({ title, desc, banner, pathname, article }) => (
+const Seo = ({ title, desc, banner, pathname, article }) => (
   <StaticQuery
     query={graphql`
       query {
@@ -131,9 +131,9 @@ const SEO = ({ title, desc, banner, pathname, article }) => (
   />
 );
 
-export default SEO
+export default Seo
 
-SEO.propTypes = {
+Seo.propTypes = {
   title: PropTypes.string,
   desc: PropTypes.string,
   banner: PropTypes.string,
@@ -141,7 +141,7 @@ SEO.propTypes = {
   article: PropTypes.bool,
 };
 
-SEO.defaultProps = {
+Seo.defaultProps = {
   title: null,
   desc: null,
   banner: null,

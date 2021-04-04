@@ -2,7 +2,7 @@ import React from "react"
 import { graphql } from "gatsby"
 
 import Layout from "../components/layout"
-import SEO from "../components/seo.jsx"
+import Seo from "../components/seo.jsx"
 import { rhythm } from "../utils/typography"
 
 const PrivacyPolicyPage = ({ data, location }) => {
@@ -10,8 +10,8 @@ const PrivacyPolicyPage = ({ data, location }) => {
 
   return (
     <Layout location={location} title={siteTitle}>
-      <SEO title="Privacy Policy" />
-      <div style={{backgroundColor: "white", padding: rhythm(1)}}>
+      <Seo title="Privacy Policy" />
+      <div style={{ backgroundColor: "white", padding: rhythm(1) }}>
         <h1>Privacy Policy of Hippocampus's Garden</h1>
         <p>Hippocampus's Garden operates the https://hippocampus-garden.com/ website, which provides the SERVICE.</p>
         <p>This page is used to inform website visitors regarding our policies with the collection, use, and disclosure of Personal Information if anyone decided to use our Service, the Hippocampus's Garden website.</p>
@@ -31,10 +31,10 @@ const PrivacyPolicyPage = ({ data, location }) => {
         <h2>Service Providers</h2>
         <p>We may employ third-party companies and individuals due to the following reasons:</p>
         <ul>
-            <li>To facilitate our Service;</li>
-            <li>To provide the Service on our behalf;</li>
-            <li>To perform Service-related services; or</li>
-            <li>To assist us in analyzing how our Service is used.</li>
+          <li>To facilitate our Service;</li>
+          <li>To provide the Service on our behalf;</li>
+          <li>To perform Service-related services; or</li>
+          <li>To assist us in analyzing how our Service is used.</li>
         </ul>
         <p>We want to inform our Service users that these third parties have access to your Personal Information. The reason is to perform the tasks assigned to them on our behalf. However, they are obligated not to disclose or use the information for any other purpose.</p>
 

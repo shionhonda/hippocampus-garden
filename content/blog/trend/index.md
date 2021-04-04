@@ -53,7 +53,7 @@ const key = process.env.PRIVATE_KEY.replace(new RegExp('\\\\n', '\g'), '\n')
 <br/>
 
 The expression `.replace(new RegExp('\\\\n', '\g'), '\n')` was important for my environment. Without it, it throws an error like: 
-```
+```shell
 error "gatsby-source-google-analytics-reporting-api" threw an error while running the sourceNodes lifecycle:
 error:0909006C:PEM routines:get_name:no start line
   Error: error:0909006C:PEM routines:get_name:no start line
@@ -117,7 +117,7 @@ Note that `contentDigest` should be unique because it is used for caching [3].
 ## Show Popular Posts
 Now you should have new nodes that look like:
 
-```
+```json
 "allTotalPageViews": {
     "nodes": [
         {

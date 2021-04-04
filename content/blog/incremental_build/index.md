@@ -58,7 +58,7 @@ Since the error was happning in `netlify.toml`, I checked the file and went to [
 
 It tells us to add the following lines in `netlify.toml`.
 
-```
+```toml
 [build]
   publish = "public"
 

@@ -2,7 +2,7 @@ import React from "react"
 import { graphql } from "gatsby"
 import Img from 'gatsby-image'
 import Layout from "../components/layout"
-import SEO from "../components/seo.jsx"
+import Seo from "../components/seo.jsx"
 import { rhythm } from "../utils/typography"
 
 const About = ({ data, location }) => {
@@ -10,7 +10,7 @@ const About = ({ data, location }) => {
 
   return (
     <Layout location={location} title={siteTitle}>
-      <SEO title="About" />
+      <Seo title="About" />
       <div style={{ backgroundColor: "white", padding: rhythm(1) }}>
         <h1>About</h1>
         <p>
