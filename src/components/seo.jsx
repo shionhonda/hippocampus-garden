@@ -25,12 +25,11 @@ const Seo = ({ title, desc, banner, pathname, article }) => (
     }
   }
   images: allFile {
-    edges {
-      node {
-        relativePath
-        name
-        childImageSharp {
-          gatsbyImageData(width: 800, layout: CONSTRAINED)
+    nodes {
+      relativePath
+      childImageSharp {
+        fixed {
+          src
         }
       }
     }
@@ -39,15 +38,17 @@ const Seo = ({ title, desc, banner, pathname, article }) => (
 `}
 
     render={data => {
-      const imageNode = data.images.edges.find(n => {
-        return n.node.relativePath.includes(banner || data.site.siteMetadata.defaultBanner)
+      const imageNode = data.images.nodes.find(n => {
+        return n.relativePath.includes(banner || data.site.siteMetadata.defaultBanner)
       })
       const seo = {
         title: title + ` | ` + data.site.siteMetadata.defaultTitle || data.site.siteMetadata.defaultTitle,
-        image: `${data.site.siteMetadata.url}${imageNode.node.childImageSharp.gatsbyImageData.src}`,
+        image: `${data.site.siteMetadata.url}${imageNode.childImageSharp.fixed.src}`,
         description: desc || data.site.siteMetadata.defaultDescription,
         url: `${data.site.siteMetadata.url}${pathname || '/'}`,
       };
+      console.log(seo.image)
+
       const realPrefix = data.site.siteMetadata.pathPrefix === '/' ? '' : data.site.siteMetadata.pathPrefix;
       let schemaOrgJSONLD = [
         {
