@@ -6,7 +6,7 @@ featuredImage: rocauc/ogp.jpg
 tags: ["en", "math", "stats"]
 ---
 
-You've probably heard about the **ROC-AUC**, or simply **AUC**,  which is defined as the area under the **receiver operating characteristic (ROC)**  curve. This is indicated by the blue area in the figure below and is used to evaluate the performance of classification models.
+You've probably heard about the **ROC-AUC**, or simply **AUC**, which is defined as the area under the **receiver operating characteristic (ROC)** curve. This is indicated by the blue area in the figure below and is used to evaluate the performance of classification models.
 
 ![](2020-11-12-10-07-58.png)
 
