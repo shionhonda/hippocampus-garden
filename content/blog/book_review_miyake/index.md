@@ -98,7 +98,7 @@ $ ls -l ./ | sort -rn -k 5
 
 1. `./hoge.sh`
 2. `bash hoge.sh`
-3. `sourcee ./hoge.sh`
+3. `source ./hoge.sh`
 
 の違いについて議論しています．
 

@@ -1,5 +1,5 @@
 ---
-title: "Optimal Threshold for Maximizing F1 Score"
+title: "On Optimal Threshold for Maximizing F1 Score"
 date: "2021-05-15T22:01:03.284Z"
 description: "This post attempts to take a deeper look at F1 score. Do you know that, for calibrated classifiers, the optimal threshold is half the max F1? How come? Here it's explained."
 featuredImage: f1/ogp.png
