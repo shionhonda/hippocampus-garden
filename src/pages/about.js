@@ -75,7 +75,10 @@ const About = ({ data, location }) => {
 
         <h2>News</h2>
         <ul>
-          <li>Apr 2020: Start working at Recruit Inc., Ltd. in Tokyo.</li>
+          <li>
+            May 2021: <a href="http://www.tkd-pbl.com/book/b559511.html" target="_blank" rel="noopener noreferrer">The book "Python for Programmers by Deitel &amp; Deitel", which I co-translated</a>, has been published.
+          </li>
+          <li>Apr 2020: Started working at Recruit Inc., Ltd. in Tokyo.</li>
           <li>Mar 2020: Completed my Master's course at the University of Tokyo.</li>
         </ul>
       </div>
