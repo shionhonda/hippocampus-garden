@@ -1,8 +1,8 @@
 ---
-title: "Kaggle on Colab Pro"
-date: "2021-05-30T22:01:03.284Z"
+title: "Happy Kaggling on Colab Pro"
+date: "2021-05-31T22:01:03.284Z"
 description: "It's just $12 per month."
-featuredImage: f1/ogp.png
+featuredImage: kaggle_colab/ogp.jpg
 tags: ["en", "kaggle"]
 ---
 
@@ -29,7 +29,7 @@ Unfortunately, it seems there are no way to do the both fast. Considering that w
 4. Copy `kaggle.json` in your Google Drive to the Colab's session and change file permission
 ```
 ! mkdir -p ~/.kaggle
-! cp /content/drive/kaggle/kaggle.json ~/.kaggle/
+! cp /content/drive/MyDrive/kaggle/kaggle.json ~/.kaggle/
 ! chmod 600 ~/.kaggle/kaggle.json
 ```
 5. (Optional) Upgrade Kaggle API. This package is pre-installed in Colab instances, but as of May 2021, its version is older than the one used in the Kaggle notebooks and behaves differently.
@@ -39,25 +39,28 @@ Unfortunately, it seems there are no way to do the both fast. Considering that w
 ```
 6. Download dataset via Kaggle API and 
 ```
-! mkdir -p /content/<CompetitionID>
-! kaggle competitions download -c <CompetitionID> -p /content
+! mkdir -p <CompetitionID>
+! kaggle competitions download -c <CompetitionID> -p ./
 ```
 7. Unzip the zipped file
 ```shell
-! unzip -q /content/<CompetitionID>.zip
+! unzip -q <CompetitionID>.zip -d <CompetitionID>
 # You can specify the portion of dataset for saving time and disk space
-! unzip -q /content/<CompetitionID>.zip train/*
+! unzip -q <CompetitionID>.zip train/* -d <CompetitionID>
 ```
 
-It's all done! When you finish training, you can save the weight files to Kaggle datasets and submit predictions via Kaggle API. For the complete usage, please refer to the [README](https://github.com/Kaggle/kaggle-api).
+It's all done! When you finish training, you can export the weight files to Kaggle datasets and submit predictions via Kaggle API. For the complete usage, please refer to the [README](https://github.com/Kaggle/kaggle-api).
 
 ## What about Using GCS?
 ### Colab can Mount GCS Buckets but...
+Colab can mount Google Cloud Storage, allowing us to access Kaggle datasets without downloading them. To do so, you need some setups. First, authenticate your account by the following snippet:
 
 ```python
 from google.colab import auth
 auth.authenticate_user()
 ```
+
+Then, install `gcsfuse`.
 
 ```
 ! echo "deb http://packages.cloud.google.com/apt gcsfuse-bionic main" > /etc/apt/sources.list.d/gcsfuse.list
@@ -66,13 +69,49 @@ auth.authenticate_user()
 ! apt install gcsfuse
 ```
 
+Next, open a Kaggle notebook in your preferred competition, and get the GCS path by executing the following snippet:
+
+```python
+from kaggle_datasets import KaggleDatasets
+print(KaggleDatasets().get_gcs_path())
 ```
-! mkdir -p seti-breakthrough-listen
-! gcsfuse  --implicit-dirs --limit-bytes-per-sec -1 --limit-ops-per-sec -1 kds-e04be55adcebc737d70e0c48b4fb1d5cf353f2424d1ab1d818ca0e4f seti-breakthrough-listen
-! ls seti-breakthrough-listen/
+
+For the competition "[House Prices - Advanced Regression Techniques](https://www.kaggle.com/c/house-prices-advanced-regression-techniques/)", the GCS path was `gs://kds-ecc57ad1aae587b0e86e3b9422baab9785fc1220431f0b88e5327ea5`.
+
+Now mount the GCS bucket by `gcsfuse`.
+
+```
+! mkdir -p <CompetitionID>
+! gcsfuse  --implicit-dirs --limit-bytes-per-sec -1 --limit-ops-per-sec -1 <GCSPath without gs://> <CompetitionID>
+```
+
+The mounting process completes in a second! But when you try to iterate over the dataset, you'll find out that the disk access is irritatingly slow. The speed should depend on the region of the Colab instance and the GCS bucket, but generally you should avoid mounting on GCS buckets.
+
+For your information, the region of the Colab instance can be obtained by:
+
+```
+! curl ipinfo.io
+```
+
+The region of the GCS bucket should be obtained by the command below, but I got `AccessDeniedException` and couldn't solve it.
+
+```
+! gsutil ls -Lb gs://kds-ecc57ad1aae587b0e86e3b9422baab9785fc1220431f0b88e5327ea5
 ```
 
 ### Downloading with gsutil is Slow, too
+935 KB
+
+```
+! gsutil cp -r <GCSPath with gs://> ./
+```
+
+|             Method              | Time [s] |
+| :-----------------------------: | :------: |
+|     Unzip from Google Drive     |  1.012   |
+| Download via Kaggle API & Unzip |  1.030   |
+|       Download via gsutil       |  2.026   |
 
 ## References
-[1] [Colaboratoryで分析コンペをする時のテクニック集 - kaggle全力でやります](https://www.currypurin.com/entry/2021/03/04/070000)
+[1] [Colaboratoryで分析コンペをする時のテクニック集 - kaggle全力でやります](https://www.currypurin.com/entry/2021/03/04/070000)  
+[2] [Colaboratory環境でGoogle Cloud Storage(GCS)と連携する(gsutil,gcsfuse)](https://technodaifuku.blogspot.com/2020/09/colaboratorygoogle-cloud.html)
