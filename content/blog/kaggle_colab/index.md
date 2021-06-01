@@ -39,7 +39,6 @@ The following steps only need to be done once.
 ```
 5. (Optional) Upgrade Kaggle API. This package is pre-installed in Colab instances, but as of May 2021, its version is older than the one used in the Kaggle notebooks and behaves differently.
 ```
-! pip uninstall -y kaggle
 ! pip install -U kaggle
 ```
 6. Download dataset via Kaggle API in Google Drive (this may take some time to complete and a few more minutes to be reflected in Google Drive GUI).

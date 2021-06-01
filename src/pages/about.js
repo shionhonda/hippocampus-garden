@@ -8,7 +8,7 @@ import { rhythm } from "../utils/typography"
 const About = ({ data, location }) => {
   const siteTitle = data.site.siteMetadata.title
   const l50 = 50
-  const l200 = 200
+  const l250 = 250
 
   return (
     <Layout location={location} title={siteTitle}>
@@ -25,7 +25,7 @@ const About = ({ data, location }) => {
           </p>
         <div style={{ textAlign: "center" }}>
           <StaticImage src="../../content/assets/face.jpg" alt="face"
-            width={l200} />
+            width={l250} />
         </div>
 
         <div style={{ textAlign: "center" }}>
@@ -35,6 +35,10 @@ const About = ({ data, location }) => {
           </a>
           <a href="https://github.com/shionhonda/" target="_blank" rel="noopener noreferrer">
             <StaticImage src="../../content/assets/github.png" alt="github"
+              width={l50} height={l50} />
+          </a>
+          <a href="https://kaggle.com/shionhonda/" target="_blank" rel="noopener noreferrer">
+            <StaticImage src="../../content/assets/kaggle.png" alt="kaggle"
               width={l50} height={l50} />
           </a>
           <a href="https://www.linkedin.com/in/shionhonda/" target="_blank" rel="noopener noreferrer">
@@ -101,6 +105,9 @@ export const pageQuery = graphql`
     githubIcon: file(relativePath: { eq: "github.png" }) {
       ...fixedImage50
     }
+    kaggleIcon: file(relativePath: { eq: "kaggle.png" }) {
+      ...fixedImage50
+    }
     linkedinIcon: file(relativePath: { eq: "linkedin.png" }) {
       ...fixedImage50
     }
@@ -108,7 +115,7 @@ export const pageQuery = graphql`
       ...fixedImage50
     }
     face: file(relativePath: { eq: "face.jpg" }) {
-      ...fixedImage200
+      ...fixedImage250
     }
   }
 `
@@ -119,9 +126,9 @@ export const fixedImage50 = graphql`fragment fixedImage50 on File {
 }
 `
 
-export const fixedImage200 = graphql`fragment fixedImage200 on File {
+export const fixedImage250 = graphql`fragment fixedImage250 on File {
   childImageSharp {
-    gatsbyImageData(width: 200, layout: FIXED)
+    gatsbyImageData(width: 250, layout: FIXED)
   }
 }
 `
