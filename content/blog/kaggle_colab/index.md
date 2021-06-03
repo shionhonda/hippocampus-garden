@@ -83,6 +83,7 @@ from google.colab import auth
 auth.authenticate_user()
 ```
 </br>
+
 Then, install `gcsfuse`.
 
 ```
@@ -92,6 +93,7 @@ Then, install `gcsfuse`.
 ! apt install gcsfuse
 ```
 </br>
+
 Next, open a Kaggle notebook in your preferred competition, and get the GCS path by running the following snippet:
 
 ```python
@@ -99,6 +101,7 @@ from kaggle_datasets import KaggleDatasets
 print(KaggleDatasets().get_gcs_path())
 ```
 </br>
+
 For the competition "[House Prices - Advanced Regression Techniques](https://www.kaggle.com/c/house-prices-advanced-regression-techniques/)", the GCS path was `gs://kds-ecc57ad1aae587b0e86e3b9422baab9785fc1220431f0b88e5327ea5`.
 
 Now mount to the GCS bucket by `gcsfuse`.
@@ -108,6 +111,7 @@ Now mount to the GCS bucket by `gcsfuse`.
 ! gcsfuse  --implicit-dirs --limit-bytes-per-sec -1 --limit-ops-per-sec -1 <GCSPath without gs://> <CompetitionID>
 ```
 </br>
+
 The mounting process completes in a second! But when you try to iterate over the dataset, you'll find out that the disk access is irritatingly slow. The speed should depend on the region of the Colab instance and the GCS bucket, but in general, you should avoid mounting to GCS buckets.
 
 For your information, the region of the Colab instance can be obtained by:
@@ -116,6 +120,7 @@ For your information, the region of the Colab instance can be obtained by:
 ! curl ipinfo.io
 ```
 </br>
+
 The region of the GCS bucket should be obtained by the command below, but I got `AccessDeniedException` and couldn't solve it.
 
 ```
@@ -130,4 +135,5 @@ Again, the disk access is too slow.
 ## References
 [1] [Colaboratoryで分析コンペをする時のテクニック集 - kaggle全力でやります](https://www.currypurin.com/entry/2021/03/04/070000)  
 [2] [Colaboratory環境でGoogle Cloud Storage(GCS)と連携する(gsutil,gcsfuse)](https://technodaifuku.blogspot.com/2020/09/colaboratorygoogle-cloud.html)  
-[3] [Downloading Datasets into Google Drive via Google Colab | by Kevin Luk | Towards Data Science](https://towardsdatascience.com/downloading-datasets-into-google-drive-via-google-colab-bcb1b30b0166)
+[3] [Downloading Datasets into Google Drive via Google Colab | by Kevin Luk | Towards Data Science](https://towardsdatascience.com/downloading-datasets-into-google-drive-via-google-colab-bcb1b30b0166)  
+[4] [How to Kaggle the Engineer way. Act 2: Google Colab | by Vitalii Kozhukhivskyi | Apr, 2021 | Towards Data Science](https://towardsdatascience.com/how-to-kaggle-the-engineer-way-act-2-google-colab-2afa29ab35b8)
