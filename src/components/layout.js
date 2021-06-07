@@ -50,6 +50,7 @@ const Layout = ({ location, title, children, toc }) => {
   }
 
   else if (location.pathname === "/about/"
+    || location.pathname === "/about-ja/"
     || location.pathname === "/privacy-policy/") {
     content = <main>{children}</main>
   }

@@ -5,7 +5,7 @@ import Layout from "../components/layout"
 import Seo from "../components/seo.jsx"
 import { rhythm } from "../utils/typography"
 
-const About = ({ data, location }) => {
+const AboutJa = ({ data, location }) => {
   const siteTitle = data.site.siteMetadata.title
   const l50 = 50
   const l250 = 250
@@ -14,19 +14,22 @@ const About = ({ data, location }) => {
     <Layout location={location} title={siteTitle}>
       <Seo title="About" />
       <div style={{ backgroundColor: "white", padding: rhythm(1) }}>
-        <div style={{ "textAlign": "right" }}>
-          <Link to={"/about-ja/"}>日本語</Link>
-        </div>
 
-        <h1>About</h1>
+        <div style={{ "textAlign": "right" }}>
+          <Link to={"/about/"}>English</Link>
+        </div>
+        <h1>当ブログについて</h1>
         <p>
-          Hi! I'm Shion Honda, and welcome to {siteTitle}!! I built this website to write about machine learning, statistics, programming, and sometimes my hobbies.
-            <br />
-            I am a data scientist at Recruit Inc., Ltd.
-            MScs in Information Science and Technology.
-            <br />
-            Opinions presented here are my own and not the views of my employer.
-          </p>
+          ようこそ、 {siteTitle} へ！管理人の本田志温（ほんだ しおん）と申します。
+          当ブログでは、機械学習、統計学、プログラミング、そして時折趣味について書いています。
+          <br />
+          当ブログの内容は管理人個人の意見であり、雇用主とは関係ありません。
+        </p>
+
+        <h2>プロフィール</h2>
+        <p>
+          株式会社リクルートでデータサイエンティストをしています。修士（情報理工学）
+        </p>
         <div style={{ textAlign: "center" }}>
           <StaticImage src="../../content/assets/face.jpg" alt="face"
             width={l250} />
@@ -55,46 +58,44 @@ const About = ({ data, location }) => {
           </a>
         </div>
 
-        <p style={{ clear: "both" }}>See <a href="https://www.linkedin.com/in/shionhonda/" target="_blank" rel="noopener noreferrer">LinkedIn</a> for my education and work experiences
-          and <a href="https://scholar.google.co.jp/citations?user=NhNlsZcAAAAJ" target="_blank" rel="noopener noreferrer">Google Scholar</a> for publications.</p>
+        <p style={{ clear: "both" }}>経歴については <a href="https://www.linkedin.com/in/shionhonda/" target="_blank" rel="noopener noreferrer">LinkedIn</a>を、
+          発表論文については<a href="https://scholar.google.co.jp/citations?user=NhNlsZcAAAAJ" target="_blank" rel="noopener noreferrer">Google Scholar</a>をご覧ください。</p>
 
 
-        <h2>External links</h2>
-          You may also like:
-          <ul>
+        <h2>リンク集</h2>
+        <ul>
           <li>
-            <a href="https://qiita.com/shionhonda" target="_blank" rel="noopener noreferrer"><strong>Qiita</strong></a> (all in Japanese).
-              I used to write survey posts here. The topics are somewhat wide: system trading for cryptocurrencies, graph neural networks, deep reinforcement learning, deep generative models, etc.
+            <a href="https://qiita.com/shionhonda" target="_blank" rel="noopener noreferrer"><strong>Qiita</strong></a>：
+            過去に日本語でブログ記事を書いていました。内容は暗号通貨、グラフニューラルネットワーク、深層強化学習、深層生成モデルなど多岐にわたります。
             </li>
           <li>
-            <a href="https://ai-scholar.tech/author/honda-shion/" target="_blank" rel="noopener noreferrer"><strong>AI-SCHOLAR</strong></a> (all in Japanese).
-              I contributed some introductory articles to a web media for non-experts in AI.
-              Popular posts are on MuZero, XLNet, and NGBoost.
+            <a href="https://ai-scholar.tech/author/honda-shion/" target="_blank" rel="noopener noreferrer"><strong>AI-SCHOLAR</strong></a>：
+            非専門家に向けたAIの解説記事をいくつか寄稿しました。特に、MuZero、XLNet、NGBoostについて書いた記事が人気でした。
             </li>
           <li>
-            <a href="https://www.slideshare.net/ShionHonda" target="_blank" rel="noopener noreferrer"><strong>SlideShare</strong></a> (mostly in Japanese).
-              Here are some slides that I used in my talks and presentations.
+            <a href="https://www.slideshare.net/ShionHonda" target="_blank" rel="noopener noreferrer"><strong>SlideShare</strong></a>：
+              勉強会の発表などで用いた資料をまとめています。
             </li>
           <li>
-            <a href="https://www.amazon.jp/hz/wishlist/ls/3DA10HYL0KND7?ref_=wl_share" target="_blank" rel="noopener noreferrer"><strong>Amazon Wish List</strong></a>.
-              I appreciate your kindness.
+            <a href="https://www.amazon.jp/hz/wishlist/ls/3DA10HYL0KND7?ref_=wl_share" target="_blank" rel="noopener noreferrer"><strong>Amazon Wish List</strong></a>：
+              ご支援いただける場合はこちらからお願いします。
             </li>
         </ul>
 
-        <h2>News</h2>
+        <h2>新着情報</h2>
         <ul>
           <li>
-            May 2021: <a href="http://www.tkd-pbl.com/book/b559511.html" target="_blank" rel="noopener noreferrer">The book "Python for Programmers by Deitel &amp; Deitel", which I co-translated</a>, has been published.
+            2021年5月 <a href="http://www.tkd-pbl.com/book/b559511.html" target="_blank" rel="noopener noreferrer">翻訳を共同で担当した『ダイテル Pythonプログラミング』</a>が東京化学同人から出版されました。
           </li>
-          <li>Apr 2020: Started working at Recruit Inc., Ltd. in Tokyo.</li>
-          <li>Mar 2020: Completed my Master's course at the University of Tokyo.</li>
+          <li>2020年4月: 株式会社リクルートに入社しました。勤務地は東京です。</li>
+          <li>2020年3月: 東京大学大学院情報理工学研究科修士課程を修了しました。</li>
         </ul>
       </div>
     </Layout>
   );
 };
 
-export default About;
+export default AboutJa;
 
 export const pageQuery = graphql`
   query {

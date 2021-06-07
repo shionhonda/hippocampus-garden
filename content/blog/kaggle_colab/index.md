@@ -1,5 +1,5 @@
 ---
-title: "Happy Kaggling on Colab Pro & Google Drive"
+title: "How to Kaggle with Colab Pro & Google Drive"
 date: "2021-05-31T22:01:03.284Z"
 description: "This post shows you how to set up a cheap and comfortable computing environment for Kaggle using Colab Pro and Google Drive. Happy Kaggling!"
 featuredImage: kaggle_colab/ogp.jpg
