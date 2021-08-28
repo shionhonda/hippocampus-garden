@@ -1,7 +1,7 @@
 ---
 title: "Kaggle Competition Report: SETI Breakthrough Listen"
-date: "2021-08-22T22:01:03.284Z"
-description: "The Kaggle SETI competition has ended. This post introduces the task for non-participantss and summarizes the top 5 teams' solutions and mine."
+date: "2021-08-28T22:01:03.284Z"
+description: "The Kaggle SETI competition has ended. Did kagglers succeed in finding aliens? Let's see."
 featuredImage: kaggle_seti/ogp.jpg
 tags: ["en", "kaggle"]
 ---
