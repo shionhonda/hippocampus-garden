@@ -63,7 +63,7 @@ Saramagoはポルトガルの作家で、1998年にノーベル文学賞を受�
 <iframe style="width:120px;height:240px;" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="//rcm-fe.amazon-adsystem.com/e/cm?lt1=_blank&bc1=000000&IS2=1&bg1=FFFFFF&fc1=000000&lc1=0000FF&t=hippocampus09-22&language=ja_JP&o=9&p=8&l=as4&m=amazon&f=ifr&ref=as_ss_li_til&asins=4062880008&linkId=37fd08eb8597bc41db5cf009473c24ff"></iframe>
 
 ### 追記（2021年8月29日）
-最近書店に行ったところ、明らかに誇大な売り文句な帯の付いた怪しげな本が並んでいました。残念です…
+最近書店に行ったところ、誇大な売り文句の帯が付いた怪しげな本が並んでいました。
 
 ![](2021-08-29-11-38-45.png)
 
