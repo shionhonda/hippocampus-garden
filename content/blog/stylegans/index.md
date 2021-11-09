@@ -75,10 +75,10 @@ Let's have a look at some examples.
 
 <div style="text-align: center;"><small>Image taken from [6].</small></div>
 
-They noticed that the 512-dimensional intermediate latent space $\mathcal{W}$ is not informative enough to restore the input image. So, they extended the latent space to $\mathcal{W}+$, which is a concatenation of 18 different $\mathbb{w} \in \mathcal{W}$ vectors, one for each input to the StyleGAN's AdaIN layers. The resulting $\mathcal{W}+$ space is well disentangled and allows multiple face image editing applications including style transfer and expression transfer. This feature was further explored in **Image2StyleGAN++** [7].
+The authors noticed that the 512-dimensional intermediate latent space $\mathcal{W}$ is not informative enough to restore the input image. So, they extended the latent space to $\mathcal{W}+$, which is a concatenation of 18 different $\mathbb{w} \in \mathcal{W}$ vectors, one for each input to the StyleGAN's AdaIN layers. The resulting $\mathcal{W}+$ space is well disentangled and allows multiple face image editing applications including style transfer and expression transfer. This feature was further explored in **Image2StyleGAN++** [7].
 
 ### pSp
-The learning based approach **pSp** (**pixel2style2pixel**) is a general image-to-image translation framework. The encoder is trained to minimize the reconstruction loss (the sum of L2, LPIPS, identity, and latent code regularization loss) and directly translates the input image to the extended latent code ($\in \mathcal{W}+$).
+The learning based approach **pSp** (**pixel2style2pixel**) is a general image-to-image translation framework [8]. The encoder is trained to minimize the reconstruction loss (the sum of L2, LPIPS, identity, and latent code regularization loss) and directly translates the input image to the extended latent code ($\in \mathcal{W}+$).
 
 ![](2021-11-09-08-47-12.png)
 
@@ -91,7 +91,36 @@ The pSp encoder can be trained on images not represented in the StyleGAN domain.
 <div style="text-align: center;"><small>Image taken from [8].</small></div>
 
 ### e4e
+**e4e** (**Encoder for Editing**) is a learning-based encoder specifically designed for semantic editing after inversion [9]. 
+
+First, the authors summarized the variations of the intermediate latent space $\mathcal{W}$ and the extended $\mathcal{W}+$. They use $\cdot^k$ notation for layer extention and explicitly denote $\mathcal{W}_*$ when it is not the equal distribution to $\mathcal{W}$. Now, four variations in the table below should be considered. The former $\mathcal{W}+$ space is now $\mathcal{W}^k$ or $\mathcal{W}^k_*$ depending on its distribution.
+
+|                   | Individual style codes are limited to $\mathcal{W}$ | Same style code in all layers |
+| :---------------: | :-------------------------------------------------: | :---------------------------: |
+|   $\mathcal{W}$   |                          ✅                          |               ✅               |
+|  $\mathcal{W}^k$  |                          ✅                          |                               |
+|  $\mathcal{W}_*$  |                                                     |               ✅               |
+| $\mathcal{W}^k_*$ |                                                     |                               |
+
+Based on the above definition, the authors shed light on **distortion-editability tradeoff** and  **distortion-perception tradeoff**. That is, inverting to $\mathcal{W}^k_*$ space leads to the less distorted (less reconstruction loss) but less realistic and harder to edit results than inverting to $\mathcal{W}$. The figure below depicts the distortion-perception tradeoff.
+
+![](2021-11-09-09-28-33.png)
+
+<div style="text-align: center;"><small>Image taken from [9].</small></div>
+
+e4e employs the pSp's architecure but is trained with a control of these tradeoffs by putting $\mathcal{W}^k_*$ closer to $\mathcal{W}^k$ and $\mathcal{W}_*$. The editability-aware encoder realizes good reconstruction and semantic editing at the same time.
+
+![](2021-11-09-10-02-42.png)
+
+<div style="text-align: center;"><small>Image taken from [9].</small></div>
+
 ### ReStyle
+To improve the reconstruction accuracy of pSp and e4e, **ReStyle** is tasked with predicting a residual of the current estimate to the target [10]. It works with a negligible increase in inference time.
+
+![](2021-11-09-10-05-38.png)
+
+<div style="text-align: center;"><small>Image taken from [10].</small></div>
+
 ## Semantic Editing
 ### Image2StyleGAN++
 ### StyleSpace Analysis
@@ -116,3 +145,5 @@ Last but not least,...
 [6] Rameen Abdal, Yipeng Qin, Peter Wonka. "[Image2StyleGAN: How to Embed Images Into the StyleGAN Latent Space?](https://arxiv.org/abs/1904.03189)". *ICCV*. 2019.  
 [7] Rameen Abdal, Yipeng Qin, Peter Wonka. "[Image2StyleGAN++: How to Edit the Embedded Images?](https://arxiv.org/abs/1911.11544)". *CVPR*. 2020.  
 [8] Elad Richardson, Yuval Alaluf, Or Patashnik, Yotam Nitzan, Yaniv Azar, Stav Shapiro, Daniel Cohen-Or. "[Encoding in Style: A StyleGAN Encoder for Image-to-Image Translation](https://arxiv.org/abs/2008.00951)". *CVPR*. 2021.  
+[9] Omer Tov, Yuval Alaluf, Yotam Nitzan, Or Patashnik, Daniel Cohen-Or. "[Designing an Encoder for StyleGAN Image Manipulation](https://arxiv.org/abs/2102.02766)". *SIGGRAPH*. 2021.  
+[10] Yuval Alaluf, Or Patashnik, Daniel Cohen-Or. "[ReStyle: A Residual-Based StyleGAN Encoder via Iterative Refinement](https://arxiv.org/abs/2104.02699)". *ICCV*. 2021.
