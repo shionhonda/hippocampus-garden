@@ -46,7 +46,7 @@ One of the most important updates of StyleGAN2 is that by regularizing the **per
 
 <div style="text-align: center;"><small>Image taken from [2].</small></div>
 
-This paved the way for **GAN inversion** -- projecting an image to the GAN's latent space where features are semantically disentangled as is done by VAE. As we'll see in the next section, there are many works to tackle inversion of StyleGAN2.
+This paved the way for **GAN inversion** -- projecting an image to the GAN's latent space where features are semantically disentangled as is done by VAE. As we'll see in the next section, StyleGAN2 is currently the most popular variant in terms of the number of application works.
 
 ### StyleGAN3 (Alias-Free GAN)
 In June 2021, the Tero Karras team published **Alias-Free GAN** (later called **StyleGAN3**) to address the undesirable aliasing effect that leads to some details glued to the image's absolute coordinates [4]. 
@@ -54,23 +54,51 @@ In June 2021, the Tero Karras team published **Alias-Free GAN** (later called **
 A video is worth a thousand words. [The official video](https://nvlabs-fi-cdn.nvidia.com/_web/stylegan3/videos/video_0_ffhq_cinemagraphs.mp4) clearly demonstrates the “texture sticking” issue and that StyleGAN3 solves it perfectly. Now it can be trained on unaligned images like FFHQ-U. For StyleGAN3 applications, there are only a few yet. 
 
 ## StyleGAN Inversion
+GAN Inversion is a technique to invert a given image back to the latent space, where semantic editing is easily done. For example, when you get a latent code $\mathbb{z}$ of your portrait $\mathbb{x}$, you can generate a youger version by adding the "decrease age" vector $\mathbb{n}$ and feeding it to the generator.
 
+![](2021-11-08-22-35-27.png)
 
-- Optimization
-- Learning-based
-- Hybrid
+<div style="text-align: center;"><small>Image taken from [5].</small></div>
 
+There are three approaches to GAN inversion:
 
-### Image2Style
+- **Optimization-based** methods search for the latent code that minimizes the reconstruction loss using gradient descent or other iterative algorithms. They generally lead to the better reconstruction results but take much longer time due to the iterative process. 
+- **Learning-based** methods train an encoder that inverts images to the latent space. They are generally faster and less accurate than optimization-based counterparts.
+- **Hybrid** methods of these two. Typically, they first invert a given image to the latent code with a learning-based encoder and then optimize it further. This is expected to reduce the time for optimization and the quality of inversion.
+
+Let's have a look at some examples.
+
+### Image2StyleGAN
+**Image2StyleGAN** [6] is a simple but effective implementation of the optimization-based approach. It minimizes the sum of the perceptual loss and L2 loss to get the embedded latent code.
+
+![](2021-11-09-08-14-35.png)
+
+<div style="text-align: center;"><small>Image taken from [6].</small></div>
+
+They noticed that the 512-dimensional intermediate latent space $\mathcal{W}$ is not informative enough to restore the input image. So, they extended the latent space to $\mathcal{W}+$, which is a concatenation of 18 different $\mathbb{w} \in \mathcal{W}$ vectors, one for each input to the StyleGAN's AdaIN layers. The resulting $\mathcal{W}+$ space is well disentangled and allows multiple face image editing applications including style transfer and expression transfer. This feature was further explored in **Image2StyleGAN++** [7].
+
 ### pSp
+The learning based approach **pSp** (**pixel2style2pixel**) is a general image-to-image translation framework. The encoder is trained to minimize the reconstruction loss (the sum of L2, LPIPS, identity, and latent code regularization loss) and directly translates the input image to the extended latent code ($\in \mathcal{W}+$).
+
+![](2021-11-09-08-47-12.png)
+
+<div style="text-align: center;"><small>Image taken from [8].</small></div>
+
+The pSp encoder can be trained on images not represented in the StyleGAN domain. In that way, pSp can generate images conditioned on inputs like sketches and segmentation masks.
+
+![](2021-11-09-09-00-20.png)
+
+<div style="text-align: center;"><small>Image taken from [8].</small></div>
+
 ### e4e
 ### ReStyle
 ## Semantic Editing
+### Image2StyleGAN++
 ### StyleSpace Analysis
 ### StyleFlow
 ### Editing in Style
 ### Retrieve in Style
-### Pose With Style
+### Pose with Style
 ## 3D Control
 ### StyleRig
 ### StyleNeRF
@@ -81,7 +109,10 @@ Last but not least,...
 ## References
 [1] Tero Karras, Samuli Laine, Timo Aila. "[A Style-Based Generator Architecture for Generative Adversarial Networks](https://arxiv.org/abs/1812.04948)". *CVPR*. 2019.  
 [2] Tero Karras, Samuli Laine, Miika Aittala, Janne Hellsten, Jaakko Lehtinen, Timo Aila. "[Analyzing and Improving the Image Quality of StyleGAN](https://arxiv.org/abs/1912.04958)
-". **. 2020.   
+". *CVPR*. 2020.   
 [3] Xun Huang, Serge Belongie. "[Arbitrary Style Transfer in Real-time with Adaptive Instance Normalization](https://arxiv.org/abs/1703.06868)". *ICCV*. 2017.  
 [4] Tero Karras, Miika Aittala, Samuli Laine, Erik Härkönen, Janne Hellsten, Jaakko Lehtinen, Timo Aila. "[Alias-Free Generative Adversarial Networks](https://arxiv.org/abs/2106.12423)". *NeurIPS*. 2021.  
-[5] Weihao Xia, Yulun Zhang, Yujiu Yang, Jing-Hao Xue, Bolei Zhou, Ming-Hsuan Yang. "[GAN Inversion: A Survey](https://arxiv.org/abs/2101.05278)". 2021.
+[5] Weihao Xia, Yulun Zhang, Yujiu Yang, Jing-Hao Xue, Bolei Zhou, Ming-Hsuan Yang. "[GAN Inversion: A Survey](https://arxiv.org/abs/2101.05278)". 2021.  
+[6] Rameen Abdal, Yipeng Qin, Peter Wonka. "[Image2StyleGAN: How to Embed Images Into the StyleGAN Latent Space?](https://arxiv.org/abs/1904.03189)". *ICCV*. 2019.  
+[7] Rameen Abdal, Yipeng Qin, Peter Wonka. "[Image2StyleGAN++: How to Edit the Embedded Images?](https://arxiv.org/abs/1911.11544)". *CVPR*. 2020.  
+[8] Elad Richardson, Yuval Alaluf, Or Patashnik, Yotam Nitzan, Yaniv Azar, Stav Shapiro, Daniel Cohen-Or. "[Encoding in Style: A StyleGAN Encoder for Image-to-Image Translation](https://arxiv.org/abs/2008.00951)". *CVPR*. 2021.  
