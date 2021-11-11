@@ -1,20 +1,20 @@
 ---
 title: "Awesome StyleGAN Applications"
 date: "2021-11-12T22:01:03.284Z"
-description: 'Transformer has undergone various application studies, model enhancements, etc. This post aims to provide an overview of these studies.'
+description: "The ability of StyleGAN to generate super realistic high-resolution images has been inspiring many application works. To have some sort of organized view on them, this post covers important papers with a focus on image manipulation."
 featuredImage: stylegans/ogp.jpg
 tags: ["en", "deep-learning", "cv"]
 ---
 
-Since its debut in 2018, **StyleGAN** attracted lots of attention with its capacity to generate super realistic high resolution images of human face, not only from AI researchers but also from artists or even lawyers. At the time of this writing, the original paper [1] has 2,548 citations and its successor, **StyleGAN2** [2], has 1,065. This means there are increasing number of application works. To prevent myself from getting overwhelmed, I'm writing this post and trying to overlook this research field in an organized way. Of course it's impossible to read thousands of papers, so hereafter I'll focus on the papers that relate to image manipulation including GAN inversion and 3D control.
+Since its debut in 2018, **StyleGAN** attracted lots of attention from AI researchers, artists and even lawyers for its ability to generate super realistic high-resolution images of human faces. At the time of this writing, the original paper [1] has 2,548 citations and its successor **StyleGAN2** [2] has 1,065. This means that the number of application works is growing at a dizzying rate. To keep me from getting overwhelmed, I'm writing this post to overlook this research field in an organized way. Of course, it's impossible to read thousands of papers, so hereafter I'll focus on the papers that relate to image manipulation including GAN inversion and 3D control.
 
 ## StyleGANs: A Quick Recap
-First of all, let's briefly recall what was StyleGAN and the key updates of its subsequent versions.
+First of all, let's briefly recall what StyleGAN was and what the key updates of its subsequent versions were.
 
 ### StyleGAN
 The architecture of the original StyleGAN generator was novel in three ways:
-- Generates images in a two-stage fashion; first map the latent code to an itermediate latent space with the **mapping network** and then feed them to each layer of the **synthesis network**, rather than directly inputs the latent code to the first layer only. 
-- Applies **AdaIN** [3] layers iteratively to take in the intermediate latent code as "style".
+- Generates images in two-stages; first map the latent code to an intermediate latent space with the **mapping network** and then feed them to each layer of the **synthesis network**, rather than directly inputs the latent code to the first layer only. 
+- Applies **AdaIN** [3] layers iteratively to capture the intermediate latent code as "styles".
 - Injects explicit noise inputs to deal with stochastic variations such as hair and freckles.
 
 These are best described in the figure below.
@@ -23,38 +23,38 @@ These are best described in the figure below.
 
 <div style="text-align: center;"><small>Image taken from [1].</small></div>
 
-With these features combined, StyleGAN can generate images that are almost impossible to dicriminate for humans.
+With these features combined, StyleGAN can generate images that are almost impossible to discriminate for humans.
 
 ![](2021-11-07-22-46-38.png)
 
 <div style="text-align: center;"><small>Image taken from [1].</small></div>
 
-This quality was so surprising that many people rushed to train StyleGAN with their own datasets to generate cats, *ukiyoe*, and pokémons (see [Awesome Pretrained StyleGAN](https://github.com/justinpinkney/awesome-pretrained-stylegan) for details).
+This quality was so amazing that many people rushed to train StyleGAN with their own datasets to generate cats, *ukiyoe*, Pokémons, and more (see [Awesome Pretrained StyleGAN](https://github.com/justinpinkney/awesome-pretrained-stylegan) for details).
 
-StyleGAN has another interesting feature called "**style mix**". With two latent codes $\mathbb{z}_A$ and $\mathbb{z}_B$ (and corresponding $\mathbb{w}_A$ and $\mathbb{w}_B$), one can switch the inputs from $\mathbb{w}_B$ to $\mathbb{w}_A$ in the middle of the synthesis network and get a mixed image that has the coarse styles from B and the fine styles from A.
+StyleGAN has another interesting feature called "**style mix**". With two latent codes $\mathbb{z}_A$ and $\mathbb{z}_B$ (and corresponding $\mathbb{w}_A$ and $\mathbb{w}_B$), one can switch the inputs from $\mathbb{w}_B$ to $\mathbb{w}_A$ in the middle of the synthesis network and get a mixed image that has B's coarse styles and A's fine styles.
 
 ![](2021-11-07-22-55-04.png)
 
 <div style="text-align: center;"><small>Image taken from [1].</small></div>
 
 ### StyleGAN2
-The human face images generated by StyleGAN look convincing enough, but if you have a careful look, you may notice some unnatural artifacts. StyleGAN2 [2] made some architectual optimizations to StyleGAN to generate even more realistic images, though I don't go further in the technical details here.
+The human face images generated by StyleGAN look convincing enough, but if you have a careful look, you may notice some unnatural artifacts. In StyleGAN2 [2], some architectural optimizations were made to StyleGAN to facilitate even more realistic generation, though I don't go into the technical details here.
 
-One of the most important updates of StyleGAN2 is that by regularizing the **perceptual path length**, it became easier to invert; Now it is possible to encode a given image (generated or real) to the intermediate style space $\mathcal{W}$.
+One of the most important updates of StyleGAN2 is that by regularizing the **perceptual path length**, it became easier to invert. Now it is possible to encode a given image (either generated or real) into the intermediate style space $\mathcal{W}$.
 
 ![](2021-11-07-23-29-09.png)
 
 <div style="text-align: center;"><small>Image taken from [2].</small></div>
 
-This paved the way for **GAN inversion** -- projecting an image to the GAN's latent space where features are semantically disentangled as is done by VAE. As we'll see in the next section, StyleGAN2 is currently the most popular variant in terms of the number of application works.
+This paved the way for **GAN inversion** -- projecting an image to the GAN's latent space where features are semantically disentangled, as is done by VAE. As we'll see in the next section, StyleGAN2 is currently the most widely used version in terms of the number of application works.
 
 ### StyleGAN3 (Alias-Free GAN)
-In June 2021, the Tero Karras team published **Alias-Free GAN** (later called **StyleGAN3**) to address the undesirable aliasing effect that leads to some details glued to the image's absolute coordinates [4]. 
+In June 2021, the Tero Karras team published **Alias-Free GAN** (later named **StyleGAN3**) to address the undesirable aliasing effect that leads to some details glued to the absolute coordinates of the image [4]. 
 
-A video is worth a thousand words. [The official video](https://nvlabs-fi-cdn.nvidia.com/_web/stylegan3/videos/video_0_ffhq_cinemagraphs.mp4) clearly demonstrates the “texture sticking” issue and that StyleGAN3 solves it perfectly. Now it can be trained on unaligned images like FFHQ-U. For StyleGAN3 applications, there are only a few yet. 
+A video is worth a thousand words. [The official video](https://nvlabs-fi-cdn.nvidia.com/_web/stylegan3/videos/video_0_ffhq_cinemagraphs.mp4) clearly demonstrates the “texture sticking” issue and how StyleGAN3 solves it perfectly. Now it can be trained on unaligned images like FFHQ-U. For StyleGAN3 applications, there are only a few yet. 
 
 ## StyleGAN Inversion
-GAN Inversion is a technique to invert a given image back to the latent space, where semantic editing is easily done. For example, when you get a latent code $\mathbb{z}$ of your portrait $\mathbb{x}$, you can generate a youger version by adding the "decrease age" vector $\mathbb{n}$ and feeding it to the generator.
+GAN Inversion is a technique to invert a given image back to the latent space, where semantic editing is easily done. For example, when you get a latent code $\mathbb{z}$ of your portrait $\mathbb{x}$, you can generate a younger version by adding the "decrease age" vector $\mathbb{n}$ and feeding it to the generator.
 
 ![](2021-11-08-22-35-27.png)
 
@@ -62,23 +62,23 @@ GAN Inversion is a technique to invert a given image back to the latent space, w
 
 There are three approaches to GAN inversion:
 
-- **Optimization-based** methods search for the latent code that minimizes the reconstruction loss using gradient descent or other iterative algorithms. They generally lead to the better reconstruction results but take much longer time due to the iterative process. 
-- **Learning-based** methods train an encoder that inverts images to the latent space. They are generally faster and less accurate than optimization-based counterparts.
+- **Optimization-based** methods use an iterative algorithm, such as gradient descent, to search for the latent code that minimizes the reconstruction loss. They generally yield better reconstruction results but take a much longer time due to the iterative process. 
+- **Learning-based** methods train an encoder that inverts images to the latent space. They are generally faster and less accurate than their optimization-based counterparts.
 - **Hybrid** methods of these two. Typically, they first invert a given image to the latent code with a learning-based encoder and then optimize it further. This is expected to reduce the time for optimization and the quality of inversion.
 
 Let's have a look at some examples.
 
 ### Image2StyleGAN
-**Image2StyleGAN** [6] is a simple but effective implementation of the optimization-based approach. It minimizes the sum of the perceptual loss and L2 loss to get the embedded latent code.
+**Image2StyleGAN** [6] is a simple but effective implementation of an optimization-based approach. It minimizes the sum of the perceptual loss and L2 loss to get the embedded latent code.
 
 ![](2021-11-09-08-14-35.png)
 
 <div style="text-align: center;"><small>Image taken from [6].</small></div>
 
-The authors noticed that the 512-dimensional intermediate latent space $\mathcal{W}$ is not informative enough to restore the input image. So, they extended the latent space to $\mathcal{W}+$, which is a concatenation of 18 different $\mathbb{w} \in \mathcal{W}$ vectors, one for each input to the StyleGAN's AdaIN layers. The resulting $\mathcal{W}+$ space is well disentangled and allows multiple face image editing applications including style transfer and expression transfer. This feature was further explored in **Image2StyleGAN++** [7].
+The authors noticed that the 512-dimensional intermediate latent space $\mathcal{W}$ is not informative enough to restore the input image. So, they extended the latent space to $\mathcal{W}+$, a concatenation of 18 different $\mathbb{w} \in \mathcal{W}$ vectors, one for each input to the StyleGAN's AdaIN layers. The resulting $\mathcal{W}+$ space is well disentangled and allows multiple face image editing applications, including style transfer and expression transfer. This feature was further explored in **Image2StyleGAN++** [7].
 
 ### pSp
-The learning based approach **pSp** (**pixel2style2pixel**) is a general image-to-image translation framework [8]. The encoder is trained to minimize the reconstruction loss (the sum of L2, LPIPS, identity, and latent code regularization loss) and directly translates the input image to the extended latent code ($\in \mathcal{W}+$).
+The learning-based approach **pSp** (**pixel2style2pixel**) is a general image-to-image translation framework [8]. The encoder is trained to minimize the reconstruction loss (the sum of L2, LPIPS, identity, and latent code regularization loss) and directly translates the input image to the extended latent code ($\in \mathcal{W}+$).
 
 ![](2021-11-09-08-47-12.png)
 
@@ -93,7 +93,7 @@ The pSp encoder can be trained on images not represented in the StyleGAN domain.
 ### e4e
 **e4e** (**Encoder for Editing**) is a learning-based encoder specifically designed for semantic editing after inversion [9]. 
 
-First, the authors summarized the variations of the intermediate latent space $\mathcal{W}$ and the extended $\mathcal{W}+$. They use $\cdot^k$ notation for layer extention and explicitly denote $\mathcal{W}_*$ when it is not the equal distribution to $\mathcal{W}$. Now, four variations in the table below should be considered. The former $\mathcal{W}+$ space is now $\mathcal{W}^k$ or $\mathcal{W}^k_*$ depending on its distribution.
+First, the authors summarized the variations of the intermediate latent space $\mathcal{W}$ and the extended $\mathcal{W}+$. They use $\cdot^k$ notation for the layer extension and explicitly denote $\mathcal{W}_*$ when it is not the equal distribution to $\mathcal{W}$. Now, four variations listed in the table below should be considered. The conventional $\mathcal{W}+$ space is now $\mathcal{W}^k$ or $\mathcal{W}^k_*$ depending on its distribution.
 
 |                   | Individual style codes are limited to $\mathcal{W}$ | Same style code in all layers |
 | :---------------: | :-------------------------------------------------: | :---------------------------: |
@@ -102,13 +102,13 @@ First, the authors summarized the variations of the intermediate latent space $\
 |  $\mathcal{W}_*$  |                                                     |               ✅               |
 | $\mathcal{W}^k_*$ |                                                     |                               |
 
-Based on the above definition, the authors shed light on **distortion-editability tradeoff** and  **distortion-perception tradeoff**. That is, inverting to $\mathcal{W}^k_*$ space leads to the less distorted (less reconstruction loss) but less realistic and harder to edit results than inverting to $\mathcal{W}$. The figure below depicts the distortion-perception tradeoff.
+Based on the above definition, the authors shed light on **distortion-editability tradeoff** and  **distortion-perception tradeoff**. That is, inverting to $\mathcal{W}^k_*$ space leads to less distortion (less reconstruction loss) than inverting to $\mathcal{W}$, but it is also less realistic and harder to edit results. The figure below depicts the distortion-perception tradeoff.
 
 ![](2021-11-09-09-28-33.png)
 
 <div style="text-align: center;"><small>Image taken from [9].</small></div>
 
-e4e employs the pSp's architecure but is trained with a control of these tradeoffs by putting $\mathcal{W}^k_*$ closer to $\mathcal{W}^k$ and $\mathcal{W}_*$. The editability-aware encoder realizes good reconstruction and semantic editing at the same time.
+e4e employs the pSp's architecture but has control of these tradeoffs by putting $\mathcal{W}^k_*$ closer to $\mathcal{W}^k$ and $\mathcal{W}_*$. The editability-aware encoder achieves good reconstruction and semantic editing at the same time.
 
 ![](2021-11-09-10-02-42.png)
 
@@ -122,23 +122,23 @@ To improve the reconstruction accuracy of pSp and e4e, **ReStyle** is tasked wit
 <div style="text-align: center;"><small>Image taken from [10].</small></div>
 
 ## Semantic Editing
-One we get a latent code, we can semantically edit the original image by moving to a certain direction in the latent space. There are mainly two types of inputs:
-- Two images (source and reference), possibly with additional instruction including mask or attribute index.
-- An image and an attirbute index. 
+Once the latent code is obtained, we can semantically edit the original image by moving it to a certain direction in the latent space. There are mainly two types of input:
+- Two images (source and reference), possibly with additional instructions including masks or attribute indices.
+- An image and an attribute index. 
 
-To put it simply, the former is more like a copy-pasting and the latter attempts control the output proactively. Plus, the latter assumes that the edits are made multiple times in an interactive fashion.
+To put it simply, the former is more like a copy-pasting, while the latter attempts to control the output proactively. Plus, the latter assumes that the edits are made multiple times interactively.
 
 In this area, it is usually assumed that StyleGAN inversion algorithms are given.
 
 ### Image2StyleGAN++
-**Image2StyleGAN++** extended Image2StyleGAN to take spatial masks as input to enable **local editing** [7]. For example, it can do image crossover:
+**Image2StyleGAN++** extends Image2StyleGAN to take spatial masks as input to allow **local editing** [7]. For example, it can perform image crossover:
 
 ![](2021-11-09-20-40-35.png)
 
 <div style="text-align: center;"><small>Image taken from [7].</small></div>
 
 ### Editing in Style
-Thanks to the well-disentangled latent space, **k-means clustering** of the hidden layer activations of the StyleGAN generator provides an interesting insight: the clusters are semantically meaningful even they were decomposed in an unsupervised way [11].
+Thanks to the well-disentangled latent space, the **k-means clustering** of the hidden layer activations of the StyleGAN generator provides an interesting insight: the clusters are semantically meaningful even they were decomposed in an unsupervised way [11].
 
 ![](2021-11-10-00-13-32.png)
 
@@ -157,20 +157,20 @@ To facilitate more fine-grained and editable encoding, **StyleFlow** replaces th
 
 <div style="text-align: center;"><small>Image taken from [12].</small></div>
 
-The results are impressive. The two source images are *real* images (i.e., not generated by StyleGAN), and StyleFlow successfully translates these a little extreme samples.
+The results are impressive. The two source images are *real* images (i.e., not generated by StyleGAN), and StyleFlow successfully translates these extreme samples.
 
 ![](2021-11-10-10-03-53.png)
 
 <div style="text-align: center;"><small>Image taken from [12].</small></div>
 
 ### StyleSpace Analysis
-Wu *et al.* quantitatively analyzed how disentangled StyleGAN's latent spaces are. Although the extended intermediate latent space $\mathcal{W}+$ is the de-facto choice, they discovered that the **style space** $\mathcal{S}$ is actually more disentangled than $\mathcal{W}+$ [13]. As depicted in the figure below, the style space $\mathcal{S}$ is spanned by a concatenation of affined intermideate latent codes.
+Wu *et al.* quantitatively analyzed how disentangled StyleGAN's latent spaces are. Although the extended intermediate latent space $\mathcal{W}+$ is the standard choice, they discovered that the **style space** $\mathcal{S}$ is actually more disentangled than $\mathcal{W}+$ [13]. As depicted in the figure below, the style space $\mathcal{S}$ is spanned by a concatenation of affined intermediate latent codes.
 
 ![](2021-11-09-22-24-38.png)
 
 <div style="text-align: center;"><small>Image taken from [13].</small></div>
 
-The images below demonstrates how well the the style space $\mathcal{S}$ is disentangled. Each pair is the result of decreasing (-) and increasing (+) a single element of the style code. The numbers in the bottom left corner indicate the layer index and thee channel index. Note that the base image is a fake one generated by StyleGAN2.
+The images below demonstrate how well the style space $\mathcal{S}$ is disentangled. Each pair is the result of decreasing (-) and increasing (+) a single element of the style code. The numbers in the bottom left corner indicate the layer index and the channel index. Note that the base image is a fake one generated by StyleGAN2.
 
 ![](2021-11-09-21-08-53.png)
 
@@ -189,14 +189,14 @@ As the title suggests, the authors also provide an algorithm for attribute-guide
 Among several types of semantic edits, reposing is the most difficult task as it often requires drastic and global changes. Thus, some works explicitly estimate 3D information and use it to perform visually natural reposing.
 
 ### StyleRig
-**StyleRig** can control human face images generated by StyleGAN like a face rig, by translating the semantic editing on 3D meshes by **RigNet** [16] to the latent code of StyleGAN [15]. Here, StyleGAN is supposed to be pre-trained and RigNet can be trained in an self-supervised manner.
+**StyleRig** can control human face images generated by StyleGAN like a face rig, by translating the semantic editing on 3D meshes by **RigNet** [16] to the latent code of StyleGAN [15]. Here, StyleGAN is supposed to be pre-trained and RigNet can be trained in a self-supervised manner.
 
 ![](2021-11-10-21-25-49.png)
 
 <div style="text-align: center;"><small>Image taken from [16].</small></div>
 
 ### Pose with Style
-**Pose with Style** exploits StyleGAN2 to perfome human reposing [17]. The target pose information is used as input, and the original image and coordinate information are injected as style. The invisible parts of the surface are inpainted for symmetry. It can also be applied to the virtual try-on task.
+**Pose with Style** exploits StyleGAN2 to perform human reposing [17]. The target pose information is used as input, and the original image and coordinate information are injected as style. This algorithm is also applicable to the virtual try-on task.
 
 ![](2021-11-10-10-20-19.png)
 
@@ -216,19 +216,21 @@ The figure below shows how StyleNeRF enjoys the benefits from both NeRF's 3D con
 <div style="text-align: center;"><small>Image taken from [18]. The leftmost is the low-resolution feature map generated by NeRF.</small></div>
 
 ## Text-guided Manipulation
-Last but not least, text-guided manipulation is an intersting application of StyleGAN.
+Last but not least, text-guided manipulation is an interesting application of StyleGAN.
 
 ### StyleCLIP
 Based upon **CLIP** (**contrastive language-image pretraining**) [21], the state-of-the-art text-to-image generator, **StyleCLIP** finds the optimal direction to move forward in the latent space so that the input image will be edited according to the instruction [20].
 
-The text instructions could be diverse. Since CLIP has knowledge about certain proper nouns, it is possible to edit a face to be like "Emma Stone".
+A wide variety of text instructions can be accepted. Since CLIP has certain knowledge about proper nouns, it is possible to edit a face to look like "Emma Stone".
 
 ![](2021-11-10-23-50-29.png)
 
 <div style="text-align: center;"><small>Image taken from [20].</small></div>
 
 ## Concluding Remarks
-The StyleGAN was so impactful that its applications are growing fast. I'm glad if this post help you have kind of perspective on them.
+StyleGAN had such a great impact that its applications are growing fast. I hope this article will give you some sort of perspective on them.
+
+Thanks for reading. As always, feedback is welcomed.
 
 ## References
 [1] Tero Karras, Samuli Laine, Timo Aila. "[A Style-Based Generator Architecture for Generative Adversarial Networks](https://arxiv.org/abs/1812.04948)". *CVPR*. 2019.  
