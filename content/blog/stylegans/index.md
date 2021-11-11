@@ -1,7 +1,7 @@
 ---
 title: "Awesome StyleGAN Applications"
 date: "2021-11-12T22:01:03.284Z"
-description: "The ability of StyleGAN to generate super realistic high-resolution images has been inspiring many application works. To have some sort of organized view on them, this post covers important papers with a focus on image manipulation."
+description: "The ability of StyleGAN to generate super-realistic images has been inspiring many application works. To have some sort of organized view on them, this post covers important papers with a focus on image manipulation."
 featuredImage: stylegans/ogp.jpg
 tags: ["en", "deep-learning", "cv"]
 ---
@@ -51,10 +51,10 @@ This paved the way for **GAN inversion** -- projecting an image to the GAN's lat
 ### StyleGAN3 (Alias-Free GAN)
 In June 2021, the Tero Karras team published **Alias-Free GAN** (later named **StyleGAN3**) to address the undesirable aliasing effect that leads to some details glued to the absolute coordinates of the image [4]. 
 
-A video is worth a thousand words. [The official video](https://nvlabs-fi-cdn.nvidia.com/_web/stylegan3/videos/video_0_ffhq_cinemagraphs.mp4) clearly demonstrates the “texture sticking” issue and how StyleGAN3 solves it perfectly. Now it can be trained on unaligned images like FFHQ-U. For StyleGAN3 applications, there are only a few yet. 
+A video is worth a thousand words. [The official video](https://nvlabs-fi-cdn.nvidia.com/_web/stylegan3/videos/video_0_ffhq_cinemagraphs.mp4) clearly demonstrates the “texture sticking” issue and how StyleGAN3 solves it perfectly. Now it can be trained on unaligned images like FFHQ-U. For StyleGAN3 applications? There are only a few yet. 
 
 ## StyleGAN Inversion
-GAN Inversion is a technique to invert a given image back to the latent space, where semantic editing is easily done. For example, when you get a latent code $\mathbb{z}$ of your portrait $\mathbb{x}$, you can generate a younger version by adding the "decrease age" vector $\mathbb{n}$ and feeding it to the generator.
+GAN inversion is a technique to invert a given image back to the latent space, where semantic editing is easily done. For example, when you get a latent code $\mathbb{z}$ of your portrait $\mathbb{x}$, you can generate a younger version by adding the "decrease age" vector $\mathbb{n}$ and feeding it to the generator.
 
 ![](2021-11-08-22-35-27.png)
 
@@ -254,4 +254,4 @@ Thanks for reading. As always, feedback is welcomed.
 [18] Jiatao Gu, Lingjie Liu, Peng Wang, Christian Theobalt. "[StyleNeRF: A Style-based 3D-Aware Generator for High-resolution Image Synthesis](https://arxiv.org/abs/2110.08985)". 2021.  
 [19] Ben Mildenhall, Pratul P. Srinivasan, Matthew Tancik, Jonathan T. Barron, Ravi Ramamoorthi, Ren Ng. "[NeRF: Representing Scenes as Neural Radiance Fields for View Synthesis](https://arxiv.org/abs/2003.08934)". *ECCV*. 2020.
 [20] Or Patashnik, Zongze Wu, Eli Shechtman, Daniel Cohen-Or, Dani Lischinski. "[StyleCLIP: Text-Driven Manipulation of StyleGAN Imagery](https://arxiv.org/abs/2103.17249)". *ICCV*. 2021.  
-[21] Federico Bianchi, Giuseppe Attanasio, Raphael Pisoni, Silvia Terragni, Gabriele Sarti, Sri Lakshmi. "[Contrastive Language-Image Pre-training for the Italian Language](https://arxiv.org/abs/2108.08688)". 2021.
+[21] Alec Radford, Jong Wook Kim, Chris Hallacy, Aditya Ramesh, Gabriel Goh, Sandhini Agarwal, Girish Sastry, Amanda Askell, Pamela Mishkin, Jack Clark, Gretchen Krueger, Ilya Sutskever. "[Learning Transferable Visual Models From Natural Language Supervision](https://arxiv.org/abs/2103.00020)". *ICML*. 2021.
