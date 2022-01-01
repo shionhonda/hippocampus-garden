@@ -129,7 +129,7 @@ This issue is becoming more serious because recent RL tasks are too computationa
 
 ![](2022-01-01-17-35-41.png)
 
-Following their recommendations, it becomes clearer which algorithms are superior to others. In the figure below, the left panel is the comparison using median and the right is the conparison using IQM. IQM tells us that DreamerV2 has high variance and not really better than M-IQN.
+Following their recommendations, it becomes clearer which algorithms are superior to others. In the figure below, the left panel is the comparison using median and the right is using IQM. IQM tells us that DreamerV2 has high variance and not really better than M-IQN.
 
 ![](2022-01-01-17-34-19.png)
 
@@ -140,6 +140,20 @@ The authors compiled this evaluation protocol in a library called **rliable**. C
 - Link: https://arxiv.org/abs/2109.15102
 - Released in: September 2021
 - Accepted to: ICCV 2021
+
+Computer vision tasks related to human faces are popular. For example, they include detection, identification, 3D reconcstruction, generation, editing, and so on. However, collecting high-quality data from real world is a huge challenge, giving hope to the approach using synthetic data. Synthetic data has three upsides to the real data:
+
+1. No privacy concerns
+2. Perfect labels are automatically obtained (some of them are otherwise imposssible or very expensive to obtain)
+3. Controlable diversity
+
+Synthetic data of course has a downside, too: the domain gap problem. This paper solved this problem by creating a photo-realistic synthetic dataset **Face Synthetics** . By sequentially adding components to the 3D template face (see the figure below), the authors achieved the photo-realism and expressivity at the same time.
+
+![](2022-01-01-23-28-19.png)
+
+The Face Synthetics dataset is actually helpful for neural networks to learn to solve any face-related tasks such as landmark localization and face parsing. ResNets pretrained on this dataset and fine-tuned on the downstream tasks perform comparably with the state-of-the-art models.
+
+The Face Synthetics dataset, a collection of 100,000 human face images at 512x512 resolution with landmark and semantic segmentation labels, is available [here](https://github.com/microsoft/FaceSynthetics) *for non-commercial research purpose*. Visit [the project page](https://microsoft.github.io/FaceSynthetics/) for more visualizations. 
 
 ## Application Projects
 
