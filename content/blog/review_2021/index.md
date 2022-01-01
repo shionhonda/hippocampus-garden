@@ -155,6 +155,8 @@ The Face Synthetics dataset is actually helpful for neural networks to learn to 
 
 The Face Synthetics dataset, a collection of 100,000 human face images at 512x512 resolution with landmark and semantic segmentation labels, is available [here](https://github.com/microsoft/FaceSynthetics) *for non-commercial research purpose*. Visit [the project page](https://microsoft.github.io/FaceSynthetics/) for more visualizations. 
 
+![](2022-01-01-23-45-16.png)
+
 ## Application Projects
 
 1. GitHub Copilot
@@ -163,6 +165,15 @@ The Face Synthetics dataset, a collection of 100,000 human face images at 512x51
 4. Google Meet
 
 ### GitHub Copilot
+**[GitHub Copilot](https://copilot.github.com/)** is a super smart code autocompleter. Based on the context including comments, GitHub Copilot suggests the best code snippets to complete the current code. The core machine learning model is OpenAI Codex, a large language model trained on publicly available source code from GitHub [10].
+
+As shown in the video below, if you want to write a function, all you have to do is write an appropriate comment and press the tab key. Copilot will complete the function for you.
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/St2CMvK4hK0?start=69" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+Since Copilot is not a perfect programmer, you always have to write a test code to verify that the code is correct (Copilot can help it, too!). Either way, it generally speeds up your total coding time especially if you are not familiar with that language / framework.
+
+It should be noted that Copilot is also provoking controversy. As the aforementioned paper "Extracting Training Data from Large Language Models" points out, Codex should memorize its training data. Therefore, it is possible to extract personal information (e.g., mistakenly-uploaded API keys) or abuse codes from a repository that is protected by its license. Also, it might help spreading wrong, malicious, or inefficient code that exist somewhere in the public repositories. 
 
 ### AlphaFold2
 
@@ -187,4 +198,5 @@ https://ja.stateofaiguides.com/20211230-ai-trends-2021/
 [7] Tero Karras, Samuli Laine, Timo Aila. "[A Style-Based Generator Architecture for Generative Adversarial Networks](https://arxiv.org/abs/1812.04948)". *CVPR*. 2019.  
 [8] Tero Karras, Samuli Laine, Miika Aittala, Janne Hellsten, Jaakko Lehtinen, Timo Aila. "[Analyzing and Improving the Image Quality of StyleGAN](https://arxiv.org/abs/1912.04958)". *CVPR*. 2020.   
 [9] Oriol Vinyals, Igor Babuschkin, Wojciech M. Czarnecki, Michaël Mathieu, Andrew Dudzik, Junyoung Chung, David H. Choi, Richard Powell, Timo Ewalds, Petko Georgiev, Junhyuk Oh, Dan Horgan, Manuel Kroiss, Ivo Danihelka, Aja Huang, Laurent Sifre, Trevor Cai, John P. Agapiou, Max Jaderberg, Alexander S. Vezhnevets, Rémi Leblond, Tobias Pohlen, Valentin Dalibard, David Budden, Yury Sulsky, James Molloy, Tom L. Paine, Caglar Gulcehre, Ziyu Wang, Tobias Pfaff, Yuhuai Wu, Roman Ring, Dani Yogatama, Dario Wünsch, Katrina McKinney, Oliver Smith, Tom Schaul, Timothy Lillicrap, Koray Kavukcuoglu, Demis Hassabis, Chris Apps, David Silver. "[Grandmaster level in starcraft
-ii using multi-agent reinforcement learning](https://www.nature.com/articles/s41586-019-1724-z)". *Nature*. 2019.
+ii using multi-agent reinforcement learning](https://www.nature.com/articles/s41586-019-1724-z)". *Nature*. 2019.  
+[10] Mark Chen, Jerry Tworek, Heewoo Jun, Qiming Yuan, Henrique Ponde de Oliveira Pinto, Jared Kaplan, Harri Edwards, Yuri Burda, Nicholas Joseph, Greg Brockman, Alex Ray, Raul Puri, Gretchen Krueger, Michael Petrov, Heidy Khlaaf, Girish Sastry, Pamela Mishkin, Brooke Chan, Scott Gray, Nick Ryder, Mikhail Pavlov, Alethea Power, Lukasz Kaiser, Mohammad Bavarian, Clemens Winter, Philippe Tillet, Felipe Petroski Such, Dave Cummings, Matthias Plappert, Fotios Chantzis, Elizabeth Barnes, Ariel Herbert-Voss, William Hebgen Guss, Alex Nichol, Alex Paino, Nikolas Tezak, Jie Tang, Igor Babuschkin, Suchir Balaji, Shantanu Jain, William Saunders, Christopher Hesse, Andrew N. Carr, Jan Leike, Josh Achiam, Vedant Misra, Evan Morikawa, Alec Radford, Matthew Knight, Miles Brundage, Mira Murati, Katie Mayer, Peter Welinder, Bob McGrew, Dario Amodei, Sam McCandlish, Ilya Sutskever, Wojciech Zaremba. "[Evaluating Large Language Models Trained on Code](https://arxiv.org/abs/2107.03374)". 2021.
