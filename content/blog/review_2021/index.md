@@ -28,7 +28,7 @@ Here are the 10 best ML papers of 2020 that I chose (in chronological order).
 - Released in: November 2020
 - Accepted to: CVPR 2021
 
-The year 2020 saw quite a few papers on **self-supervised (unsupervised) representation learning** for images. Examples include **SimCLR** [1], **BYOL** ([one of my favorite papers in 2020](https://hippocampus-garden.com/best_papers_2020/)) [2], and **SwAV** [3], just to name a few. These papers take different approaches but at the same time perform more or less the same in downstream tasks. Then, what are the crucial ingredients for the success of self-supervised representation learning?
+Quite a few papers on **self-supervised (unsupervised) representation learning** for images have appeared in the last few years. Examples include **SimCLR** [1], **BYOL** ([one of my favorite papers in 2020](https://hippocampus-garden.com/best_papers_2020/)) [2], and **SwAV** [3], just to name a few. These papers take different approaches but at the same time perform more or less the same in downstream tasks. Then, what are the crucial ingredients for the success of self-supervised representation learning?
 
 This paper answers the above question by experimenting with a **simple Siamese network** (**SimSiam**). The network takes two images as input and outputs a similarity score between them. The two branches are weight-tied except that one branch has a predictor module and the other has **stop-gradient** operation. SimSiam can be interpreted as "SimCLR without negative pairs", "BYOL without momentum encoder", and "SwAV without online clustering". This comparison is well illustrated in the figure below.
 
@@ -159,21 +159,10 @@ The Face Synthetics dataset, a collection of 100,000 human face images at 512x51
 
 ## Application Projects
 
-1. GitHub Copilot
-2. AlphaFold2
+1. AlphaFold2
+2. GitHub Copilot
 3. Airfriend
-4. Google Meet
-
-### GitHub Copilot
-**[GitHub Copilot](https://copilot.github.com/)** is a super smart code autocompleter. Based on the context including comments, GitHub Copilot suggests the best code snippets to complete the current code. The core machine learning model is **OpenAI Codex**, a large language model trained on publicly available source code from GitHub [10].
-
-As shown in the video below, if you want to write a function, all you have to do is write an appropriate comment and press the tab key. Copilot will complete the function for you.
-
-<iframe width="560" height="315" src="https://www.youtube.com/embed/St2CMvK4hK0?start=69" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-
-Since Copilot is not yet a perfect programmer, you always have to write a test code to verify that the autocompleted code is correct (Copilot can help it, too!). Either way, it generally speeds up your total coding time especially if you are not familiar with that language / framework.
-
-It should be noted that Copilot is also provoking controversy. As the aforementioned paper "Extracting Training Data from Large Language Models" points out, Codex should memorize its training data. Therefore, it is possible to extract personal information (e.g., mistakenly uploaded API keys) or abuse codes from a repository that is protected by its license. Also, it might help spreading wrong, malicious, or inefficient code that exist somewhere in the public repositories. 
+4. (Background Effect of) Google Meet
 
 ### AlphaFold2
 The function of a protein is dependent on its structure, so the protein structure is the one of keys to understand what is going on inside an organism. However, it takes huge time and cost to analyze the protein structure through experiments, and it was impossible to accurately predict from the protein's amino acid sequence (**protein folding problem**)—until the advent of **AlphaFold(2)** [11].
@@ -186,9 +175,36 @@ The full version of AlphaFold2 requires a huge computational resources with a 3 
 
 There is already a ["predicted" protein structure database](https://alphafold.ebi.ac.uk/). I can't wait for AlphaFold to accelerate life sciences and the process of drug discovery.
 
-### Airfriend
+### GitHub Copilot
+**[GitHub Copilot](https://copilot.github.com/)** is a super smart code autocompleter. Based on the context including comments, GitHub Copilot suggests the best code snippets to complete the current code. The core machine learning model is **OpenAI Codex**, a large language model trained on publicly available source code from GitHub [10].
 
-### Google Meet
+As shown in the video below, if you want to write a function, all you have to do is write an appropriate comment and press the tab key. Copilot will complete the function for you.
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/St2CMvK4hK0?start=69" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+Since Copilot is not yet a perfect programmer, you always have to write a test code to verify that the autocompleted code is correct (Copilot can help it, too!). Either way, it generally speeds up your total coding time especially if you are not familiar with that language / framework.
+
+It should be noted that Copilot is also provoking controversy. As the aforementioned paper "[Extracting Training Data from Large Language Models](https://arxiv.org/abs/2012.07805)" points out, Codex should memorize its training data. Therefore, it is possible to extract personal information (e.g., mistakenly uploaded API keys) or abuse codes from a repository that is protected by its license. Also, it might help spreading wrong, malicious, or inefficient code that exist somewhere in the public repositories. 
+
+### Airfriend
+**[Airfriend](https://airfriend.ai/)** is a chatbot that you can *nurture* to be what you like. You can finetune the chatbot with your ideal responses in an online fashion, and you can also share your chatbot with your (physical) friends.
+
+Currently Airfriend only supports Japanese, but has already acquired a lot of users due to its naturalness conversation and customizability. 
+
+<blockquote class="twitter-tweet"><p lang="ja" dir="ltr">AIで架空の友達を育てて共有したり、みんなが育てたAIと話せる無料アプリ「エアフレンド」を個人開発しました。推しが言いそうなセリフをAIに教えると、推しの人格を学習したAIと会話できます<br>エアフレンド→ <a href="https://t.co/NhvnUd7CAo">https://t.co/NhvnUd7CAo</a> <a href="https://t.co/wcK6BzgbcN">pic.twitter.com/wcK6BzgbcN</a></p>&mdash; Ryobot (エアフレンド開発者) (@_Ryobot) <a href="https://twitter.com/_Ryobot/status/1437714740529319939?ref_src=twsrc%5Etfw">September 14, 2021</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+Another great thing about Airfriend is that it is developed by an individual developer ([@_Ryobot](https://twitter.com/_Ryobot)). [The chatbot model is a Transformer with one billion parameters](https://twitter.com/_Ryobot/status/1437762555578134530), so I imagine it is very hard to keep running the service for thousands of users. Other languages will be supported "in the near future".
+
+### Background Effect of Google Meet
+The background effeect of **[Google Meet](https://meet.google.com/)** is the most familiar example of machine learning on web browsers (**WebML**). As you may know, Google Meet can blur or replace the background. Other meeting apps such as Zoom and Microsoft Teams also support this feature, but one thing is different. Google Meet works *on the browser*.
+
+This background effect needs deep learning based segmentation which, if naively implemented, is too heavy for real-time processing. The magic of Google Meet is disclosed in the [Google AI Blog](https://ai.googleblog.com/2020/10/background-features-in-google-meet.html). In short, it defines the entire pipeline from segmentation to rendering in **[MediaPipe](https://google.github.io/mediapipe/)**, a machine learning framework optimized for live and streaming data, and converts it to **WebAssembly** (**Wasm**). At runtime, the browser converts the Wasm code into native machine code so that it is executed faster than JavaScript code.
+
+![](2022-01-02-12-37-10.png)
+
+<div style="text-align: center;"><small>Figure taken from <a href="https://ai.googleblog.com/2020/10/background-features-in-google-meet.html">Google AI Blog: Background Features in Google Meet, Powered by Web ML</a>.</small></div>
+
+For the segmentation model, Google Meed adopts MobileNetV3-small [12] exported to [**TFLite**](https://www.tensorflow.org/lite) and accelerated by [**XNNPACK**](https://github.com/google/XNNPACK). The MobileNet outputs a low-resolution segmentation mask, which is refined in the subsequent module.
 
 ## Concluding Remarks
 There are other interesting papers that I could not include here. If you have any recommendations, please feel free to comment.
@@ -209,4 +225,5 @@ https://ja.stateofaiguides.com/20211230-ai-trends-2021/
 [9] Oriol Vinyals, Igor Babuschkin, Wojciech M. Czarnecki, Michaël Mathieu, Andrew Dudzik, Junyoung Chung, David H. Choi, Richard Powell, Timo Ewalds, Petko Georgiev, Junhyuk Oh, Dan Horgan, Manuel Kroiss, Ivo Danihelka, Aja Huang, Laurent Sifre, Trevor Cai, John P. Agapiou, Max Jaderberg, Alexander S. Vezhnevets, Rémi Leblond, Tobias Pohlen, Valentin Dalibard, David Budden, Yury Sulsky, James Molloy, Tom L. Paine, Caglar Gulcehre, Ziyu Wang, Tobias Pfaff, Yuhuai Wu, Roman Ring, Dani Yogatama, Dario Wünsch, Katrina McKinney, Oliver Smith, Tom Schaul, Timothy Lillicrap, Koray Kavukcuoglu, Demis Hassabis, Chris Apps, David Silver. "[Grandmaster level in starcraft
 ii using multi-agent reinforcement learning](https://www.nature.com/articles/s41586-019-1724-z)". *Nature*. 2019.  
 [10] Mark Chen, Jerry Tworek, Heewoo Jun, Qiming Yuan, Henrique Ponde de Oliveira Pinto, Jared Kaplan, Harri Edwards, Yuri Burda, Nicholas Joseph, Greg Brockman, Alex Ray, Raul Puri, Gretchen Krueger, Michael Petrov, Heidy Khlaaf, Girish Sastry, Pamela Mishkin, Brooke Chan, Scott Gray, Nick Ryder, Mikhail Pavlov, Alethea Power, Lukasz Kaiser, Mohammad Bavarian, Clemens Winter, Philippe Tillet, Felipe Petroski Such, Dave Cummings, Matthias Plappert, Fotios Chantzis, Elizabeth Barnes, Ariel Herbert-Voss, William Hebgen Guss, Alex Nichol, Alex Paino, Nikolas Tezak, Jie Tang, Igor Babuschkin, Suchir Balaji, Shantanu Jain, William Saunders, Christopher Hesse, Andrew N. Carr, Jan Leike, Josh Achiam, Vedant Misra, Evan Morikawa, Alec Radford, Matthew Knight, Miles Brundage, Mira Murati, Katie Mayer, Peter Welinder, Bob McGrew, Dario Amodei, Sam McCandlish, Ilya Sutskever, Wojciech Zaremba. "[Evaluating Large Language Models Trained on Code](https://arxiv.org/abs/2107.03374)". 2021.  
-[11] John Jumper, Richard Evans, Alexander Pritzel, Tim Green, Michael Figurnov, Olaf Ronneberger, Kathryn Tunyasuvunakool, Russ Bates, Augustin Žídek, Anna Potapenko, Alex Bridgland, Clemens Meyer, Simon A. A. Kohl, Andrew J. Ballard, Andrew Cowie, Bernardino Romera-Paredes, Stanislav Nikolov, Rishub Jain, Jonas Adler, Trevor Back, Stig Petersen, David Reiman, Ellen Clancy, Michal Zielinski, Martin Steinegger, Michalina Pacholska, Tamas Berghammer, Sebastian Bodenstein, David Silver, Oriol Vinyals, Andrew W. Senior, Koray Kavukcuoglu, Pushmeet Kohli, Demis Hassabis. "[Highly accurate protein structure prediction with AlphaFold](https://www.nature.com/articles/s41586-021-03819-2)". *Nature*. 2021.
+[11] John Jumper, Richard Evans, Alexander Pritzel, Tim Green, Michael Figurnov, Olaf Ronneberger, Kathryn Tunyasuvunakool, Russ Bates, Augustin Žídek, Anna Potapenko, Alex Bridgland, Clemens Meyer, Simon A. A. Kohl, Andrew J. Ballard, Andrew Cowie, Bernardino Romera-Paredes, Stanislav Nikolov, Rishub Jain, Jonas Adler, Trevor Back, Stig Petersen, David Reiman, Ellen Clancy, Michal Zielinski, Martin Steinegger, Michalina Pacholska, Tamas Berghammer, Sebastian Bodenstein, David Silver, Oriol Vinyals, Andrew W. Senior, Koray Kavukcuoglu, Pushmeet Kohli, Demis Hassabis. "[Highly accurate protein structure prediction with AlphaFold](https://www.nature.com/articles/s41586-021-03819-2)". *Nature*. 2021.  
+[12] Andrew Howard, Mark Sandler, Grace Chu, Liang-Chieh Chen, Bo Chen, Mingxing Tan, Weijun Wang, Yukun Zhu, Ruoming Pang, Vijay Vasudevan, Quoc V. Le, Hartwig Adam. "[Searching for MobileNetV3](https://arxiv.org/abs/1905.02244)". *ICCV*. 2019.
