@@ -87,6 +87,43 @@ Thanks to its strong inductive bias, EGNN outperforms a vanilla GNN in modelling
 - Link: https://arxiv.org/abs/2103.00020
 - Released in: March 2021
 
+This is probably the most impactful paper released in 2021. This paper proposes **contrastive language-image pre-training** (**CLIP**) to learn visual concepts from natural language supervision. The network consists of a text encoder and an image encoder, which are jointly trained to encode texts/images to the same space where semantically similar pairs are close and dissimilar pairs are far. This is enabled by **contrastive learning** *using 400M pairs of images and texts* crawled form the internet. 
+
+![](2022-01-02-21-23-44.png)
+
+Once contrastive pre-training is done, *CLIP can be used for zero-shot image classification*. The procedure of the zero-shot classification is as follows:
+
+1. Translating the class labels in the downstream task to text descriptions
+2. Encode the given image
+3. Encode the candidate text descriptions
+4. Calculate the dot product between the image embedding and each text embedding
+5. Take the class with the highest dot product
+
+![](2022-01-02-21-24-07.png)
+
+The performance of pre-trained CLIP is superb. The accuracy of CLIP's zero-shot classification is competitive with *fully-supervised* linear probes on pre-trained ResNet-50 in a variety of datasets. The linear probe on CLIP also outperforms strong ImageNet-pretrained baselines.
+
+![](2022-01-03-13-21-53.png)
+
+<div style="text-align: center;"><small>Figure taken from <a href="https://openai.com/blog/clip/">CLIP: Connecting Text and Images</a>.</small></div>
+
+Furthermore, as compared in the figure below, zero-shot CLIP is much more robust to distribution shift than ImageNet-pretrained models. This is partly because zero-shot CLIP is free from exploiting
+spurious correlations while the baselines are not.
+
+![](2022-01-03-13-20-55.png)
+
+These results suggest CLIP's image embeddings are flexible, general, and robust because it learned a wide range of visual concepts from natural language supervision. CLIP is indeed changing the paradigm of pre-training on images from ImageNet's fixed-label classification to a web-scale image-text contrastive learning.
+
+CLIP has already been used in cool applications such as text-to-image synthesis (DALL-E [7] and [VQGAN+CLIP](https://colab.research.google.com/drive/1ZAus_gn2RhTZWzOWUpPERNC0Q8OhZRTZ) went viral!) and visual question answering [8]. [DALL-E was published from OpenAI as well at the same time with CLIP](https://openai.com/blog/dall-e/).
+
+Lastly, this paper is overwhelmingly long (48 pages!) but includes lots of insightful analyses which are definetly worth reading. As many of them are even omitted from the [official blog post](https://openai.com/blog/clip/), here I would like to list some of the key takeaways:
+
+- **CLIP objective is much more efficient than Transformer language modeling and bag-of-words training** in terms of the downstream accuracy of zero-shot image classification. Efficiency is crucial when it comes to web-scale training.
+- **The batch size during training was 32,768**. Various techniques to save memory usage were applied.
+- **Prompt enginerring can boost the perfomance**. For example, more descriptive "A photo of a boxer, a type of pet" is better than the raw class label "boxer" (confusing with an athelete boxer).
+- **CLIP perform poorly on fine-grained classifications and systematic tasks**. The former includes classification of the types of cars. The latter includes counting of objects.
+- **CLIP's representations of digitally rendered texts are useful, but those of handwritten texts are not**. On MNIST, zero-shot CLIP is beaten by logistic regression on raw pixels.
+
 ### Unsupervised Speech Recognition
 - Authors: Alexei Baevski, Wei-Ning Hsu, Alexis Conneau, Michael Auli
 - Link: https://arxiv.org/abs/2105.11084
@@ -189,6 +226,8 @@ https://ja.stateofaiguides.com/20211230-ai-trends-2021/
 [4] Alec Radford, Jeffrey Wu, Rewon Child, David Luan, Dario Amodei, Ilya Sutskever. "[Language Models are Unsupervised Multitask Learners](http://www.persagen.com/files/misc/radford2019language.pdf)". 2019.  
 [5] Tom B. Brown, Benjamin Mann, Nick Ryder, Melanie Subbiah, Jared Kaplan, Prafulla Dhariwal, Arvind Neelakantan, Pranav Shyam, Girish Sastry, Amanda Askell, Sandhini Agarwal, Ariel Herbert-Voss, Gretchen Krueger, Tom Henighan, Rewon Child, Aditya Ramesh, Daniel M. Ziegler, Jeffrey Wu, Clemens Winter, Christopher Hesse, Mark Chen, Eric Sigler, Mateusz Litwin, Scott Gray, Benjamin Chess, Jack Clark, Christopher Berner, Sam McCandlish, Alec Radford, Ilya Sutskever, Dario Amodei. "[Language Models are Few-Shot Learners](https://arxiv.org/abs/2005.14165)". *NeurIPS*. 2020.  
 [6] Victor Garcia Satorras, Emiel Hoogeboom, Fabian B. Fuchs, Ingmar Posner, Max Welling. "[E(n) Equivariant Normalizing Flows](https://arxiv.org/abs/2105.09016)". *NeurIPS*. 2021.  
+[7] Aditya Ramesh, Mikhail Pavlov, Gabriel Goh, Scott Gray, Chelsea Voss, Alec Radford, Mark Chen, Ilya Sutskever. "[Zero-Shot Text-to-Image Generation](https://arxiv.org/abs/2102.12092)". 2021.  
+[8] Sheng Shen, Liunian Harold Li, Hao Tan, Mohit Bansal, Anna Rohrbach, Kai-Wei Chang, Zhewei Yao, Kurt Keutzer. "[How Much Can CLIP Benefit Vision-and-Language Tasks?](https://arxiv.org/abs/2107.06383)". 2021.  
 [7] Tero Karras, Samuli Laine, Timo Aila. "[A Style-Based Generator Architecture for Generative Adversarial Networks](https://arxiv.org/abs/1812.04948)". *CVPR*. 2019.  
 [8] Tero Karras, Samuli Laine, Miika Aittala, Janne Hellsten, Jaakko Lehtinen, Timo Aila. "[Analyzing and Improving the Image Quality of StyleGAN](https://arxiv.org/abs/1912.04958)". *CVPR*. 2020.   
 [9] Oriol Vinyals, Igor Babuschkin, Wojciech M. Czarnecki, Michaël Mathieu, Andrew Dudzik, Junyoung Chung, David H. Choi, Richard Powell, Timo Ewalds, Petko Georgiev, Junhyuk Oh, Dan Horgan, Manuel Kroiss, Ivo Danihelka, Aja Huang, Laurent Sifre, Trevor Cai, John P. Agapiou, Max Jaderberg, Alexander S. Vezhnevets, Rémi Leblond, Tobias Pohlen, Valentin Dalibard, David Budden, Yury Sulsky, James Molloy, Tom L. Paine, Caglar Gulcehre, Ziyu Wang, Tobias Pfaff, Yuhuai Wu, Roman Ring, Dani Yogatama, Dario Wünsch, Katrina McKinney, Oliver Smith, Tom Schaul, Timothy Lillicrap, Koray Kavukcuoglu, Demis Hassabis, Chris Apps, David Silver. "[Grandmaster level in starcraft
