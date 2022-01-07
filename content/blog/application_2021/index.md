@@ -41,7 +41,7 @@ It should be noted that Copilot is also provoking controversy. As the paper "[Ex
 ### Airfriend
 **[Airfriend](https://airfriend.ai/)** is a chatbot that you can *nurture* to be what you like. You can finetune the chatbot with your ideal responses in an online fashion, and you can also share your chatbot with your (physical) friends.
 
-Currently, Airfriend only supports Japanese, but it has already gained a large number of users due to its natural conversation and customizability. 
+Currently, Airfriend only supports Japanese, but [it has already gained 650 thousand users](https://twitter.com/_Ryobot/status/1478928079599042571) due to its natural conversation and customizability. 
 
 <blockquote class="twitter-tweet"><p lang="ja" dir="ltr">AIで架空の友達を育てて共有したり、みんなが育てたAIと話せる無料アプリ「エアフレンド」を個人開発しました。推しが言いそうなセリフをAIに教えると、推しの人格を学習したAIと会話できます<br>エアフレンド→ <a href="https://t.co/NhvnUd7CAo">https://t.co/NhvnUd7CAo</a> <a href="https://t.co/wcK6BzgbcN">pic.twitter.com/wcK6BzgbcN</a></p>&mdash; Ryobot (エアフレンド開発者) (@_Ryobot) <a href="https://twitter.com/_Ryobot/status/1437714740529319939?ref_src=twsrc%5Etfw">September 14, 2021</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 

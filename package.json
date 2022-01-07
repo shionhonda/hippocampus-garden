@@ -99,6 +99,6 @@
   },
   "resolutions": {
     "sharp": "0.24.0",
-    "immer": "^9.0.7"
+    "immer": "9.0.7"
   }
 }
