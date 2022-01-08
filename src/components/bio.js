@@ -13,7 +13,7 @@ import { rhythm } from "../utils/typography"
 
 const Bio = ({ children }) => {
   const data = useStaticQuery(graphql`query BioQuery {
-  avatar: file(absolutePath: {regex: "/profile-pic.png/"}) {
+  file(absolutePath: {regex: "/profile-pic.png/"}) {
     childImageSharp {
       gatsbyImageData(width: 50, height: 50, layout: FIXED)
     }
@@ -38,7 +38,7 @@ const Bio = ({ children }) => {
       }}
     >
       <GatsbyImage
-        image={data.avatar.childImageSharp.gatsbyImageData}
+        image={data.file.childImageSharp.gatsbyImageData}
         alt={author.toString()}
         style={{
           marginRight: rhythm(1 / 2),

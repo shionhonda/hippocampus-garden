@@ -28,9 +28,7 @@ const Seo = ({ title, desc, banner, pathname, article }) => (
     nodes {
       relativePath
       childImageSharp {
-        fixed {
-          src
-        }
+        gatsbyImageData(placeholder: BLURRED, layout: FIXED)
       }
     }
   }
@@ -43,7 +41,7 @@ const Seo = ({ title, desc, banner, pathname, article }) => (
       })
       const seo = {
         title: title + ` | ` + data.site.siteMetadata.defaultTitle || data.site.siteMetadata.defaultTitle,
-        image: `${data.site.siteMetadata.url}${imageNode.childImageSharp.fixed.src}`,
+        image: `${data.site.siteMetadata.url}${imageNode.childImageSharp.gatsbyImageData.src}`,
         description: desc || data.site.siteMetadata.defaultDescription,
         url: `${data.site.siteMetadata.url}${pathname || '/'}`,
       };

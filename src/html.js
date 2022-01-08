@@ -38,7 +38,7 @@ export default function HTML(props) {
           dangerouslySetInnerHTML={{ __html: props.body }}
         />
         {props.postBodyComponents}
-        <script dangerouslySetInnerHTML={{__html: MathJaxConfig}} />
+        <script dangerouslySetInnerHTML={{ __html: MathJaxConfig }} />
         <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
       </body>
     </html>

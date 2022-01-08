@@ -9,8 +9,8 @@ import {
   social
 } from '../config/site.js';
 
-export default function OGP({type, pageTitle, pageDescription}) {
-  return(
+export default function OGP({ type, pageTitle, pageDescription }) {
+  return (
     <Helmet>
       <meta property="og:title" content={pageTitle || title} />
       <meta property="og:description" content={pageDescription || description} />
@@ -20,7 +20,7 @@ export default function OGP({type, pageTitle, pageDescription}) {
       <meta property="og:site_name" content={pageTitle} />
       <meta property="og:image" content={logo} />
       <meta name="twitter:card" content="summary_large_image" />
-      <meta name="twitter:site" content={{social.twitter}} />
+      <meta name="twitter:site" content={social.twitter} />
     </Helmet>
   )
 }
