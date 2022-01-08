@@ -51,8 +51,8 @@ const BlogPostTemplate = ({ data, pageContext, location }) => {
         >
 
           {post.frontmatter.date}&nbsp; | &nbsp;
-            {post.timeToRead} min read&nbsp; | &nbsp;
-            {formatter.format(pageViews)} views
+          {post.timeToRead} min read&nbsp; | &nbsp;
+          {formatter.format(pageViews)} views
         </p>
         <Tags tags={post.frontmatter.tags} />
 
@@ -128,7 +128,7 @@ export const pageQuery = graphql`
         slug
       }
     }
-    totalPageViews(id: {eq: $slug }) {
+    totalPageViews(path: {eq: $slug }) {
       count
     }
   }

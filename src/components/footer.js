@@ -44,7 +44,7 @@ const Footer = () => {
       <br />
       <small>
         {title} © {new Date().getFullYear()}, {author}. Built with
-          {` `}
+        {` `}
         <a href="https://www.gatsbyjs.org">Gatsby</a>
 
         <br />
@@ -54,6 +54,7 @@ const Footer = () => {
               <li><Link to={"/"}>Home</Link></li>
               <li><Link to={"/about/"}>About</Link></li>
               <li><Link to={"/privacy-policy/"}>Privacy Policy</Link></li>
+              <li><Link to={"/rss.xml/"}>RSS</Link></li>
             </ul>
           </div>
         </nav>

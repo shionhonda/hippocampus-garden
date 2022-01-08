@@ -16,7 +16,6 @@
     "gatsby": "^4.4.0",
     "gatsby-awesome-pagination": "^0.3.8",
     "gatsby-cli": "^4.4.0",
-    "gatsby-image": "^3.11.0",
     "gatsby-plugin-algolia": "^0.25.0",
     "gatsby-plugin-disqus": "^1.2.3",
     "gatsby-plugin-feed": "^4.4.0",

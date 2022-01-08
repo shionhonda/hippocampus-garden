@@ -133,7 +133,7 @@ exports.sourceNodes = async ({ actions }) => {
       createNode({
         path,
         count: Number(count),
-        id: path,
+        id: nodeName + path,
         internal: {
           type: nodeName,
           contentDigest: crypto.createHash(`md5`).update(JSON.stringify({ nodeName, path, count })).digest(`hex`),
@@ -144,7 +144,7 @@ exports.sourceNodes = async ({ actions }) => {
     }
   }
 
-  const recentResult = await getGA(moment().add(-30, 'days').format('YYYY-MM-DD'))
+  const recentResult = await getGA(`30daysAgo`)
   createNodes(recentResult, `RecentPageViews`)
   const totalResult = await getGA(`2020-02-21`)
   createNodes(totalResult, `TotalPageViews`)

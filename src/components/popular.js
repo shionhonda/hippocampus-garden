@@ -22,7 +22,7 @@ const PopularPost = () => {
           allTotalPageViews(limit: 10, sort: {fields: count, order: DESC}) {
               edges {
                   node {
-                    id
+                    path
                     count
                   }
               }
@@ -30,7 +30,7 @@ const PopularPost = () => {
           allRecentPageViews(limit: 10, sort: {fields: count, order: DESC}) {
             edges {
                 node {
-                  id
+                  path
                   count
                 }
             }
@@ -41,7 +41,7 @@ const PopularPost = () => {
   function chooseTop5(allPosts, popularPosts) {
     const results = [];
     for (const a of popularPosts) {
-      const popularPost = allPosts.find(b => b.node.fields.slug === a.node.id);
+      const popularPost = allPosts.find(b => b.node.fields.slug === a.node.path);
       if (popularPost == null) {
         continue;
       } else {
