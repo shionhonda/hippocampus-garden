@@ -33,16 +33,6 @@ const Layout = ({ location, title, children, toc }) => {
         </div>
         <div className="sidebar" >
           <PopularPost />
-          <a className="twitter-timeline" data-width="300" data-height="600"
-            href="https://twitter.com/shion_honda?ref_src=twsrc%5Etfw">Tweets by shion_honda
-          </a>
-          {/* lazy load?? */}
-          {/* <blockquote class="twitter-tweet lazyload" data-lang="en"
-            data-script="https://platform.twitter.com/widgets.js" style={{ margin: 0 }}>
-            <a className="twitter-timeline" width="300" data-height="600"
-              href="https://twitter.com/shion_honda?ref_src=twsrc%5Etfw">Tweets by shion_honda
-          </a>
-          </blockquote> */}
           <TagList />
         </div>
       </div>
@@ -50,10 +40,24 @@ const Layout = ({ location, title, children, toc }) => {
   }
 
   else if (location.pathname === "/about/"
-    || location.pathname === "/about-ja/"
-    || location.pathname === "/privacy-policy/") {
+    || location.pathname === "/about-ja/") {
+    content = (
+      <div className="flexbox">
+        <div className="mainbox grid">
+          <main>{children}</main>
+        </div>
+        <div className="sidebar" >
+          <a className="twitter-timeline" data-width="300" data-height="600"
+            href="https://twitter.com/shion_honda?ref_src=twsrc%5Etfw">Tweets by shion_honda
+          </a>
+        </div>
+      </div>
+    )
+  }
+  else if (location.pathname === "/privacy-policy/") {
     content = <main>{children}</main>
   }
+
 
   else {
     content = (
