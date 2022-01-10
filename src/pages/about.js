@@ -23,10 +23,10 @@ const About = ({ data, location }) => {
         <p>
           Welcome to {siteTitle}! This is a blog by Shion Honda. I write about machine learning, statistics, programming, and sometimes my hobbies.
         </p>
+        {/* TODO: copyright, privacy policy https://www.haya-programming.com/about */}
         <h2>Author</h2>
         <p>
-          I am a data scientist at Recruit Inc., Ltd.
-          MScs in Information Science and Technology.
+          I am a machine learning engineer at Recruit Inc., Ltd. I completed my M.S. in Information Science and Technology at University of Tokyo.
           <br />
           Opinions presented here are my own and not the views of my employer.
         </p>
@@ -86,6 +86,7 @@ const About = ({ data, location }) => {
 
         <h2>News</h2>
         <ul>
+          <li>Dec 2021: I passed the Applied Information Technology Engineer Examination (a Japanese national certification).</li>
           <li>
             May 2021: <a href="http://www.tkd-pbl.com/book/b559511.html" target="_blank" rel="noopener noreferrer">The book "Python for Programmers by Deitel &amp; Deitel", which I co-translated</a>, has been published.
           </li>
