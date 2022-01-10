@@ -15,7 +15,7 @@ const Seo = ({ title, desc, banner, pathname, article }) => (
       author
       siteLanguage
       logo
-      url
+      siteUrl
       pathPrefix
       defaultDescription: description
       defaultBanner: banner
@@ -40,20 +40,18 @@ const Seo = ({ title, desc, banner, pathname, article }) => (
         return n.relativePath.includes(banner || data.site.siteMetadata.defaultBanner)
       })
       const seo = {
-        title: title + ` | ` + data.site.siteMetadata.defaultTitle || data.site.siteMetadata.defaultTitle,
-        image: `${data.site.siteMetadata.url}${imageNode.childImageSharp.gatsbyImageData.src}`,
+        title: title + ` | ` + data.site.siteMetadata.defaultTitle,
+        image: `${data.site.siteMetadata.siteUrl}${imageNode.childImageSharp.gatsbyImageData.images.fallback.src}`,
         description: desc || data.site.siteMetadata.defaultDescription,
-        url: `${data.site.siteMetadata.url}${pathname || '/'}`,
+        url: `${data.site.siteMetadata.siteUrl}${pathname || ""}`,
       };
-      console.log(seo.image)
 
-      const realPrefix = data.site.siteMetadata.pathPrefix === '/' ? '' : data.site.siteMetadata.pathPrefix;
       let schemaOrgJSONLD = [
         {
           '@context': 'http://schema.org',
           '@type': 'WebSite',
-          '@id': data.site.siteMetadata.url,
-          url: data.site.siteMetadata.url,
+          '@id': data.site.siteMetadata.siteUrl,
+          url: data.site.siteMetadata.siteUrl,
           name: data.site.siteMetadata.defaultTitle,
           alternateName: data.site.siteMetadata.titleAlt || '',
         },
@@ -63,8 +61,8 @@ const Seo = ({ title, desc, banner, pathname, article }) => (
           {
             '@context': 'http://schema.org',
             '@type': 'BlogPosting',
-            '@id': seo.url,
-            url: seo.url,
+            '@id': seo.siteUrl,
+            url: seo.siteUrl,
             name: title,
             alternateName: data.site.siteMetadata.titleAlt || '',
             headline: title,
@@ -84,13 +82,13 @@ const Seo = ({ title, desc, banner, pathname, article }) => (
               name: data.site.siteMetadata.author,
               logo: {
                 '@type': 'ImageObject',
-                url: data.site.siteMetadata.url + realPrefix + data.site.siteMetadata.logo,
+                url: data.site.siteMetadata.siteUrl + '/' + data.site.siteMetadata.logo,
               },
             },
-            isPartOf: data.site.siteMetadata.url,
+            isPartOf: data.site.siteMetadata.siteUrl,
             mainEntityOfPage: {
               '@type': 'WebSite',
-              '@id': data.site.siteMetadata.url,
+              '@id': data.site.siteMetadata.siteUrl,
             },
           },
         ];
@@ -107,7 +105,7 @@ const Seo = ({ title, desc, banner, pathname, article }) => (
             <script type="application/ld+json">{JSON.stringify(schemaOrgJSONLD)}</script>
 
             {/* OpenGraph  */}
-            <meta property="og:url" content={seo.url} />
+            <meta property="og:url" content={seo.siteUrl} />
             <meta property="og:type" content={article ? 'article' : "website"} />
             <meta property="og:title" content={seo.title} />
             <meta property="og:description" content={seo.description} />

@@ -12,7 +12,7 @@ const AboutJa = ({ data, location }) => {
 
   return (
     <Layout location={location} title={siteTitle}>
-      <Seo title="About" />
+      <Seo title="About" pathname="about-ja" />
       <div style={{ backgroundColor: "white", padding: rhythm(1) }}>
 
         <div style={{ "textAlign": "right" }}>
@@ -67,19 +67,19 @@ const AboutJa = ({ data, location }) => {
           <li>
             <a href="https://qiita.com/shionhonda" target="_blank" rel="noopener noreferrer"><strong>Qiita</strong></a>：
             過去に日本語でブログ記事を書いていました。内容は暗号通貨、グラフニューラルネットワーク、深層強化学習、深層生成モデルなど多岐にわたります。
-            </li>
+          </li>
           <li>
             <a href="https://ai-scholar.tech/author/honda-shion/" target="_blank" rel="noopener noreferrer"><strong>AI-SCHOLAR</strong></a>：
             非専門家に向けたAIの解説記事をいくつか寄稿しました。特に、MuZero、XLNet、NGBoostについて書いた記事が人気でした。
-            </li>
+          </li>
           <li>
             <a href="https://www.slideshare.net/ShionHonda" target="_blank" rel="noopener noreferrer"><strong>SlideShare</strong></a>：
-              勉強会の発表などで用いた資料をまとめています。
-            </li>
+            勉強会の発表などで用いた資料をまとめています。
+          </li>
           <li>
             <a href="https://www.amazon.jp/hz/wishlist/ls/3DA10HYL0KND7?ref_=wl_share" target="_blank" rel="noopener noreferrer"><strong>Amazon Wish List</strong></a>：
-              ご支援いただける場合はこちらからお願いします。
-            </li>
+            ご支援いただける場合はこちらからお願いします。
+          </li>
         </ul>
 
         <h2>新着情報</h2>

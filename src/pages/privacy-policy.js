@@ -10,7 +10,7 @@ const PrivacyPolicyPage = ({ data, location }) => {
 
   return (
     <Layout location={location} title={siteTitle}>
-      <Seo title="Privacy Policy" />
+      <Seo title="Privacy Policy" pathname="privacy-policy" />
       <div style={{ backgroundColor: "white", padding: rhythm(1) }}>
         <h1>Privacy Policy of Hippocampus's Garden</h1>
         <p>Hippocampus's Garden operates the https://hippocampus-garden.com/ website, which provides the SERVICE.</p>

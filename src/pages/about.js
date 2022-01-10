@@ -12,21 +12,24 @@ const About = ({ data, location }) => {
 
   return (
     <Layout location={location} title={siteTitle}>
-      <Seo title="About" />
+      <Seo title="About" pathname="about" />
       <div style={{ backgroundColor: "white", padding: rhythm(1) }}>
         <div style={{ "textAlign": "right" }}>
           <Link to={"/about-ja/"}>日本語</Link>
         </div>
 
         <h1>About</h1>
+        <h2>This Site</h2>
         <p>
-          Hi! I'm Shion Honda, and welcome to {siteTitle}!! I built this website to write about machine learning, statistics, programming, and sometimes my hobbies.
-            <br />
-            I am a data scientist at Recruit Inc., Ltd.
-            MScs in Information Science and Technology.
-            <br />
-            Opinions presented here are my own and not the views of my employer.
-          </p>
+          Welcome to {siteTitle}! This is a blog by Shion Honda. I write about machine learning, statistics, programming, and sometimes my hobbies.
+        </p>
+        <h2>Author</h2>
+        <p>
+          I am a data scientist at Recruit Inc., Ltd.
+          MScs in Information Science and Technology.
+          <br />
+          Opinions presented here are my own and not the views of my employer.
+        </p>
         <div style={{ textAlign: "center" }}>
           <StaticImage src="../../content/assets/face.jpg" alt="face"
             width={l250} />
@@ -60,25 +63,25 @@ const About = ({ data, location }) => {
 
 
         <h2>External links</h2>
-          You may also like:
-          <ul>
+        You may also like:
+        <ul>
           <li>
             <a href="https://qiita.com/shionhonda" target="_blank" rel="noopener noreferrer"><strong>Qiita</strong></a> (all in Japanese).
-              I used to write survey posts here. The topics are somewhat wide: system trading for cryptocurrencies, graph neural networks, deep reinforcement learning, deep generative models, etc.
-            </li>
+            I used to write survey posts here. The topics are somewhat wide: system trading for cryptocurrencies, graph neural networks, deep reinforcement learning, deep generative models, etc.
+          </li>
           <li>
             <a href="https://ai-scholar.tech/author/honda-shion/" target="_blank" rel="noopener noreferrer"><strong>AI-SCHOLAR</strong></a> (all in Japanese).
-              I contributed some introductory articles to a web media for non-experts in AI.
-              Popular posts are on MuZero, XLNet, and NGBoost.
-            </li>
+            I contributed some introductory articles to a web media for non-experts in AI.
+            Popular posts are on MuZero, XLNet, and NGBoost.
+          </li>
           <li>
             <a href="https://www.slideshare.net/ShionHonda" target="_blank" rel="noopener noreferrer"><strong>SlideShare</strong></a> (mostly in Japanese).
-              Here are some slides that I used in my talks and presentations.
-            </li>
+            Here are some slides that I used in my talks and presentations.
+          </li>
           <li>
             <a href="https://www.amazon.jp/hz/wishlist/ls/3DA10HYL0KND7?ref_=wl_share" target="_blank" rel="noopener noreferrer"><strong>Amazon Wish List</strong></a>.
-              I appreciate your kindness.
-            </li>
+            I appreciate your kindness.
+          </li>
         </ul>
 
         <h2>News</h2>

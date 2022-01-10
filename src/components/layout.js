@@ -47,7 +47,7 @@ const Layout = ({ location, title, children, toc }) => {
           <main>{children}</main>
         </div>
         <div className="sidebar" >
-          <a className="twitter-timeline" data-width="300" data-height="600"
+          <a className="twitter-timeline" data-width="300" data-height="800"
             href="https://twitter.com/shion_honda?ref_src=twsrc%5Etfw">Tweets by shion_honda
           </a>
         </div>
