@@ -56,6 +56,7 @@ const AboutJa = ({ data, location }) => {
               width={l50} height={l50} />
           </a>
         </div>
+        <br />
 
         <p style={{ clear: "both" }}>経歴については <a href="https://www.linkedin.com/in/shionhonda/" target="_blank" rel="noopener noreferrer">LinkedIn</a>を、
           発表論文については<a href="https://scholar.google.co.jp/citations?user=NhNlsZcAAAAJ" target="_blank" rel="noopener noreferrer">Google Scholar</a>をご覧ください。</p>

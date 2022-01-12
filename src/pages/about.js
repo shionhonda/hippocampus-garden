@@ -57,6 +57,7 @@ const About = ({ data, location }) => {
               width={l50} height={l50} />
           </a>
         </div>
+        <br />
 
         <p style={{ clear: "both" }}>See <a href="https://www.linkedin.com/in/shionhonda/" target="_blank" rel="noopener noreferrer">LinkedIn</a> for my education and work experiences
           and <a href="https://scholar.google.co.jp/citations?user=NhNlsZcAAAAJ" target="_blank" rel="noopener noreferrer">Google Scholar</a> for publications.</p>
