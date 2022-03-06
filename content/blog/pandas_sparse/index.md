@@ -1,5 +1,5 @@
 ---
-title: "Meet Pandas: Conversion to CSR Matrix"
+title: "Meet Pandas: Converting DataFrame to CSR Matrix"
 date: "2022-03-06T22:10:03.284Z"
 description: "This post introduces the Pandas method of `query`, which allows us to query dataframes in an SQL-like manner."
 featuredImage: pandas_sparse/ogp.jpg
@@ -9,14 +9,14 @@ tags: ["en", "pandas", "data-analysis", "python"]
 
 When handling big data, we often encounter user-item interactions. Examples of such data include:
 - Ratings of movies, restaurants, or marchandises made by users
-- Number of times a song is played by each user
+- Number of times a song or video is played by each user
 
 If these data are expressed as a dense matrix where each row represents a user and each column represents an item, it tends to be prohibitively large to store in a memory. And, there should be more efficient ways to store such data, because interaction data are usually sparse. In such cases, expressing as a sparse matrix is a good choice. 
 
-In this post, I will briefly show how to convert a dense matrix to a **compressed sparse row** (**CSR**) matrix, the most common format for sparse matrices.
+In this post, I will briefly show how to convert a `DataFrame` of user-item interactions to a **compressed sparse row** (**CSR**) matrix, the most common format for sparse matrices.
 
 ## Load Example Data
-As [before](https://hippocampus-garden.com/pandas_boxplot/), I use the "tips" dataset provided by seaborn. This is a data of food servers’ tips in restaurants with six factors that might influence tips.
+We use the [MovieLens](https://movielens.org/) dataset provided [here](http://grouplens.org/datasets/movielens/). This is a collection of ratings of movies made by users. Movies are rated by a small fraction of users, so this is a perfect use case for a sparse matrix.
 
 ```python
 from urllib.request import urlretrieve
@@ -41,10 +41,34 @@ The dataframe should look something like this:
 
 ![](2022-03-06-18-03-54.png)
 
+## Converting to CSR Matrix
+To convert a `DataFrame` to a CSR matrix, you first need to create indices for users and movies. Then, you can execute conversion using the `sparse.csr_matrix` function. It is a bit faster to convert via a **coordinate** (**COO**) matrix. 
 
-Let's say we want a subset of records where $2 \leq \mathrm{tip} < 3$ and $\mathrm{day} \in \{\mathrm{Sat},\mathrm{Sun}\}$.
+```python
+users = df["user_id"].unique()
+movies = df["movie_id"].unique()
+shape = (len(users), len(movies))
 
-## 
+# Create indices for users and movies
+user_cat = CategoricalDtype(categories=sorted(users), ordered=True)
+movie_cat = CategoricalDtype(categories=sorted(movies), ordered=True)
+user_index = df["user_id"].astype(user_cat).cat.codes
+movie_index = df["movie_id"].astype(movie_cat).cat.codes
+
+# Conversion via COO matrix
+coo = sparse.coo_matrix((df["rating"], (user_index, movie_index)), shape=(shape))
+csr = coo.tocsr()
+```
+
+For your information, I compare a dense matrix and its COO and CSR format in the figure below: 
+
+![](2022-03-07-00-19-02.png)
+
+For more detailed explanation, I refer readers to [this post](https://matteding.github.io/2019/04/25/sparse-matrices/).
+
+CSR matrix can be converted back to COO matrix by `.tocoo()` method and to dense matrix by `todense()`.
 
 ## References
-[1] [pandas.DataFrame.query — pandas 1.1.1 documentation](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.query.html)  
+[1] [scipy.sparse.csr_matrix — SciPy v1.8.0 Manual](https://docs.scipy.org/doc/scipy/reference/generated/scipy.sparse.csr_matrix.html)  
+[2] [Python, SciPy（scipy.sparse）で疎行列を生成・変換 | note.nkmk.me](https://note.nkmk.me/python-scipy-sparse-matrix-csr-csc-coo-lil/)  
+[3] [scipy.sparseで疎行列入門 - Qiita](https://qiita.com/iwasaki620/items/603220d9102e82d4438e)  
