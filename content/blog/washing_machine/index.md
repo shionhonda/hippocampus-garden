@@ -3,7 +3,7 @@ title: 食洗機のノズルのお手入れ方法
 date: "2022-03-09T23:02:03.284Z"
 description: "食洗機のノズルが詰まったときの解決方法です。"
 featuredImage: washing_machine/ogp.jpg
-tags: ["ja", "book", "misc"]
+tags: ["ja", "misc"]
 ---
 
 ## 食洗機の不調
