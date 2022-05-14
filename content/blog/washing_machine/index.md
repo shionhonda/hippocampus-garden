@@ -45,3 +45,23 @@ tags: ["ja", "misc"]
 <iframe style="width:120px;height:240px;" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="//rcm-fe.amazon-adsystem.com/e/cm?lt1=_blank&bc1=000000&IS2=1&bg1=FFFFFF&fc1=000000&lc1=0000FF&t=hippocampus09-22&language=ja_JP&o=9&p=8&l=as4&m=amazon&f=ifr&ref=as_ss_li_til&asins=B0811MR8D9&linkId=a4e373ae6075115abfad8a661d42e498"></iframe>
 
 皿洗いの手間がなくなったとはいえ、新しく食洗機を洗う手間ができるのは手放しで喜べないところです。早く手入れ不要の食洗機が発明されますように。
+
+### 追記（2022年5月14日）
+お手入れで洗浄力が復活したと思っていたのですが、その数週間後に故障してしまいました。洗浄開始ボタンを押したあと、しばらくモーター音がしてから動作が停止してしまうという症状です。ちょうど購入後1年を過ぎた頃で保証期間も切れていたので、買い替えることにしました。
+
+今度買ったのは、THANKOの「ラクア」です。
+
+<iframe sandbox="allow-popups allow-scripts allow-modals allow-forms allow-same-origin" style="width:120px;height:240px;" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="//rcm-fe.amazon-adsystem.com/e/cm?lt1=_blank&bc1=000000&IS2=1&bg1=FFFFFF&fc1=000000&lc1=0000FF&t=hippocampus09-22&language=ja_JP&o=9&p=8&l=as4&m=amazon&f=ifr&ref=as_ss_li_til&asins=B0921TF3MH&linkId=5ea8a187f66e905f1d496f66c2f9ee03"></iframe>
+
+価格や基本的な機能はほぼ同じなのですが、1ヶ月ほど使ってみた感触ではアイリスオーヤマ「ISHT-5000-W」よりもかなり気に入っています。具体的には以下のような点です。
+
+- 前面がガラス張りなので、内部で不具合があったときに気づける
+  - ノズルの回転が更に塞がれているために洗えていないということがよくある
+  - 機械の中を覗くのは楽しい
+- 動作音・効果音ともに静か
+  - ISHT-5000-Wは、水が満タンになったときにけたたましい音が鳴る
+- 洗浄時間が短い
+  - ISHT-5000-Wの40分弱に対して、ラクアは30分弱（乾燥を途中で止めた場合）
+  - 会議の合間の時間に洗うことを考えると、この差は大きい
+- 白黒の2色展開
+  - 家電は黒で統一したい派なので
