@@ -108,7 +108,7 @@ tags: ["ja", "book"]
 <iframe sandbox="allow-popups allow-scripts allow-modals allow-forms allow-same-origin" style="width:120px;height:240px;" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="//rcm-fe.amazon-adsystem.com/e/cm?lt1=_blank&bc1=000000&IS2=1&bg1=FFFFFF&fc1=000000&lc1=0000FF&t=hippocampus09-22&language=ja_JP&o=9&p=8&l=as4&m=amazon&f=ifr&ref=as_ss_li_til&asins=4297122243&linkId=a471496f61a10a9998b01ea7a9af234d"></iframe>
 
 ## 仕事ではじめる機械学習
-『仕事ではじめる機械学習 第2版』（有賀康顕、中山心太、西林孝、オライリー・ジャパン、2021年）はその名の通り、実務で機械学習を使おうとしている人向けの入門書です。特に、機械学習プロジェクトを社内で初めて立ち上げるという方にとって参考になるであろうトピックが多く、実務の泥臭さが随所に書かれています。中には「機械学習を使わないという選択肢」と題した章もあります。研究と実務のギャップ、あるいは「[機械学習でいい感じにしてくれ](https://www.oreilly.co.jp/books/9784873119472/)」という期待と現実のギャップをいい意味で解消してくれる「実践的な」本です。
+『仕事ではじめる機械学習 第2版』（有賀康顕、中山心太、西林孝、オライリージャパン、2021年）はその名の通り、実務で機械学習を使おうとしている人向けの入門書です。特に、機械学習プロジェクトを社内で初めて立ち上げるという方にとって参考になるであろうトピックが多く、実務の泥臭さが随所に書かれています。中には「機械学習を使わないという選択肢」と題した章もあります。研究と実務のギャップ、あるいは「[機械学習でいい感じにしてくれ](https://www.oreilly.co.jp/books/9784873119472/)」という期待と現実のギャップをいい意味で解消してくれる「実践的な」本です。
 
 私は「機械学習システムの長期的な運用」をテーマとする第6章が目当てで読んだのですが、他の章でも理解が深まったり視野が広がったりと、学べる部分が複数ありました。参考文献も最新のものまで抑えられていて便利です。特に『[機械学習システムデザインパターン](https://mercari.github.io/ml-system-design-pattern/README_ja.html)』は勉強になりました。
 
@@ -117,7 +117,16 @@ tags: ["ja", "book"]
 <iframe sandbox="allow-popups allow-scripts allow-modals allow-forms allow-same-origin" style="width:120px;height:240px;" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="//rcm-fe.amazon-adsystem.com/e/cm?lt1=_blank&bc1=000000&IS2=1&bg1=FFFFFF&fc1=000000&lc1=0000FF&t=hippocampus09-22&language=ja_JP&o=9&p=8&l=as4&m=amazon&f=ifr&ref=as_ss_li_til&asins=4873119472&linkId=72fba953af17c39c6552ad3f2e26d1e9"></iframe>
 
 ## Pythonで学ぶ強化学習
+『Pythonで学ぶ強化学習 入門から実践まで』（久保隆宏、講談社、2019年）は、強化学習の実装にフォーカスした入門書です。従来の類書は数式だけの説明に留まるものが多かったところ、本書では数式と実装を組み合わせた解説をしているところに特徴があります。
+
+7日間で読み終えられる構成になっていて、1-4日目で強化学習の導入とベースライン手法の紹介、5日目で強化学習の弱点（サンプル効率の悪さ、局所解、再現性の低さ）の指摘、6日目で模倣学習やモデルベースといった対策の紹介、7日目で応用事例の紹介をしています。個人的ハイライトは7日目で、対話や創薬など「ゲームやロボット以外」の応用先を知ることができたのが良かったです。
+
+<iframe sandbox="allow-popups allow-scripts allow-modals allow-forms allow-same-origin" style="width:120px;height:240px;" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="//rcm-fe.amazon-adsystem.com/e/cm?lt1=_blank&bc1=000000&IS2=1&bg1=FFFFFF&fc1=000000&lc1=0000FF&t=hippocampus09-22&language=ja_JP&o=9&p=8&l=as4&m=amazon&f=ifr&ref=as_ss_li_til&asins=4065142989&linkId=6643f521e951c0af90d61d973b73c6a8"></iframe>
+
 ## A/Bテスト実践ガイド
+『A/Bテスト実践ガイド 真のデータドリブンへ至る信用できる実験とは』（Ron Kohavi、Diane Tang、Ya Xu 著、大杉直也 訳、KADOKAWA、2021年）は、A/Bテストに関して「なぜやるべきなのか」「どうやってやるか」「どうやって大規模サービスにスケールさせるか」「どんな落とし穴があり得るか」といったことを網羅した本です。日本語では最も詳しい情報源と言えるのではないでしょうか。手元にあるといざというときに心強い一方、かなり細かい事項まで書いてあるので、必要なタイミングで一部だけ読むという読み方が良さそうだと感じました。全体的に読みづらいこともあって通読には苦労しました（訳と原著の両方に問題があると見ています）。
+
+<iframe sandbox="allow-popups allow-scripts allow-modals allow-forms allow-same-origin" style="width:120px;height:240px;" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="//rcm-fe.amazon-adsystem.com/e/cm?lt1=_blank&bc1=000000&IS2=1&bg1=FFFFFF&fc1=000000&lc1=0000FF&t=hippocampus09-22&language=ja_JP&o=9&p=8&l=as4&m=amazon&f=ifr&ref=as_ss_li_til&asins=4048930796&linkId=a1440853b54fb732d6c2ff1aa486a327"></iframe>
 
 # ソフトウェア開発
 ## プログラミング言語Go
