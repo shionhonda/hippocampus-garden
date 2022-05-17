@@ -85,18 +85,37 @@ tags: ["ja", "book"]
 ## パターン認識と機械学習
 『パターン認識と機械学習』（Christopher M. Bishop　著、元田浩、栗田多喜夫、樋口知之、松本裕治、村田昇 監訳、丸善出版、2012年）は、言わずとしれた機械学習の名著です。線形モデル、SVM (support vector machine)、ニューラルネットワークといった機械学習モデルやグラフィカルモデル、サンプリング法などの幅広い話題に対して、Bayes理論という一貫した視点から解説を与えています。
 
-積ん読になっていたものを一念発起して読みました。が、一度通読しただけで理解できるような易しい教科書ではありませんでした。言い訳をすると、今の仕事でBayesの定理を使って周辺化して…といった計算を自力ですることはほとんどないので、序盤にして計算式を追うモチベーションを失ってしまいました。そのような中で個人的ハイライトだったのは、付録にある数学の復習（確率分布、行列、変分法、Lagrange乗数）でした。
+積ん読になっていたものを一念発起して読みました。が、一度通読しただけで理解できるような易しい教科書ではありませんでした。言い訳をすると、今の仕事でBayesの定理を使って周辺化して…といった計算を自力ですることはほとんどないので、序盤にして計算式を追うモチベーションを失ってしまったのが原因です。そのような中での個人的ハイライトは、付録にある数学の復習（確率分布、行列、変分法、Lagrange乗数）でした。ここは普段の生活でも何かと役立ちそうです。
 
 <iframe sandbox="allow-popups allow-scripts allow-modals allow-forms allow-same-origin" style="width:120px;height:240px;" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="//rcm-fe.amazon-adsystem.com/e/cm?lt1=_blank&bc1=000000&IS2=1&bg1=FFFFFF&fc1=000000&lc1=0000FF&t=hippocampus09-22&language=ja_JP&o=9&p=8&l=as4&m=amazon&f=ifr&ref=as_ss_li_til&asins=4621061224&linkId=d82c519d0ab367053b5fb2e1d1deed04"></iframe>
 
 <iframe sandbox="allow-popups allow-scripts allow-modals allow-forms allow-same-origin" style="width:120px;height:240px;" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="//rcm-fe.amazon-adsystem.com/e/cm?lt1=_blank&bc1=000000&IS2=1&bg1=FFFFFF&fc1=000000&lc1=0000FF&t=hippocampus09-22&language=ja_JP&o=9&p=8&l=as4&m=amazon&f=ifr&ref=as_ss_li_til&asins=4621061240&linkId=5c763ac579160ba9cefc9e0fb87e21af"></iframe>
 
 ## 施策デザインのための機械学習入門
-『施策デザインのための機械学習入門〜データ分析技術のビジネス活用における正しい考え方』（齋藤優太、安井翔太、技術評論社、2021年）
+『施策デザインのための機械学習入門〜データ分析技術のビジネス活用における正しい考え方』（齋藤優太、安井翔太、技術評論社、2021年）は、機械学習のビジネス活用の中でも特に「問題の定式化」を詳しく解説した珍しい本です。「問題の定式化」とは機械学習を行う前段の工程で、次のようなステップからなります。
+
+1. ビジネス的に意味があり、かつ計測が容易なKPIを設定する
+2. データの観測構造をモデル化する（観測バイアスの洗い出し）
+3. 解くべき問題を特定する（真の損失関数の設計）
+4. 観測データから計算可能な損失関数の不偏推定量を設計する
+
+具体例を挙げましょう。過去に行ったクーポン配布施策の結果から、「次回、誰にクーポンを配れば売上を最大化できるか」を考えます。「各会員にクーポンを配った場合と配らなかった場合の売上を予測すれば、その差分から誰に配るべきかを決められる」というところまで辿り着くのは難しくないでしょう。しかし、ここで2の観測バイアスが考慮から漏れていると、後段でバイアスを持った損失関数でモデルを訓練することになってしまいます。例えば、過去のクーポン配布が性別によって異なる確率で行われていた場合、ナイーブに訓練したモデルはこのバイアスの影響を受けます。このような事態を防ぐには、観測バイアスを明示的にモデリングした上で、4で不偏推定量を設計する必要があります。
+
+ここで役に立つのが、著者の齋藤氏の専門分野でもある反実仮想機械学習です。詳しくは同氏が公開している[スライド](https://docs.google.com/presentation/d/1LmDXroGHR9Qs9egvWnBgBG0zchLsxAkGBxSbmxgGIfM/edit?usp=sharing)や[文献ガイド](https://www.ai-gakkai.or.jp/resource/my-bookmark/my-bookmark_vol35-no4/)を参照いただきたいですが、典型的にはIPS（inverse propensity score）による損失関数の重み付けが採用されます。
+
+本書ではこのように、機械学習を活用した施策において重要な、しかし普段見落とされがちな問題に対処するための考え方、フレームワークを様々な問題設定に対して検討していきます。上記の具体例でギクリと来た方には特におすすめです。
 
 <iframe sandbox="allow-popups allow-scripts allow-modals allow-forms allow-same-origin" style="width:120px;height:240px;" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="//rcm-fe.amazon-adsystem.com/e/cm?lt1=_blank&bc1=000000&IS2=1&bg1=FFFFFF&fc1=000000&lc1=0000FF&t=hippocampus09-22&language=ja_JP&o=9&p=8&l=as4&m=amazon&f=ifr&ref=as_ss_li_til&asins=4297122243&linkId=a471496f61a10a9998b01ea7a9af234d"></iframe>
 
 ## 仕事ではじめる機械学習
+『仕事ではじめる機械学習 第2版』（有賀康顕、中山心太、西林孝、オライリー・ジャパン、2021年）はその名の通り、実務で機械学習を使おうとしている人向けの入門書です。特に、機械学習プロジェクトを社内で初めて立ち上げるという方にとって参考になるであろうトピックが多く、実務の泥臭さが随所に書かれています。中には「機械学習を使わないという選択肢」と題した章もあります。研究と実務のギャップ、あるいは「[機械学習でいい感じにしてくれ](https://www.oreilly.co.jp/books/9784873119472/)」という期待と現実のギャップをいい意味で解消してくれる「実践的な」本です。
+
+私は「機械学習システムの長期的な運用」をテーマとする第6章が目当てで読んだのですが、他の章でも理解が深まったり視野が広がったりと、学べる部分が複数ありました。参考文献も最新のものまで抑えられていて便利です。特に『[機械学習システムデザインパターン](https://mercari.github.io/ml-system-design-pattern/README_ja.html)』は勉強になりました。
+
+まえがきの対象読者には含まれていませんが、将来機械学習を使って仕事をしたいと考えている学生が実際のイメージを付けるのにも役立ちそうです。
+
+<iframe sandbox="allow-popups allow-scripts allow-modals allow-forms allow-same-origin" style="width:120px;height:240px;" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="//rcm-fe.amazon-adsystem.com/e/cm?lt1=_blank&bc1=000000&IS2=1&bg1=FFFFFF&fc1=000000&lc1=0000FF&t=hippocampus09-22&language=ja_JP&o=9&p=8&l=as4&m=amazon&f=ifr&ref=as_ss_li_til&asins=4873119472&linkId=72fba953af17c39c6552ad3f2e26d1e9"></iframe>
+
 ## Pythonで学ぶ強化学習
 ## A/Bテスト実践ガイド
 
