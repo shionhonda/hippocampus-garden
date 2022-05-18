@@ -33,9 +33,9 @@ tags: ["ja", "book"]
   - [A/Bテスト実践ガイド](#abテスト実践ガイド)
 - [ソフトウェア開発](#ソフトウェア開発)
   - [プログラミング言語Go](#プログラミング言語go)
+  - [応用情報技術者 合格教本](#応用情報技術者-合格教本)
   - [エンジニアリング組織論への招待](#エンジニアリング組織論への招待)
-  - [応用情報技術者試験](#応用情報技術者試験)
-  - [クラウド開発実践入門](#クラウド開発実践入門)
+  - [AWSではじめるクラウド開発入門](#awsではじめるクラウド開発入門)
   - [Kubernetes完全ガイド](#kubernetes完全ガイド)
   - [Real World HTTP](#real-world-http)
   - [Web API: The Good Parts](#web-api-the-good-parts)
@@ -124,16 +124,61 @@ tags: ["ja", "book"]
 <iframe sandbox="allow-popups allow-scripts allow-modals allow-forms allow-same-origin" style="width:120px;height:240px;" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="//rcm-fe.amazon-adsystem.com/e/cm?lt1=_blank&bc1=000000&IS2=1&bg1=FFFFFF&fc1=000000&lc1=0000FF&t=hippocampus09-22&language=ja_JP&o=9&p=8&l=as4&m=amazon&f=ifr&ref=as_ss_li_til&asins=4065142989&linkId=6643f521e951c0af90d61d973b73c6a8"></iframe>
 
 ## A/Bテスト実践ガイド
-『A/Bテスト実践ガイド 真のデータドリブンへ至る信用できる実験とは』（Ron Kohavi、Diane Tang、Ya Xu 著、大杉直也 訳、KADOKAWA、2021年）は、A/Bテストに関して「なぜやるべきなのか」「どうやってやるか」「どうやって大規模サービスにスケールさせるか」「どんな落とし穴があり得るか」といったことを網羅した本です。日本語では最も詳しい情報源と言えるのではないでしょうか。手元にあるといざというときに心強い一方、かなり細かい事項まで書いてあるので、必要なタイミングで一部だけ読むという読み方が良さそうだと感じました。全体的に読みづらいこともあって通読には苦労しました（訳と原著の両方に問題があると見ています）。
+『A/Bテスト実践ガイド 真のデータドリブンへ至る信用できる実験とは』（Ron Kohavi、Diane Tang、Ya Xu 著、大杉直也 訳、KADOKAWA、2021年）は、A/Bテストに関して「なぜやるべきなのか」「どうやってやるか」「どうやって大規模サービスにスケールさせるか」「どんな落とし穴があり得るか」といったことを網羅した本です。Googleを初めとする先進企業におけるA/Bテストの実態（成功例、失敗例、運用方法など）が詳らかに書かれているのも魅力的な点です。日本語では最も詳しい情報源と言えるのではないでしょうか。手元にあるといざというときに心強い一方、かなり細かい事項まで書いてあるので、必要なタイミングで一部だけ読むという読み方が良さそうだと感じました。全体的に読みづらいこともあって通読には苦労しました（訳と原著の両方に問題があると見ています）。
 
 <iframe sandbox="allow-popups allow-scripts allow-modals allow-forms allow-same-origin" style="width:120px;height:240px;" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="//rcm-fe.amazon-adsystem.com/e/cm?lt1=_blank&bc1=000000&IS2=1&bg1=FFFFFF&fc1=000000&lc1=0000FF&t=hippocampus09-22&language=ja_JP&o=9&p=8&l=as4&m=amazon&f=ifr&ref=as_ss_li_til&asins=4048930796&linkId=a1440853b54fb732d6c2ff1aa486a327"></iframe>
 
 # ソフトウェア開発
 ## プログラミング言語Go
-## エンジニアリング組織論への招待
-## 応用情報技術者試験
+『プログラミング言語Go』（Alan A. A. Donovan、Brian W. Kernighan 著、柴田芳樹 訳、丸善出版、2016年）は、Go言語の標準的な教科書です。基本的な文法や型の説明に始まり、ゴルーチンやリフレクションといった特徴的な項目までを扱います。「手っ取り早くライブラリを使えるようになりたい」という方よりは、「言語仕様をしっかり理解したい」という方向けの教科書だと言えます。まえがきに書いてあるとおり、全くのプログラミング初心者には難しいでしょう。
 
-## クラウド開発実践入門
+会社で[訳者の柴田氏から講義をしていただく機会](https://yshibata.blog.ss-blog.jp/2022-02-23)があり、その研修に参加するために読みました。この研修は毎回の講義の前に対象範囲の練習問題を全て解いてくることになっており、社内ではハードなことで有名でした。実際、プライベートの時間の大部分を投じてもなお解ききれないこともあるというくらい大変でしたが、もちろん大いに勉強になりました（やはり練習問題を解かなければ知識が定着しなかったと思います）。まだまだPythonほどではありませんが、「第二言語」くらいには読み書きできるようになりました。
+
+ところで、研修前はGo言語を使う機会がしばしばあったのですが、その後めっきり機会が減ってしまったので少し寂しく感じています。
+
+<iframe sandbox="allow-popups allow-scripts allow-modals allow-forms allow-same-origin" style="width:120px;height:240px;" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="//rcm-fe.amazon-adsystem.com/e/cm?lt1=_blank&bc1=000000&IS2=1&bg1=FFFFFF&fc1=000000&lc1=0000FF&t=hippocampus09-22&language=ja_JP&o=9&p=8&l=as4&m=amazon&f=ifr&ref=as_ss_li_til&asins=4621300253&linkId=835da42eccb848fd4be893824c15cebd"></iframe>
+
+## 応用情報技術者 合格教本
+『令和03年【春期】【秋期】 応用情報技術者 合格教本』（大滝みや子、岡嶋裕史、技術評論社、2020年）は、[応用技術者試験](https://www.jitec.ipa.go.jp/1_11seido/ap.html)の参考書です。出題範囲を網羅した解説とサンプル問題から構成されています。
+
+昨年10月に同試験を受けるときに参考書として使用し、無事合格しました。本自体の解説は不要だと思うので、この本をどうやって使ったかを書いておきます。
+
+1. 各章について、解説パートを読んで得点アップ問題を解く
+   - 理解不足なところには印をつけておく
+   - 午後試験でも必要になる範囲から順に取り組む（時間不足で「セキュリティ」の対策が不十分などという事態を避けるため）
+2. サンプル問題を解いて、解けなかった部分を復習する
+3. 過去問を数年分解いて、解けなかった部分を復習する
+   - ここで合格ラインに届くことを確認しておく
+4. 試験直前では、印をつけた部分や解けなかった部分を中心に復習する
+   - 復習だけなら移動中や休み時間にもできるので
+
+普段の仕事や勉強では機械学習の周辺領域しか扱わないので、「情報技術」について広く勉強する良い機会になりました。
+
+本書の令和04年版はこちら。
+
+<iframe sandbox="allow-popups allow-scripts allow-modals allow-forms allow-same-origin" style="width:120px;height:240px;" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="//rcm-fe.amazon-adsystem.com/e/cm?lt1=_blank&bc1=000000&IS2=1&bg1=FFFFFF&fc1=000000&lc1=0000FF&t=hippocampus09-22&language=ja_JP&o=9&p=8&l=as4&m=amazon&f=ifr&ref=as_ss_li_til&asins=429712467X&linkId=e73571c5f1a026b729eb3ddb2e52a19e"></iframe>
+
+## エンジニアリング組織論への招待
+『エンジニアリング組織論への招待 ~不確実性に向き合う思考と組織のリファクタリング』（広木大地、技術評論社、2018年）は、エンジニア組織につきまとう技術的負債、他組織との不和、納期の不安といった様々な問題を不確実性という観点から検討し、対策を講じるための材料を提供する本です。今回はメンタリングとプロジェクトマネジメントについて学ぶために読みました。仕事に対する考え方は経験を積むにしたがって移ろっていくものだと思うので、今後も読むたびごとに新たな発見が得られそうです。
+
+一方で、指摘したいことが2つあります。一点は、各章が理念と具体的な方法論を混在させながら列挙するような構成になっており、全体としてのメッセージがわかりづらいことです。組織論にまつわる諸概念をまとめた入門資料だということであれば納得できるのですが、その場合はもう一点の「出典の少なさ」が問題になってきます。イドラを説明するときは『ノヴム・オルガヌム』を出典として明示しているのに、すぐ後の心理学からの知見を紹介するところでは出典がないというアンバランスが気になりました。
+
+<iframe sandbox="allow-popups allow-scripts allow-modals allow-forms allow-same-origin" style="width:120px;height:240px;" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="//rcm-fe.amazon-adsystem.com/e/cm?lt1=_blank&bc1=000000&IS2=1&bg1=FFFFFF&fc1=000000&lc1=0000FF&t=hippocampus09-22&language=ja_JP&o=9&p=8&l=as4&m=amazon&f=ifr&ref=as_ss_li_til&asins=4774196053&linkId=5d8641ef86ac10f8502e4773467e262d"></iframe>
+
+## AWSではじめるクラウド開発入門
+『AWSではじめるクラウド開発入門』（真野智之、マイナビ出版、2021年）は、東京大学で学部生向けに開講されたクラウド開発の授業で使われた資料『[コードで学ぶAWS入門](https://tomomano.github.io/learn-aws-by-coding/)』を、増補改訂して書籍化したものです。著者の真野氏は私の研究室時代の先輩だったので、私は講義資料の段階から読ませていただいていました。「こんな素晴らしい授業を受けられる今どきの学部生は羨ましい」という感想を抱いたのを今でも覚えています。
+
+<blockquote class="twitter-tweet"><p lang="ja" dir="ltr">出身研究室の先輩が東大計数工学科の講義の一部として担当した『AWSによるクラウド入門』の資料が公開されています。<br>クラウド入門者向けに簡潔かつ平易な言葉で書かれている貴重な資料です。5つのハンズオンで、最後は俳句を投稿するWebアプリを実装・デプロイします。<a href="https://t.co/XmFGGnsP3r">https://t.co/XmFGGnsP3r</a> <a href="https://t.co/9nDxzBovTW">pic.twitter.com/9nDxzBovTW</a></p>&mdash; Shion Honda (@shion_honda) <a href="https://twitter.com/shion_honda/status/1281572631544655872?ref_src=twsrc%5Etfw">July 10, 2020</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+本書には特に素晴らしいところが2つあります。一つは、本書がハンズオンを中心に構成されているところです。全15章のうち、実に9章がハンズオンです。開発というものは当然ながら実際に手を動かして、エラーに遭遇しながらモノ作りをしないと身につかないものです。もう一つは、全体に通じる明快な書きぶりです。この手の本は見慣れないカタカナの用語で埋め尽くされてしまうきらいがありますが、本書では「サーバーレス」や「リソース」といった用語が、登場するたびごとにそのご利益とともに明確に示されています。知らない言葉が一度にたくさん出てくるとついていけなくなってしまうので
+真の意味で初心者に寄り添った入門書です。
+
+なお、本書はAWSの解説書ではなく、あくまでクラウド開発を解説するための具体例としてAWSを使っているので、本書で得られる基礎知識はGCPやAzureといった別のクラウドサービスにも容易に適用できますし、すぐに陳腐化することもないでしょう。
+
+Webサービスを自作するとき、クラウドサービスには無数の機能があって圧倒されてしまうところ、
+
+<iframe sandbox="allow-popups allow-scripts allow-modals allow-forms allow-same-origin" style="width:120px;height:240px;" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="//rcm-fe.amazon-adsystem.com/e/cm?lt1=_blank&bc1=000000&IS2=1&bg1=FFFFFF&fc1=000000&lc1=0000FF&t=hippocampus09-22&language=ja_JP&o=9&p=8&l=as4&m=amazon&f=ifr&ref=as_ss_li_til&asins=4839977607&linkId=c9457515f26bbdf0d6e3cfe312d2edad"></iframe>
+
 ## Kubernetes完全ガイド
 ## Real World HTTP
 『Real World HTTP 第2版 ―歴史とコードに学ぶインターネットとウェブ技術』
