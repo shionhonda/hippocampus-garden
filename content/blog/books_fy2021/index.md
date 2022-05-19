@@ -34,8 +34,8 @@ tags: ["ja", "book"]
 - [ソフトウェア開発](#ソフトウェア開発)
   - [プログラミング言語Go](#プログラミング言語go)
   - [応用情報技術者 合格教本](#応用情報技術者-合格教本)
-  - [エンジニアリング組織論への招待](#エンジニアリング組織論への招待)
   - [AWSではじめるクラウド開発入門](#awsではじめるクラウド開発入門)
+  - [エンジニアリング組織論への招待](#エンジニアリング組織論への招待)
   - [Kubernetes完全ガイド](#kubernetes完全ガイド)
   - [Real World HTTP](#real-world-http)
   - [Web API: The Good Parts](#web-api-the-good-parts)
@@ -52,7 +52,7 @@ tags: ["ja", "book"]
 
 # 機械学習／データサイエンス
 ## ゼロから作るDeep Learning 3
-『ゼロから作るDeep Learning ❸ ―フレームワーク編』（斎藤康毅、オライリージャパン、2020年）は、数値計算ライブラリ（NumPy）だけで深層学習モデルを実装することを通してその内部動作を理解するということをコンセプトにした大人気シリーズの第3弾です。第3弾では、これまでは手動で定義していた各種演算の誤差逆伝播を自動で計算できるように、「DeZero」と名付けた深層学習フレームワークを自作します。DeZeroは[Chainer](https://chainer.org/)に似たインターフェイスを持つDefine-by-RunのピュアPythonフレームワークです。
+『ゼロから作るDeep Learning ❸ ―フレームワーク編』（斎藤康毅、オライリー・ジャパン、2020年）は、数値計算ライブラリ（NumPy）だけで深層学習モデルを実装することを通してその内部動作を理解するということをコンセプトにした大人気シリーズの第3弾です。第3弾では、これまでは手動で定義していた各種演算の誤差逆伝播を自動で計算できるように、「DeZero」と名付けた深層学習フレームワークを自作します。DeZeroは[Chainer](https://chainer.org/)に似たインターフェイスを持つDefine-by-RunのピュアPythonフレームワークです。
 
 「深層学習フレームワークを自作する」と言うと気が遠くなるように思えますが、全体の作業が60の小さなステップに分割されているため、短いスパンで達成感を得ながら無理なく完遂することができます。完遂後に見える景色はそれまでと全く異なるものでした。NumPyのndarrayと似たインターフェイスを持つChainerのVariableやPyTorchのTensorが、裏側で何をやってくれているのかを実装のレベルで理解できました。また、予期していなかった収穫として、一定の規模を持つソフトウェアにおける依存関係の設計を学ぶこともできました。お盆休みを大いに楽しむことができました。
 
@@ -108,7 +108,7 @@ tags: ["ja", "book"]
 <iframe sandbox="allow-popups allow-scripts allow-modals allow-forms allow-same-origin" style="width:120px;height:240px;" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="//rcm-fe.amazon-adsystem.com/e/cm?lt1=_blank&bc1=000000&IS2=1&bg1=FFFFFF&fc1=000000&lc1=0000FF&t=hippocampus09-22&language=ja_JP&o=9&p=8&l=as4&m=amazon&f=ifr&ref=as_ss_li_til&asins=4297122243&linkId=a471496f61a10a9998b01ea7a9af234d"></iframe>
 
 ## 仕事ではじめる機械学習
-『仕事ではじめる機械学習 第2版』（有賀康顕、中山心太、西林孝、オライリージャパン、2021年）はその名の通り、実務で機械学習を使おうとしている人向けの入門書です。特に、機械学習プロジェクトを社内で初めて立ち上げるという方にとって参考になるであろうトピックが多く、実務の泥臭さが随所に書かれています。中には「機械学習を使わないという選択肢」と題した章もあります。研究と実務のギャップ、あるいは「[機械学習でいい感じにしてくれ](https://www.oreilly.co.jp/books/9784873119472/)」という期待と現実のギャップをいい意味で解消してくれる「実践的な」本です。
+『仕事ではじめる機械学習 第2版』（有賀康顕、中山心太、西林孝、オライリー・ジャパン、2021年）はその名の通り、実務で機械学習を使おうとしている人向けの入門書です。特に、機械学習プロジェクトを社内で初めて立ち上げるという方にとって参考になるであろうトピックが多く、実務の泥臭さが随所に書かれています。中には「機械学習を使わないという選択肢」と題した章もあります。研究と実務のギャップ、あるいは「[機械学習でいい感じにしてくれ](https://www.oreilly.co.jp/books/9784873119472/)」という期待と現実のギャップをいい意味で解消してくれる「実践的な」本です。
 
 私は「機械学習システムの長期的な運用」をテーマとする第6章が目当てで読んだのですが、他の章でも理解が深まったり視野が広がったりと、学べる部分が複数ありました。参考文献も最新のものまで抑えられていて便利です。特に『[機械学習システムデザインパターン](https://mercari.github.io/ml-system-design-pattern/README_ja.html)』は勉強になりました。
 
@@ -139,7 +139,7 @@ tags: ["ja", "book"]
 <iframe sandbox="allow-popups allow-scripts allow-modals allow-forms allow-same-origin" style="width:120px;height:240px;" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="//rcm-fe.amazon-adsystem.com/e/cm?lt1=_blank&bc1=000000&IS2=1&bg1=FFFFFF&fc1=000000&lc1=0000FF&t=hippocampus09-22&language=ja_JP&o=9&p=8&l=as4&m=amazon&f=ifr&ref=as_ss_li_til&asins=4621300253&linkId=835da42eccb848fd4be893824c15cebd"></iframe>
 
 ## 応用情報技術者 合格教本
-『令和03年【春期】【秋期】 応用情報技術者 合格教本』（大滝みや子、岡嶋裕史、技術評論社、2020年）は、[応用技術者試験](https://www.jitec.ipa.go.jp/1_11seido/ap.html)の参考書です。出題範囲を網羅した解説とサンプル問題から構成されています。
+『令和03年【春期】【秋期】 応用情報技術者 合格教本』（大滝みや子、岡嶋裕史、技術評論社、2020年）は、[応用情報技術者試験](https://www.jitec.ipa.go.jp/1_11seido/ap.html)の参考書です。出題範囲を網羅した解説とサンプル問題から構成されています。
 
 昨年10月に同試験を受けるときに参考書として使用し、無事合格しました。本自体の解説は不要だと思うので、この本をどうやって使ったかを書いておきます。
 
@@ -158,6 +158,17 @@ tags: ["ja", "book"]
 
 <iframe sandbox="allow-popups allow-scripts allow-modals allow-forms allow-same-origin" style="width:120px;height:240px;" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="//rcm-fe.amazon-adsystem.com/e/cm?lt1=_blank&bc1=000000&IS2=1&bg1=FFFFFF&fc1=000000&lc1=0000FF&t=hippocampus09-22&language=ja_JP&o=9&p=8&l=as4&m=amazon&f=ifr&ref=as_ss_li_til&asins=429712467X&linkId=e73571c5f1a026b729eb3ddb2e52a19e"></iframe>
 
+## AWSではじめるクラウド開発入門
+『AWSではじめるクラウド開発入門』（真野智之、マイナビ出版、2021年）は、東京大学で学部生向けに開講されたクラウド開発の授業で使われた資料『[コードで学ぶAWS入門](https://tomomano.github.io/learn-aws-by-coding/)』を、増補改訂して書籍化したものです。著者の真野氏は私の研究室時代の先輩だったので、私は講義資料の段階から読ませていただいていました。「こんな素晴らしい授業を受けられる今どきの学部生は羨ましい」という感想を抱いたのを今でも覚えています。
+
+<blockquote class="twitter-tweet"><p lang="ja" dir="ltr">出身研究室の先輩が東大計数工学科の講義の一部として担当した『AWSによるクラウド入門』の資料が公開されています。<br>クラウド入門者向けに簡潔かつ平易な言葉で書かれている貴重な資料です。5つのハンズオンで、最後は俳句を投稿するWebアプリを実装・デプロイします。<a href="https://t.co/XmFGGnsP3r">https://t.co/XmFGGnsP3r</a> <a href="https://t.co/9nDxzBovTW">pic.twitter.com/9nDxzBovTW</a></p>&mdash; Shion Honda (@shion_honda) <a href="https://twitter.com/shion_honda/status/1281572631544655872?ref_src=twsrc%5Etfw">July 10, 2020</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+本書には特筆すべきところが2つあります。一つは、本書がハンズオンを中心に構成されているところです。全15章のうち、実に9章がハンズオンです。開発というものは当然ながら実際に手を動かして、エラーに遭遇しながらモノ作りをしないと身につかないものです。もう一つは、全体を貫く明快な書きぶりです。この手の本は見慣れないカタカナの用語で埋め尽くされてしまうきらいがありますが、本書では「サーバーレス」や「リソース」といった用語が、登場するたびごとにそのご利益とともに明確に説明されています。真の意味で初心者に寄り添った入門書だと言えます。
+
+なお、本書はAWSの解説書ではなく、あくまでクラウド開発を解説するための題材としてAWSを使っているので、本書で得られる基礎知識はGCPやAzureといった別のクラウドサービスにも容易に転用できますし、すぐに陳腐化することもないでしょう。
+
+<iframe sandbox="allow-popups allow-scripts allow-modals allow-forms allow-same-origin" style="width:120px;height:240px;" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="//rcm-fe.amazon-adsystem.com/e/cm?lt1=_blank&bc1=000000&IS2=1&bg1=FFFFFF&fc1=000000&lc1=0000FF&t=hippocampus09-22&language=ja_JP&o=9&p=8&l=as4&m=amazon&f=ifr&ref=as_ss_li_til&asins=4839977607&linkId=c9457515f26bbdf0d6e3cfe312d2edad"></iframe>
+
 ## エンジニアリング組織論への招待
 『エンジニアリング組織論への招待 ~不確実性に向き合う思考と組織のリファクタリング』（広木大地、技術評論社、2018年）は、エンジニア組織につきまとう技術的負債、他組織との不和、納期の不安といった様々な問題を不確実性という観点から検討し、対策を講じるための材料を提供する本です。今回はメンタリングとプロジェクトマネジメントについて学ぶために読みました。仕事に対する考え方は経験を積むにしたがって移ろっていくものだと思うので、今後も読むたびごとに新たな発見が得られそうです。
 
@@ -165,24 +176,24 @@ tags: ["ja", "book"]
 
 <iframe sandbox="allow-popups allow-scripts allow-modals allow-forms allow-same-origin" style="width:120px;height:240px;" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="//rcm-fe.amazon-adsystem.com/e/cm?lt1=_blank&bc1=000000&IS2=1&bg1=FFFFFF&fc1=000000&lc1=0000FF&t=hippocampus09-22&language=ja_JP&o=9&p=8&l=as4&m=amazon&f=ifr&ref=as_ss_li_til&asins=4774196053&linkId=5d8641ef86ac10f8502e4773467e262d"></iframe>
 
-## AWSではじめるクラウド開発入門
-『AWSではじめるクラウド開発入門』（真野智之、マイナビ出版、2021年）は、東京大学で学部生向けに開講されたクラウド開発の授業で使われた資料『[コードで学ぶAWS入門](https://tomomano.github.io/learn-aws-by-coding/)』を、増補改訂して書籍化したものです。著者の真野氏は私の研究室時代の先輩だったので、私は講義資料の段階から読ませていただいていました。「こんな素晴らしい授業を受けられる今どきの学部生は羨ましい」という感想を抱いたのを今でも覚えています。
-
-<blockquote class="twitter-tweet"><p lang="ja" dir="ltr">出身研究室の先輩が東大計数工学科の講義の一部として担当した『AWSによるクラウド入門』の資料が公開されています。<br>クラウド入門者向けに簡潔かつ平易な言葉で書かれている貴重な資料です。5つのハンズオンで、最後は俳句を投稿するWebアプリを実装・デプロイします。<a href="https://t.co/XmFGGnsP3r">https://t.co/XmFGGnsP3r</a> <a href="https://t.co/9nDxzBovTW">pic.twitter.com/9nDxzBovTW</a></p>&mdash; Shion Honda (@shion_honda) <a href="https://twitter.com/shion_honda/status/1281572631544655872?ref_src=twsrc%5Etfw">July 10, 2020</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-
-本書には特に素晴らしいところが2つあります。一つは、本書がハンズオンを中心に構成されているところです。全15章のうち、実に9章がハンズオンです。開発というものは当然ながら実際に手を動かして、エラーに遭遇しながらモノ作りをしないと身につかないものです。もう一つは、全体に通じる明快な書きぶりです。この手の本は見慣れないカタカナの用語で埋め尽くされてしまうきらいがありますが、本書では「サーバーレス」や「リソース」といった用語が、登場するたびごとにそのご利益とともに明確に示されています。知らない言葉が一度にたくさん出てくるとついていけなくなってしまうので
-真の意味で初心者に寄り添った入門書です。
-
-なお、本書はAWSの解説書ではなく、あくまでクラウド開発を解説するための具体例としてAWSを使っているので、本書で得られる基礎知識はGCPやAzureといった別のクラウドサービスにも容易に適用できますし、すぐに陳腐化することもないでしょう。
-
-Webサービスを自作するとき、クラウドサービスには無数の機能があって圧倒されてしまうところ、
-
-<iframe sandbox="allow-popups allow-scripts allow-modals allow-forms allow-same-origin" style="width:120px;height:240px;" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="//rcm-fe.amazon-adsystem.com/e/cm?lt1=_blank&bc1=000000&IS2=1&bg1=FFFFFF&fc1=000000&lc1=0000FF&t=hippocampus09-22&language=ja_JP&o=9&p=8&l=as4&m=amazon&f=ifr&ref=as_ss_li_til&asins=4839977607&linkId=c9457515f26bbdf0d6e3cfe312d2edad"></iframe>
-
 ## Kubernetes完全ガイド
+『Kubernetes完全ガイド』（青山真也、インプレス、2018年）は、Kubernetesを構成する種々の概念と周辺技術（DataDog、Fluentd、Istioなど）を実践的観点から網羅的に解説した本です。巻末に「やりたいこと」から逆引きできる索引が付いているので、手元にあると便利かもしれません。
+
+2020年に出版された第2版はこちら。
+
+<iframe sandbox="allow-popups allow-scripts allow-modals allow-forms allow-same-origin" style="width:120px;height:240px;" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="//rcm-fe.amazon-adsystem.com/e/cm?lt1=_blank&bc1=000000&IS2=1&bg1=FFFFFF&fc1=000000&lc1=0000FF&t=hippocampus09-22&language=ja_JP&o=9&p=8&l=as4&m=amazon&f=ifr&ref=as_ss_li_til&asins=4295009792&linkId=716cb2a1aaf616bc3a921015a452bdb8"></iframe>
+
 ## Real World HTTP
-『Real World HTTP 第2版 ―歴史とコードに学ぶインターネットとウェブ技術』
+『Real World HTTP 第2版 ―歴史とコードに学ぶインターネットとウェブ技術』（渋川よしき、オライリー・ジャパン、2020年）は、Web技術の中でも比較的変化の小さいHTTPについて、その変遷の歴史とともに基礎を解説した本です。GoやJavaScriptによる実装例を通してクライアントとサーバーの動作を学べます。
+
+応用情報技術者試験と合わせてWeb技術に対する理解を深めるのに役立ちましたが、理解しきれなかったところもあるので今後も折に触れて参照したいと思います。
+
+<iframe sandbox="allow-popups allow-scripts allow-modals allow-forms allow-same-origin" style="width:120px;height:240px;" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="//rcm-fe.amazon-adsystem.com/e/cm?lt1=_blank&bc1=000000&IS2=1&bg1=FFFFFF&fc1=000000&lc1=0000FF&t=hippocampus09-22&language=ja_JP&o=9&p=8&l=as4&m=amazon&f=ifr&ref=as_ss_li_til&asins=4873119030&linkId=9e3ac52b7bf30f9d959214a9a8b72b78"></iframe>
+
 ## Web API: The Good Parts
+『Web API: The Good Parts』（水野貴明、オライリー・ジャパン、2014年）は、長く使える堅牢なWeb APIを設計・開発・運用するための手引き書です。エンドポイント・リクエスト・レスポンスの設計、HTTPヘッダの仕様、セキュリティの対策といった話題を取り扱っています。すぐに読み終えられる分量なので、特に公開APIを作るときは事前に読んでおくと安心です。
+
+<iframe sandbox="allow-popups allow-scripts allow-modals allow-forms allow-same-origin" style="width:120px;height:240px;" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="//rcm-fe.amazon-adsystem.com/e/cm?lt1=_blank&bc1=000000&IS2=1&bg1=FFFFFF&fc1=000000&lc1=0000FF&t=hippocampus09-22&language=ja_JP&o=9&p=8&l=as4&m=amazon&f=ifr&ref=as_ss_li_til&asins=4873116864&linkId=8bdb269e4caf7612b28efd0ccdfa1bc5"></iframe>
 
 # ビジネス
 ## 入門　起業の科学
