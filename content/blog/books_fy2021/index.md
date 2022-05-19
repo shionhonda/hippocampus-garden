@@ -1,6 +1,6 @@
 ---
 title: 入社2年目に読んだ本
-date: "2022-06-17T23:02:03.284Z"
+date: "2022-05-19T23:02:03.284Z"
 description: "読書記録とともに2021年度（＝入社2年目）を雑に振り返ります。"
 featuredImage: books_fy2021/ogp.jpg
 tags: ["ja", "book"]
@@ -83,7 +83,7 @@ tags: ["ja", "book"]
 <iframe sandbox="allow-popups allow-scripts allow-modals allow-forms allow-same-origin" style="width:120px;height:240px;" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="//rcm-fe.amazon-adsystem.com/e/cm?lt1=_blank&bc1=000000&IS2=1&bg1=FFFFFF&fc1=000000&lc1=0000FF&t=hippocampus09-22&language=ja_JP&o=9&p=8&l=as4&m=amazon&f=ifr&ref=as_ss_li_til&asins=4000297031&linkId=b0b1b68f949cda41b89d535ccf9cd2f5"></iframe>
 
 ## パターン認識と機械学習
-『パターン認識と機械学習』（Christopher M. Bishop　著、元田浩、栗田多喜夫、樋口知之、松本裕治、村田昇 監訳、丸善出版、2012年）は、言わずとしれた機械学習の名著です。線形モデル、SVM (support vector machine)、ニューラルネットワークといった機械学習モデルやグラフィカルモデル、サンプリング法などの幅広い話題に対して、Bayes理論という一貫した視点から解説を与えています。
+『パターン認識と機械学習』（Christopher M. Bishop 著、元田浩、栗田多喜夫、樋口知之、松本裕治、村田昇 監訳、丸善出版、2012年）は、言わずとしれた機械学習の名著です。線形モデル、SVM (support vector machine)、ニューラルネットワークといった機械学習モデルやグラフィカルモデル、サンプリング法などの幅広い話題に対して、Bayes理論という一貫した視点から解説を与えています。
 
 積ん読になっていたものを一念発起して読みました。が、一度通読しただけで理解できるような易しい教科書ではありませんでした。言い訳をすると、今の仕事でBayesの定理を使って周辺化して…といった計算を自力ですることはほとんどないので、序盤にして計算式を追うモチベーションを失ってしまったのが原因です。そのような中での個人的ハイライトは、付録にある数学の復習（確率分布、行列、変分法、Lagrange乗数）でした。ここは普段の生活でも何かと役立ちそうです。
 
@@ -197,12 +197,52 @@ tags: ["ja", "book"]
 
 # ビジネス
 ## 入門　起業の科学
+『入門 起業の科学』（田所雅之、日経BP、2019年）は、起業や新規事業で「失敗する確率を減らす」ための方法論をまとめた本です。オリジナルの『起業の科学 スタートアップサイエンス』の内容を「PMF（product market fit）達成」までに絞り、読みやすくしたものです。
+
+著者いわく、スタートアップを成功させるための「公式」はないものの、失敗を減らす方法はあるのだそうです。本書は失敗を回避するために気をつけるべきポイントを、シード期の4つのステップごとに解説しています。具体的には、以下のようなポイントが39個あります。
+
+1. Idea verification
+   - 解決する課題には自分ごととして考えられる「顧客の痛み」を選ぶ
+   - 「他の人が知らない秘密」を探す（誰もが賛同するアイディアはその時点でレッドオーシャンになっている可能性が高い）
+   - 5年後の未来を想像し、そこで市場を独占できるアイディアを選ぶ
+2. Customer problem fit
+   - ペルソナは明確に定める
+   - 仮説の前提条件のうち、依存度合いと不確実性が高いものから検証する
+3. Problem solution fit
+   - ペーパープロトタイプを活用する
+4. Product market fit
+   - MVP（minimal viable product）を作って「顧客がお金を払ってでも使いたいかどうか」を検証する
+   - スプリントでMVPを作り込んでKPIを改善する
+
+私は本書を社内起業に挑戦するために読みました。読む前は「PMFって何？」というくらいの無知さ加減でしたが、読了後はゴールまでの見通しができて仕事を進めやすくなりました。起業というと大それた話に思えますが、ここに書いてある内容は「新機能の開発」くらいの規模の話にも十分役立つと思います。そう考えると、対象読者は著者が想定するよりもずっと多いのではないでしょうか。
+
+より詳しく知りたい方は、[著者が公開しているスライド](https://masatadokoro.medium.com/https-medium-com-masatadokoro-startup-science-2018-5228111b275f)もご参照ください。
+
+
+<iframe sandbox="allow-popups allow-scripts allow-modals allow-forms allow-same-origin" style="width:120px;height:240px;" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="//rcm-fe.amazon-adsystem.com/e/cm?lt1=_blank&bc1=000000&IS2=1&bg1=FFFFFF&fc1=000000&lc1=0000FF&t=hippocampus09-22&language=ja_JP&o=9&p=8&l=as4&m=amazon&f=ifr&ref=as_ss_li_til&asins=4296100947&linkId=30229a04dd9c4f81cc06899627977e23"></iframe>
+
+<iframe sandbox="allow-popups allow-scripts allow-modals allow-forms allow-same-origin" style="width:120px;height:240px;" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="//rcm-fe.amazon-adsystem.com/e/cm?lt1=_blank&bc1=000000&IS2=1&bg1=FFFFFF&fc1=000000&lc1=0000FF&t=hippocampus09-22&language=ja_JP&o=9&p=8&l=as4&m=amazon&f=ifr&ref=as_ss_li_til&asins=4822259757&linkId=e0cc8a09643ec230b011454131f7ce07"></iframe>
+
 ## ロジカル・プレゼンテーション
+『ロジカル・プレゼンテーション――自分の考えを効果的に伝える戦略コンサルタントの「提案の技術」』（高田貴久、英治出版、2004年）は、仕事で自分の考えを相手に伝えて提案を合意に導くための技術を解説した本です。異なる価値観を持つ人を説得するためには論理的に話を進める必要があります。ただし、ここで重要なのは、合意に至るには相手に納得してもらうことが全てなので、独りよがりな「論理的思考」に陥ってはならないということです。本書は、「相手に寄り添った論理的提案」を実現するためのスキルを解説しています。また、会議設計や資料作成の心構えについても説明されており、ここまで習得できればかなり折衝に強くなれそうだと感じました。
+
+ところで、本書では『[問題解決](https://hippocampus-garden.com/books_fy2020/#%E5%95%8F%E9%A1%8C%E8%A7%A3%E6%B1%BA)』と同様に、各章の始めにコンサルタントを主人公とするビジネス小説が挿入されています。後述する『ザ・ゴール』の漫画版があるくらいですから、この小説を漫画化したものも売れるのではないかと思いました。
+
+<iframe sandbox="allow-popups allow-scripts allow-modals allow-forms allow-same-origin" style="width:120px;height:240px;" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="//rcm-fe.amazon-adsystem.com/e/cm?lt1=_blank&bc1=000000&IS2=1&bg1=FFFFFF&fc1=000000&lc1=0000FF&t=hippocampus09-22&language=ja_JP&o=9&p=8&l=as4&m=amazon&f=ifr&ref=as_ss_li_til&asins=4901234439&linkId=4c96d6ba9eb272df08d2f3b1984fcaf8"></iframe>
+
 ## ブルシット・ジョブ
+『ブルシット・ジョブ――クソどうでもいい仕事の理論』（David Graeber 著、酒井隆史、芳賀達彦、森田和樹 訳、岩波書店、2020年）は、ブルシット・ジョブ（[被雇用者本人でさえ、その存在を正当化しがたいほど、完璧に無意味で、不必要で、有害でもある有償の雇用の形態](https://www.iwanami.co.jp/news/n35930.html)のこと）が世に蔓延するメカニズムの解明を試みた本です。1930年にケインズは「21世紀には週15時間労働が達成されるはず」と予測したそうですが、実際にはそうなっていません。技術は着実に進化しているのに、なぜでしょうか？そして、ブルシット・ジョブに従事する人がしばしば高い給料と社会的地位を得ているのはなぜでしょうか？著者はその答えの鍵を、20世紀に急増した情報労働者に求めます。詳しくは割愛しますが、滑稽なほどにブルシットな事例に笑ったり、ときどき他人事ではない話に遭遇して背筋が寒くなったり、後半で展開されるネオリベラリズム批判では真面目に社会のことを考えたりと、様々な方向で楽しめる本でした。
+
+また、仕事でコードを書いている人間にとって、OSSへの言及は特に耳の痛い話でした。いわく、ソフトウェア企業はコスト削減のためなるべくOSSを使うようにし、従業員には接続部分の実装や障害対応（本書で定義される「尻拭い」に該当）ばかりをやらせる。そうすると価値のあるおもしろい仕事はOSSに集まるので、エンジニアは余暇を使って無料でOSS開発をする。ソフトウェア業界にはこのような循環が生じている、という指摘です。
+
+<iframe sandbox="allow-popups allow-scripts allow-modals allow-forms allow-same-origin" style="width:120px;height:240px;" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="//rcm-fe.amazon-adsystem.com/e/cm?lt1=_blank&bc1=000000&IS2=1&bg1=FFFFFF&fc1=000000&lc1=0000FF&t=hippocampus09-22&language=ja_JP&o=9&p=8&l=as4&m=amazon&f=ifr&ref=as_ss_li_til&asins=4000614134&linkId=8b16cc9797317aa7fc4ebc2eb354c65e"></iframe>
+
 ## 世界一楽しい決算書の読み方
 
 ## イノベーションのジレンマ
 『イノベーションのジレンマ 増補改訂版』
+
+起業関係の話題でよく引き合いに出されるので読みました。
 
 ## ジョブ理論
 ## ザ・ゴール
