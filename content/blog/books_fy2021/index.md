@@ -1,6 +1,6 @@
 ---
 title: 入社2年目に読んだ本
-date: "2022-05-19T23:02:03.284Z"
+date: "2022-05-20T23:02:03.284Z"
 description: "読書記録とともに2021年度（＝入社2年目）を雑に振り返ります。"
 featuredImage: books_fy2021/ogp.jpg
 tags: ["ja", "book"]
@@ -16,7 +16,7 @@ tags: ["ja", "book"]
 
 - 機械学習システムのうち、特にデプロイやサービングの周辺
 - Go言語（特に並行処理）
-- 課題ドリブンでサービスや機能を設計する方法
+- 課題起点でサービスや機能を設計する方法
 
 仕事も少しずつできるようになってきましたが、ビジネス貢献という意味ではまだ道半ばなので、3年目も引き続き邁進していきます。
 
@@ -52,9 +52,9 @@ tags: ["ja", "book"]
 
 # 機械学習／データサイエンス
 ## ゼロから作るDeep Learning 3
-『ゼロから作るDeep Learning ❸ ―フレームワーク編』（斎藤康毅、オライリー・ジャパン、2020年）は、数値計算ライブラリ（NumPy）だけで深層学習モデルを実装することを通してその内部動作を理解するということをコンセプトにした大人気シリーズの第3弾です。第3弾では、これまでは手動で定義していた各種演算の誤差逆伝播を自動で計算できるように、「DeZero」と名付けた深層学習フレームワークを自作します。DeZeroは[Chainer](https://chainer.org/)に似たインターフェイスを持つDefine-by-RunのピュアPythonフレームワークです。
+『ゼロから作るDeep Learning ❸ ―フレームワーク編』（斎藤康毅、オライリー・ジャパン、2020年）は、数値計算ライブラリ（NumPy）だけで深層学習モデルを実装することを通してその内部動作を理解するということをコンセプトにした、大人気シリーズの第3弾です。第3弾では、これまでは手動で定義していた各種演算の誤差逆伝播を自動で計算できるように、「DeZero」と名付けた深層学習フレームワークを自作します。DeZeroは[Chainer](https://chainer.org/)に似たインターフェイスを持つDefine-by-RunのピュアPythonフレームワークです。
 
-「深層学習フレームワークを自作する」と言うと気が遠くなるように思えますが、全体の作業が60の小さなステップに分割されているため、短いスパンで達成感を得ながら無理なく完遂することができます。完遂後に見える景色はそれまでと全く異なるものでした。NumPyのndarrayと似たインターフェイスを持つChainerのVariableやPyTorchのTensorが、裏側で何をやってくれているのかを実装のレベルで理解できました。また、予期していなかった収穫として、一定の規模を持つソフトウェアにおける依存関係の設計を学ぶこともできました。お盆休みを大いに楽しむことができました。
+「深層学習フレームワークを自作する」と言うと気が遠くなるように思えますが、全体の作業が60の小さなステップに分割されているため、短いスパンで達成感を得ながら無理なく完遂することができます。完遂後に見える景色はそれまでと全く異なるものでした。NumPyのndarrayと似たインターフェイスを持つChainerのVariableやPyTorchのTensorが裏側で何をやってくれているのかを実装のレベルで理解できました。また、予期していなかった収穫として、一定の規模を持つソフトウェアにおける依存関係の設計を学ぶこともできました。お盆休みを大いに楽しむことができました。
 
 <iframe sandbox="allow-popups allow-scripts allow-modals allow-forms allow-same-origin" style="width:120px;height:240px;" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="//rcm-fe.amazon-adsystem.com/e/cm?lt1=_blank&bc1=000000&IS2=1&bg1=FFFFFF&fc1=000000&lc1=0000FF&t=hippocampus09-22&language=ja_JP&o=9&p=8&l=as4&m=amazon&f=ifr&ref=as_ss_li_til&asins=4873119065&linkId=a43b7ac8d044752254788f81017d6102"></iframe>
 
@@ -67,7 +67,7 @@ tags: ["ja", "book"]
 <iframe sandbox="allow-popups allow-scripts allow-modals allow-forms allow-same-origin" style="width:120px;height:240px;" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="//rcm-fe.amazon-adsystem.com/e/cm?lt1=_blank&bc1=000000&IS2=1&bg1=FFFFFF&fc1=000000&lc1=0000FF&t=hippocampus09-22&language=ja_JP&o=9&p=8&l=as4&m=amazon&f=ifr&ref=as_ss_li_til&asins=4873119758&linkId=632eb37f659c6f8bb5cc3e89054f4ad5"></iframe>
 
 ## 深層学習
-『深層学習 改訂第2版』（岡谷貴之、講談社、2022年）は、2015年に出たベストセラーを2021年の最新の内容でもって大幅改定（ページ数で2倍超の増量！）したものです。第1版が出てからの6年間で、深層学習の研究は驚異的な広がりを見せました。その発展の速さを目の当たりにしてきた一人として、混沌を極める研究分野の各種トピックを取捨選択し、体系立てた形にまとめる作業は大変な苦労だったろうと推察します。参考文献へのリンクも充実しており、日本語で最新の状況をある程度詳しく把握したいという方には最適な一冊だと言えます。これを読んでおけば、NeurIPSなどの国際学会を聴講しに行っても迷える子羊にならずに済むでしょう。
+『深層学習 改訂第2版』（岡谷貴之、講談社、2022年）は、2015年に出たベストセラーを2021年の最新の内容でもって大幅改定（ページ数で2倍超の増量！）したものです。初版が出てからの6年間で、深層学習の研究は驚異的な広がりを見せました。その発展の速さを目の当たりにしてきた一人として、混沌を極める研究分野の各種トピックを取捨選択し、体系立てた形にまとめる作業は大変な苦労だったろうと推察します。参考文献へのリンクも充実しており、日本語で最新の状況をある程度詳しく把握したいという方には最適な一冊だと言えます。これを読んでおけば、NeurIPSなどの国際学会を聴講しに行っても迷える子羊にならずに済むでしょう。
 
 具体的な新規追加トピックとしては、陰的表現、二重降下、Transformer、GNN、敵対的攻撃、説明性、距離学習、自己教師学習、転移学習、生成モデルなどがあります。
 
@@ -132,7 +132,7 @@ tags: ["ja", "book"]
 ## プログラミング言語Go
 『プログラミング言語Go』（Alan A. A. Donovan、Brian W. Kernighan 著、柴田芳樹 訳、丸善出版、2016年）は、Go言語の標準的な教科書です。基本的な文法や型の説明に始まり、ゴルーチンやリフレクションといった特徴的な項目までを扱います。「手っ取り早くライブラリを使えるようになりたい」という方よりは、「言語仕様をしっかり理解したい」という方向けの教科書だと言えます。まえがきに書いてあるとおり、全くのプログラミング初心者には難しいでしょう。
 
-会社で[訳者の柴田氏から講義をしていただく機会](https://yshibata.blog.ss-blog.jp/2022-02-23)があり、その研修に参加するために読みました。この研修は毎回の講義の前に対象範囲の練習問題を全て解いてくることになっており、社内ではハードなことで有名でした。実際、プライベートの時間の大部分を投じてもなお解ききれないこともあるというくらい大変でしたが、もちろん大いに勉強になりました（やはり練習問題を解かなければ知識が定着しなかったと思います）。まだまだPythonほどではありませんが、「第二言語」くらいには読み書きできるようになりました。
+勤務先にて[訳者の柴田氏から講義をしていただく機会](https://yshibata.blog.ss-blog.jp/2022-02-23)があり、その研修に参加するために読みました。この研修は毎回の講義の前に対象範囲の練習問題を全て解いてくることになっており、社内ではハードなことで有名でした。実際、プライベートの時間の大部分を投じてもなお解ききれないこともあるというくらい大変でしたが、もちろん大いに勉強になりました（やはり練習問題を解かなければ知識が定着しなかったと思います）。まだまだPythonほどではありませんが、「第二言語」くらいには読み書きできるようになりました。
 
 ところで、研修前はGo言語を使う機会がしばしばあったのですが、その後めっきり機会が減ってしまったので少し寂しく感じています。
 
@@ -159,11 +159,11 @@ tags: ["ja", "book"]
 <iframe sandbox="allow-popups allow-scripts allow-modals allow-forms allow-same-origin" style="width:120px;height:240px;" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="//rcm-fe.amazon-adsystem.com/e/cm?lt1=_blank&bc1=000000&IS2=1&bg1=FFFFFF&fc1=000000&lc1=0000FF&t=hippocampus09-22&language=ja_JP&o=9&p=8&l=as4&m=amazon&f=ifr&ref=as_ss_li_til&asins=429712467X&linkId=e73571c5f1a026b729eb3ddb2e52a19e"></iframe>
 
 ## AWSではじめるクラウド開発入門
-『AWSではじめるクラウド開発入門』（真野智之、マイナビ出版、2021年）は、東京大学で学部生向けに開講されたクラウド開発の授業で使われた資料『[コードで学ぶAWS入門](https://tomomano.github.io/learn-aws-by-coding/)』を、増補改訂して書籍化したものです。著者の真野氏は私の研究室時代の先輩だったので、私は講義資料の段階から読ませていただいていました。「こんな素晴らしい授業を受けられる今どきの学部生は羨ましい」という感想を抱いたのを今でも覚えています。
+『AWSではじめるクラウド開発入門』（真野智之、マイナビ出版、2021年）は、東京大学で学部生向けに開講されたクラウド開発の授業で使われた資料『[コードで学ぶAWS入門](https://tomomano.github.io/learn-aws-by-coding/)』を、増補改訂して書籍化したものです。著者の真野氏は私の研究室時代の先輩だったので、私は講義資料の段階から読ませていただいていました。「こんなに素晴らしい授業を受けられる今どきの学部生は羨ましい」という感想を抱いたのを今でも覚えています。
 
 <blockquote class="twitter-tweet"><p lang="ja" dir="ltr">出身研究室の先輩が東大計数工学科の講義の一部として担当した『AWSによるクラウド入門』の資料が公開されています。<br>クラウド入門者向けに簡潔かつ平易な言葉で書かれている貴重な資料です。5つのハンズオンで、最後は俳句を投稿するWebアプリを実装・デプロイします。<a href="https://t.co/XmFGGnsP3r">https://t.co/XmFGGnsP3r</a> <a href="https://t.co/9nDxzBovTW">pic.twitter.com/9nDxzBovTW</a></p>&mdash; Shion Honda (@shion_honda) <a href="https://twitter.com/shion_honda/status/1281572631544655872?ref_src=twsrc%5Etfw">July 10, 2020</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
-本書には特筆すべきところが2つあります。一つは、本書がハンズオンを中心に構成されているところです。全15章のうち、実に9章がハンズオンです。開発というものは当然ながら実際に手を動かして、エラーに遭遇しながらモノ作りをしないと身につかないものです。もう一つは、全体を貫く明快な書きぶりです。この手の本は見慣れないカタカナの用語で埋め尽くされてしまうきらいがありますが、本書では「サーバーレス」や「リソース」といった用語が、登場するたびごとにそのご利益とともに明確に説明されています。真の意味で初心者に寄り添った入門書だと言えます。
+本書には特筆すべきところが2つあります。一つは、本書がハンズオンを中心に構成されているところです。全15章のうち、実に9章がハンズオンです。開発というものは当然ながら、実際に手を動かしてエラーに遭遇しながらモノ作りをしないと身につかないものです。もう一つは、全体を貫く明快な書きぶりです。この手の本は見慣れないカタカナの用語で埋め尽くされてしまうきらいがありますが、本書では「サーバーレス」や「リソース」といった用語が、登場するたびごとにそのご利益とともに明確に説明されています。真の意味で初心者に寄り添った入門書だと言えます。
 
 なお、本書はAWSの解説書ではなく、あくまでクラウド開発を解説するための題材としてAWSを使っているので、本書で得られる基礎知識はGCPやAzureといった別のクラウドサービスにも容易に転用できますし、すぐに陳腐化することもないでしょう。
 
@@ -238,15 +238,45 @@ tags: ["ja", "book"]
 <iframe sandbox="allow-popups allow-scripts allow-modals allow-forms allow-same-origin" style="width:120px;height:240px;" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="//rcm-fe.amazon-adsystem.com/e/cm?lt1=_blank&bc1=000000&IS2=1&bg1=FFFFFF&fc1=000000&lc1=0000FF&t=hippocampus09-22&language=ja_JP&o=9&p=8&l=as4&m=amazon&f=ifr&ref=as_ss_li_til&asins=4000614134&linkId=8b16cc9797317aa7fc4ebc2eb354c65e"></iframe>
 
 ## 世界一楽しい決算書の読み方
+『会計クイズを解くだけで財務3表がわかる 世界一楽しい決算書の読み方』（大手町のランダムウォーカー 著、わかる イラスト、KADOKAWA、2020年）は、[会計クイズ](https://www.funda.jp/)を通して財務3表を学べる本です。自力で決算書を読む機会は今のところ皆無ですが、経済系のリテラシーを身に付けるために読みました。Amazonと楽天、ユニクロとZARAといった同業他社がそれぞれ違ったビジネスモデルを採っている、というような「身近だけど知らないこと」が多く書かれていておもしろかったです。タイトルに偽りなしでした。
+
+<iframe sandbox="allow-popups allow-scripts allow-modals allow-forms allow-same-origin" style="width:120px;height:240px;" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="//rcm-fe.amazon-adsystem.com/e/cm?lt1=_blank&bc1=000000&IS2=1&bg1=FFFFFF&fc1=000000&lc1=0000FF&t=hippocampus09-22&language=ja_JP&o=9&p=8&l=as4&m=amazon&f=ifr&ref=as_ss_li_til&asins=4046043679&linkId=74a88956be7b78c6316c9d4aa2e0a8dc"></iframe>
 
 ## イノベーションのジレンマ
-『イノベーションのジレンマ 増補改訂版』
+『イノベーションのジレンマ 増補改訂版』（Clayton Christensen 著、伊豆原弓 訳、2001年、翔泳社）は、イノベーションのジレンマを提唱したChristensen氏本人による同概念の解説書です。この言葉の意味については、[グロービス経営大学院による定義](https://mba.globis.ac.jp/about_mba/glossary/detail-11714.html)がわかりやすいです。
 
-起業関係の話題でよく引き合いに出されるので読みました。
+> イノベーションのジレンマとは、業界トップになった企業が顧客の意見に耳を傾け、さらに高品質の製品サービスを提供することがイノベーションに立ち後れ、失敗を招くという考え方。
+
+そのようなジレンマが発生するメカニズムについては上記リンク先、または本書をご参照ください。ひとつ誤解しやすい点は、ここで話題にしている「破壊的イノベーション」は技術的ブレイクスルーのことではないということです。破壊的イノベーションとは、短期的には性能を下げ、市場に新たな価値基準をもたらすような製品（それゆえに破壊的（disruptive））のことを言います。例えば、5Gという通信技術自体は破壊的イノベーションではありませんが、「5Gによって実現可能になる低価格サービス」が破壊的イノベーションとなることはあり得ます。
+
+全体としてはおもしろかったのですが、本書は著者の博士論文を下敷きにしているらしく、一般書だと思って読むと面食らってしまう難解さがありました。また、事例研究は2000年頃に発展のサイクルが速かったディスクドライブ市場を対象としているため、当時6歳だった自分には馴染みませんでした。もっとサイクルが早いであろう現在のソフトウェアサービスを題材にしつつ、一般向けに書き直した本があればいいなと感じました。
+
+<iframe sandbox="allow-popups allow-scripts allow-modals allow-forms allow-same-origin" style="width:120px;height:240px;" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="//rcm-fe.amazon-adsystem.com/e/cm?lt1=_blank&bc1=000000&IS2=1&bg1=FFFFFF&fc1=000000&lc1=0000FF&t=hippocampus09-22&language=ja_JP&o=9&p=8&l=as4&m=amazon&f=ifr&ref=as_ss_li_til&asins=4798100234&linkId=edb7f684e9d4f9f11298b328ee3e3884"></iframe>
 
 ## ジョブ理論
-## ザ・ゴール
+『ジョブ理論　イノベーションを予測可能にする消費のメカニズム』（Clayton Christensen 著、依田光江 訳、ハーパーコリンズ・ ジャパン、2017年）は、
 
+> - 顧客が商品を買うこととは、片づいていない「ジョブ(用事・仕事)」を解決するために何かを「雇用」することである。
+> - ビッグデータは顧客が「誰か」を教えてくれても、「なぜ」買うのかは教えてくれない。
+> - 数値化できない「因果関係」にこそ、成功するイノベーションの鍵がある。
+> - 自社製品も他社製品も買っていない「無消費者」を取り込め。
+
+という「イノベーションの起こし方」を説いた本です。前述の『イノベーションのジレンマ』がわかりづらかったので、同氏が一般向けに書いた最近の本ならどうだろう、ということで読んでみました。こちらは読みやすかったです。
+
+実は上記の要約は下記の商品ページに書かれていたものの抜粋なのですが、いろいろな場所で語られる話なので、これだけで本の内容を理解できるという方も多いでしょう。とはいえ、マーケットインを徹底するというのは存外に難しいことですよね（一生使わないであろう機能がたくさんついた炊飯器が我が家にもあります）。
+
+<iframe sandbox="allow-popups allow-scripts allow-modals allow-forms allow-same-origin" style="width:120px;height:240px;" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="//rcm-fe.amazon-adsystem.com/e/cm?lt1=_blank&bc1=000000&IS2=1&bg1=FFFFFF&fc1=000000&lc1=0000FF&t=hippocampus09-22&language=ja_JP&o=9&p=8&l=as4&m=amazon&f=ifr&ref=as_ss_li_til&asins=4596551227&linkId=3cb31fdf0a7af59f733f3ec0bbc6c47c"></iframe>
+
+## ザ・ゴール
+『ザ・ゴール コミック版』（Eliyahu Goldratt、Jeff Cox 原作、岸良裕司 監修、青木健生 脚色、蒼田山 漫画、ダイヤモンド社、2014年）は、製造プロセスの全体最適を実現するための「制約理論（ToC; theory of constraints）」を説いた『ザ・ゴール』の漫画版です。
+
+勤務先の[エンジニアコース新人研修](https://blog.recruit.co.jp/rtc/2021/08/20/recruit-bootcamp-2021/)でToCなるものが教えられていると聞いて、図書館で『ザ・ゴール』を手にとってみました。これが560ページに及ぶ「長編ビジネス小説」で読もうかどうか躊躇していたところ、漫画版の存在を知ってこちらを読むことにしました。
+
+「理論」というだけあってストーリーの背景には[クリティカルチェーン・プロジェクトマネジメント](https://ja.wikipedia.org/wiki/%E3%82%AF%E3%83%AA%E3%83%86%E3%82%A3%E3%82%AB%E3%83%AB%E3%83%81%E3%82%A7%E3%83%BC%E3%83%B3%E3%83%BB%E3%83%97%E3%83%AD%E3%82%B8%E3%82%A7%E3%82%AF%E3%83%88%E3%83%9E%E3%83%8D%E3%82%B8%E3%83%A1%E3%83%B3%E3%83%88)（CCPM; critical chain project management）というアルゴリズムが想定されているようですが、漫画の中ではそのようなフォーマルな言葉は登場しませんでした。個人的には数式を用いた解説も欲しかったのですが、実践の際に厳密に数値データを集めて最適化するケースは少ないでしょうから、ストーリー仕立てにした方が実践的なのでしょう。漫画版を読んだ後に改めて[研修資料](https://speakerdeck.com/recruitengineers/toc-introduction)を見ると、その完成度の高さがよくわかりました。
+
+<iframe sandbox="allow-popups allow-scripts allow-modals allow-forms allow-same-origin" style="width:120px;height:240px;" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="//rcm-fe.amazon-adsystem.com/e/cm?lt1=_blank&bc1=000000&IS2=1&bg1=FFFFFF&fc1=000000&lc1=0000FF&t=hippocampus09-22&language=ja_JP&o=9&p=8&l=as4&m=amazon&f=ifr&ref=as_ss_li_til&asins=4478039399&linkId=9858c0c2c9aae495f72a8ecf16cebc51"></iframe>
+
+<iframe sandbox="allow-popups allow-scripts allow-modals allow-forms allow-same-origin" style="width:120px;height:240px;" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="//rcm-fe.amazon-adsystem.com/e/cm?lt1=_blank&bc1=000000&IS2=1&bg1=FFFFFF&fc1=000000&lc1=0000FF&t=hippocampus09-22&language=ja_JP&o=9&p=8&l=as4&m=amazon&f=ifr&ref=as_ss_li_til&asins=4478420408&linkId=3b9f48f011c9d3d3928b7bac2a6db426"></iframe>
 
 [^1]: [Bias-variance tradeoff](https://en.wikipedia.org/wiki/Bias%E2%80%93variance_tradeoff)
 [^2]: [スケーリング則](https://deeplearning.hatenablog.com/entry/scaling_law)としてまとめられています
