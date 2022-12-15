@@ -87,6 +87,9 @@ const About = ({ data, location }) => {
 
         <h2>News</h2>
         <ul>
+          <li>
+            May 2021: <a href="[実践]データ活用システム開発ガイド" target="_blank" rel="noopener noreferrer">The book "A Guide to Developing Data Intelligence Systems", which I co-authored</a>, has been published.
+          </li>
           <li>Dec 2021: I passed the Applied Information Technology Engineer Examination (a Japanese national certification).</li>
           <li>
             May 2021: <a href="http://www.tkd-pbl.com/book/b559511.html" target="_blank" rel="noopener noreferrer">The book "Python for Programmers by Deitel &amp; Deitel", which I co-translated</a>, has been published.
