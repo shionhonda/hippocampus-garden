@@ -1,6 +1,5 @@
 import React from 'react';
 import { useStaticQuery, graphql } from "gatsby"
-import { Helmet } from "react-helmet"
 import {
     FacebookShareButton,
     FacebookIcon,
@@ -36,10 +35,6 @@ const Share = ({ title, url }) => {
     return (
 
         <ul style={{ listStyle: "none", margin: "0", padding: "0" }}>
-            <Helmet>
-                <script type="text/javascript" src="//b.st-hatena.com/js/bookmark_button.js" charset="utf-8" async="async" />
-            </Helmet>
-
             <li style={{ display: "inline-block" }}>
                 <TwitterShareButton title={title} via={social.twitter} url={url}>
                     <TwitterIcon size={40} square="true" />
@@ -82,3 +77,9 @@ const Share = ({ title, url }) => {
 }
 
 export default Share;
+
+export const Head = () => {
+    <>
+        <script type="text/javascript" src="//b.st-hatena.com/js/bookmark_button.js" charset="utf-8" async="async" />
+    </>
+}

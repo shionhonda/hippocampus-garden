@@ -139,25 +139,21 @@ module.exports = {
                 })
               })
             },
-            query: `
-              {
-                allMarkdownRemark(
-                  sort: { order: DESC, fields: [frontmatter___date] },
-                ) {
-                  nodes {
-                    excerpt
-                    html
-                    fields { 
-                      slug 
-                    }
-                    frontmatter {
-                      title
-                      date
-                    }
-                  }
-                }
-              }
-            `,
+            query: `{
+  allMarkdownRemark(sort: {frontmatter: {date: DESC}}) {
+    nodes {
+      excerpt
+      html
+      fields {
+        slug
+      }
+      frontmatter {
+        title
+        date
+      }
+    }
+  }
+}`,
             output: "/rss.xml",
             title: "RSS Feed of Hippocampus's Garden",
           },
@@ -176,7 +172,6 @@ module.exports = {
         icon: `content/assets/profile-pic.png`,
       },
     },
-    `gatsby-plugin-react-helmet`,
     {
       resolve: `gatsby-plugin-typography`,
       options: {

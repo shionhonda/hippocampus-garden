@@ -1,5 +1,4 @@
 import React from 'react'
-import Helmet from 'react-helmet'
 import PropTypes from 'prop-types'
 import { StaticQuery, graphql } from 'gatsby'
 
@@ -96,29 +95,28 @@ const Seo = ({ title, desc, banner, pathname, article }) => (
 
       return (
         <>
-          <Helmet title={seo.title}>
-            <html lang={data.site.siteMetadata.siteLanguage} />
-            <meta name="description" content={seo.description} />
-            <meta name="image" content={seo.image} />
-            <meta name="apple-mobile-web-app-title" content={data.site.siteMetadata.shortName} />
-            <meta name="application-name" content={data.site.siteMetadata.shortName} />
-            <script type="application/ld+json">{JSON.stringify(schemaOrgJSONLD)}</script>
+          <title>{seo.title}</title>
+          <html lang={data.site.siteMetadata.siteLanguage} />
+          <meta name="description" content={seo.description} />
+          <meta name="image" content={seo.image} />
+          <meta name="apple-mobile-web-app-title" content={data.site.siteMetadata.shortName} />
+          <meta name="application-name" content={data.site.siteMetadata.shortName} />
+          <script type="application/ld+json">{JSON.stringify(schemaOrgJSONLD)}</script>
 
-            {/* OpenGraph  */}
-            <meta property="og:url" content={seo.siteUrl} />
-            <meta property="og:type" content={article ? 'article' : "website"} />
-            <meta property="og:title" content={seo.title} />
-            <meta property="og:description" content={seo.description} />
-            <meta property="og:image" content={seo.image} />
-            <meta property="fb:app_id" content="125328685588673" />
+          {/* OpenGraph  */}
+          <meta property="og:url" content={seo.siteUrl} />
+          <meta property="og:type" content={article ? 'article' : "website"} />
+          <meta property="og:title" content={seo.title} />
+          <meta property="og:description" content={seo.description} />
+          <meta property="og:image" content={seo.image} />
+          <meta property="fb:app_id" content="125328685588673" />
 
-            {/* Twitter Card */}
-            <meta name="twitter:card" content="summary_large_image" />
-            <meta name="twitter:creator" content={data.site.siteMetadata.social.twitter} />
-            <meta name="twitter:title" content={seo.title} />
-            <meta name="twitter:description" content={seo.description} />
-            <meta name="twitter:image" content={seo.image} />
-          </Helmet>
+          {/* Twitter Card */}
+          <meta name="twitter:card" content="summary_large_image" />
+          <meta name="twitter:creator" content={data.site.siteMetadata.social.twitter} />
+          <meta name="twitter:title" content={seo.title} />
+          <meta name="twitter:description" content={seo.description} />
+          <meta name="twitter:image" content={seo.image} />
         </>
       );
     }}
