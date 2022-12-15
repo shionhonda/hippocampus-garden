@@ -1,5 +1,4 @@
 import React from 'react'
-import Helmet from 'react-helmet'
 
 import {
   title,
@@ -11,7 +10,7 @@ import {
 
 export default function OGP({ type, pageTitle, pageDescription }) {
   return (
-    <Helmet>
+    <>
       <meta property="og:title" content={pageTitle || title} />
       <meta property="og:description" content={pageDescription || description} />
 
@@ -21,6 +20,6 @@ export default function OGP({ type, pageTitle, pageDescription }) {
       <meta property="og:image" content={logo} />
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:site" content={social.twitter} />
-    </Helmet>
+    </>
   )
 }

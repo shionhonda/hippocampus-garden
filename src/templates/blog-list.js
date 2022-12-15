@@ -95,35 +95,29 @@ const BlogListTemplate = ({ data, pageContext, location }) => {
 
 export default BlogListTemplate
 
-export const pageQuery = graphql`
-  query blogPageQuery($skip: Int!, $limit: Int!) {
-    site {
-      siteMetadata {
-        author
-        title
-      }
+export const pageQuery = graphql`query blogPageQuery($skip: Int!, $limit: Int!) {
+  site {
+    siteMetadata {
+      author
+      title
     }
-    allMarkdownRemark(
-      sort: { fields: [frontmatter___date], order: DESC }
-      limit: $limit
-      skip: $skip
-    ) {
-      edges {
-        node {
-          excerpt
-          fields {
-            slug
-          }
-          timeToRead
-          frontmatter {
-            date(formatString: "MMMM DD, YYYY")
-            title
-            description
-            featuredImage
-            tags
-          }
+  }
+  allMarkdownRemark(sort: {frontmatter: {date: DESC}}, limit: $limit, skip: $skip) {
+    edges {
+      node {
+        excerpt
+        fields {
+          slug
+        }
+        timeToRead
+        frontmatter {
+          date(formatString: "MMMM DD, YYYY")
+          title
+          description
+          featuredImage
+          tags
         }
       }
     }
   }
-`
+}`

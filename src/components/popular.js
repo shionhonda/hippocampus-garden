@@ -4,39 +4,37 @@ import Image from "../components/image"
 import { rhythm } from "../utils/typography"
 
 const PopularPost = () => {
-  const data = useStaticQuery(graphql`
-      query allPagesAndViews {
-          allMarkdownRemark(limit: 1000, sort: {order: DESC, fields: frontmatter___date}) {
-              edges {
-                node {
-                  frontmatter {
-                    title
-                    featuredImage
-                  }
-                  fields {
-                    slug
-                  }
-                }
-              }
-          }
-          allTotalPageViews(limit: 10, sort: {fields: count, order: DESC}) {
-              edges {
-                  node {
-                    path
-                    count
-                  }
-              }
-          }
-          allRecentPageViews(limit: 10, sort: {fields: count, order: DESC}) {
-            edges {
-                node {
-                  path
-                  count
-                }
-            }
-          }
+  const data = useStaticQuery(graphql`query allPagesAndViews {
+  allMarkdownRemark(limit: 1000, sort: {frontmatter: {date: DESC}}) {
+    edges {
+      node {
+        frontmatter {
+          title
+          featuredImage
+        }
+        fields {
+          slug
+        }
       }
-  `)
+    }
+  }
+  allTotalPageViews(limit: 10, sort: {count: DESC}) {
+    edges {
+      node {
+        path
+        count
+      }
+    }
+  }
+  allRecentPageViews(limit: 10, sort: {count: DESC}) {
+    edges {
+      node {
+        path
+        count
+      }
+    }
+  }
+}`)
 
   function chooseTop5(allPosts, popularPosts) {
     const results = [];
