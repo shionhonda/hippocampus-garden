@@ -37,7 +37,7 @@ For more detail, please refer to [the official description](https://www.kaggle.c
 The top-5 public solutions share some common features.
 
 - **Heavy augmentations** helped models to generalize to the HuBMAP data. Normalizing the pixel values was not enough at all. As far as I know, without heavy augmentations, nobody obtained good results on the HuBMAP data.
-- **UNet of large encoders** were the defacto standard. Larger models performed better.
+- **UNet of large encoders** were the defacto standard. Larger models performed better. The popular backbones were SegFormer, CoaT, and EfficientNet.
 - **Larger input images** were also the key to better scores, which means "VRAM really matters" in this competition.
 - **Test time augmentations** (**TTA**) could boost your score easily. Since they are tissue section images, you could apply flip augmentation 8 times (horizontal x vertical x mirror).  
 - **External datasets & pseudo labels** could also boost your score but required more effort.
