@@ -1,7 +1,7 @@
 ---
 title: "Kaggle Competition Report: HuBMAP + HPA"
 date: "2022-12-15T22:01:03.284Z"
-description: 'The Kaggle competition "HuBMAP + HPA" has a little twist in evaluation. The distributions of train, public test, and private test were all different.'
+description: 'HuBMAP + HPA was a competition on image segmentation with a little twist in how to split the dataset. How did winners approach this problem?'
 featuredImage: kaggle_hubmap_hpa/ogp.png
 tags: ["en", "kaggle"]
 ---
@@ -33,15 +33,14 @@ where $X$ is the set of predicted pixels, $Y$ is the ground truth, and $|\cdot|$
 
 For more detail, please refer to [the official description](https://www.kaggle.com/competitions/hubmap-organ-segmentation/overview/description).
 
-## Solutions
-Here is a summary of the top-5 public solutions.
+## Winners' Solutions
+The top-5 public solutions share some common features.
 
-heavy augmentation
-TTA
-Large models
-Large images
-external datasets
-pseudo labels
+- **Heavy augmentations** helped models to generalize to the HuBMAP data. Normalizing the pixel values was not enough at all. As far as I know, without heavy augmentations, nobody obtained good results on the HuBMAP data.
+- **UNet of large encoders** were the defacto standard. Larger models performed better.
+- **Larger input images** were also the key to better scores, which means "VRAM really matters" in this competition.
+- **Test time augmentations** (**TTA**) could boost your score easily. Since they are tissue section images, you could apply flip augmentation 8 times (horizontal x vertical x mirror).  
+- **External datasets & pseudo labels** could also boost your score but required more effort.
 
 ### 1st Place
 [Opusen](https://www.kaggle.com/competitions/hubmap-organ-segmentation/discussion/356201) won the 1st place by looking at the labels carefully. The key to the victory was the hand-labeling of lung images. They noticed that the noisy labels in lung images lead to unstable results, which motivated them to re-label those images manually.
@@ -56,19 +55,20 @@ I'd like to mention their normalization technique as well. They wanted to traine
 - CoaT-Lite Medium
 
 ### 3rd Place
-[Human Torus Team](https://www.kaggle.com/competitions/hubmap-organ-segmentation/discussion/354683)'s approach is similar to others, but I'd like to highlight two points here. First, they use CutMix for data augmentation. Second, at inference time, they use images in full scale. When the image is too large to fit in the memory, they adopted a "sliding window" strategy and averaged the output.
+[Human Torus Team](https://www.kaggle.com/competitions/hubmap-organ-segmentation/discussion/354683)'s approach is similar to others, but I'd like to highlight two points here. First, they use CutMix for data augmentation. Second, at inference time, they use images in full scale. When the image is too large to fit in the memory, they splitted it into small tiles and concatenated the outputs.
 
 ### 4th Place
 [Rock](https://www.kaggle.com/competitions/hubmap-organ-segmentation/discussion/354851) didn't use external data nor pseudo labels. Instead, they utilized stain (color) normalization.
 
 ### 7th Place
-Tile and whole
-Kaggle Notebook only  
+[Q_takka](https://www.kaggle.com/competitions/hubmap-organ-segmentation/discussion/354859) won a gold medal using Kaggle Notebook only. Due to the memory limit, they used a little smaller models like EfficientNet B5 and input the images of 800x800 resolution. To overcome these constraints, they carried out inference in two ways and averaged the outputs: (1) inference on the whole image (2) concatenation of the prediction of tiled images.
 
 ## My Experience
-heavy augmentation
-TTA
-Mediam models
-Large (as possible) images
+I had trouble in the compute environment ([which resolved at the very end of the competition](https://hippocampus-garden.com/workbench_shm/)), so I couldn't increase the model size and image size as I wanted. The final solution looks like this:
+- 😀 Heavy augmentations
+- 😐 UNet of *medium* encoders
+- 😐 Medium-sized input images
+- 😀 TTA 
+- 😰 No external datasets or pseudo labels
 
-Otsu binarization
+Finally, I'd like to add some comments on the thresholding algorithm. A Dice coefficient, the evaluation metric, is very sensitive to the threshold you choose. This means that, to evaluate a model, you need to tune the threshold every time. To make matters worse, the optimal threshold for the train set (HPA) and the test set (HuBMAP) are different. It's almost impossible to tune the threshold using the leaderboard score! To address this issue, I used automatic thresholding algorithm called **Otsu's binarization**. Otsu's method is basically a **discriminant analysis** for binarizing images. You can use it easily with [OpenCV](https://docs.opencv.org/4.x/d7/d4d/tutorial_py_thresholding.html). In my experiments, Otsu's method performed comparable to manual tuning and better than adaptive thresholding algorithms.
