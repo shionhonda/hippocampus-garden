@@ -61,6 +61,18 @@ const AboutJa = ({ data, location }) => {
         <p style={{ clear: "both" }}>経歴については <a href="https://www.linkedin.com/in/shionhonda/" target="_blank" rel="noopener noreferrer">LinkedIn</a>を、
           発表論文については<a href="https://scholar.google.co.jp/citations?user=NhNlsZcAAAAJ" target="_blank" rel="noopener noreferrer">Google Scholar</a>をご覧ください。</p>
 
+        <h2>新着情報</h2>
+        <ul>
+          <li>
+            2022年12月 <a href="https://www.tkd-pbl.com/book/b616180.html" target="_blank" rel="noopener noreferrer">執筆を共同で担当した『[実践]データ活用システム開発ガイド』</a>が東京化学同人から出版されました。
+          </li>
+          <li>2021年12月: 応用情報技術者試験に合格しました。</li>
+          <li>
+            2021年5月 <a href="http://www.tkd-pbl.com/book/b559511.html" target="_blank" rel="noopener noreferrer">翻訳を共同で担当した『ダイテル Pythonプログラミング』</a>が東京化学同人から出版されました。
+          </li>
+          <li>2020年4月: 株式会社リクルートに入社しました。</li>
+          <li>2020年3月: 東京大学大学院情報理工学研究科修士課程を修了しました。</li>
+        </ul>
 
         <h2>リンク集</h2>
         <ul>
@@ -73,26 +85,17 @@ const AboutJa = ({ data, location }) => {
             非専門家に向けたAIの解説記事をいくつか寄稿しました。特に、MuZero、XLNet、NGBoostについて書いた記事が人気でした。
           </li>
           <li>
-            <a href="https://www.slideshare.net/ShionHonda" target="_blank" rel="noopener noreferrer"><strong>SlideShare</strong></a>：
+            <a href="https://speakerdeck.com/shionhonda" target="_blank" rel="noopener noreferrer"><strong>Speaker Deck</strong></a>：
             勉強会の発表などで用いた資料をまとめています。
+          </li>
+          <li>
+            <a href="https://www.slideshare.net/ShionHonda" target="_blank" rel="noopener noreferrer"><strong>SlideShare</strong></a>：
+            勉強会の発表などで用いた資料をまとめています。Speaker Deckに以降する以前のもの。
           </li>
           <li>
             <a href="https://www.amazon.jp/hz/wishlist/ls/3DA10HYL0KND7?ref_=wl_share" target="_blank" rel="noopener noreferrer"><strong>Amazon Wish List</strong></a>：
             ご支援いただける場合はこちらからお願いします。
           </li>
-        </ul>
-
-        <h2>新着情報</h2>
-        <ul>
-          <li>
-            2022年12月 <a href="https://www.tkd-pbl.com/book/b616180.html" target="_blank" rel="noopener noreferrer">執筆を共同で担当した『[実践]データ活用システム開発ガイド』</a>が東京化学同人から出版されました。
-          </li>
-          <li>2021年12月: 応用情報技術者試験に合格しました。</li>
-          <li>
-            2021年5月 <a href="http://www.tkd-pbl.com/book/b559511.html" target="_blank" rel="noopener noreferrer">翻訳を共同で担当した『ダイテル Pythonプログラミング』</a>が東京化学同人から出版されました。
-          </li>
-          <li>2020年4月: 株式会社リクルートに入社しました。</li>
-          <li>2020年3月: 東京大学大学院情報理工学研究科修士課程を修了しました。</li>
         </ul>
       </div>
     </Layout>

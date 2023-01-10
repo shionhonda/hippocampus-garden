@@ -21,14 +21,14 @@ const About = ({ data, location }) => {
         <h1>About</h1>
         <h2>This Site</h2>
         <p>
-          Welcome to {siteTitle}! This is a blog by Shion Honda. I write about machine learning, statistics, programming, and sometimes my hobbies.
+          Welcome to {siteTitle}! My name is Shion Honda and I am the administrator of this blog. On this blog, I write about machine learning, statistics, programming, and sometimes my hobbies.
         </p>
         {/* TODO: copyright, privacy policy https://www.haya-programming.com/about */}
         <h2>Author</h2>
         <p>
-          I am a machine learning engineer at Recruit Inc., Ltd. I completed my M.S. in Information Science and Technology at University of Tokyo.
-          <br />
-          Opinions presented here are my own and not the views of my employer.
+          I am a machine learning engineer at Recruit Inc., Ltd.
+          <br />I completed my M.S. in Information Science and Technology at the University of Tokyo.
+          <br />Opinions presented here are my own and not the views of my employer.
         </p>
         <div style={{ textAlign: "center" }}>
           <StaticImage src="../../content/assets/face.jpg" alt="face"
@@ -59,11 +59,23 @@ const About = ({ data, location }) => {
         </div>
         <br />
 
-        <p style={{ clear: "both" }}>See <a href="https://www.linkedin.com/in/shionhonda/" target="_blank" rel="noopener noreferrer">LinkedIn</a> for my education and work experiences
+        <p style={{ clear: "both" }}>See <a href="https://www.linkedin.com/in/shionhonda/" target="_blank" rel="noopener noreferrer">LinkedIn</a> for my work experience
           and <a href="https://scholar.google.co.jp/citations?user=NhNlsZcAAAAJ" target="_blank" rel="noopener noreferrer">Google Scholar</a> for publications.</p>
 
+        <h2>News</h2>
+        <ul>
+          <li>
+            Dec 2022: <a href="https://www.tkd-pbl.com/book/b616180.html" target="_blank" rel="noopener noreferrer">The book "A Practical Guide to Developing Data Intelligence Systems" (original title: "[実践]データ活用システム開発ガイド"), which I co-authored</a>, has been published.
+          </li>
+          <li>Dec 2021: I passed the Applied Information Technology Engineer Examination (a Japanese national certification).</li>
+          <li>
+            May 2021: <a href="http://www.tkd-pbl.com/book/b559511.html" target="_blank" rel="noopener noreferrer">The book "Python for Programmers by Deitel &amp; Deitel", which I co-translated into Japanese</a>, has been published.
+          </li>
+          <li>Apr 2020: Started working at Recruit Inc., Ltd. in Tokyo.</li>
+          <li>Mar 2020: Completed my Master's course at the University of Tokyo.</li>
+        </ul>
 
-        <h2>External links</h2>
+        <h2>External Links</h2>
         You may also like:
         <ul>
           <li>
@@ -76,26 +88,17 @@ const About = ({ data, location }) => {
             Popular posts are on MuZero, XLNet, and NGBoost.
           </li>
           <li>
+            <a href="https://speakerdeck.com/shionhonda" target="_blank" rel="noopener noreferrer"><strong>Speaker Deck</strong></a> (all in Japanese)
+            Here are some decks that I used in my talks and presentations.
+          </li>
+          <li>
             <a href="https://www.slideshare.net/ShionHonda" target="_blank" rel="noopener noreferrer"><strong>SlideShare</strong></a> (mostly in Japanese).
-            Here are some slides that I used in my talks and presentations.
+            More decks.
           </li>
           <li>
             <a href="https://www.amazon.jp/hz/wishlist/ls/3DA10HYL0KND7?ref_=wl_share" target="_blank" rel="noopener noreferrer"><strong>Amazon Wish List</strong></a>.
-            I appreciate your kindness.
+            Just in case you want to buy me a book.
           </li>
-        </ul>
-
-        <h2>News</h2>
-        <ul>
-          <li>
-            May 2021: <a href="https://www.tkd-pbl.com/book/b616180.html" target="_blank" rel="noopener noreferrer">The book "A Guide to Developing Data Intelligence Systems", which I co-authored</a>, has been published.
-          </li>
-          <li>Dec 2021: I passed the Applied Information Technology Engineer Examination (a Japanese national certification).</li>
-          <li>
-            May 2021: <a href="http://www.tkd-pbl.com/book/b559511.html" target="_blank" rel="noopener noreferrer">The book "Python for Programmers by Deitel &amp; Deitel", which I co-translated</a>, has been published.
-          </li>
-          <li>Apr 2020: Started working at Recruit Inc., Ltd. in Tokyo.</li>
-          <li>Mar 2020: Completed my Master's course at the University of Tokyo.</li>
         </ul>
       </div>
     </Layout>

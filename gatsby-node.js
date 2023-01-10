@@ -102,7 +102,7 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
   }
 }
 
-exports.sourceNodes = async ({ actions }) => {
+exports.sourceNodes = async ({ actions, createContentDigest }) => {
   const { createNode } = actions
   const email = process.env.CLIENT_EMAIL
   const viewId = `211975708`
@@ -131,7 +131,7 @@ exports.sourceNodes = async ({ actions }) => {
         id: nodeName + path,
         internal: {
           type: nodeName,
-          contentDigest: crypto.createHash(`md5`).update(JSON.stringify({ nodeName, path, count })).digest(`hex`),
+          contentDigest: createContentDigest({ nodeName, path, count }),
           mediaType: `text/plain`,
           description: `Page views per path`,
         }
