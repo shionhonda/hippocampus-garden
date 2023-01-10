@@ -13,8 +13,8 @@ const BlogListTemplate = ({ data, pageContext, location }) => {
   const author = data.site.siteMetadata.author
   const posts = data.allMarkdownRemark.edges
   const content = (
-    `Welcome to ${siteTitle}, produced by ${author}. 
-    I regularly post about machine learning, statistics, programming, and my hobbies.`
+    `Welcome to ${siteTitle}, a ${author}'s blog. 
+    I regularly write about machine learning, statistics, programming, and my hobbies.`
   )
   const { currentPage, numPages } = pageContext
   return (
@@ -38,8 +38,8 @@ const BlogListTemplate = ({ data, pageContext, location }) => {
                 </Link>
                 <small>
                   {node.frontmatter.date}&nbsp; | &nbsp;
-                    {node.timeToRead} min read
-                    <Tags tags={node.frontmatter.tags} />
+                  {node.timeToRead} min read
+                  <Tags tags={node.frontmatter.tags} />
                 </small>
                 <section>
                   <p
