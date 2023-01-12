@@ -15,16 +15,13 @@ tags: ["en","deep-learning"]
 - Project page: https://waymo.com/research/block-nerf/
 - Venue: CVPR 2022
 
-Since **NeRF** (**neural radiance field**) was proposed in 2020, many derivative studies have been done to extend its capacity. In CVPR 2022, we saw more than 50 NeRF papers (here is [a curated list](https://dellaert.github.io/NeRF22/)).
+Since **NeRF** (**neural radiance field**) was introduced in 2020, many derivative studies have been done to extend its capacity. In CVPR 2022, we saw more than 50 NeRF papers (here is [a curated list](https://dellaert.github.io/NeRF22/)).
 
-**Block-NeRF** is one of such works but prominent. Unlike usual use cases where NeRF is trained on a single object, Block-NeRF is scaled to render city-scale scenes. In the demo presented below, it renders the Alamo Square neighborhood of San Francisco.
+**Block-NeRF** is a prominent one among such works. While typical NeRF variants are trained to render a single object, this method is able to render city-scale scenes. In the demo presented below, it renders the Alamo Square neighborhood of San Francisco.
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/6lGMCAzBzOQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
-This problem is hard because when the target is a large scene, it is inevitable that the photos are taken under different conditions (e.g., weather, lighting, moving objects)
-
-train multiple nerfs, each of which are assigned circular subregion
-then they are combined based on the distance from center and the visbility
+Rendering large scenes is a challenging task due to the varying conditions under which input photos are taken, such as different lighting, weather, and moving objects. Block-NeRF divides and conquers this problem. It splits the entire scene to multiple subregions, each of which are assigned a separate Block-NeRF model. To render a scene, the models are filtered by the visibility from the viewpoint and then the model outputs are combined based on the distance from the viewpoint.
 
 ### Scaling Law vs Model Architecture
 ### Cold Diffusion
