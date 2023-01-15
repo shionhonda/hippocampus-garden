@@ -25,6 +25,35 @@ Rendering large scenes is a challenging task due to the varying conditions under
 
 ![](2023-01-12-09-55-25.png)
 
+### Multi-Game Decision Transformers
+- Authors: Kuang-Huei Lee, Ofir Nachum, Mengjiao Yang, Lisa Lee, Daniel Freeman, Winnie Xu, Sergio Guadarrama, Ian Fischer, Eric Jang, Henryk Michalewski, Igor Mordatch
+- Paper: https://arxiv.org/abs/2205.15241
+- Project page: https://sites.google.com/view/multi-game-transformers
+- Code: https://github.com/google-research/google-research/tree/master/multi_game_dt
+- Venue: NeurIPS 2022
+
+Last year, **Decision Transformer** (**DT**) emerged as a strong baseline in **offline reinforcement learning** (**offline RL**). Is it possible to create a generalist agent with DT, similar to how pretrained Transformers generalize to a variety of natural language tasks?
+
+To answer this question, researchers trained DT in a multi-game setting, where 41 games out of the Atari suite are used for offline training and 5 other games are held out for evaluating performance on unseen tasks. The offline training data include non-expert experience as well as expert experience. The interface of the DT used in this study is illustrated in the figure below: 
+
+![](2023-01-14-00-00-31.png)
+
+Without finetuning, the pretrained single agent exceeds human-level performance for the 41 games seen during training, though it is still below the specialist agents trained on individual games. However, multi-game DT beats all the other generalist agents. So, *it is possible to create a generalist agent with DT*.
+
+![](2023-01-14-00-01-13.png)
+
+Moreover, the scaling behavior known in the natural language tasks, for the first time, is confirmed to hold in offline RL. In novel games, a conventional method called CQL scales negatively to the model size but DT does positively. This is an important step towards the development of foundation models for reinforcement learning.
+
+![](2023-01-14-00-00-04.png)
+
+### Adam Can Converge Without Any Modification On Update Rules
+- Authors: Yushun Zhang, Congliang Chen, Naichen Shi, Ruoyu Sun, Zhi-Quan Luo
+- Paper: https://arxiv.org/abs/2208.09632
+- Venue: NeurIPS 2022
+
+**Adam** has long been chosen as the default optimizer for neural networks since it was first proposed in 2014, but its behavior is poorly understood. 
+
+
 ### Scaling Laws vs Model Architectures: How does Inductive Bias Influence Scaling?
 - Authors: Yi Tay, Mostafa Dehghani, Samira Abnar, Hyung Won Chung, William Fedus, Jinfeng Rao, Sharan Narang, Vinh Q. Tran, Dani Yogatama, Donald Metzler
 - Paper: https://arxiv.org/abs/2207.10551
@@ -46,21 +75,20 @@ The results of the study are well summarized in the above figure, which can be a
 - Paper: https://arxiv.org/abs/2208.09392
 - Code: https://github.com/arpitbansal297/Cold-Diffusion-Models
 
-Diffusion models are thought to be grounded to theories such as Langevin dynamics and variational inference,largely due to the mathematical tractability of the Gaussian noise. However, this paper poses a question to this understanding: is Gaussian noise truly necessary for diffusion models?
+Diffusion models are thought to be grounded to theories such as Langevin dynamics and variational inference, largely due to the mathematical tractability of the Gaussian noise. However, this paper poses a question to this understanding: is Gaussian noise truly necessary for diffusion models?
 
 In experiments, the authors observed that diffusion models actually work with alternative choices of noise, even when the noise is deterministic (e.g., blur, masking etc.). This finding opens the door for the development of new generative models that are not constrained by the traditional requirement of Gaussian noise.
 
 ![](2023-01-13-00-12-43.png)
 
-### Multi-game Decision Transformer
-### Adam can converge
 ### Whisper
 
 ## Applications
 ### Stable Diffusion & DreamStudio
 ### ChatGPT
 ### YOU.com
-
+### GT Sophy
+https://www.gran-turismo.com/us/gran-turismo-sophy/
 
 ## Concluding Remarks
 
