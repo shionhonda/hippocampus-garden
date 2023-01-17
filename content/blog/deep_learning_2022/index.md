@@ -101,16 +101,20 @@ In just one year, AI-generated pictures have become ubiquitous. For example, the
 ### ChatGPT
 If there were an "AI Company of the Year" award, it would likely go to OpenAI. In 2022, the company amazed the world three times by releasing DALL･E 2, Whisper, and [**ChatGPT**](https://chat.openai.com/chat). 
 
-ChatGPT is a variant of GPT-3.5 with a key difference in its **alignment**. Unlike its predecessor, ChatGPT was trained to align with human values through a process known as **reinforcement learning from human feedback** (**RLHF**). RLHF is seen as a crucial step towards creating truly beneficial AI assistant that can understand and align with human values.
+ChatGPT is a variant of GPT-3.5 with a key difference in its **alignment**. Unlike its predecessor, ChatGPT was trained to align with human values through a process known as **reinforcement learning from human feedback** (**RLHF**). But nothing more is disclosed for now. What did they do as "RLHF" exactly? How is it possible to handle tons of requests so fast? I hope these information will be public soon.
 
 This entire post was written with the help of ChatGPT.
 
-### YOU.com
+### YouChat
+It is reported that [Microsoft and OpenAI are collaborating to integrate ChatGPT to Bing](https://www.theinformation.com/articles/microsoft-and-openai-working-on-chatgpt-powered-bing-in-challenge-to-google), potentially challenging Google's predominant position in search engines. However, you can already get a sense of this future technology at [YOU.com](https://you.com/), which now supports YouChat. When you type a question into the search bar, the chatbot provide an answer by summarizing relevant web pages with references. Ths allows us to check if the answer is grounded to any evidence and the evidence is reliable or not. This is a good solution to the hallucination issue of language models.
 
+![](2023-01-17-10-16-41.png)
 
 ### GT Sophy
-https://www.gran-turismo.com/us/gran-turismo-sophy/
+Sony developed an RL agent, , named [GT Sophy](https://www.gran-turismo.com/us/gran-turismo-sophy/), for its car racing game Gran Turismo. GT Sophy was able to outrace even champion drivers.
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/_CrCpIIZeCc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
+The technology behind GT Sophy is based on a combination of a realistic simulator, an RL algorithm, distributed and asynchronous training, and high-performance computing. This is detailed in [a paper published in Nature](https://www.nature.com/articles/s41586-021-04357-7).
 
 ## Concluding Remarks
-
-## References 
