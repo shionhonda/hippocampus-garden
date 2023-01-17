@@ -67,7 +67,7 @@ const Share = ({ title, url }) => {
             </li>
             <li style={{ display: "inline-block" }}>
                 <a href="https://b.hatena.ne.jp/entry/" className="hatena-bookmark-button" data-hatena-bookmark-layout="touch-counter" data-hatena-bookmark-height="40" title="このエントリーをはてなブックマークに追加">
-                    <img src="https://b.st-hatena.com/images/v4/public/entry-button/button-only@2x.png" alt="このエントリーをはてなブックマークに追加" width="20" height="20" style={{ border: "none" }} />
+                    <img src="https://b.st-hatena.com/images/v4/public/entry-button/button-only@2x.png" alt="このエントリーをはてなブックマークに追加" width="40" height="40" style={{ border: "none" }} />
                 </a>
             </li>
         </ul>

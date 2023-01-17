@@ -1,9 +1,9 @@
 ---
 title: "Year in Review: Deep Learning in 2022"
-date: "2023-01-13T22:01:03.284Z"
+date: "2023-01-17T22:01:03.284Z"
 description: "Uncover the top deep learning advancements of 2022. A year-in-review of key research papers and applications."
 featuredImage: deep_learning_2022/ogp.jpg
-tags: ["en","machine-learning", "deep-learning"]
+tags: ["en", "machine-learning", "deep-learning"]
 ---
 
 Reflecting on the past year, it's clear that 2022 brought significant advancements in the field of deep learning. In this year-in-review post, I'll take a look back at some of the most important developments in deep learning, highlighting representative research papers and application projects. If you're interested, you can also check out [my review of the previous year, 2021](https://hippocampus-garden.com/research_2021).
