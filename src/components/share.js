@@ -5,8 +5,6 @@ import {
     FacebookIcon,
     TwitterShareButton,
     TwitterIcon,
-    PocketShareButton,
-    PocketIcon,
     LineShareButton,
     LineIcon,
     LinkedinShareButton,
@@ -59,16 +57,6 @@ const Share = ({ title, url }) => {
                 <LineShareButton url={url}>
                     <LineIcon size={40} square="true" />
                 </LineShareButton>
-            </li>
-            <li style={{ display: "inline-block" }}>
-                <PocketShareButton url={url}>
-                    <PocketIcon size={40} square="true" />
-                </PocketShareButton>
-            </li>
-            <li style={{ display: "inline-block" }}>
-                <a href="https://b.hatena.ne.jp/entry/" className="hatena-bookmark-button" data-hatena-bookmark-layout="touch-counter" data-hatena-bookmark-height="40" title="このエントリーをはてなブックマークに追加">
-                    <img src="https://b.st-hatena.com/images/v4/public/entry-button/button-only@2x.png" alt="このエントリーをはてなブックマークに追加" width="40" height="40" style={{ border: "none" }} />
-                </a>
             </li>
         </ul>
 
