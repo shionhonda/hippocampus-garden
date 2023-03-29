@@ -26,7 +26,7 @@ const About = ({ data, location }) => {
         {/* TODO: copyright, privacy policy https://www.haya-programming.com/about */}
         <h2>Author</h2>
         <p>
-          I am a machine learning engineer at Recruit Inc., Ltd.
+          I am a machine learning engineer at Recruit Co., Ltd.
           <br />I completed my M.S. in Information Science and Technology at the University of Tokyo.
           <br />Opinions presented here are my own and not the views of my employer.
         </p>
@@ -71,7 +71,7 @@ const About = ({ data, location }) => {
           <li>
             May 2021: <a href="http://www.tkd-pbl.com/book/b559511.html" target="_blank" rel="noopener noreferrer">The book "Python for Programmers by Deitel &amp; Deitel", which I co-translated into Japanese</a>, has been published.
           </li>
-          <li>Apr 2020: Started working at Recruit Inc., Ltd. in Tokyo.</li>
+          <li>Apr 2020: Started working at Recruit Co., Ltd. in Tokyo.</li>
           <li>Mar 2020: Completed my Master's course at the University of Tokyo.</li>
         </ul>
 
