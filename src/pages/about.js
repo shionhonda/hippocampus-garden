@@ -65,7 +65,7 @@ const About = ({ data, location }) => {
         <h2>News</h2>
         <ul>
           <li>
-            Dec 2022: <a href="https://www.tkd-pbl.com/book/b616180.html" target="_blank" rel="noopener noreferrer">The book "A Practical Guide to Developing Data Intelligence Systems" (original title: "[実践]データ活用システム開発ガイド"), which I co-authored</a>, has been published.
+            Dec 2022: <a href="https://www.tkd-pbl.com/book/b616180.html" target="_blank" rel="noopener noreferrer">The book "A Practical Guide to Developing Data Platforms" (original title: "[実践]データ活用システム開発ガイド"), which I co-authored</a>, has been published.
           </li>
           <li>Dec 2021: I passed the Applied Information Technology Engineer Examination (a Japanese national certification).</li>
           <li>
