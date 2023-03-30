@@ -1,7 +1,7 @@
 ---
-title: "Tuning a Large Language Model with Reinforcement Learning on a Single GPU"
+title: "Tuning a Large Language Models with Reinforcement Learning on a Single GPU"
 date: "2023-03-30T22:01:03.284Z"
-description: "Uncover the top deep learning advancements of 2022. A year-in-review of key research papers and applications."
+description: "A quick guide for RLHF using trlX, OPT-1.5B, and LoRA."
 featuredImage: trlx_opt_lora/ogp.jpg
 tags: ["en", "nlp", "deep-learning"]
 ---
@@ -10,22 +10,22 @@ Since ChatGPT was released, **large language models** (**LLM**) and **reinforcem
 
 To get a sense of RLHF of LLM, I decided to conduct a quick experiment. The good news is that it is now possible to do this on a consumer-grade computer system. This blog post is a report of that experiment.
 
-## Setup
+## The Setup
 For those new to RLHF, let me provide a quick recap. The process involves three steps:
 1. Pretraining a LLM
 2. Collecting human feedback and training a **reward model** (**RM**) with it
 3. Finetuning the LLM with reinforcement learning using the RM
 
-While this may sound like a long process, you can shorten it by using handy libraries and off-the-shelf models. For this experiment, I use Meta's OPT-1.3B (`facebook/opt-1.3b`) model for LLM and DistilBERT-IMDB (`lvwerra/distilbert-imdb`) for RM. OPT-1.3B is an open source LLM with a good tradeoff between the model size and performance. It can generate decent sentences and fit in a single GPU. DistilBERT-IMDB is a pre-trained model trained on the IMDB dataset to classify whether a given movie review has a positive sentiment or not. When used as an RM, the reward indicates how positive the input sentence is. OPT before RL can generate both positive and negative reviews, and my objective is to train it to generate only positive reviews.
+While this may sound like a long process, you can shorten it by using handy libraries and off-the-shelf models. For this experiment, I use Meta's OPT-1.3B (`facebook/opt-1.3b`) model [1] for LLM and DistilBERT-IMDB (`lvwerra/distilbert-imdb`) for RM. OPT-1.3B is an open source LLM with a good tradeoff between the model size and performance. It can generate decent sentences and fit in a single GPU. DistilBERT-IMDB is a pre-trained model trained on the IMDB dataset to classify whether a given movie review has a positive sentiment or not. When used as an RM, the reward indicates how positive the input sentence is, which already reflects the human feedback. OPT before RL can generate both positive and negative reviews, and my objective is to train it to generate only positive reviews.
 
-For the RL part, I use trlX library. It is a high-level library that implements RL algorithms and training loop for you. All you have to do is writing configurations. In fact, the codes introduced shortly is largely based on [the official example](https://github.com/CarperAI/trlx/blob/main/examples/ppo_sentiments_llama.py) provided by trlX.
+To implement RL, I used the [trlX](https://trlx.readthedocs.io/en/latest/) library, a high-level library that implements RL algorithms and training loops for you. All you have to do is write configurations. In fact, I based most of my codes on [the official example](https://github.com/CarperAI/trlx/blob/main/examples/ppo_sentiments_llama.py) provided by trlX.
 
-For the training hereafter, I used Colaboratory (with A100 GPU). The 40GB VRAM seems not enough for training 1.3B model, so I reduced the effective number of parameters using LoRA. This is the main difference from the official example mentioned above.
+For the training process, I used Colaboratory with an A100 GPU. However, the 40GB VRAM was not enough for training the 1.3B model, so I used the **LoRA** (**low-rank adaptation**) method to reduce the effective number of parameters [2]. This is the main difference from the official example mentioned above.
 
-## Implementation
-The entire script is [here](https://colab.research.google.com/drive/1G8awJvEx3r5-ioyzMx1kNbIUEzukwYcT?usp=sharing).
+## Training OPT with RLHF
+Now, let's dive into the details of the experiment. The entire script is [here](https://colab.research.google.com/drive/1G8awJvEx3r5-ioyzMx1kNbIUEzukwYcT?usp=sharing) and the monitoring log is [here](https://wandb.ai/shion_honda/trlx/runs/pn6ik9jv).
 
-After installing and importing some libraries, set training configurations.
+To begin, install and import some libraries in your environment. After that, set training configurations like below.
 
 ```python
 def myconfig():
@@ -84,7 +84,7 @@ The important part is here:
 
 I am using `facebook/opt-1.3b` model and passing `delta_kargs` to activate LoRA.
 
-Then, you can run training by this main function:
+Now you can run training by this main function:
 
 ```python
 def main(hparams={}):
@@ -126,7 +126,7 @@ def main(hparams={}):
     )
 ```
 
-This is almost the same as the original example but the evaluation prompts.
+This is almost the same as [the official example](https://github.com/CarperAI/trlx/blob/main/examples/ppo_sentiments_llama.py) except for the evaluation prompts.
 
 ```python
     eval_prompts = [
@@ -140,7 +140,7 @@ This is almost the same as the original example but the evaluation prompts.
 Here, I am using a prompt to generate movie reviews only. In particular, the prompt "This movie was terrible" is expecting a negative review. Let's see what happens.
 
 ## Results
-When you run the main function, you'll get a nice visualization of how LoRA is reducing the trainable parameters.
+The entire script runs in one or two hours. When you run the main function, you'll get a nice visualization of how LoRA is reducing the trainable parameters.
 
 ```
 [RANK 0] Initializing model: facebook/opt-1.3b
@@ -170,9 +170,9 @@ root
 [INFO|(OpenDelta)basemodel:700]2023-03-29 05:39:05,210 >> Static Memory 0.25 GB, Max Memory 19.99 GB
 ```
 
-The trainable parameters are only in the Linear layers in the self-attention of the last two blocks, which account for the 0.02% of the 1.3B parameters!
+The trainable parameters are only in the Linear layers in the self-attention of the last two blocks, which account for a mere 0.02% of the 1.3B parameters! It's incredible, isn't it?
 
-The entire script runs in one or two hours. The reward starts at around 0.55 and continues to increase to 0.89.
+The reward (the positivity score) starts at around 0.55 and continues to increase to 0.89.
 
 ![](2023-03-30-08-57-21.png)
 
@@ -194,9 +194,13 @@ Now, let's compare the outputs before and after reinforcement learning.
 |I was surprised at how this movie| leapfrogged into more mainstream territory. I'm obviously aware the theatre I saw it in is filled with Middle Eastern, Muslim fans of the show, and the movie was obviously far broader| 0.918|
 |I didn't expect this movie was| going to be especially uplifting or visually spectacular, but the cinematography still turned out very well. The central crew looks quite imperfect in the various dramatic scenes, but overall it's still a great showing| 0.995|
 
-The model has leaned towards positive reviews. Notice how it responded to the prompt "This movie was terrible". It immediately denied that by saying "Really? I loved it". I love this.
+The model has learned to respond more positively to prompts, and this is apparent in the results. Notice how it responded to the prompt "This movie was terrible". It immediately denied that by saying "Really? I loved it". I love this!
 
 ## Concluding Remarks
-In this post, I showed the quickest way to tune a LLM with RLHF on a single GPU, using trlX, OPT, and LoRA. I'm glad if this post means something to you.
+In this post, I showed the quickest way to tune a LLM with RLHF on a single GPU, using trlX, OPT, and LoRA.  If you're new to RLHF, this is a great place to start. 
 
-One of the possible next steps is doing the similar thing using Alpaca-7B (instruct-tuned LLM) with prompts like "give the negative review about the movie". I actually [tried this](https://colab.research.google.com/drive/1HSRgyB3DhxQ-u1bjXO-JuDUi1QGpla7Y?usp=sharing), but it didn't fit in a 40GB VRAM. If any of you succeeded, please let me know how to do it! Another step would be to go to a more realistic setting. Anthropic realeased [a feedback dataset to align LLM to human values](https://huggingface.co/datasets/Anthropic/hh-rlhf), so you can technically create a ChatGPT-like model with this. But it should cost too much for individuals.
+One of the possible next steps is to repeat this process using Alpaca-7B, an instruct-tuned LLM, with prompts like "give a negative review about the movie." I actually [tried this](https://colab.research.google.com/drive/1HSRgyB3DhxQ-u1bjXO-JuDUi1QGpla7Y?usp=sharing), but it didn't fit in a 40GB VRAM. If you have any success with this, please share how you did it! Another exciting next step would be to go to a more realistic setting. Anthropic released [a feedback dataset to align LLM to human values](https://huggingface.co/datasets/Anthropic/hh-rlhf). With this dataset, you can technically create a ChatGPT-like model. However, it could be too expensive for individuals.
+
+## References
+[1] Zhang, Susan, et al. "[Opt: Open pre-trained transformer language models](https://arxiv.org/abs/2205.01068)." *arXiv preprint arXiv:2205.01068* (2022).  
+[2] Hu, Edward J., et al. "[Lora: Low-rank adaptation of large language models](https://openreview.net/forum?id=nZeVKeeFYf9)." In *ICLR* (2022).
