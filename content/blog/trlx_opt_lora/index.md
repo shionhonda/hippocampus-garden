@@ -1,5 +1,5 @@
 ---
-title: "Tuning a Large Language Models with Reinforcement Learning on a Single GPU"
+title: "Tuning Large Language Models with Reinforcement Learning on a Single GPU"
 date: "2023-03-30T22:01:03.284Z"
 description: "A quick guide for RLHF using trlX, OPT-1.5B, and LoRA."
 featuredImage: trlx_opt_lora/ogp.jpg
@@ -199,7 +199,7 @@ The model has learned to respond more positively to prompts, and this is apparen
 ## Concluding Remarks
 In this post, I showed the quickest way to tune a LLM with RLHF on a single GPU, using trlX, OPT, and LoRA.  If you're new to RLHF, this is a great place to start. 
 
-One of the possible next steps is to repeat this process using Alpaca-7B, an instruct-tuned LLM, with prompts like "give a negative review about the movie." I actually [tried this](https://colab.research.google.com/drive/1HSRgyB3DhxQ-u1bjXO-JuDUi1QGpla7Y?usp=sharing), but it didn't fit in a 40GB VRAM. If you have any success with this, please share how you did it! Another exciting next step would be to go to a more realistic setting. Anthropic released [a feedback dataset to align LLM to human values](https://huggingface.co/datasets/Anthropic/hh-rlhf). With this dataset, you can technically create a ChatGPT-like model. However, it could be too expensive for individuals.
+One of the possible next steps is to repeat this process using [Alpaca-7B](https://crfm.stanford.edu/2023/03/13/alpaca.html), an instruct-tuned LLM, with prompts like "give a negative review about the movie." I actually [tried this](https://colab.research.google.com/drive/1HSRgyB3DhxQ-u1bjXO-JuDUi1QGpla7Y?usp=sharing), but it didn't fit in a 40GB VRAM. If you have any success with this, please share how you did it! Another exciting next step would be to go to a more realistic setting. Anthropic released [a feedback dataset to align LLM to human values](https://huggingface.co/datasets/Anthropic/hh-rlhf). With this dataset, you can technically create a ChatGPT-like model. However, it could be too expensive for individuals.
 
 ## References
 [1] Zhang, Susan, et al. "[Opt: Open pre-trained transformer language models](https://arxiv.org/abs/2205.01068)." *arXiv preprint arXiv:2205.01068* (2022).  
