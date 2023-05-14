@@ -58,6 +58,11 @@ const Share = ({ title, url }) => {
                     <LineIcon size={40} square="true" />
                 </LineShareButton>
             </li>
+            <li style={{ display: "inline-block" }}>
+                <a href="https://b.hatena.ne.jp/entry/" class="hatena-bookmark-button" data-hatena-bookmark-layout="touch-counter" data-hatena-bookmark-width="40" data-hatena-bookmark-height="40" title="このエントリーをはてなブックマークに追加">
+                    <img src="https://b.st-hatena.com/images/v4/public/entry-button/button-only@2x.png" alt="このエントリーをはてなブックマークに追加" width="40" height="40" style={{border: "none"}} />
+                </a>
+            </li>
         </ul>
 
     );
@@ -68,6 +73,6 @@ export default Share;
 
 export const Head = () => {
     <>
-        <script type="text/javascript" src="//b.st-hatena.com/js/bookmark_button.js" charset="utf-8" async="async" />
+        <script type="text/javascript" src="https://b.st-hatena.com/js/bookmark_button.js" charset="utf-8" async="async"></script>
     </>
 }
