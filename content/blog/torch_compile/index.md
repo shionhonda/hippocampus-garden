@@ -1,6 +1,6 @@
 ---
 title: "torch.compile Benchmarked"
-date: "2023-05-30T22:01:03.284Z"
+date: "2023-05-19T22:01:03.284Z"
 description: "PyTorch 2.0 introduced a new feature for JIT-compiling. How can it accelerate model training and inference?"
 featuredImage: torch_compile/ogp.jpg
 tags: ["en", "deep-learning"]
