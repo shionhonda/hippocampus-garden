@@ -36,7 +36,7 @@ const PrivacyPolicyPage = ({ data, location }) => {
           <li>To perform Service-related services; or</li>
           <li>To assist us in analyzing how our Service is used.</li>
         </ul>
-        <p>We want to inform our Service users that these third parties have access to your Personal Information. The reason is to perform the tasks assigned to them on our behalf. However, they are obligated not to disclose or use the information for any other purpose.</p>
+        <p>Specifically, we are using Google Analytics to improve our Service. We are sending your activity in our Service to Google LLC and they amalyze the data to give us insights for improving our Service. We want to inform our Service users that these third parties have access to your Personal Information. The reason is to perform the tasks assigned to them on our behalf. However, they are obligated not to disclose or use the information for any other purpose.</p>
 
         <h2>Security</h2>
         <p>We value your trust in providing us your Personal Information, thus we are striving to use commercially acceptable means of protecting it. But remember that no method of transmission over the internet, or method of electronic storage is 100% secure and reliable, and we cannot guarantee its absolute security.</p>
