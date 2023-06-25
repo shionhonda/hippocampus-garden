@@ -199,11 +199,5 @@ module.exports = {
         // Add any options here
       },
     },
-    {
-      resolve: `gatsby-plugin-disqus`,
-      options: {
-        shortname: "hippocampus-garden"
-      }
-    },
   ],
 }
