@@ -2,7 +2,7 @@
 title: フランスでのエンジニア就活体験記
 date: "2023-08-19T23:02:03.284Z"
 description: "フランスのスタートアップでソフトウェアエンジニアとして働くことになったので、そのときの体験について書きます。"
-featuredImage: job_hunt_france/ogp.jpg
+featuredImage: job_hunt_in_france/ogp.jpg
 tags: ["ja", "france", "career"]
 ---
 
