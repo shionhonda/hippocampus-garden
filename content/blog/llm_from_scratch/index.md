@@ -18,7 +18,9 @@ My recipe comprises three crucial steps:
 2. Choosing the optimal model size
 3. Training the model
 
-Let's delve into each of these steps, one by one.
+You can obtain the entire code at [GitHub](https://github.com/shionhonda/generative-ai) and the pre-trained model at [Hugging Face](https://huggingface.co/shionhonda/gpt2-51m-bookcorpus).
+
+Let's delve into each of the 3 steps, one by one.
 
 ## Implementing the Model Architecture
 
