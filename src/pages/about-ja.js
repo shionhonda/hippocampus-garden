@@ -65,12 +65,12 @@ const AboutJa = ({ data, location }) => {
 
         <h2>新着情報</h2>
         <ul>
-          <li>Alan（フランス）に入社しました。</li>
+          <li>2023年9月: Alan（フランス）に入社しました。</li>
           <li>
-            2022年12月 <a href="https://www.tkd-pbl.com/book/b616180.html" target="_blank" rel="noopener noreferrer">執筆を共同で担当した『[実践]データ活用システム開発ガイド』</a>が東京化学同人から出版されました。
+            2022年12月: <a href="https://www.tkd-pbl.com/book/b616180.html" target="_blank" rel="noopener noreferrer">執筆を共同で担当した『[実践]データ活用システム開発ガイド』</a>が東京化学同人から出版されました。
           </li>
           <li>
-            2021年5月 <a href="http://www.tkd-pbl.com/book/b559511.html" target="_blank" rel="noopener noreferrer">翻訳を共同で担当した『ダイテル Pythonプログラミング』</a>が東京化学同人から出版されました。
+            2021年5月: <a href="http://www.tkd-pbl.com/book/b559511.html" target="_blank" rel="noopener noreferrer">翻訳を共同で担当した『ダイテル Pythonプログラミング』</a>が東京化学同人から出版されました。
           </li>
           <li>2020年4月: 株式会社リクルートに入社しました。</li>
         </ul>
