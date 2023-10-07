@@ -34,7 +34,7 @@ const About = ({ data, location }) => {
           <br/>Outside my work, I love exploring music, cooking, and reading.
 
         </p>
-        <div style={{ textAlign: "center" }}>
+        <div style={{ textAlign: "center" , marginBottom:"10px" }}>
           <StaticImage src="../../content/assets/face.jpg" alt="face"
             width={l250} />
         </div>
