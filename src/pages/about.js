@@ -21,16 +21,20 @@ const About = ({ data, location }) => {
         <h1>About</h1>
         <h2>This Site</h2>
         <p>
-          Welcome to {siteTitle}! My name is Shion Honda and I am the administrator of this blog. On this blog, I write about machine learning, statistics, programming, and sometimes my hobbies.
+          Welcome to {siteTitle}! Here, I write about machine learning, statistics, software development, and sometimes my hobbies.
+          <br />Disclaimer: Opinions presented here are my own and not the views of my employer.
         </p>
-        {/* TODO: copyright, privacy policy https://www.haya-programming.com/about */}
         <h2>Author</h2>
         <p>
-          I am a machine learning engineer at Recruit Co., Ltd.
-          <br />I completed my M.S. in Information Science and Technology at the University of Tokyo.
-          <br />Opinions presented here are my own and not the views of my employer.
+          I'm Shion Honda, a software engineer at Alan. 
+          <br/>I moved from Tokyo to Paris in 2023 to join my current company. 
+          Before that, I worked as a machine learning engineer at Recruit, 
+          where I enjoyed the challenge of developing state-of-the-art algorithms and serving them for tens of millions of users.
+          <br/>I graduated from the University of Tokyo. My master thesis was about representation learning for molecules.
+          <br/>Outside my work, I love exploring music, cooking, and reading.
+
         </p>
-        <div style={{ textAlign: "center" }}>
+        <div style={{ textAlign: "center" , marginBottom:"10px" }}>
           <StaticImage src="../../content/assets/face.jpg" alt="face"
             width={l250} />
         </div>
@@ -59,20 +63,18 @@ const About = ({ data, location }) => {
         </div>
         <br />
 
-        <p style={{ clear: "both" }}>See <a href="https://www.linkedin.com/in/shionhonda/" target="_blank" rel="noopener noreferrer">LinkedIn</a> for my work experience
-          and <a href="https://scholar.google.co.jp/citations?user=NhNlsZcAAAAJ" target="_blank" rel="noopener noreferrer">Google Scholar</a> for publications.</p>
+        <p style={{ clear: "both" }}>See <a href="https://www.linkedin.com/in/shionhonda/" target="_blank" rel="noopener noreferrer">LinkedIn</a> for my updated profile and professional experience.</p>
 
         <h2>News</h2>
         <ul>
+          <li>Sep 2023: Started working at Alan as a software engineer in Paris.</li>
           <li>
             Dec 2022: <a href="https://www.tkd-pbl.com/book/b616180.html" target="_blank" rel="noopener noreferrer">The book "A Practical Guide to Developing Data Platforms" (original title: "[実践]データ活用システム開発ガイド"), which I co-authored</a>, has been published.
           </li>
-          <li>Dec 2021: I passed the Applied Information Technology Engineer Examination (a Japanese national certification).</li>
           <li>
             May 2021: <a href="http://www.tkd-pbl.com/book/b559511.html" target="_blank" rel="noopener noreferrer">The book "Python for Programmers by Deitel &amp; Deitel", which I co-translated into Japanese</a>, has been published.
           </li>
           <li>Apr 2020: Started working at Recruit Co., Ltd. in Tokyo.</li>
-          <li>Mar 2020: Completed my Master's course at the University of Tokyo.</li>
         </ul>
 
         <h2>External Links</h2>

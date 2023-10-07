@@ -24,7 +24,7 @@ Let's delve into each of the 3 steps, one by one.
 
 ## Implementing the Model Architecture
 
-Among many public GPT implementations relying solely on PyTorch, what I love the best is [Andrej Karpathy's nanoGPT](https://github.com/karpathy/nanoGPT). Its 300-line `model.py` is written simple and easy, and moreover, the codebase can actually reproduce the OpenAI's GPT-2 Small results [^1]. Thus, I decided to construct [my `model.py` based on this repository](generative_ai/models/model.py). The figure below offers an overview of the model architecture:
+Among many public GPT implementations relying solely on PyTorch, what I love the best is [Andrej Karpathy's nanoGPT](https://github.com/karpathy/nanoGPT). Its 300-line `model.py` is written simple and easy, and moreover, the codebase can actually reproduce the OpenAI's GPT-2 Small results [^1]. Thus, I decided to construct [my `model.py` based on this repository](https://github.com/shionhonda/generative-ai/blob/main/generative_ai/models/model.py). The figure below offers an overview of the model architecture:
 
 ![GPT-2 Architecture](2023-09-08-14-43-43.png)
 

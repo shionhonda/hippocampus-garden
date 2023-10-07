@@ -20,16 +20,19 @@ const AboutJa = ({ data, location }) => {
         </div>
         <h2>当ブログについて</h2>
         <p>
-          ようこそ、 {siteTitle} へ！管理人の本田志温（ほんだ しおん）と申します。当ブログでは、機械学習、統計学、プログラミング、そして時折趣味について書いています。
+          ようこそ、 {siteTitle} へ！当ブログでは、機械学習、統計学、ソフトウェア開発、そして時折趣味について書いています。
+          <br/>おことわり：当ブログの内容は著者個人の意見であり、雇用主とは関係ありません。
         </p>
 
         <h2>著者について</h2>
         <p>
-          株式会社リクルートの機械学習エンジニア。修士（情報理工学）。応用情報技術者。
-          <br />
-          当ブログの内容は管理人個人の意見であり、雇用主とは関係ありません。
+          私は本田志温と申します。Alanという会社でソフトウェアエンジニアをしています。
+          <br/>2023年に東京からパリに引っ越し、現在の会社に入社しました。
+          それ以前はRecruitで機械学習エンジニアとして、最新のアルゴリズムを開発し、数千万人のユーザーに提供するという挑戦に取り組んでいました。
+          <br/>東京大学で修士（情報理工学）を取得しています。修士論文は分子の表現学習に関するものでした。
+          <br/>趣味は音楽鑑賞、料理、読書です。
         </p>
-        <div style={{ textAlign: "center" }}>
+        <div style={{ textAlign: "center", marginBottom:"10px" }}>
           <StaticImage src="../../content/assets/face.jpg" alt="face"
             width={l250} />
         </div>
@@ -58,20 +61,18 @@ const AboutJa = ({ data, location }) => {
         </div>
         <br />
 
-        <p style={{ clear: "both" }}>経歴については <a href="https://www.linkedin.com/in/shionhonda/" target="_blank" rel="noopener noreferrer">LinkedIn</a>を、
-          発表論文については<a href="https://scholar.google.co.jp/citations?user=NhNlsZcAAAAJ" target="_blank" rel="noopener noreferrer">Google Scholar</a>をご覧ください。</p>
+        <p style={{ clear: "both" }}>最新のプロフィールと経歴については <a href="https://www.linkedin.com/in/shionhonda/" target="_blank" rel="noopener noreferrer">LinkedIn</a>をご覧ください。</p>
 
         <h2>新着情報</h2>
         <ul>
+          <li>2023年9月: Alan（フランス）に入社しました。</li>
           <li>
-            2022年12月 <a href="https://www.tkd-pbl.com/book/b616180.html" target="_blank" rel="noopener noreferrer">執筆を共同で担当した『[実践]データ活用システム開発ガイド』</a>が東京化学同人から出版されました。
+            2022年12月: <a href="https://www.tkd-pbl.com/book/b616180.html" target="_blank" rel="noopener noreferrer">執筆を共同で担当した『[実践]データ活用システム開発ガイド』</a>が東京化学同人から出版されました。
           </li>
-          <li>2021年12月: 応用情報技術者試験に合格しました。</li>
           <li>
-            2021年5月 <a href="http://www.tkd-pbl.com/book/b559511.html" target="_blank" rel="noopener noreferrer">翻訳を共同で担当した『ダイテル Pythonプログラミング』</a>が東京化学同人から出版されました。
+            2021年5月: <a href="http://www.tkd-pbl.com/book/b559511.html" target="_blank" rel="noopener noreferrer">翻訳を共同で担当した『ダイテル Pythonプログラミング』</a>が東京化学同人から出版されました。
           </li>
           <li>2020年4月: 株式会社リクルートに入社しました。</li>
-          <li>2020年3月: 東京大学大学院情報理工学研究科修士課程を修了しました。</li>
         </ul>
 
         <h2>リンク集</h2>
