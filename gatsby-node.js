@@ -1,16 +1,13 @@
 const path = require(`path`)
+const fs = require('fs');
 const _ = require("lodash")
 const { createFilePath } = require(`gatsby-source-filesystem`)
-const crypto = require('crypto')
 const { google } = require('googleapis')
 const activeEnv =
   process.env.GATSBY_ACTIVE_ENV || process.env.NODE_ENV || 'development';
 require('dotenv').config({
   path: `.env.${activeEnv}`,
 });
-
-const key = process.env.PRIVATE_KEY.replace(new RegExp('\\\\n', '\g'), '\n')
-const moment = require('moment');
 
 exports.createPages = async ({ graphql, actions }) => {
   const { createPage } = actions
@@ -103,44 +100,87 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
 }
 
 exports.sourceNodes = async ({ actions, createContentDigest }) => {
-  const { createNode } = actions
-  const email = process.env.CLIENT_EMAIL
-  const viewId = `211975708`
-  const scopes = 'https://www.googleapis.com/auth/analytics.readonly'
+  const { createNode } = actions;
+  const email = process.env.CLIENT_EMAIL;
+  const propertyId = '376031501';
+  const scopes = 'https://www.googleapis.com/auth/analytics.readonly';
+  const key = process.env.PRIVATE_KEY.replace(new RegExp('\\\\n', '\g'), '\n')
+  const jwtClient = new google.auth.JWT(
+    email,
+    null,
+    key,
+    scopes
+  );
 
-  const jwt = new google.auth.JWT(email, null, key, scopes)
-  await jwt.authorize()
+  // Authenticate request
+  await jwtClient.authorize();
+
+  const analyticsData = google.analyticsdata({
+    version: 'v1beta',
+    auth: jwtClient // Pass the JWT client to the API
+  });
 
   function getGA(date) {
-    return google.analytics('v3').data.ga.get({
-      'auth': jwt,
-      'ids': 'ga:' + viewId,
-      'start-date': date,
-      'end-date': 'today',
-      'dimensions': 'ga:pagePath',
-      'metrics': 'ga:pageviews',
-      'sort': '-ga:pageviews',
-    })
-  }
+    return analyticsData.properties.runReport({
+    property: `properties/${propertyId}`,
+    resource: {
+      dateRanges: [
+        {
+          startDate: date,
+          endDate: 'today',
+        },
+      ],
+      dimensions: [
+        {
+          name: 'pagePath',
+        },
+      ],
+      metrics: [
+        {
+          name: 'screenPageviews',
+        },
+      ],
+      orderBys: [
+        {
+          metric: {
+            metricName: 'screenPageviews',
+          },
+          desc: true,
+        },
+      ],
+    },
+  });
+}
 
   function createNodes(GAResult, nodeName) {
-    for (let [path, count] of GAResult.data.rows) {
+    // counts from GA3
+    const fileContents = fs.readFileSync('content/assets/google-analytics-v3.json', 'utf8');
+    const prevCounts = {};
+    JSON.parse(fileContents).nodes.forEach(node => {
+      prevCounts[node.path] = node.count;
+    });
+
+    const rows = GAResult.data.rows;
+    for (let i = 0; i < rows.length; i++) {
+      const path = rows[i].dimensionValues[0].value
+      const count = rows[i].metricValues[0].value;
+      const prevCount = prevCounts.hasOwnProperty(path) ? prevCounts[path] : 0;
       createNode({
         path,
-        count: Number(count),
+        count: Number(count) + prevCount,
         id: nodeName + path,
         internal: {
           type: nodeName,
           contentDigest: createContentDigest({ nodeName, path, count }),
-          mediaType: `text/plain`,
-          description: `Page views per path`,
-        }
-      })
+          mediaType: 'text/plain',
+          description: 'Page views per path',
+        },
+      });
     }
   }
 
-  const recentResult = await getGA(`30daysAgo`)
-  createNodes(recentResult, `RecentPageViews`)
-  const totalResult = await getGA(`2020-02-21`)
-  createNodes(totalResult, `TotalPageViews`)
-}
+  const recentResult = await getGA('30daysAgo');
+  createNodes(recentResult, 'RecentPageViews');
+  const totalResult = await getGA('2023-09-10');
+  createNodes(totalResult, 'TotalPageViews');
+};
