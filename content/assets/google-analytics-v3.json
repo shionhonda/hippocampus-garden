@@ -1,518 +1,508 @@
 {
-    "data": {
-      "allTotalPageViews": {
-        "totalCount": 1000,
-        "nodes": [
-          {
-            "path": "/",
-            "count": 22365
-          },
-          {
-            "path": "/jupyter_poetry_pipenv/",
-            "count": 21609
-          },
-          {
-            "path": "/lgbm_custom/",
-            "count": 15872
-          },
-          {
-            "path": "/pandas_boxplot/",
-            "count": 9067
-          },
-          {
-            "path": "/pagerank/",
-            "count": 8045
-          },
-          {
-            "path": "/job_hunt_in_france/",
-            "count": 5772
-          },
-          {
-            "path": "/books_fy2021/",
-            "count": 5466
-          },
-          {
-            "path": "/trafficbot.live",
-            "count": 5024
-          },
-          {
-            "path": "/noodle/",
-            "count": 4847
-          },
-          {
-            "path": "/stylegan2/",
-            "count": 4499
-          },
-          {
-            "path": "/pandas_sparse/",
-            "count": 4084
-          },
-          {
-            "path": "/surname/",
-            "count": 3482
-          },
-          {
-            "path": "/f1/",
-            "count": 3415
-          },
-          {
-            "path": "/book_review_harville/",
-            "count": 3308
-          },
-          {
-            "path": "/books_fy2020/",
-            "count": 3177
-          },
-          {
-            "path": "/feature_importance/",
-            "count": 3177
-          },
-          {
-            "path": "/numpy_topk/",
-            "count": 3127
-          },
-          {
-            "path": "/about/",
-            "count": 3078
-          },
-          {
-            "path": "/pandas_group_sample/",
-            "count": 3078
-          },
-          {
-            "path": "/pandas_loc/",
-            "count": 3031
-          },
-          {
-            "path": "/stylegans/",
-            "count": 2716
-          },
-          {
-            "path": "/stats_unbiased_variance/",
-            "count": 2388
-          },
-          {
-            "path": "/hongo_groumet/",
-            "count": 1922
-          },
-          {
-            "path": "/double_descent/",
-            "count": 1920
-          },
-          {
-            "path": "/book_review_yasui/",
-            "count": 1911
-          },
-          {
-            "path": "/tuning_playbook/",
-            "count": 1814
-          },
-          {
-            "path": "/kaggle_colab/",
-            "count": 1813
-          },
-          {
-            "path": "/trend/",
-            "count": 1804
-          },
-          {
-            "path": "/xformers/",
-            "count": 1403
-          },
-          {
-            "path": "/books_fy2022/",
-            "count": 1379
-          },
-          {
-            "path": "/go_periodic/",
-            "count": 1233
-          },
-          {
-            "path": "/book_review_kadowaki/",
-            "count": 1095
-          },
-          {
-            "path": "/book_review_kleppmann/",
-            "count": 1065
-          },
-          {
-            "path": "/workbench_shm/",
-            "count": 946
-          },
-          {
-            "path": "/about-ja/",
-            "count": 895
-          },
-          {
-            "path": "/best_papers_2020/",
-            "count": 857
-          },
-          {
-            "path": "/mobilebert/",
-            "count": 836
-          },
-          {
-            "path": "/wfh/",
-            "count": 814
-          },
-          {
-            "path": "/2",
-            "count": 813
-          },
-          {
-            "path": "/pfrl/",
-            "count": 806
-          },
-          {
-            "path": "/stats_rank_correlation/",
-            "count": 779
-          },
-          {
-            "path": "/sushigan/",
-            "count": 707
-          },
-          {
-            "path": "/color_histogram/",
-            "count": 702
-          },
-          {
-            "path": "/go_dispatcher/",
-            "count": 685
-          },
-          {
-            "path": "/research_2021/",
-            "count": 667
-          },
-          {
-            "path": "/trlx_opt_lora/",
-            "count": 634
-          },
-          {
-            "path": "/stats_correlation_bias/",
-            "count": 619
-          },
-          {
-            "path": "/neurips_2020/",
-            "count": 541
-          },
-          {
-            "path": "/rocauc/",
-            "count": 537
-          },
-          {
-            "path": "/washing_machine/",
-            "count": 531
-          },
-          {
-            "path": "/hongo_groumet_2/",
-            "count": 490
-          },
-          {
-            "path": "/citation_network_analysis/",
-            "count": 487
-          },
-          {
-            "path": "/book_review_miyake/",
-            "count": 470
-          },
-          {
-            "path": "/3",
-            "count": 463
-          },
-          {
-            "path": "/face_swap/",
-            "count": 459
-          },
-          {
-            "path": "/torch_compile/",
-            "count": 384
-          },
-          {
-            "path": "/book_review_boswell/",
-            "count": 360
-          },
-          {
-            "path": "/book_review_rasmusson/",
-            "count": 357
-          },
-          {
-            "path": "/navbar/",
-            "count": 350
-          },
-          {
-            "path": "/dalle2/",
-            "count": 347
-          },
-          {
-            "path": "/teams_email/",
-            "count": 328
-          },
-          {
-            "path": "/blog/",
-            "count": 313
-          },
-          {
-            "path": "/share_button/",
-            "count": 296
-          },
-          {
-            "path": "/pandas_query/",
-            "count": 292
-          },
-          {
-            "path": "/deep_learning_2022/",
-            "count": 291
-          },
-          {
-            "path": "/4",
-            "count": 286
-          },
-          {
-            "path": "/stats_finite_population/",
-            "count": 260
-          },
-          {
-            "path": "/books_covid/",
-            "count": 218
-          },
-          {
-            "path": "/doubly_robust/",
-            "count": 216
-          },
-          {
-            "path": "/misc/",
-            "count": 208
-          },
-          {
-            "path": "/application_2021/",
-            "count": 193
-          },
-          {
-            "path": "/best_albums_2010/",
-            "count": 192
-          },
-          {
-            "path": "/representation_learning/",
-            "count": 184
-          },
-          {
-            "path": "/5",
-            "count": 177
-          },
-          {
-            "path": "/tags/book/",
-            "count": 165
-          },
-          {
-            "path": "/christmas_donation/",
-            "count": 160
-          },
-          {
-            "path": "/2/",
-            "count": 149
-          },
-          {
-            "path": "/6",
-            "count": 148
-          },
-          {
-            "path": "/kaggle_seti/",
-            "count": 135
-          },
-          {
-            "path": "/kaggle_hubmap_hpa/",
-            "count": 121
-          },
-          {
-            "path": "/best_albums_2011/",
-            "count": 114
-          },
-          {
-            "path": "/stats_linreg/",
-            "count": 106
-          },
-          {
-            "path": "/llm_from_scratch/",
-            "count": 106
-          },
-          {
-            "path": "/tags/python/",
-            "count": 96
-          },
-          {
-            "path": "/3/",
-            "count": 86
-          },
-          {
-            "path": "/tags/gatsby/",
-            "count": 83
-          },
-          {
-            "path": "/incremental_build/",
-            "count": 81
-          },
-          {
-            "path": "/privacy-policy/",
-            "count": 80
-          },
-          {
-            "path": "/kaggle_stable_diffusion/",
-            "count": 80
-          },
-          {
-            "path": "/stats_linreg_2/",
-            "count": 79
-          },
-          {
-            "path": "/best_albums_2012/",
-            "count": 77
-          },
-          {
-            "path": "/tags/deep-learning/",
-            "count": 77
-          },
-          {
-            "path": "/tags/pandas/",
-            "count": 76
-          },
-          {
-            "path": "/7",
-            "count": 75
-          },
-          {
-            "path": "/playlist_202003/",
-            "count": 69
-          },
-          {
-            "path": "/6/",
-            "count": 64
-          },
-          {
-            "path": "/tags/ja/",
-            "count": 61
-          },
-          {
-            "path": "/5/",
-            "count": 59
-          },
-          {
-            "path": "/4/",
-            "count": 58
-          },
-          {
-            "path": "/7/",
-            "count": 53
-          },
-          {
-            "path": "/tags/graph/",
-            "count": 53
-          },
-          {
-            "path": "/hello-world/",
-            "count": 52
-          },
-          {
-            "path": "/tags/machine-learning/",
-            "count": 52
-          },
-          {
-            "path": "/tags/math/",
-            "count": 51
-          },
-          {
-            "path": "/tags/cv/",
-            "count": 50
-          },
-          {
-            "path": "/playlist_202004/",
-            "count": 47
-          },
-          {
-            "path": "/tags/aoty/",
-            "count": 47
-          },
-          {
-            "path": "/tags/en/",
-            "count": 47
-          },
-          {
-            "path": "/tags/music/",
-            "count": 43
-          },
-          {
-            "path": "/playlist_202006/",
-            "count": 42
-          },
-          {
-            "path": "/tags/reinforcement-learning/",
-            "count": 42
-          },
-          {
-            "path": "/tags/causal-inference/",
-            "count": 40
-          },
-          {
-            "path": "/tags/food/",
-            "count": 40
-          },
-          {
-            "path": "/tags/data-analysis/",
-            "count": 35
-          },
-          {
-            "path": "/tags/kaggle/",
-            "count": 34
-          },
-          {
-            "path": "/playlist_202005/",
-            "count": 33
-          },
-          {
-            "path": "/tags/misc/",
-            "count": 33
-          },
-          {
-            "path": "/tags/programming/",
-            "count": 33
-          },
-          {
-            "path": "/tags/stats/",
-            "count": 28
-          },
-          {
-            "path": "/8/",
-            "count": 27
-          },
-          {
-            "path": "/tags/gadget/",
-            "count": 26
-          },
-          {
-            "path": "/tags/algorithm/",
-            "count": 23
-          },
-          {
-            "path": "/tags/nlp/",
-            "count": 21
-          },
-          {
-            "path": "/tags/transformer/",
-            "count": 19
-          },
-          {
-            "path": "/face-swap/",
-            "count": 18
-          },
-          {
-            "path": "/books_fy2022/null",
-            "count": 18
-          },
-          {
-            "path": "/tags/matplotlib/",
-            "count": 14
-          }
-        ]
-      }
+  "nodes": [
+    {
+      "path": "/jupyter_poetry_pipenv/",
+      "count": 21609
     },
-    "extensions": {}
-  }
+    {
+      "path": "/lgbm_custom/",
+      "count": 15872
+    },
+    {
+      "path": "/pandas_boxplot/",
+      "count": 9067
+    },
+    {
+      "path": "/pagerank/",
+      "count": 8045
+    },
+    {
+      "path": "/job_hunt_in_france/",
+      "count": 5772
+    },
+    {
+      "path": "/books_fy2021/",
+      "count": 5466
+    },
+    {
+      "path": "/trafficbot.live",
+      "count": 5024
+    },
+    {
+      "path": "/noodle/",
+      "count": 4847
+    },
+    {
+      "path": "/stylegan2/",
+      "count": 4499
+    },
+    {
+      "path": "/pandas_sparse/",
+      "count": 4084
+    },
+    {
+      "path": "/surname/",
+      "count": 3482
+    },
+    {
+      "path": "/f1/",
+      "count": 3415
+    },
+    {
+      "path": "/book_review_harville/",
+      "count": 3308
+    },
+    {
+      "path": "/books_fy2020/",
+      "count": 3177
+    },
+    {
+      "path": "/feature_importance/",
+      "count": 3177
+    },
+    {
+      "path": "/numpy_topk/",
+      "count": 3127
+    },
+    {
+      "path": "/about/",
+      "count": 3078
+    },
+    {
+      "path": "/pandas_group_sample/",
+      "count": 3078
+    },
+    {
+      "path": "/pandas_loc/",
+      "count": 3031
+    },
+    {
+      "path": "/stylegans/",
+      "count": 2716
+    },
+    {
+      "path": "/stats_unbiased_variance/",
+      "count": 2388
+    },
+    {
+      "path": "/hongo_groumet/",
+      "count": 1922
+    },
+    {
+      "path": "/double_descent/",
+      "count": 1920
+    },
+    {
+      "path": "/book_review_yasui/",
+      "count": 1911
+    },
+    {
+      "path": "/tuning_playbook/",
+      "count": 1814
+    },
+    {
+      "path": "/kaggle_colab/",
+      "count": 1813
+    },
+    {
+      "path": "/trend/",
+      "count": 1804
+    },
+    {
+      "path": "/xformers/",
+      "count": 1403
+    },
+    {
+      "path": "/books_fy2022/",
+      "count": 1379
+    },
+    {
+      "path": "/go_periodic/",
+      "count": 1233
+    },
+    {
+      "path": "/book_review_kadowaki/",
+      "count": 1095
+    },
+    {
+      "path": "/book_review_kleppmann/",
+      "count": 1065
+    },
+    {
+      "path": "/workbench_shm/",
+      "count": 946
+    },
+    {
+      "path": "/about-ja/",
+      "count": 895
+    },
+    {
+      "path": "/best_papers_2020/",
+      "count": 857
+    },
+    {
+      "path": "/mobilebert/",
+      "count": 836
+    },
+    {
+      "path": "/wfh/",
+      "count": 814
+    },
+    {
+      "path": "/2",
+      "count": 813
+    },
+    {
+      "path": "/pfrl/",
+      "count": 806
+    },
+    {
+      "path": "/stats_rank_correlation/",
+      "count": 779
+    },
+    {
+      "path": "/sushigan/",
+      "count": 707
+    },
+    {
+      "path": "/color_histogram/",
+      "count": 702
+    },
+    {
+      "path": "/go_dispatcher/",
+      "count": 685
+    },
+    {
+      "path": "/research_2021/",
+      "count": 667
+    },
+    {
+      "path": "/trlx_opt_lora/",
+      "count": 634
+    },
+    {
+      "path": "/stats_correlation_bias/",
+      "count": 619
+    },
+    {
+      "path": "/neurips_2020/",
+      "count": 541
+    },
+    {
+      "path": "/rocauc/",
+      "count": 537
+    },
+    {
+      "path": "/washing_machine/",
+      "count": 531
+    },
+    {
+      "path": "/hongo_groumet_2/",
+      "count": 490
+    },
+    {
+      "path": "/citation_network_analysis/",
+      "count": 487
+    },
+    {
+      "path": "/book_review_miyake/",
+      "count": 470
+    },
+    {
+      "path": "/3",
+      "count": 463
+    },
+    {
+      "path": "/face_swap/",
+      "count": 459
+    },
+    {
+      "path": "/torch_compile/",
+      "count": 384
+    },
+    {
+      "path": "/book_review_boswell/",
+      "count": 360
+    },
+    {
+      "path": "/book_review_rasmusson/",
+      "count": 357
+    },
+    {
+      "path": "/navbar/",
+      "count": 350
+    },
+    {
+      "path": "/dalle2/",
+      "count": 347
+    },
+    {
+      "path": "/teams_email/",
+      "count": 328
+    },
+    {
+      "path": "/blog/",
+      "count": 313
+    },
+    {
+      "path": "/share_button/",
+      "count": 296
+    },
+    {
+      "path": "/pandas_query/",
+      "count": 292
+    },
+    {
+      "path": "/deep_learning_2022/",
+      "count": 291
+    },
+    {
+      "path": "/4",
+      "count": 286
+    },
+    {
+      "path": "/stats_finite_population/",
+      "count": 260
+    },
+    {
+      "path": "/books_covid/",
+      "count": 218
+    },
+    {
+      "path": "/doubly_robust/",
+      "count": 216
+    },
+    {
+      "path": "/misc/",
+      "count": 208
+    },
+    {
+      "path": "/application_2021/",
+      "count": 193
+    },
+    {
+      "path": "/best_albums_2010/",
+      "count": 192
+    },
+    {
+      "path": "/representation_learning/",
+      "count": 184
+    },
+    {
+      "path": "/5",
+      "count": 177
+    },
+    {
+      "path": "/tags/book/",
+      "count": 165
+    },
+    {
+      "path": "/christmas_donation/",
+      "count": 160
+    },
+    {
+      "path": "/2/",
+      "count": 149
+    },
+    {
+      "path": "/6",
+      "count": 148
+    },
+    {
+      "path": "/kaggle_seti/",
+      "count": 135
+    },
+    {
+      "path": "/kaggle_hubmap_hpa/",
+      "count": 121
+    },
+    {
+      "path": "/best_albums_2011/",
+      "count": 114
+    },
+    {
+      "path": "/stats_linreg/",
+      "count": 106
+    },
+    {
+      "path": "/llm_from_scratch/",
+      "count": 106
+    },
+    {
+      "path": "/tags/python/",
+      "count": 96
+    },
+    {
+      "path": "/3/",
+      "count": 86
+    },
+    {
+      "path": "/tags/gatsby/",
+      "count": 83
+    },
+    {
+      "path": "/incremental_build/",
+      "count": 81
+    },
+    {
+      "path": "/privacy-policy/",
+      "count": 80
+    },
+    {
+      "path": "/kaggle_stable_diffusion/",
+      "count": 80
+    },
+    {
+      "path": "/stats_linreg_2/",
+      "count": 79
+    },
+    {
+      "path": "/best_albums_2012/",
+      "count": 77
+    },
+    {
+      "path": "/tags/deep-learning/",
+      "count": 77
+    },
+    {
+      "path": "/tags/pandas/",
+      "count": 76
+    },
+    {
+      "path": "/7",
+      "count": 75
+    },
+    {
+      "path": "/playlist_202003/",
+      "count": 69
+    },
+    {
+      "path": "/6/",
+      "count": 64
+    },
+    {
+      "path": "/tags/ja/",
+      "count": 61
+    },
+    {
+      "path": "/5/",
+      "count": 59
+    },
+    {
+      "path": "/4/",
+      "count": 58
+    },
+    {
+      "path": "/7/",
+      "count": 53
+    },
+    {
+      "path": "/tags/graph/",
+      "count": 53
+    },
+    {
+      "path": "/hello-world/",
+      "count": 52
+    },
+    {
+      "path": "/tags/machine-learning/",
+      "count": 52
+    },
+    {
+      "path": "/tags/math/",
+      "count": 51
+    },
+    {
+      "path": "/tags/cv/",
+      "count": 50
+    },
+    {
+      "path": "/playlist_202004/",
+      "count": 47
+    },
+    {
+      "path": "/tags/aoty/",
+      "count": 47
+    },
+    {
+      "path": "/tags/en/",
+      "count": 47
+    },
+    {
+      "path": "/tags/music/",
+      "count": 43
+    },
+    {
+      "path": "/playlist_202006/",
+      "count": 42
+    },
+    {
+      "path": "/tags/reinforcement-learning/",
+      "count": 42
+    },
+    {
+      "path": "/tags/causal-inference/",
+      "count": 40
+    },
+    {
+      "path": "/tags/food/",
+      "count": 40
+    },
+    {
+      "path": "/tags/data-analysis/",
+      "count": 35
+    },
+    {
+      "path": "/tags/kaggle/",
+      "count": 34
+    },
+    {
+      "path": "/playlist_202005/",
+      "count": 33
+    },
+    {
+      "path": "/tags/misc/",
+      "count": 33
+    },
+    {
+      "path": "/tags/programming/",
+      "count": 33
+    },
+    {
+      "path": "/tags/stats/",
+      "count": 28
+    },
+    {
+      "path": "/8/",
+      "count": 27
+    },
+    {
+      "path": "/tags/gadget/",
+      "count": 26
+    },
+    {
+      "path": "/tags/algorithm/",
+      "count": 23
+    },
+    {
+      "path": "/tags/nlp/",
+      "count": 21
+    },
+    {
+      "path": "/tags/transformer/",
+      "count": 19
+    },
+    {
+      "path": "/face-swap/",
+      "count": 18
+    },
+    {
+      "path": "/books_fy2022/null",
+      "count": 18
+    },
+    {
+      "path": "/tags/matplotlib/",
+      "count": 14
+    }
+  ]
+}

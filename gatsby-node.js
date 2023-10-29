@@ -1,4 +1,5 @@
 const path = require(`path`)
+const fs = require('fs');
 const _ = require("lodash")
 const { createFilePath } = require(`gatsby-source-filesystem`)
 const { google } = require('googleapis')
@@ -152,13 +153,21 @@ exports.sourceNodes = async ({ actions, createContentDigest }) => {
 }
 
   function createNodes(GAResult, nodeName) {
+    // counts from GA3
+    const fileContents = fs.readFileSync('content/assets/google-analytics-v3.json', 'utf8');
+    const prevCounts = {};
+    JSON.parse(fileContents).nodes.forEach(node => {
+      prevCounts[node.path] = node.count;
+    });
+
     const rows = GAResult.data.rows;
     for (let i = 0; i < rows.length; i++) {
       const path = rows[i].dimensionValues[0].value
       const count = rows[i].metricValues[0].value;
+      const prevCount = prevCounts.hasOwnProperty(path) ? prevCounts[path] : 0;
       createNode({
         path,
-        count: Number(count),
+        count: Number(count) + prevCount,
         id: nodeName + path,
         internal: {
           type: nodeName,
