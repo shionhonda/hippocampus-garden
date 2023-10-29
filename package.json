@@ -40,6 +40,7 @@
     "gatsby-source-google-analytics-reporting-api": "^1.0.2",
     "gatsby-transformer-remark": "^6.3.2",
     "gatsby-transformer-sharp": "^5.3.1",
+    "googleapis": "^128.0.0",
     "katex": "^0.13.3",
     "lazysizes": "^5.3.2",
     "lodash.kebabcase": "^4.1.1",
