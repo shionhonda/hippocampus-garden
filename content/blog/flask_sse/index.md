@@ -6,6 +6,12 @@ featuredImage: flask_sse/ogp.jpg
 tags: ["en", "python", "web"]
 ---
 
+With the increasing adoption of OpenAI's GPT API and similar LLM APIs, chatbots have become a hot topic in the technology world.
+In chatbot-powered apps, the response from the GPT is often streamed to allow real-time conversation.
+utilizing Server-Sent Events (SSE).
+however, you may want to mock it to save cost, avoid rate limit, and simplify the problem.
+In this post, we present a minimal implementation of server-sent events using Flask to simulate real-time conversations, providing an efficient alternative to direct API usage.
+
 <iframe width="560" height="315" src="https://www.youtube.com/embed/Ny-QncybvNk?si=6OwOn0KyaVperz6M" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 ## Prerequisites
@@ -14,7 +20,7 @@ tags: ["en", "python", "web"]
 - Flask = "^3.0.0"
 - flask-cors = "^4.0.0"
 
-## Server side
+## Server Side Code
 
 ```python
 import flask
@@ -47,17 +53,17 @@ if __name__ == "__main__":
   <body>
     <div id="msg-box"></div>
     <script>
-        var source = new EventSource('http://localhost:8001/stream');
-        source.onopen = e => console.log('Connection opened');
-        source.onerror = e => console.log('Error:', event);
-        source.onmessage = e => {
-            if (event.data !=="[DONE]"){
-                document.getElementById('msg-box').innerHTML += " " + event.data;
-            }else{
-                console.log("Connection closed");
-                source.close()
-            }
-        };
+      var source = new EventSource("http://localhost:8001/stream")
+      source.onopen = (e) => console.log("Connection opened")
+      source.onerror = (e) => console.log("Error:", event)
+      source.onmessage = (e) => {
+        if (event.data !== "[DONE]") {
+          document.getElementById("msg-box").innerHTML += " " + event.data
+        } else {
+          console.log("Connection closed")
+          source.close()
+        }
+      }
     </script>
   </body>
 </html>
