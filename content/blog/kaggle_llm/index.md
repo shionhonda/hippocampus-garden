@@ -1,6 +1,6 @@
 ---
 title: "Kaggle Competition Report: LLM Science Exam"
-date: "2023-11-25T22:01:03.284Z"
+date: "2023-11-19T20:01:03.284Z"
 description: "Can LLMs answer scientific questions? See how Kaggle winners used LLMs and RAG!"
 featuredImage: kaggle_llm/ogp.jpg
 tags: ["en", "kaggle"]

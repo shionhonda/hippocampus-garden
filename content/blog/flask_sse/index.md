@@ -1,7 +1,7 @@
 ---
 title: "Simulating Real-Time Chats using Flask's Server-Sent Events"
 date: "2023-11-06T22:01:03.284Z"
-description: "Discover the power of Flask's Server-Sent Events for better developer's experience of chatbots"
+description: "Discover the power of Flask's Server-Sent Events for better developer's experience of chatbots."
 featuredImage: flask_sse/ogp.jpg
 tags: ["en", "python", "web"]
 ---
