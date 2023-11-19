@@ -24,7 +24,7 @@ This competition is interesting in 3 ways:
 
 The final standings are in the image below.
 
-![](2023-11-16-22-15-34.png)
+![](leaderboard.png)
 
 ## Solutions
 
@@ -44,25 +44,47 @@ They created five 7B models and one 13B model with different configurations (dat
 
 [@solokin](https://www.kaggle.com/competitions/kaggle-llm-science-exam/discussion/448256) won the solo second prize by BM-25 search and DeBERTA / Mistral multi-class classification.
 
-The retrieval system utilized [graelo/wikipedia/20230601.en](https://huggingface.co/datasets/graelo/wikipedia/viewer/20230601.en) dataset as a single source of knowledge. Documents were segmented into sentences and organized into overlapping chunks, which were indexed using [Lucene's **BM-25** algorithm](https://lucene.apache.org/core/7_0_1/core/org/apache/lucene/search/similarities/BM25Similarity.html). Retrieved chunks were reordered by a DeBERTa v3 reranker model when composing a prompt.
+The retrieval system utilized [graelo/wikipedia/20230601.en](https://huggingface.co/datasets/graelo/wikipedia/viewer/20230601.en) dataset as a single source of knowledge. Documents were segmented into sentences and organized into overlapping chunks, which were indexed using [Apache Lucene's **BM-25** algorithm](https://lucene.apache.org/core/7_0_1/core/org/apache/lucene/search/similarities/BM25Similarity.html). Retrieved chunks were reordered by a DeBERTa v3 reranker model when composing a prompt.
 
-For training, they first curated a larger dataset than @radek1's. Then they trained models (DeBERTa v3 and Mistral) with a multi-class classification objective.
+For training, they first curated a larger dataset than [@radek1's](https://www.kaggle.com/datasets/radek1/additional-train-data-for-llm-science-exam). Then they trained models (DeBERTa v3 and Mistral) with a multi-class classification objective.
 
 The outputs of these models were mixed through a custom XGBRanker.
 
 ### 3rd Place
 
-[@podpall](https://www.kaggle.com/competitions/kaggle-llm-science-exam/discussion/446358)
+[@podpall](https://www.kaggle.com/competitions/kaggle-llm-science-exam/discussion/446358) created a huge pipeline including many small LMs and even two 70B models! I won't go into details of this, but it's incredible to manage this run on a Kaggle's notebook.
+
+![huge pipeline](podpall.png)
 
 ### 4th Place
 
-[📝 Preferred Scantron 📝](https://www.kaggle.com/competitions/kaggle-llm-science-exam/discussion/446307)
+[📝 Preferred Scantron 📝](https://www.kaggle.com/competitions/kaggle-llm-science-exam/discussion/446307) earned fourth place
+
+The team used Elasticsearch for sentence-wise keyword retrieval. They reranked the results via Elasticsearch score, edit distance score, and semantic search score. This system was tested in a zero-shot manner using a Llama 2 7B model and a subset of [@radek1's dataset](https://www.kaggle.com/datasets/radek1/additional-train-data-for-llm-science-exam).
+
+They trained a DeBERTa v3 Large model on token lengths up to 1280 tokens. As they increased tokens from 512 to 1280, their public score increased.
+
+The ensemble strategy involved using multiple contexts reranked by different metrics.
 
 ### 5th Place
 
 [Preferred おしゃべりんぼう(ChattyKids)](https://www.kaggle.com/competitions/kaggle-llm-science-exam/discussion/446293)
 
+The retrieval part was powered by the [pyserini](https://github.com/castorini/pyserini)'s implementation of BM25 library. They also implemented dense retrieval by embedding sentences and paragraphs from the Wikipedia dump.
+
+In the modeling phase, they used Mistral 7B and Llama 2 70B, with a focus on non-instruction tuned models. They finetuned models for a multi-class classification objective using QLoRA with 4-bit quantization and [xFormers](https://github.com/facebookresearch/xformers)' `memory_efficient_attention` to manage GPU memory constraints.
+
+For validation, they used a mixed dataset approach and avoided overfitting by not using the data in training. They adopted test time augmentation (TTA) to mitigate order effects in LLM inferences.
+
+Finally, they adopted a unique 3-stage inference pipeline, where smaller models like Mistral 7B answer easy problems and larger models like Llama 2 70B answer difficult problems.
+
+## Conclusion
+
+- Clean data for retrieval
+- Diverse context (BM-25, Elasticseach, BERT family, LLM) + reranking
+- LLM finetuned for multi-choice questions
+
 ## References
 
-[1] [kaggle LLMコンペ　上位解法まとめ](https://zenn.dev/yume_neko/articles/7347ba6b081e93)  
-[2] [Kaggleコンペ（LLM Science Exam）の振り返りと上位解法まとめ](https://zenn.dev/nishimoto/articles/aff1fba9c75c34)
+[1] [kaggle LLM コンペ　上位解法まとめ](https://zenn.dev/yume_neko/articles/7347ba6b081e93)  
+[2] [Kaggle コンペ（LLM Science Exam）の振り返りと上位解法まとめ](https://zenn.dev/nishimoto/articles/aff1fba9c75c34)
