@@ -6,7 +6,7 @@ featuredImage: kaggle_llm/ogp.jpg
 tags: ["en", "kaggle"]
 ---
 
-The Kaggle competition "Kaggle - LLM Science Exam" wrapped up on May 15th, attracting over 2,600 teams.
+The Kaggle competition "Kaggle - LLM Science Exam" wrapped up on Oct 11th, attracting over 2,600 teams.
 
 Though I wasn't among the competitors, I'm going to create a retrospective analysis on the winners' solutions, as they offer valuable insights into how we use LLMs for answering questions based on certain contexts.
 

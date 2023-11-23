@@ -87,7 +87,6 @@ const About = ({ data, location }) => {
           <li>
             <a href="https://ai-scholar.tech/author/honda-shion/" target="_blank" rel="noopener noreferrer"><strong>AI-SCHOLAR</strong></a> (all in Japanese).
             I contributed some introductory articles to a web media for non-experts in AI.
-            Popular posts are on MuZero, XLNet, and NGBoost.
           </li>
           <li>
             <a href="https://speakerdeck.com/shionhonda" target="_blank" rel="noopener noreferrer"><strong>Speaker Deck</strong></a> (all in Japanese)

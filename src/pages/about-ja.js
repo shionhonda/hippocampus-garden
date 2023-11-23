@@ -83,7 +83,7 @@ const AboutJa = ({ data, location }) => {
           </li>
           <li>
             <a href="https://ai-scholar.tech/author/honda-shion/" target="_blank" rel="noopener noreferrer"><strong>AI-SCHOLAR</strong></a>：
-            非専門家に向けたAIの解説記事をいくつか寄稿しました。特に、MuZero、XLNet、NGBoostについて書いた記事が人気でした。
+            非専門家に向けたAIの解説記事をいくつか寄稿しました。
           </li>
           <li>
             <a href="https://speakerdeck.com/shionhonda" target="_blank" rel="noopener noreferrer"><strong>Speaker Deck</strong></a>：
