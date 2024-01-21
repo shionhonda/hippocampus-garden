@@ -1,0 +1,99 @@
+---
+title: "Year in Review: Deep Learning Papers in 2023"
+date: "2023-01-17T22:01:03.284Z"
+description: "Uncover the top deep learning advancements of 2022. A year-in-review of key research papers and applications."
+featuredImage: deep_learning_2023/ogp.jpg
+tags: ["en", "machine-learning", "deep-learning"]
+---
+
+Reflecting on the past year, it's clear that 2022 brought significant advancements in the field of deep learning. In this year-in-review post, I'll take a look back at some of the most important developments in deep learning, highlighting representative research papers and application projects. If you're interested, you can also check out [my review of the previous year, 2021](https://hippocampus-garden.com/research_2021).
+
+## Open X-Embodiment: Robotic Learning Datasets and RT-X Models
+
+- Authors: Open X-Embodiment Collaboration
+- Paper: https://arxiv.org/abs/2310.08864
+- Project page: https://robotics-transformer-x.github.io/
+- Code: https://github.com/google-deepmind/open_x_embodiment
+- Blog: https://www.deepmind.com/blog/scaling-up-learning-across-many-different-robot-types
+- Venue: CoRL 2023 Workshop
+
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">Robotic Learning Datasets and RT-X Models[Padalkar+, 2023]<br>Open X-Embodiment is an initiative to train a policy generalizable to different robots. It publishes a dataset collected from 22 robots and trained vision-language-action models. <a href="https://t.co/FggiOTTz9E">https://t.co/FggiOTTz9E</a><a href="https://twitter.com/hashtag/NowReading?src=hash&amp;ref_src=twsrc%5Etfw">#NowReading</a> <a href="https://t.co/2Wwl5YNd5Q">pic.twitter.com/2Wwl5YNd5Q</a></p>&mdash; Shion Honda (@shion_honda) <a href="https://twitter.com/shion_honda/status/1726853878690590902?ref_src=twsrc%5Etfw">November 21, 2023</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+## Fast Inference from Transformers via Speculative Decoding
+
+- Authors: Yaniv Leviathan, Matan Kalman, Yossi Matias
+- Paper: https://arxiv.org/abs/2211.17192
+- Venue: ICML 2023
+
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">Fast Inference from Transformers via Speculative Decoding [Leviathan+, 2023, ICML]<br>Speculative decoding allows autoregressive models to run 2-3x faster. A small model samples K tokens fast and a large model decides to accept or reject them.<a href="https://t.co/bcKEWeBxmA">https://t.co/bcKEWeBxmA</a><a href="https://twitter.com/hashtag/NowReading?src=hash&amp;ref_src=twsrc%5Etfw">#NowReading</a> <a href="https://t.co/2QtAXtjNm7">pic.twitter.com/2QtAXtjNm7</a></p>&mdash; Shion Honda (@shion_honda) <a href="https://twitter.com/shion_honda/status/1747519345784148071?ref_src=twsrc%5Etfw">January 17, 2024</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+
+## Sigmoid Loss for Language Image Pre-Training
+
+- Authors: Xiaohua Zhai, Basil Mustafa, Alexander Kolesnikov, Lucas Beyer
+- Paper: https://arxiv.org/abs/2303.15343
+- Venue: ICCV 2023
+
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">Sigmoid Loss for Language Image Pre-Training [Zhai+, 2023, ICCV]<br>SigLip replaces CLIP&#39;s list-wise softmax loss with the pair-wise sigmoid, reducing memory consumption and improving accuracy when trained on limited batch sizes (&lt;32k).<a href="https://t.co/8FuI5w6ygH">https://t.co/8FuI5w6ygH</a><a href="https://twitter.com/hashtag/NowReading?src=hash&amp;ref_src=twsrc%5Etfw">#NowReading</a> <a href="https://t.co/a79xOUjg3m">pic.twitter.com/a79xOUjg3m</a></p>&mdash; Shion Honda (@shion_honda) <a href="https://twitter.com/shion_honda/status/1743697386902270234?ref_src=twsrc%5Etfw">January 6, 2024</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+## Segment Anything
+
+- Authors: Alexander Kirillov, Eric Mintun, Nikhila Ravi, Hanzi Mao, Chloe Rolland, Laura Gustafson, Tete Xiao, Spencer Whitehead, Alexander C. Berg, Wan-Yen Lo, Piotr Dollár, Ross Girshick
+- Paper: https://arxiv.org/abs/2304.02643
+- Project page: https://segment-anything.com/
+- Code: https://github.com/facebookresearch/segment-anything
+- Blog: https://ai.meta.com/blog/segment-anything-foundation-model-image-segmentation/
+- Venue: ICCV 2023
+
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">Segment Anything [Kirillov+, ICCV, 2023]<br>Proposes a task to segment any object given prompts as text or region and releases a dataset and model (SAM) for that task. SAM consists of a prompt encoder, image encoder, and segment mask decoder.<a href="https://t.co/8klTPqF5Ea">https://t.co/8klTPqF5Ea</a><a href="https://twitter.com/hashtag/NowReading?src=hash&amp;ref_src=twsrc%5Etfw">#NowReading</a> <a href="https://t.co/dtjmgAlyKD">pic.twitter.com/dtjmgAlyKD</a></p>&mdash; Shion Honda (@shion_honda) <a href="https://twitter.com/shion_honda/status/1722882055648714872?ref_src=twsrc%5Etfw">November 10, 2023</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+
+## Vision Transformers Need Registers
+
+- Authors: Timothée Darcet, Maxime Oquab, Julien Mairal, Piotr Bojanowski
+- Paper: https://arxiv.org/abs/2309.16588
+- Venue: ICLR 2024
+
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">Vision Transformers Need Registers [Darcez+, 2023]<br>ViTs tend to generate high-norm tokens in the background when exceeding certain size and training steps. Adding [REG] tokens reduces the artifacts and improves accuracy for pixel-level tasks.<a href="https://t.co/nP2WtVvysw">https://t.co/nP2WtVvysw</a><a href="https://twitter.com/hashtag/NowReading?src=hash&amp;ref_src=twsrc%5Etfw">#NowReading</a> <a href="https://t.co/U7bwLVYIQZ">pic.twitter.com/U7bwLVYIQZ</a></p>&mdash; Shion Honda (@shion_honda) <a href="https://twitter.com/shion_honda/status/1721424323209027619?ref_src=twsrc%5Etfw">November 6, 2023</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+## Adding Conditional Control to Text-to-Image Diffusion Models
+
+- Authors: Lvmin Zhang, Anyi Rao, Maneesh Agrawala
+- Paper: https://arxiv.org/abs/2302.05543
+- Code: https://github.com/lllyasviel/ControlNet
+- Venue: ICCV 2023
+
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">Adding Conditional Control to T2I Diffusion Models [Zhang+, 2023, ICCV]<br>ControlNet enables T2I DMs to follow instructions in images. Freezing the pretrained weights of T2I, it passes the encoded condition to the U-net decoder via &quot;zero-convs&quot;.<a href="https://t.co/BblF7bSxS9">https://t.co/BblF7bSxS9</a><a href="https://twitter.com/hashtag/NowReading?src=hash&amp;ref_src=twsrc%5Etfw">#NowReading</a> <a href="https://t.co/vsEYP4emUh">pic.twitter.com/vsEYP4emUh</a></p>&mdash; Shion Honda (@shion_honda) <a href="https://twitter.com/shion_honda/status/1723957944616996881?ref_src=twsrc%5Etfw">November 13, 2023</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+## 3D Gaussian Splatting for Real-Time Radiance Field Rendering
+
+- Authors: Bernhard Kerbl, Georgios Kopanas, Thomas Leimkühler, George Drettakis
+- Paper: https://arxiv.org/abs/2308.04079
+- Project page: https://repo-sam.inria.fr/fungraph/3d-gaussian-splatting/
+- Code: https://github.com/graphdeco-inria/gaussian-splatting
+- Venue: SIGGRAPH 2023
+
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">3D Gaussian Splatting [Kerbl+, 2023, SIGGRAPH]<br>This paper proposes to represent a scene with 3D Gaussians and find its parameters by minimizing the error between rasterized images and GT. It allows real-time rendering with less training time.<a href="https://t.co/3KT08nlKBV">https://t.co/3KT08nlKBV</a><a href="https://twitter.com/hashtag/NowReading?src=hash&amp;ref_src=twsrc%5Etfw">#NowReading</a> <a href="https://t.co/OJsQUfNzMv">pic.twitter.com/OJsQUfNzMv</a></p>&mdash; Shion Honda (@shion_honda) <a href="https://twitter.com/shion_honda/status/1717063373232202023?ref_src=twsrc%5Etfw">October 25, 2023</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+## Are Emergent Abilities of Large Language Models a Mirage?
+
+- Authors: Rylan Schaeffer, Brando Miranda, Sanmi Koyejo
+- Paper: https://arxiv.org/abs/2304.15004
+- Venue: NeurIPS 2023
+
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">Are Emergent Abilities of LLMs a Mirage? [Schaeffer+, 2023]<br>This paper counterargues that the &quot;emergent abilities&quot; of LLMs are results of adopting nonlinear metrics. One can incur or mitigate emergent behaviors by adopting a specific metric. <a href="https://t.co/7EbtApmgGw">https://t.co/7EbtApmgGw</a><a href="https://twitter.com/hashtag/NowReading?src=hash&amp;ref_src=twsrc%5Etfw">#NowReading</a> <a href="https://t.co/NLXjQENWPD">pic.twitter.com/NLXjQENWPD</a></p>&mdash; Shion Honda (@shion_honda) <a href="https://twitter.com/shion_honda/status/1715610895458414878?ref_src=twsrc%5Etfw">October 21, 2023</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+## Direct Preference Optimization: Your Language Model is Secretly a Reward Model
+
+- Authors: Rafael Rafailov, Archit Sharma, Eric Mitchell, Stefano Ermon, Christopher D. Manning, Chelsea Finn
+- Paper: https://arxiv.org/abs/2305.18290
+- Venue: NeurIPS 2023
+
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">Direct Preference Optimization [Rafailov+, 2023, NeurIPS]<br>DPO allows LLM to follow instructions without RLHF, replacing the reward model with classification loss. DPO is more stable, lightweight, and effective than RLHF (tested w/ &lt;6B models).<a href="https://t.co/DQWXd1penb">https://t.co/DQWXd1penb</a><a href="https://twitter.com/hashtag/NowReading?src=hash&amp;ref_src=twsrc%5Etfw">#NowReading</a> <a href="https://t.co/BjvIgbc81S">pic.twitter.com/BjvIgbc81S</a></p>&mdash; Shion Honda (@shion_honda) <a href="https://twitter.com/shion_honda/status/1738449955881205768?ref_src=twsrc%5Etfw">December 23, 2023</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+## Weak-to-Strong Generalization: Eliciting Strong Capabilities With Weak Supervision
+
+- Authors: Collin Burns, Pavel Izmailov, Jan Hendrik Kirchner, Bowen Baker, Leo Gao, Leopold Aschenbrenner, Yining Chen, Adrien Ecoffet, Manas Joglekar, Jan Leike, Ilya Sutskever, Jeff Wu
+- Paper: https://arxiv.org/abs/2312.09390
+
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">Weak-to-strong Generalization [Burns+, 2023]<br>This paper presents superalignement: a new research direction to align super-human AIs. They studied its analogy, training GPT-4 with labels from smaller models in NLP/chess/reward modeling.<a href="https://t.co/fhtum2Iu1N">https://t.co/fhtum2Iu1N</a><a href="https://twitter.com/hashtag/NowReading?src=hash&amp;ref_src=twsrc%5Etfw">#NowReading</a> <a href="https://t.co/Hqc1sJSkEE">pic.twitter.com/Hqc1sJSkEE</a></p>&mdash; Shion Honda (@shion_honda) <a href="https://twitter.com/shion_honda/status/1736334549276078297?ref_src=twsrc%5Etfw">December 17, 2023</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
