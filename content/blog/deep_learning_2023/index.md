@@ -1,12 +1,12 @@
 ---
 title: "Year in Review: Deep Learning Papers in 2023"
 date: "2024-01-21T22:01:03.284Z"
-description: "Uncover the top deep learning advancements of 2022. A year-in-review of key research papers and applications."
+description: "Uncover the top deep learning advancements of 2023. A year-in-review of key research papers and applications."
 featuredImage: deep_learning_2023/ogp.jpg
 tags: ["en", "machine-learning", "deep-learning"]
 ---
 
-Reflecting on the past year, it's clear that 2022 brought significant advancements in the field of deep learning. In this year-in-review post, I'll take a look back at some of the most important developments in deep learning, highlighting representative research papers and application projects. If you're interested, you can also check out [my review of the previous year, 2021](https://hippocampus-garden.com/deep_learning_2022/).
+Reflecting on the past year, it's clear that 2022 brought significant advancements in the field of deep learning. In this year-in-review post, I'll take a look back at some of the most important developments in deep learning, highlighting representative research papers and application projects. If you're interested, you can also check out [my review of the previous year, 2022](https://hippocampus-garden.com/deep_learning_2022/).
 
 ## Fast Inference from Transformers via Speculative Decoding
 
@@ -37,6 +37,16 @@ Once we have a chunk of $\gamma$ tokens ($x_{i+1}$,...,$x_{i+\gamma}$), we calcu
 
 <blockquote class="twitter-tweet"><p lang="en" dir="ltr">Adding Conditional Control to T2I Diffusion Models [Zhang+, 2023, ICCV]<br>ControlNet enables T2I DMs to follow instructions in images. Freezing the pretrained weights of T2I, it passes the encoded condition to the U-net decoder via &quot;zero-convs&quot;.<a href="https://t.co/BblF7bSxS9">https://t.co/BblF7bSxS9</a><a href="https://twitter.com/hashtag/NowReading?src=hash&amp;ref_src=twsrc%5Etfw">#NowReading</a> <a href="https://t.co/vsEYP4emUh">pic.twitter.com/vsEYP4emUh</a></p>&mdash; Shion Honda (@shion_honda) <a href="https://twitter.com/shion_honda/status/1723957944616996881?ref_src=twsrc%5Etfw">November 13, 2023</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
+As I wrote in the [last year's review](https://hippocampus-garden.com/deep_learning_2022/#stable-diffusion--dreamstudio), we saw many cool text-to-image (T2I) models in 2022. But they are not good at providing control over the spatial composition of the image because it is not easy to fully express layouts, poses, and shapes with words. Sometimes we want to pass image instructions to generate our desired outputs. For example, we might want to use edge maps, human pose skeletons, segmentation maps, and depth maps. However, there was no such model that can take any type of those image inputs and generate images based on it.
+
+**ControlNet** enables pre-trained T2I diffusion models such as [Stable Diffusion](https://github.com/Stability-AI/stablediffusion) to follow instructions in images. Look at the figure below to see how ControleNet-powered Stable Diffusion can generate images that are loyal to the input Canny edge and human pose.
+
+![images_controlenet](zhang_0.png)
+
+You can train ControlNet with relatively small compute. It freezes the pre-trained weight of Stable Diffusion and uses adapters in U-net decoder blocks to add information from the image condition to the generated image. Each adapter consists of trainable copies of U-net encoder blocks and convolution layers with weights initialized to zero (**zero convolution**). See the figure below for more details.
+
+![controlnet](zhang_1.png)
+
 ## Sigmoid Loss for Language Image Pre-Training
 
 - Authors: Xiaohua Zhai, Basil Mustafa, Alexander Kolesnikov, Lucas Beyer
@@ -44,6 +54,18 @@ Once we have a chunk of $\gamma$ tokens ($x_{i+1}$,...,$x_{i+\gamma}$), we calcu
 - Venue: ICCV 2023
 
 <blockquote class="twitter-tweet"><p lang="en" dir="ltr">Sigmoid Loss for Language Image Pre-Training [Zhai+, 2023, ICCV]<br>SigLip replaces CLIP&#39;s list-wise softmax loss with the pair-wise sigmoid, reducing memory consumption and improving accuracy when trained on limited batch sizes (&lt;32k).<a href="https://t.co/8FuI5w6ygH">https://t.co/8FuI5w6ygH</a><a href="https://twitter.com/hashtag/NowReading?src=hash&amp;ref_src=twsrc%5Etfw">#NowReading</a> <a href="https://t.co/a79xOUjg3m">pic.twitter.com/a79xOUjg3m</a></p>&mdash; Shion Honda (@shion_honda) <a href="https://twitter.com/shion_honda/status/1743697386902270234?ref_src=twsrc%5Etfw">January 6, 2024</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+[CLIP](https://arxiv.org/abs/2103.00020) revolutionized how we train image models by bringing the idea of contrastive learning on massive pairs of images and captions. I wrote how CLIP was innovative in [my Year in Review 2021](https://hippocampus-garden.com/research_2021/#learning-transferable-visual-models-from-natural-language-supervision). But training CLIP is not easy, even fine-tuning. Since CLIP relies on a softmax loss from all the possible pairs between images and captions available in the batch, you need to use as large batch size as possible to succeed in training. For example, [this CLIP](https://huggingface.co/laion/CLIP-ViT-bigG-14-laion2B-39B-b160k) was trained with batch size of 160k 🤯
+
+Good news! **SigLIP** (**sigmoid loss for language-image pre-training**) saves GPU poors. The algorithm of SigLIP is as simple as this:
+
+![siglip_algorithm](zhai_0.png)
+
+It basically replaces the softmax loss with a sigmoid loss, removing the need to compute global normalization factors. It introduces a new hyperparamter $b$ to learn faster from the loss dominated by many negatives, but it's not a big change.
+
+SigLIP achieves higher accuracy in downstream tasks than its softmax counterpart when trained with smaller batch sizes. The authors also found that the performance gain diminishes when the batch size grows to ~32k.
+
+![siglip_result](zhai_1.png)
 
 ## Segment Anything
 
