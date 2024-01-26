@@ -55,7 +55,7 @@ You can train ControlNet with relatively small compute. It freezes the pre-train
 
 <blockquote class="twitter-tweet"><p lang="en" dir="ltr">Sigmoid Loss for Language Image Pre-Training [Zhai+, 2023, ICCV]<br>SigLip replaces CLIP&#39;s list-wise softmax loss with the pair-wise sigmoid, reducing memory consumption and improving accuracy when trained on limited batch sizes (&lt;32k).<a href="https://t.co/8FuI5w6ygH">https://t.co/8FuI5w6ygH</a><a href="https://twitter.com/hashtag/NowReading?src=hash&amp;ref_src=twsrc%5Etfw">#NowReading</a> <a href="https://t.co/a79xOUjg3m">pic.twitter.com/a79xOUjg3m</a></p>&mdash; Shion Honda (@shion_honda) <a href="https://twitter.com/shion_honda/status/1743697386902270234?ref_src=twsrc%5Etfw">January 6, 2024</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
-[CLIP](https://arxiv.org/abs/2103.00020) revolutionized how we train image models by bringing the idea of contrastive learning on massive pairs of images and captions. I wrote how CLIP was innovative in [my Year in Review 2021](https://hippocampus-garden.com/research_2021/#learning-transferable-visual-models-from-natural-language-supervision). But training CLIP is not easy, even fine-tuning. Since CLIP relies on a softmax loss from all the possible pairs between images and captions available in the batch, you need to use as large batch size as possible to succeed in training. For example, [this CLIP](https://huggingface.co/laion/CLIP-ViT-bigG-14-laion2B-39B-b160k) was trained with batch size of 160k 🤯
+[**CLIP**](https://arxiv.org/abs/2103.00020) revolutionized how we train image models by bringing the idea of contrastive learning on massive pairs of images and captions. I wrote how CLIP was innovative in [my Year in Review 2021](https://hippocampus-garden.com/research_2021/#learning-transferable-visual-models-from-natural-language-supervision). But training CLIP is not easy, even fine-tuning. Since CLIP relies on a softmax loss from all the possible pairs between images and captions available in the batch, you need to use as large batch size as possible to succeed in training. For example, [this CLIP](https://huggingface.co/laion/CLIP-ViT-bigG-14-laion2B-39B-b160k) was trained with batch size of 160k 🤯
 
 Good news! **SigLIP** (**sigmoid loss for language-image pre-training**) saves GPU poors. The algorithm of SigLIP is as simple as this:
 
@@ -78,6 +78,19 @@ SigLIP achieves higher accuracy in downstream tasks than its softmax counterpart
 
 <blockquote class="twitter-tweet"><p lang="en" dir="ltr">Segment Anything [Kirillov+, ICCV, 2023]<br>Proposes a task to segment any object given prompts as text or region and releases a dataset and model (SAM) for that task. SAM consists of a prompt encoder, image encoder, and segment mask decoder.<a href="https://t.co/8klTPqF5Ea">https://t.co/8klTPqF5Ea</a><a href="https://twitter.com/hashtag/NowReading?src=hash&amp;ref_src=twsrc%5Etfw">#NowReading</a> <a href="https://t.co/dtjmgAlyKD">pic.twitter.com/dtjmgAlyKD</a></p>&mdash; Shion Honda (@shion_honda) <a href="https://twitter.com/shion_honda/status/1722882055648714872?ref_src=twsrc%5Etfw">November 10, 2023</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
+[CLIP](https://arxiv.org/abs/2103.00020) was the first single model for any image-wise tasks (e.g., open-ended classification, image retrieval). Then, could there be a single model for any pixel-wise tasks (e.g., semantic segmentation, instance segmentation)? Yes. **Segment Anything Model** (**SAM**) is the first such model. This is a big deal because training pixel-wise model is a time-consuming work, requiring a lot of pixel-wise annotations. With SAM, you can do any pixel-wise task with prompting.
+
+How does SAM work? First, the authors framed the problem as **promptable segmentation**, where the goal is to return a valid segmentation mask given any segmentation prompt. Here, a prompt can be text or an image that shows the region of interest by a bounding box, scribble, or points.
+
+![sam](kirillov_0.png)
+
+To process an image and a prompt and SAM has two encoders. The image encoder is heavyweight and outputs embeddings. 
+The prompt encoders are lightweight and their embeddings are fed into the mask decoder with image embeddings. To tackle the inherent ambiguity in the prompts, the decoder outputs multiple valid masks and associated confidence scores.
+
+![sam_results](kirillov_1.png)
+
+For training SAM, the authors created a dataset called **SA-1B**. And for creating this dataset, they created a machine learning-based pipeline that automatically gives high-quality annotations. This is a crucial step because it's not easy to get pixel-wise annotations for 1B images. They relased the dataset SA-1B as well as the model. See the [project page](https://segment-anything.com/) for more details.
+
 ## Are Emergent Abilities of Large Language Models a Mirage?
 
 - Authors: Rylan Schaeffer, Brando Miranda, Sanmi Koyejo
@@ -85,6 +98,22 @@ SigLIP achieves higher accuracy in downstream tasks than its softmax counterpart
 - Venue: NeurIPS 2023
 
 <blockquote class="twitter-tweet"><p lang="en" dir="ltr">Are Emergent Abilities of LLMs a Mirage? [Schaeffer+, 2023]<br>This paper counterargues that the &quot;emergent abilities&quot; of LLMs are results of adopting nonlinear metrics. One can incur or mitigate emergent behaviors by adopting a specific metric. <a href="https://t.co/7EbtApmgGw">https://t.co/7EbtApmgGw</a><a href="https://twitter.com/hashtag/NowReading?src=hash&amp;ref_src=twsrc%5Etfw">#NowReading</a> <a href="https://t.co/NLXjQENWPD">pic.twitter.com/NLXjQENWPD</a></p>&mdash; Shion Honda (@shion_honda) <a href="https://twitter.com/shion_honda/status/1715610895458414878?ref_src=twsrc%5Etfw">October 21, 2023</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+Let me start with a quick question: do you remember the figure below?
+
+![emergent_abilities](wei.png)
+
+<div style="text-align: center;"><small>Image taken from
+<a href="https://arxiv.org/abs/2206.07682">
+Emergent Abilities of Large Language Models</a>.</small></div>
+
+This figure was viral in 2022 and went outside of the research community, often with exaggerating interpretations like "GPT-4 is even bigger than GPT-3. AGI is coming. The world is over".
+
+But we know GPT-4 is not "emergent" like that. So what was wrong with the figure, or the doomssayers? If you have trained a classification model with gradient descent, you probably know how different metrics give different appearances. Your loss function (cross entropy) steadily goes down, while your accuracy stays flat for a while and then suddenly goes up. This is because the accuracy is a discrete function of model's output and to make difference in predicted category, you need to train the model until the output crosses the threshold.
+
+The same thing likely happens with the figure above. Look at the vertical axes. They are accuracy, exact match, and BLEU score, all of which are discrete functions (Remember your exams. Nobody likes exact matches). The authors of "Are Emergent Abilities of Large Language Models a Mirage?" validated this hypothesis by switching metrics and showed that we can incur or mitigate emergent behaviors by adopting a specific metric.
+
+![mirage](schaeffer.png)
 
 ## Direct Preference Optimization: Your Language Model is Secretly a Reward Model
 
