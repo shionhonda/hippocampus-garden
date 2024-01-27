@@ -1,12 +1,15 @@
 ---
 title: "Year in Review: Deep Learning Papers in 2023"
-date: "2024-01-21T22:01:03.284Z"
-description: "Uncover the top deep learning advancements of 2023. A year-in-review of key research papers and applications."
+date: "2024-01-27T22:01:03.284Z"
+description: "Let's look back at the significant progress made in deep learning in 2023! Here are my 10 favorite papers."
 featuredImage: deep_learning_2023/ogp.jpg
 tags: ["en", "machine-learning", "deep-learning"]
 ---
 
-Reflecting on the past year, it's clear that 2022 brought significant advancements in the field of deep learning. In this year-in-review post, I'll take a look back at some of the most important developments in deep learning, highlighting representative research papers and application projects. If you're interested, you can also check out [my review of the previous year, 2022](https://hippocampus-garden.com/deep_learning_2022/).
+As we step into 2024, let's take a moment to look back at the significant progress made in deep learning throughout the past year. In this year-in-review post, I'll share my 10 favorite papers from 2023. I hope you enjoy it!
+
+*If you're interested in this post, you can also check out [my review of the previous year, 2022](https://hippocampus-garden.com/deep_learning_2022/).*
+
 
 ## Fast Inference from Transformers via Speculative Decoding
 
@@ -109,9 +112,9 @@ Emergent Abilities of Large Language Models</a>.</small></div>
 
 This figure was viral in 2022 and went outside of the research community, often with exaggerating interpretations like "GPT-4 is even bigger than GPT-3. AGI is coming. The world is over".
 
-But we know GPT-4 is not "emergent" like that. So what was wrong with the figure, or the doomssayers? If you have trained a classification model with gradient descent, you probably know how different metrics give different appearances. Your loss function (cross entropy) steadily goes down, while your accuracy stays flat for a while and then suddenly goes up. This is because the accuracy is a discrete function of model's output and to make difference in predicted category, you need to train the model until the output crosses the threshold.
+But we know GPT-4 is not "emergent" like that. So what was wrong with the figure, or the doomssayers? If you have trained a classification model with gradient descent, you probably know how different metrics give different appearances. Your loss function (cross entropy) steadily goes down, while your accuracy stays flat for a while and then suddenly goes up. This is because the accuracy is a discrete function of model's output and to make difference in predicted category, you need to train the model until the output crosses a certain threshold.
 
-The same thing likely happens with the figure above. Look at the vertical axes. They are accuracy, exact match, and BLEU score, all of which are discrete functions (Remember your exams. Nobody likes exact matches). The authors of "Are Emergent Abilities of Large Language Models a Mirage?" validated this hypothesis by switching metrics and showed that we can incur or mitigate emergent behaviors by adopting a specific metric.
+The same thing likely happens with the figure above. Look at the vertical axes. They are accuracy, exact match, and BLEU score, all of which are discrete functions (Remember your exams. Nobody likes exact matches). The authors of "Are Emergent Abilities of Large Language Models a Mirage?" validated this hypothesis by switching metrics and showed that we can incur or mitigate "emergent behaviors" by adopting a specific metric.
 
 ![mirage](schaeffer.png)
 
@@ -123,6 +126,16 @@ The same thing likely happens with the figure above. Look at the vertical axes. 
 
 <blockquote class="twitter-tweet"><p lang="en" dir="ltr">Direct Preference Optimization [Rafailov+, 2023, NeurIPS]<br>DPO allows LLM to follow instructions without RLHF, replacing the reward model with classification loss. DPO is more stable, lightweight, and effective than RLHF (tested w/ &lt;6B models).<a href="https://t.co/DQWXd1penb">https://t.co/DQWXd1penb</a><a href="https://twitter.com/hashtag/NowReading?src=hash&amp;ref_src=twsrc%5Etfw">#NowReading</a> <a href="https://t.co/BjvIgbc81S">pic.twitter.com/BjvIgbc81S</a></p>&mdash; Shion Honda (@shion_honda) <a href="https://twitter.com/shion_honda/status/1738449955881205768?ref_src=twsrc%5Etfw">December 23, 2023</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
+One of the key ingredients of successful LLMs is **reinforcement learning from human feedback** (**RLHF**). It allows LLMs to align with human values by learning from a reward model that simulates human preferences. However, RLHF is complex, unstable, and computationally expensive. This has been a significant barrier to the LLM alignment.
+
+**Direct preference optimization** (**DPO**) is a new fine-tuning method that allows LLMs to align with human preferences without reinforcement learning. The authors derived an optimal policy satisfying human preferences in a closed form, allowing DPO to rely on a simple classification loss instead of the reward model. This makes DPO more stable, lightweight, and computationally efficient than RLHF.
+
+![dpo_overview](rafailov_0.png)
+
+DPO works not only in theory but also in practice. Being tested up to 6B parameter models, it has better trade-off between reward and discrepancy from the original policy (left panel in the figure below. RLHF is labeled as "PPO"). Furthermore, DPO was adopted to train the successful [Mixtral 8x7B](https://arxiv.org/abs/2401.04088) model.
+
+![dpo_result](rafailov_1.png)
+
 ## 3D Gaussian Splatting for Real-Time Radiance Field Rendering
 
 - Authors: Bernhard Kerbl, Georgios Kopanas, Thomas Leimkühler, George Drettakis
@@ -133,6 +146,15 @@ The same thing likely happens with the figure above. Look at the vertical axes. 
 
 <blockquote class="twitter-tweet"><p lang="en" dir="ltr">3D Gaussian Splatting [Kerbl+, 2023, SIGGRAPH]<br>This paper proposes to represent a scene with 3D Gaussians and find its parameters by minimizing the error between rasterized images and GT. It allows real-time rendering with less training time.<a href="https://t.co/3KT08nlKBV">https://t.co/3KT08nlKBV</a><a href="https://twitter.com/hashtag/NowReading?src=hash&amp;ref_src=twsrc%5Etfw">#NowReading</a> <a href="https://t.co/OJsQUfNzMv">pic.twitter.com/OJsQUfNzMv</a></p>&mdash; Shion Honda (@shion_honda) <a href="https://twitter.com/shion_honda/status/1717063373232202023?ref_src=twsrc%5Etfw">October 25, 2023</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
+When it comes to 3D scene reconstruction and rendering, **neural radiance field** (**NeRF**) methods have been the state-of-the-art. Since its debut in 2020, NeRF has been drawing more and more attention. I chose Block-NeRF as one of the [most exciting papers in 2022](https://hippocampus-garden.com/deep_learning_2022/#block-nerf-scalable-large-scene-neural-view-synthesis).
+
+But in 2023, we saw a new method called **3D Gaussian Splatting**. As its name suggests, it represents a scene with a set of 3D Gaussians. It first initializes Gaussians from the sparse Structure-from-Motion (SfM) point cloud and then iteratively optimizes its parameters (shape and density) by minimizing the error between rasterized images and the ground truth.
+
+![3d_gaussian_splatting](kerbl_0.png)
+
+3D Gaussian Splatting allows real-time rendering (>30 FPS) with the highest quality while maintaining competitive training times. The figure below tells a sense of its speriority, but you can also check out the [project page](https://repo-sam.inria.fr/fungraph/3d-gaussian-splatting/) for more visualizations.
+
+![3d_gaussian_splatting_result](kerbl_1.png)
 
 ## Vision Transformers Need Registers
 
@@ -141,6 +163,16 @@ The same thing likely happens with the figure above. Look at the vertical axes. 
 - Venue: ICLR 2024
 
 <blockquote class="twitter-tweet"><p lang="en" dir="ltr">Vision Transformers Need Registers [Darcez+, 2023]<br>ViTs tend to generate high-norm tokens in the background when exceeding certain size and training steps. Adding [REG] tokens reduces the artifacts and improves accuracy for pixel-level tasks.<a href="https://t.co/nP2WtVvysw">https://t.co/nP2WtVvysw</a><a href="https://twitter.com/hashtag/NowReading?src=hash&amp;ref_src=twsrc%5Etfw">#NowReading</a> <a href="https://t.co/U7bwLVYIQZ">pic.twitter.com/U7bwLVYIQZ</a></p>&mdash; Shion Honda (@shion_honda) <a href="https://twitter.com/shion_honda/status/1721424323209027619?ref_src=twsrc%5Etfw">November 6, 2023</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+Did you know that pretrained Vision Transformers have artifacts in their attention maps? The figure below shows that ViTs trained with different strategies (lable supervision for DeiT, text supervision for CLIP, and self-supervision for DINO) have similar artifacts in the background.
+
+![vits_need_registers](darcet_0.png)
+
+The authors of this paper identified this phenomenon and found that it is caused by the high-norm tokens in the background. They also found that these tokens tend to appear when the model exceeds a certain size and training steps and that they hold global information rather than local information. These observations inspired them to propose a simple solution: adding register tokens [REG] to the input sequence.
+
+![vits_need_registers](darcet_1.png)
+
+This solution indeed works for different ViTs and the repository of [**DINOv2**](https://github.com/facebookresearch/dinov2) already adopted it.
 
 ## Open X-Embodiment: Robotic Learning Datasets and RT-X Models
 
@@ -153,9 +185,29 @@ The same thing likely happens with the figure above. Look at the vertical axes. 
 
 <blockquote class="twitter-tweet"><p lang="en" dir="ltr">Robotic Learning Datasets and RT-X Models[Padalkar+, 2023]<br>Open X-Embodiment is an initiative to train a policy generalizable to different robots. It publishes a dataset collected from 22 robots and trained vision-language-action models. <a href="https://t.co/FggiOTTz9E">https://t.co/FggiOTTz9E</a><a href="https://twitter.com/hashtag/NowReading?src=hash&amp;ref_src=twsrc%5Etfw">#NowReading</a> <a href="https://t.co/2Wwl5YNd5Q">pic.twitter.com/2Wwl5YNd5Q</a></p>&mdash; Shion Honda (@shion_honda) <a href="https://twitter.com/shion_honda/status/1726853878690590902?ref_src=twsrc%5Etfw">November 21, 2023</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
+**Foundation models** changed the way we train and use machine learning models in the domains from natural language processing to computer vision. Today, we rarely train models from scratch and instead, we rely on zero-shot prediction by large and powerful models. However, their power is limited in the physical world because we don't have such models in robotics yet.
+
+**Open X-Embodiment** is an initiative to train a foundation model for robotics, which is generalizable to different robots. They assembled a dataset from 22 different robots in standardized format and made it available to the public. They also trained vision-language-action models and released them. This is just the beginning of the long journey, but I'm already impressed by the scale of the collaborative project.
+
+![open_x_embodiement](padalkar.png)
+
 ## Weak-to-Strong Generalization: Eliciting Strong Capabilities With Weak Supervision
 
 - Authors: Collin Burns, Pavel Izmailov, Jan Hendrik Kirchner, Bowen Baker, Leo Gao, Leopold Aschenbrenner, Yining Chen, Adrien Ecoffet, Manas Joglekar, Jan Leike, Ilya Sutskever, Jeff Wu
 - Paper: https://arxiv.org/abs/2312.09390
 
 <blockquote class="twitter-tweet"><p lang="en" dir="ltr">Weak-to-strong Generalization [Burns+, 2023]<br>This paper presents superalignement: a new research direction to align super-human AIs. They studied its analogy, training GPT-4 with labels from smaller models in NLP/chess/reward modeling.<a href="https://t.co/fhtum2Iu1N">https://t.co/fhtum2Iu1N</a><a href="https://twitter.com/hashtag/NowReading?src=hash&amp;ref_src=twsrc%5Etfw">#NowReading</a> <a href="https://t.co/Hqc1sJSkEE">pic.twitter.com/Hqc1sJSkEE</a></p>&mdash; Shion Honda (@shion_honda) <a href="https://twitter.com/shion_honda/status/1736334549276078297?ref_src=twsrc%5Etfw">December 17, 2023</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+OpenAI not only do their research towards super-human intelligence but also already started studying how to align super-human intelligence. This paper from OpenAI presents **superalignment**, a new research direction to align super-human AIs. Since we don't have super-human intelligence yet, they studied its analogy, training GPT-4 with labels from smaller models in tasks such as NLP, chess, and reward modeling.
+
+![superalignment](burns_0.png)
+
+When naively fine-tuned with labels from weak models, GPT-4 consistently outperforms the weak models. The authors call this phenomenon **weak-to-strong generalization**. However, that naive fine-tuning performs far worse than fine-tuning from ground truth labels. This gap can be mitigated by using an auxiliary confidence loss.
+
+![weak_to_strong_generalization](burns_1.png)
+
+These results have interesting implications for superalignment, but at the same time, they are preliminary and come with limitations. For example, the pretraining data of GPT-4 contains supervision from humans, which makes it unfairly easy to elicit its strong capabilities. Super-human intelligence may not be trained on such data and thus may not be as easy to be aligned as GPT-4.
+
+## Concluding Remarks
+
+As we look back on the advancements in deep learning in 2023, it's clear that the field continues to evolve at a rapid pace. From the exploration of Vision Transformers and their artifacts to the development of superalignment for super-human AIs, the year was filled with groundbreaking research and applications. As we move forward, it's exciting to think about what 2024 will bring. Until next time!
