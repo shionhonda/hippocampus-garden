@@ -7,24 +7,25 @@
 
 import React from "react"
 import { useStaticQuery, graphql } from "gatsby"
-import { GatsbyImage } from "gatsby-plugin-image";
+import { GatsbyImage } from "gatsby-plugin-image"
 
 import { rhythm } from "../utils/typography"
 
 const Bio = ({ children }) => {
-  const data = useStaticQuery(graphql`query BioQuery {
-  file(absolutePath: {regex: "/profile-pic.png/"}) {
-    childImageSharp {
-      gatsbyImageData(width: 50, height: 50, layout: FIXED)
+  const data = useStaticQuery(graphql`
+    query BioQuery {
+      file(absolutePath: { regex: "/profile-pic.png/" }) {
+        childImageSharp {
+          gatsbyImageData(width: 50, height: 50, layout: FIXED)
+        }
+      }
+      site {
+        siteMetadata {
+          author
+        }
+      }
     }
-  }
-  site {
-    siteMetadata {
-      author
-    }
-  }
-}
-`)
+  `)
 
   const author = data.site.siteMetadata
 
@@ -34,7 +35,7 @@ const Bio = ({ children }) => {
         display: `flex`,
         padding: rhythm(0.5),
         marginBottom: rhythm(0.5),
-        backgroundColor: "white"
+        backgroundColor: "white",
       }}
     >
       <GatsbyImage
@@ -44,10 +45,11 @@ const Bio = ({ children }) => {
           marginRight: rhythm(1 / 2),
           marginBottom: 0,
           minWidth: 50,
-        }} />
+        }}
+      />
       {children}
     </div>
-  );
+  )
 }
 
 export default Bio

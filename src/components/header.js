@@ -1,12 +1,11 @@
-import React from 'react'
-import { Link } from 'gatsby'
-import styled from 'styled-components'
-import Navbar from './navbar'
+import React from "react"
+import { Link } from "gatsby"
+import styled from "styled-components"
+import Navbar from "./navbar"
 
 const Header = () => {
   // Set ImageData.
   return (
-
     <div
       style={{
         backgroundImage: `linear-gradient(to top, #41899E, #72dbc1)`,
@@ -21,7 +20,7 @@ const Header = () => {
           marginBottom: 0,
           marginTop: 0,
           fontStyle: `bold`,
-          fontSize: `42px`
+          fontSize: `42px`,
         }}
       >
         <Link
@@ -39,14 +38,14 @@ const Header = () => {
         style={{
           margin: 0,
           fontStyle: `italic`,
-        }}>
+        }}
+      >
         {`Under the sea, in the hippocampus's garden...`}
       </p>
       <Navbar />
-    </div >
+    </div>
   )
 }
-
 
 const StyledHeader = styled(Header)`
   width: 100%;

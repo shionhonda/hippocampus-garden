@@ -1,18 +1,15 @@
-import React from 'react'
+import React from "react"
 
-import {
-  title,
-  siteUrl,
-  description,
-  logo,
-  social
-} from '../config/site.js';
+import { title, siteUrl, description, logo, social } from "../config/site.js"
 
 export default function OGP({ type, pageTitle, pageDescription }) {
   return (
     <>
       <meta property="og:title" content={pageTitle || title} />
-      <meta property="og:description" content={pageDescription || description} />
+      <meta
+        property="og:description"
+        content={pageDescription || description}
+      />
 
       <meta property="og:url" content={siteUrl} />
       <meta property="og:type" content={type} />
