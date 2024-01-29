@@ -1,5 +1,6 @@
 import React from 'react';
 import { useStaticQuery, graphql } from "gatsby"
+import { Helmet, HelmetProvider } from "react-helmet-async"
 import {
     FacebookShareButton,
     FacebookIcon,
@@ -31,8 +32,13 @@ const Share = ({ title, url }) => {
 
 
     return (
+        <HelmetProvider>
 
         <ul style={{ listStyle: "none", margin: "0", padding: "0" }}>
+            <Helmet>
+                <script type="text/javascript" src="//b.st-hatena.com/js/bookmark_button.js" charset="utf-8" async="async" />
+            </Helmet>
+
             <li style={{ display: "inline-block" }}>
                 <TwitterShareButton title={title} via={social.twitter} url={url}>
                     <TwitterIcon size={40} square="true" />
@@ -59,20 +65,15 @@ const Share = ({ title, url }) => {
                 </LineShareButton>
             </li>
             <li style={{ display: "inline-block" }}>
-                <a href="https://b.hatena.ne.jp/entry/" class="hatena-bookmark-button" data-hatena-bookmark-layout="touch-counter" data-hatena-bookmark-width="40" data-hatena-bookmark-height="40" title="このエントリーをはてなブックマークに追加">
-                    <img src="https://b.st-hatena.com/images/v4/public/entry-button/button-only@2x.png" alt="このエントリーをはてなブックマークに追加" width="40" height="40" style={{border: "none"}} />
+                <a href="https://b.hatena.ne.jp/entry/" className="hatena-bookmark-button" data-hatena-bookmark-layout="touch-counter" data-hatena-bookmark-height="40" title="このエントリーをはてなブックマークに追加">
+                    <img src="https://b.st-hatena.com/images/v4/public/entry-button/button-only@2x.png" alt="このエントリーをはてなブックマークに追加" width="40" height="40" style={{ border: "none" }} />
                 </a>
             </li>
         </ul>
+        </HelmetProvider>
 
     );
 
 }
 
 export default Share;
-
-export const Head = () => {
-    <>
-        <script type="text/javascript" src="https://b.st-hatena.com/js/bookmark_button.js" charset="utf-8" async="async"></script>
-    </>
-}
