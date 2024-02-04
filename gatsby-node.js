@@ -154,11 +154,13 @@ exports.sourceNodes = async ({ actions, createContentDigest }) => {
 
   function createNodes(GAResult, nodeName) {
     // counts from GA3
-    const fileContents = fs.readFileSync('content/assets/google-analytics-v3.json', 'utf8');
     const prevCounts = {};
-    JSON.parse(fileContents).nodes.forEach(node => {
-      prevCounts[node.path] = node.count;
-    });
+    if (nodeName==='TotalPageViews') {
+      const fileContents = fs.readFileSync('content/assets/google-analytics-v3.json', 'utf8');
+      JSON.parse(fileContents).nodes.forEach(node => {
+        prevCounts[node.path] = node.count;
+      });
+    }
 
     const rows = GAResult.data.rows;
     for (let i = 0; i < rows.length; i++) {
