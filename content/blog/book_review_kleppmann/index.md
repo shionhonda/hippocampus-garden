@@ -8,9 +8,7 @@ tags: ["ja", "book"]
 
 ## はじめに
 
-『[データ指向アプリケーションデザイン](https://www.oreilly.co.jp/books/9784873118703/)』（Martin Kleppmann　著、斉藤 太郎　監訳、玉川 竜司　訳、O’Reilly Japan、2019年）を読んだので、まとめと感想を書きます。
-
-<iframe sandbox="allow-popups allow-scripts allow-modals allow-forms allow-same-origin" style="width:120px;height:240px;" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="//rcm-fe.amazon-adsystem.com/e/cm?lt1=_blank&bc1=000000&IS2=1&bg1=FFFFFF&fc1=000000&lc1=0000FF&t=hippocampus09-22&language=ja_JP&o=9&p=8&l=as4&m=amazon&f=ifr&ref=as_ss_li_til&asins=4873118700&linkId=9c1d7bb09097c6ff19ab53dd2332e3bf"></iframe>
+『[データ指向アプリケーションデザイン](https://amzn.to/3umnasI)』（Martin Kleppmann　著、斉藤 太郎　監訳、玉川 竜司　訳、O’Reilly Japan、2019年）を読んだので、まとめと感想を書きます。
 
 ## 総評
 
@@ -215,5 +213,3 @@ MapReduceを使うと、テーブルの結合のアルゴリズムを説明す�
 - アプリケーションをデータフローの観点から捉え直し、複数の疎結合なコンポーネントに解体することで、アプリケーションの進化が容易になります
 - 正確なアプリケーションを作るためには、冪等性と制約の担保が重要です。ただし、実際のビジネスでは、完全な制約よりも謝罪による解決をとることもあります
 - ソフトウェアとデータの組み合わせは人々の生活を向上させることができると同時に、差別、搾取、情報漏洩、監視などを通じて大きな害を及ぼすこともあり得ます。開発者はこのリスクを理解し、責任を持たなければなりません
-
-<iframe sandbox="allow-popups allow-scripts allow-modals allow-forms allow-same-origin" style="width:120px;height:240px;" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="//rcm-fe.amazon-adsystem.com/e/cm?lt1=_blank&bc1=000000&IS2=1&bg1=FFFFFF&fc1=000000&lc1=0000FF&t=hippocampus09-22&language=ja_JP&o=9&p=8&l=as4&m=amazon&f=ifr&ref=as_ss_li_til&asins=4873118700&linkId=9c1d7bb09097c6ff19ab53dd2332e3bf"></iframe>
