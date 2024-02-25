@@ -7,9 +7,7 @@ tags: ["ja", "book", "data-analysis"]
 ---
 
 ## はじめに
-『Kaggleで勝つデータ分析の技術』（門脇大輔, 阪田隆司, 保坂桂, 平松雄司 著，技術評論社，2019年）を読んだので，まとめと感想を書きます．
-
-<iframe style="width:120px;height:240px;" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="//rcm-fe.amazon-adsystem.com/e/cm?lt1=_blank&bc1=000000&IS2=1&bg1=FFFFFF&fc1=000000&lc1=0000FF&t=hippocampus09-22&language=ja_JP&o=9&p=8&l=as4&m=amazon&f=ifr&ref=as_ss_li_til&asins=4297108437&linkId=a500fd0052d8fc805e1d9a3c6dfcc65b"></iframe>
+『[Kaggleで勝つデータ分析の技術](https://amzn.to/4bQD2o1)』（門脇大輔, 阪田隆司, 保坂桂, 平松雄司 著，技術評論社，2019年）を読んだので，まとめと感想を書きます．
 
 本書は，Kaggleないしデータ分析コンペに関する書籍としてはおそらく邦訳を含めても日本初で，それまでKaggleのKernelやDiscussion，個人ブログなどに散在していたデータ分析の集合知や暗黙知を一冊にまとめることを試みた野心的な参考書です．分析コンペの経験がない初心者はもちろん，ある程度経験のある人でも知識を体系化したり抜け漏れを発見したりするのに役立つと思われます．
 
@@ -43,14 +41,3 @@ tags: ["ja", "book", "data-analysis"]
 
 ### 第7章 アンサンブル
 第7章は，本書でもっとも特徴的な部分とも言える「モデルの**アンサンブル**」の解説です．アンサンブルについては理論に根ざした方法論があるわけではないのでほとんどの参考書では扱われていない印象がありますが，Kaggleの上位解法には不可欠な要素ということで，本書の最後に取り上げられています．「こうするとうまくいくことが多い」という経験的な知識ではありますが，自分で闇雲に試すよりもこのような指針を頭に入れてから臨んだ方が効率的だと思います．
-
-## 関連書籍
-まだ読めていないのですが，近年Kaggleをテーマにした書籍が各社から出版されており，Kaggleの日本での盛り上がりを感じることができます．
-
-<iframe style="width:120px;height:240px;" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="//rcm-fe.amazon-adsystem.com/e/cm?lt1=_blank&bc1=000000&IS2=1&bg1=FFFFFF&fc1=000000&lc1=0000FF&t=hippocampus09-22&language=ja_JP&o=9&p=8&l=as4&m=amazon&f=ifr&ref=as_ss_li_til&asins=4065190061&linkId=5454a45766d6102a3e1333bd90f77e9f"></iframe>
-
-<iframe style="width:120px;height:240px;" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="//rcm-fe.amazon-adsystem.com/e/cm?lt1=_blank&bc1=000000&IS2=1&bg1=FFFFFF&fc1=000000&lc1=0000FF&t=hippocampus09-22&language=ja_JP&o=9&p=8&l=as4&m=amazon&f=ifr&ref=as_ss_li_til&asins=4839968934&linkId=a2594c0b7700520862cc2eac020000a1"></iframe>
-
-また，特徴量エンジニアリングについては『機械学習のための特徴量エンジニアリング』も詳しいです．
-
-<iframe style="width:120px;height:240px;" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="//rcm-fe.amazon-adsystem.com/e/cm?lt1=_blank&bc1=000000&IS2=1&bg1=FFFFFF&fc1=000000&lc1=0000FF&t=hippocampus09-22&language=ja_JP&o=9&p=8&l=as4&m=amazon&f=ifr&ref=as_ss_li_til&asins=4873118689&linkId=b79d10a57641b93259bc98d157e93e90"></iframe>

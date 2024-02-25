@@ -24,15 +24,10 @@ tags: ["ja", "book", "misc"]
 また、寄付という行為も自分にとって良いことをもたらしました。まず、自己肯定感が高まることです。たとえ小さなことであっても、誰かの役に立てるのは嬉しいものです。それから、社会との関わりを考えるきっかけになることです。私は昨年子ども食堂に寄付をしたのですが、一度コミットするとその後も何かと気になって、調べたり考えたりすることが増えました。
 
 # 2021年の選書と寄付先
-ちなみに、2021年のクリスマスは、私は『ソラリス』が好きな妻にStanisław Lem（スタニスワフ・レム）の『完全な真空』を贈りました。妻からは、昨年『ナイルに死す』を読んでハマったAgatha Christieの『春にして君を離れ』をもらいました。妻が結構な読書家であるため毎年選書という楽しい苦労をしているので、おすすめの本があれば教えていただけると嬉しいです。
-
-<iframe style="width:120px;height:240px;" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="//rcm-fe.amazon-adsystem.com/e/cm?lt1=_blank&bc1=000000&IS2=1&bg1=FFFFFF&fc1=000000&lc1=0000FF&t=hippocampus09-22&language=ja_JP&o=9&p=8&l=as4&m=amazon&f=ifr&ref=as_ss_li_til&asins=4309464998&linkId=1061caa61868427db0adbc80f74470f7"></iframe>
-
-<iframe style="width:120px;height:240px;" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="//rcm-fe.amazon-adsystem.com/e/cm?lt1=_blank&bc1=000000&IS2=1&bg1=FFFFFF&fc1=000000&lc1=0000FF&t=hippocampus09-22&language=ja_JP&o=9&p=8&l=as4&m=amazon&f=ifr&ref=as_ss_li_til&asins=4151300813&linkId=0789a9835579f7d82e4d3aa201638b33"></iframe>
+ちなみに、2021年のクリスマスは、私は『ソラリス』が好きな妻にStanisław Lem（スタニスワフ・レム）の『[完全な真空](https://amzn.to/3wwCpjy)』を贈りました。妻からは、昨年『ナイルに死す』を読んでハマったAgatha Christieの『[春にして君を離れ](https://amzn.to/4bPBomz)』をもらいました。妻が結構な読書家であるため毎年選書という楽しい苦労をしているので、おすすめの本があれば教えていただけると嬉しいです。
 
 また、寄付は以前住んでいた地域の子ども食堂、難民支援協会、Wikipedia財団、arXiv.orgにしました。今後も、余裕のある範囲で、気軽に寄付をしていきたいです。
 
 最近話題になっているOSSへの寄付についても、このブログやPython周辺でかなりお世話になっているので検討したいのですが、使っているすべてのOSSにとなると煩雑なので、やはりうまく分配するような仕組みがあるといいなと思います。
 
-[^1]:
-    パートナーに贈るプレゼントの相場は1-2万円らしいです（[参考](https://insight.rakuten.co.jp/report/20211215/)）。
+[^1]: パートナーに贈るプレゼントの相場は1-2万円らしいです（[参考](https://insight.rakuten.co.jp/report/20211215/)）。
