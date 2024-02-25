@@ -8,9 +8,7 @@ tags: ["ja", "book", "programming"]
 
 
 ## はじめに
-『新しいLinuxの教科書』（三宅英明, 大角祐介 著，SBクリエイティブ，2015年）を読んだので，まとめと感想を書きます．
-
-<iframe style="width:120px;height:240px;" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="//rcm-fe.amazon-adsystem.com/e/cm?lt1=_blank&bc1=000000&IS2=1&bg1=FFFFFF&fc1=000000&lc1=0000FF&t=hippocampus09-22&language=ja_JP&o=9&p=8&l=as4&m=amazon&f=ifr&ref=as_ss_li_til&asins=4797380942&linkId=b43374c2559ceadce4135773553e90e4"></iframe>
+『[新しいLinuxの教科書](https://amzn.to/3Ibze3b)』（三宅英明, 大角祐介 著，SBクリエイティブ，2015年）を読んだので，まとめと感想を書きます．
 
 本書は，**CLI** (**command line interface**)からLinuxを使うことに焦点を当てたLinuxの入門書です．ネットワークやアプリケーション開発といったテーマは扱っておらず，平たく言うと「Linuxの基本的な操作をCLIからできるようになること」「シェルスクリプトを読み書きできるようになること」を目的とした教科書のようです．
 

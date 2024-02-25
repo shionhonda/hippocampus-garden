@@ -7,9 +7,7 @@ tags: ["ja", "book", "programming"]
 ---
 
 ## はじめに
-『アジャイルサムライ――達人開発者への道』（Jonathan Rasmusson 著，西村直人, 角谷信太郎 監訳，オーム社，2011年）を読んだので，まとめと感想を書きます．
-
-<iframe style="width:120px;height:240px;" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="//rcm-fe.amazon-adsystem.com/e/cm?lt1=_blank&bc1=000000&IS2=1&bg1=FFFFFF&fc1=000000&lc1=0000FF&t=hippocampus09-22&language=ja_JP&o=9&p=8&l=as4&m=amazon&f=ifr&ref=as_ss_li_til&asins=4274068560&linkId=3640b975813edef0e9fa7b9c8440b538"></iframe>
+『[アジャイルサムライ――達人開発者への道](https://amzn.to/4bJprz3)』（Jonathan Rasmusson 著，西村直人, 角谷信太郎 監訳，オーム社，2011年）を読んだので，まとめと感想を書きます．
 
 本書は，[**アジャイル開発**](https://ja.wikipedia.org/wiki/%E3%82%A2%E3%82%B8%E3%83%A3%E3%82%A4%E3%83%AB%E3%82%BD%E3%83%95%E3%83%88%E3%82%A6%E3%82%A7%E3%82%A2%E9%96%8B%E7%99%BA)の心構えや実践するための方法を解説した本です．
 出版が2011年と技術書にしては古めですが，以前このブログでも紹介した『[リーダブルコード](https://hippocampus-garden.com/book_review_boswell/)』と同様に，「新人エンジニアが読むべき技術書」によく数えられる「殿堂入りの技術書」です．したがって，本記事もこれまでの書評と同じく，ほとんど自分の復習用に書いています．本記事よりも詳しくまとめている記事を貼っておきますので，興味のある方はこちらもどうぞ．
@@ -108,10 +106,6 @@ tags: ["ja", "book", "programming"]
   - チェックインされるたびにビルドできるようビルドを自動化しておく
 
 ## 豆知識と関連書籍
-ちなみに，ソフトウェア開発を飛び出して経営の正解でも注目されている「スクラム」は『スクラム　仕事が４倍速くなる“世界標準”のチーム戦術』の著者であるJeff Sutherland氏が生みの親だそうですが，彼は『失敗の本質』などで知られる野中郁次郎らの『[The New New Product Development Game](https://hbr.org/1986/01/the-new-new-product-development-game)』という1986年の論文に影響を受けたそうです．確かに，論文には次のような図があります．論文中でType Aはリレー方式，Type Bは「刺し身方式」，Type Cはスクラム方式と呼ばれています．
+ちなみに，ソフトウェア開発を飛び出して経営の正解でも注目されている「スクラム」は『[スクラム　仕事が４倍速くなる“世界標準”のチーム戦術](https://amzn.to/42UbR7J)』の著者であるJeff Sutherland氏が生みの親だそうですが，彼は『失敗の本質』などで知られる野中郁次郎らの『[The New New Product Development Game](https://hbr.org/1986/01/the-new-new-product-development-game)』という1986年の論文に影響を受けたそうです．確かに，論文には次のような図があります．論文中でType Aはリレー方式，Type Bは「刺し身方式」，Type Cはスクラム方式と呼ばれています．
 
 ![](2021-01-23-22-26-42.png)
-
-<iframe style="width:120px;height:240px;" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="//rcm-fe.amazon-adsystem.com/e/cm?lt1=_blank&bc1=000000&IS2=1&bg1=FFFFFF&fc1=000000&lc1=0000FF&t=hippocampus09-22&language=ja_JP&o=9&p=8&l=as4&m=amazon&f=ifr&ref=as_ss_li_til&asins=4152095423&linkId=7c823f261d519205cbb21ec5a092d9ae"></iframe>
-
-<iframe style="width:120px;height:240px;" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="//rcm-fe.amazon-adsystem.com/e/cm?lt1=_blank&bc1=000000&IS2=1&bg1=FFFFFF&fc1=000000&lc1=0000FF&t=hippocampus09-22&language=ja_JP&o=9&p=8&l=as4&m=amazon&f=ifr&ref=as_ss_li_til&asins=B00BN16XX8&linkId=6e64765129367f019aadd24115160e42"></iframe>

@@ -7,7 +7,7 @@ tags: ["ja", "misc"]
 ---
 
 ## 食洗機の不調
-昨年3月、アイリスオーヤマの据え置き式食洗機（[ISHT-5000-W](https://www.irisohyama.co.jp/products/electrical-appliances/cooking-appliances/other-cooking-appliances/dishwasher/dishwasher)）を購入しました。
+昨年3月、アイリスオーヤマの据え置き式食洗機（[ISHT-5000-W](https://amzn.to/3uNSy3C)）を購入しました。
 
 ![](2022-03-08-10-04-04.png)
 
@@ -35,23 +35,19 @@ tags: ["ja", "misc"]
 これで無事に汚れの除去に成功し、食洗機の洗浄力も元に戻りました。説明書にもこの方法を書いてほしかったところです。
 
 ## おまけ：食洗機について
-ところで、この食洗機（[ISHT-5000-W](https://www.irisohyama.co.jp/products/electrical-appliances/cooking-appliances/other-cooking-appliances/dishwasher/dishwasher)）を選んだときに重視したのは次の2点です。
+ところで、この食洗機を選んだときに重視したのは次の2点です。
 
 - 水道工事が不要な据え置き式（家が賃貸物件のため）
 - 場所を取らない（キッチンが狭いため）
 
 使うたびに5Lの水を手動で汲んで注がなければならないのが面倒なところですが、自宅の水道がバイパスできない仕様だったので仕方ありませんでした。安くてもしっかり働いてくれるので、水汲みの面倒さえ許容できるならエントリーモデルとしておすすめできます。
 
-<iframe style="width:120px;height:240px;" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="//rcm-fe.amazon-adsystem.com/e/cm?lt1=_blank&bc1=000000&IS2=1&bg1=FFFFFF&fc1=000000&lc1=0000FF&t=hippocampus09-22&language=ja_JP&o=9&p=8&l=as4&m=amazon&f=ifr&ref=as_ss_li_til&asins=B0811MR8D9&linkId=a4e373ae6075115abfad8a661d42e498"></iframe>
-
 皿洗いの手間がなくなったとはいえ、新しく食洗機を洗う手間ができるのは手放しで喜べないところです。早く手入れ不要の食洗機が発明されますように。
 
 ### 追記（2022年5月14日）
 お手入れで洗浄力が復活したと思っていたのですが、その数週間後に故障してしまいました。洗浄開始ボタンを押したあと、しばらくモーター音がしてから動作が停止してしまうという症状です。ちょうど購入後1年を過ぎた頃で保証期間も切れていたので、買い替えることにしました。
 
-今度買ったのは、THANKOの「ラクア」です。
-
-<iframe sandbox="allow-popups allow-scripts allow-modals allow-forms allow-same-origin" style="width:120px;height:240px;" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="//rcm-fe.amazon-adsystem.com/e/cm?lt1=_blank&bc1=000000&IS2=1&bg1=FFFFFF&fc1=000000&lc1=0000FF&t=hippocampus09-22&language=ja_JP&o=9&p=8&l=as4&m=amazon&f=ifr&ref=as_ss_li_til&asins=B0921TF3MH&linkId=5ea8a187f66e905f1d496f66c2f9ee03"></iframe>
+今度買ったのは、[THANKOのラクア](https://amzn.to/3wuJ9ym)です。
 
 価格や基本的な機能はほぼ同じなのですが、1ヶ月ほど使ってみた感触ではアイリスオーヤマ「ISHT-5000-W」よりもかなり気に入っています。具体的には以下のような点です。
 
