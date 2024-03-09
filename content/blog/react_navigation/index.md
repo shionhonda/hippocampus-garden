@@ -1,5 +1,5 @@
 ---
-title: "Unpacking the Tricky Behavior of React Navigation's `navigate` Function"
+title: "Unpacking the Tricky Behavior of React Navigation's navigate Function"
 date: "2024-03-09T22:01:03.284Z"
 description: "Does your React Native app go back to an unexpected screen? Here's how to deal with it."
 featuredImage: react_navigation/ogp.jpg
@@ -33,15 +33,15 @@ So, if the destination screen is already present in the stack, it *goes back* to
 1. Start with the screen A
 2. Navigate to the screen B with `navigation.navigate("B")`. We push "B" to the stack
 3. Navigate to the screen C with `navigation.navigate("C")`. At this point, the stack is ["C", "B", "A"]
-4. Navigate to the screen B with `navigation.navigate("B")`. We already have "B" to the stack, so we keep popping from the stack until we find "B". In this case, we pop "C" from the stack
+4. Navigate to the screen B with `navigation.navigate("B")`. We already have "B" to the stack, so we keep popping from the stack until we find "B". In this case, we pop just "C" from the stack
 5. Go back with `navigation.goBack()`. We pop "B" from the stack and the screen A is shown
 
 
 ## How to Go Back to the Screen C
 
-Is it possible to change this behavior to go back to the screen C? Yes, it is. To do that, we should use `navigation.push("B")` instead of `navigation.navigate("B")` at the step 4. The `push` function always pushes a new screen to the stack regardless of the stack history, so we can go back to the screen C as expected. Here is the step by step explanation.
+Is it possible to change this behavior to go back to the screen C? Yes, it is. To do that, we should use `navigation.push("B")` instead of `navigation.navigate("B")` at the step 4. The `push` function *always pushes a new screen to the stack regardless of the stack history*, so we can go back to the screen C as expected. Here is the step by step explanation.
 
-![](./navigate.png)
+![](./push.png)
 
 1. (Same as the previous example)
 2. (Same as the previous example)
