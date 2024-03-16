@@ -2,8 +2,8 @@
 title: "Elo vs Bradley-Terry"
 date: "2024-03-17T22:01:03.284Z"
 description: ""
-featuredImage: elo_vs_bt/ogp.jpg
-tags: ["en"]
+featuredImage: elo_vs_bt/figure.png
+tags: ["en", "math", "python"]
 ---
 
 Chatbot Arena is an open platform for evaluating and comparing conversational AI models. Recently, LMSYS Org updated it's ranking algorithm from the online Elo rating to the Bradley-Terry model.
@@ -49,8 +49,12 @@ $$
 
 We can estimate the ratings $R_i$ by maximizing the likelihood of the observed results of the games.
 
-As opposed to the Elo rating system, Bradley-Terry model assumes that the performance of the players does not change and the computation takes place in a centralized fashion. This makes the ratings more stable and less dependent on the order of the games.
+As opposed to the Elo rating system, Bradley-Terry model assumes that the performance of the players does not change. This makes the ratings less dependent on the game order and hence more stable.
 
 https://lmsys.org/blog/2023-12-07-leaderboard/#transition-from-online-elo-rating-system-to-bradley-terry-model
 
 ## Experiment
+
+![Elo vs Bradley-Terry](figure.png)
+
+https://colab.research.google.com/drive/1KdwokPjirkTmpO_P1WByFNFiqxWQquwH
