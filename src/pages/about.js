@@ -81,20 +81,16 @@ const About = ({ data, location }) => {
         You may also like:
         <ul>
           <li>
+            <a href="https://medium.com/@shionhonda" target="_blank" rel="noopener noreferrer"><strong>Medium</strong></a>. 
+            Here are some posts I write for my company's tech blog.
+          </li>
+          <li>
             <a href="https://qiita.com/shionhonda" target="_blank" rel="noopener noreferrer"><strong>Qiita</strong></a> (all in Japanese).
             I used to write survey posts here. The topics are somewhat wide: system trading for cryptocurrencies, graph neural networks, deep reinforcement learning, deep generative models, etc.
           </li>
           <li>
             <a href="https://ai-scholar.tech/author/honda-shion/" target="_blank" rel="noopener noreferrer"><strong>AI-SCHOLAR</strong></a> (all in Japanese).
             I contributed some introductory articles to a web media for non-experts in AI.
-          </li>
-          <li>
-            <a href="https://speakerdeck.com/shionhonda" target="_blank" rel="noopener noreferrer"><strong>Speaker Deck</strong></a> (all in Japanese)
-            Here are some decks that I used in my talks and presentations.
-          </li>
-          <li>
-            <a href="https://www.slideshare.net/ShionHonda" target="_blank" rel="noopener noreferrer"><strong>SlideShare</strong></a> (mostly in Japanese).
-            More decks.
           </li>
           <li>
             <a href="https://www.amazon.jp/hz/wishlist/ls/3DA10HYL0KND7?ref_=wl_share" target="_blank" rel="noopener noreferrer"><strong>Amazon Wish List</strong></a>.
