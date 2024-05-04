@@ -2,7 +2,7 @@
 title: "Aligning LLMs without Reinforcement Learning"
 date: "2024-04-27T22:01:03.284Z"
 description: "DPO reduces the effort required to align LLMs. Here is how I created the Reviewer #2 Bot from TinyLlama using DPO."
-featuredImage: tiny_llama_dpo_lora/ogp.png
+featuredImage: tiny_llama_dpo_lora/ogp.jpg
 tags: ["en", "nlp", "deep-learning"]
 ---
 
