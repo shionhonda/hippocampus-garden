@@ -78,20 +78,16 @@ const AboutJa = ({ data, location }) => {
         <h2>リンク集</h2>
         <ul>
           <li>
+            <a href="https://medium.com/@shionhonda" target="_blank" rel="noopener noreferrer"><strong>Medium</strong></a>：
+            勤務先のテックブログに投稿した記事があります。
+          </li>
+          <li>
             <a href="https://qiita.com/shionhonda" target="_blank" rel="noopener noreferrer"><strong>Qiita</strong></a>：
             過去に日本語でブログ記事を書いていました。内容は暗号通貨、グラフニューラルネットワーク、深層強化学習、深層生成モデルなど多岐にわたります。
           </li>
           <li>
             <a href="https://ai-scholar.tech/author/honda-shion/" target="_blank" rel="noopener noreferrer"><strong>AI-SCHOLAR</strong></a>：
             非専門家に向けたAIの解説記事をいくつか寄稿しました。
-          </li>
-          <li>
-            <a href="https://speakerdeck.com/shionhonda" target="_blank" rel="noopener noreferrer"><strong>Speaker Deck</strong></a>：
-            勉強会の発表などで用いた資料をまとめています。
-          </li>
-          <li>
-            <a href="https://www.slideshare.net/ShionHonda" target="_blank" rel="noopener noreferrer"><strong>SlideShare</strong></a>：
-            勉強会の発表などで用いた資料をまとめています。Speaker Deckに以降する以前のもの。
           </li>
           <li>
             <a href="https://www.amazon.jp/hz/wishlist/ls/3DA10HYL0KND7?ref_=wl_share" target="_blank" rel="noopener noreferrer"><strong>Amazon Wish List</strong></a>：
