@@ -76,7 +76,7 @@ const About = ({ data, location }) => {
             rel="noopener noreferrer"
           >
             <StaticImage
-              src="../../content/assets/huggingface.svg"
+              src="../../content/assets/hugging-face.png"
               alt="huggingface"
               width={l50}
               height={l50}
@@ -230,7 +230,7 @@ export const pageQuery = graphql`
     githubIcon: file(relativePath: { eq: "github.png" }) {
       ...fixedImage50
     }
-    huggingfaceIcon: file(relativePath: { eq: "hugging-face.svg" }) {
+    huggingfaceIcon: file(relativePath: { eq: "hugging-face.png" }) {
       ...fixedImage50
     }
     kaggleIcon: file(relativePath: { eq: "kaggle.png" }) {
