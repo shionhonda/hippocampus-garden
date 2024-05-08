@@ -1,6 +1,6 @@
 ---
 title: "Aligning LLMs without Paired Preference Labels"
-date: "2024-04-27T22:01:03.284Z"
+date: "2024-05-08T22:01:03.284Z"
 description: "It's hard to collect paired preferences. Can we align LLMs without them? Yes, with KTO!"
 featuredImage: tiny_llama_kto_lora/ogp.jpg
 tags: ["en", "nlp", "deep-learning"]
@@ -10,8 +10,8 @@ In [the previous post](https://hippocampus-garden.com/tiny_llama_dpo_lora/), I d
 
 Similarly to the post about DPO, all the artifacts of this project are publicly accessible:
 
-- [Dataset shionhonda/reviewer2-1k-unpaired](https://huggingface.co/datasets/shionhonda/reviewer2-2k-unpaired)
-- [Model shionhonda/tiny-llama-reviewer2-1.1B-dpo-lora](https://huggingface.co/shionhonda/tiny-llama-reviewer2-1.1B-dpo-lora)
+- [Dataset shionhonda/reviewer2-2k-unpaired](https://huggingface.co/datasets/shionhonda/reviewer2-2k-unpaired)
+- [Model shionhonda/tiny-llama-reviewer2-1.1B-kto-lora](https://huggingface.co/shionhonda/tiny-llama-reviewer2-1.1B-kto-lora)
 - [Training script](https://colab.research.google.com/drive/1HlH7Ydjcqn0cVghv1n9RcqEjwvCz4a5_?usp=sharing)
 - [Training log](https://wandb.ai/shion_honda/reviewer-2-bot-kto-tiny-llama)
 
@@ -72,7 +72,7 @@ They look good as the validation loss is decreasing and the reward is increasing
 
 The KTO-trained model looks better than the DPO-trained model qualitatively as well. You can see it by chatting with the bot [here](https://huggingface.co/spaces/shionhonda/reviewer2-bot). For busy readers, I share a sample output here:
 
-![output sample](sample.png)
+![output_sample](sample.png)
 
 I speculate that KTO worked better than DPO because KTO is more robust to the noisy labels than DPO. According to the [original paper](https://arxiv.org/abs/2402.01306):
 

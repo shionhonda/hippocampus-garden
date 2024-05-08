@@ -105,7 +105,7 @@ Here are the learning curves:
 
 Well, it doesn't seem to work well. The training loss keeps fluctuating and the validation loss is not decreasing at all. We observe the similar behavior for the reward as well. I tried different hyperparameters but the results were similar. I suspect that this is because I faked the prompts in the preference dataset. However, when we look at the generated outputs, they are not bad! Here is an example:
 
-![output sample](sample.png)
+![output_sample](sample.png)
 
 Yes, this is a harsh review that I would expect from Reviewer #2!
 
@@ -113,10 +113,11 @@ Yes, this is a harsh review that I would expect from Reviewer #2!
 
 DPO is a novel approach to align LLMs without reinforcement learning and already adopted by many successful LLMs. In this example, I showed how to train Reviewer #2 Bot with DPO. The results were not great, but the generated outputs show signs of success.
 
-If you are interested in training larger models, I also recommend [this article](https://huggingface.co/blog/dpo-trl). The authors trained a 7B-parameter model with DPO here. Also, if your dataset is not paired, you can use a method called [**Kahneman-Tversky Optimization**](https://arxiv.org/abs/2402.01306) (**KTO**). [TRL already supports KTO](https://huggingface.co/docs/trl/main/en/kto_trainer) so you can try it out.
+If you are interested in training larger models, I also recommend [this article](https://huggingface.co/blog/dpo-trl). The authors trained a 7B-parameter model with DPO here. Also, if your dataset is not paired, you can use a method called [**Kahneman-Tversky Optimization**](https://arxiv.org/abs/2402.01306) (**KTO**). [TRL already supports KTO](https://huggingface.co/docs/trl/main/en/kto_trainer) so you can try it out. [^4]
 
 I hope this article helps you create your own DPO-trained LLMs!
 
 [^1]: https://arxiv.org/abs/2401.04088
 [^2]: https://ai.meta.com/blog/meta-llama-3/
 [^3]: https://researcher.life/blog/article/peer-review-basics-who-is-reviewer-2/#Reviewer_2_Stereotypes_and_Perceptions
+[^4]: [I updated the Reviewer #2 Bot with KTO](https://hippocampus-garden.com/tiny_llama_kto_lora/)
