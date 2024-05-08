@@ -12,8 +12,8 @@ Similarly to the post about DPO, all the artifacts of this project are publicly 
 
 - [Dataset shionhonda/reviewer2-1k-unpaired](https://huggingface.co/datasets/shionhonda/reviewer2-2k-unpaired)
 - [Model shionhonda/tiny-llama-reviewer2-1.1B-dpo-lora](https://huggingface.co/shionhonda/tiny-llama-reviewer2-1.1B-dpo-lora)
-- [Training script](https://colab.research.google.com/drive/1jKRuC70skQx0HQrhVb5pHEOooCZkqU-6?usp=sharing)
-- [Training log](https://wandb.ai/shion_honda/reviewer-2-bot-dpo-tiny-llama)
+- [Training script](https://colab.research.google.com/drive/1HlH7Ydjcqn0cVghv1n9RcqEjwvCz4a5_?usp=sharing)
+- [Training log](https://wandb.ai/shion_honda/reviewer-2-bot-kto-tiny-llama)
 
 Also, if you are interested in the theory behind KTO, I recommend reading the [original paper](https://arxiv.org/abs/2402.01306). In short, KTO uses a loss function representing the value relative to a reference point, which is inspired by the [prospect theory](https://en.wikipedia.org/wiki/Prospect_theory) of Daniel Kahneman and Amos Tversky. As an additional benefit, KTO can align LLMs without applying **supervised fine-tuning** (**SFT**) when they are sufficiently good.
 
@@ -44,19 +44,21 @@ Next, I ran the KTO trainer with the following configuration:
 ```python
 class Config:
     beta = 0.1 # the beta parameter for KTO loss
+    desirable_weight = 1.0
+    undesirable_weight = 1.0
     learning_rate = 5e-4
     lr_scheduler_type = "cosine"
     optimizer_type = "paged_adamw_32bit"
     batch_size = 16
     lora_alpha = 16
-    lora_dropout =0.05
+    lora_dropout = 0.05
     lora_r = 8
     max_prompt_length = 256
     max_length = 128
-    max_steps = 2000
+    num_train_epochs = 8
 ```
 
-The entire script is [here](https://colab.research.google.com/drive/1jKRuC70skQx0HQrhVb5pHEOooCZkqU-6?usp=sharing) and the training logs are [here](https://wandb.ai/shion_honda/reviewer-2-bot-kto-tiny-llama).
+The entire script is [here](https://colab.research.google.com/drive/1HlH7Ydjcqn0cVghv1n9RcqEjwvCz4a5_?usp=sharing) and the training logs are [here](https://wandb.ai/shion_honda/reviewer-2-bot-kto-tiny-llama).
 
 ## Results
 
