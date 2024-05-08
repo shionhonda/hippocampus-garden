@@ -10,7 +10,7 @@ About a year ago, I [discussed **reinforcement learning from human feedback** (*
 
 In this article, I will explain how to use DPO to create your very own LLM, like the one I created: the Reviewer #2 Bot from TinyLlama. This bot gives a bitter review fn any paper you submit.[^3] Curious to see it in action? Check it out on [Hugging Face Spaces](https://huggingface.co/spaces/shionhonda/reviewer2-bot).
 
-For your reference, all resources used in this project are publicly accessible:
+For your reference, all the artifacts of this project are publicly accessible:
 
 - [Dataset shionhonda/reviewer2-1k-paired](https://huggingface.co/datasets/shionhonda/reviewer2-1k-paired)
 - [Model shionhonda/tiny-llama-reviewer2-1.1B-dpo-lora](https://huggingface.co/shionhonda/tiny-llama-reviewer2-1.1B-dpo-lora)
@@ -86,7 +86,7 @@ class Config:
     optimizer_type = "paged_adamw_32bit"
     batch_size = 10
     lora_alpha = 16
-    lora_dropout =0.05
+    lora_dropout = 0.05
     lora_r =8
     max_prompt_length = 256
     max_length = 128
@@ -99,13 +99,13 @@ The entire script is [here](https://colab.research.google.com/drive/1jKRuC70skQx
 
 Here are the learning curves:
 
-![](loss.png)
+![loss](loss.png)
 
-![](reward.png)
+![reward](reward.png)
 
 Well, it doesn't seem to work well. The training loss keeps fluctuating and the validation loss is not decreasing at all. We observe the similar behavior for the reward as well. I tried different hyperparameters but the results were similar. I suspect that this is because I faked the prompts in the preference dataset. However, when we look at the generated outputs, they are not bad! Here is an example:
 
-![](sample.png)
+![output sample](sample.png)
 
 Yes, this is a harsh review that I would expect from Reviewer #2!
 
