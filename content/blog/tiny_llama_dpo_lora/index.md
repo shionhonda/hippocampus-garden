@@ -10,12 +10,14 @@ About a year ago, I [discussed **reinforcement learning from human feedback** (*
 
 In this article, I will explain how to use DPO to create your very own LLM, like the one I created: the Reviewer #2 Bot from TinyLlama. This bot gives a bitter review fn any paper you submit.[^3] Curious to see it in action? Check it out on [Hugging Face Spaces](https://huggingface.co/spaces/shionhonda/reviewer2-bot).
 
-For your reference, all resources used in this project are publicly accessible:
+For your reference, all the artifacts of this project are publicly accessible:
 
-- [Dataset shionhonda/reviewer2-1k](https://huggingface.co/datasets/shionhonda/reviewer2-1k)
+- [Dataset shionhonda/reviewer2-1k-paired](https://huggingface.co/datasets/shionhonda/reviewer2-1k-paired)
 - [Model shionhonda/tiny-llama-reviewer2-1.1B-dpo-lora](https://huggingface.co/shionhonda/tiny-llama-reviewer2-1.1B-dpo-lora)
 - [Training script](https://colab.research.google.com/drive/1jKRuC70skQx0HQrhVb5pHEOooCZkqU-6?usp=sharing)
 - [Training log](https://wandb.ai/shion_honda/reviewer-2-bot-dpo-tiny-llama)
+
+Also, if you are interested in the theory behind DPO, I recommend reading the [original paper](https://arxiv.org/abs/2305.18290). Simply put, the authors derived an optimal policy corresponding to the reward model in a closed form and found a way to solve the RLHF problem with a classification loss.
 
 ## Setup
 
@@ -23,7 +25,7 @@ In this experiment, I used the following resources:
 
 - Hardware: Colab L4 instance (22.5GB VRAM)
 - Pretrained model: [TinyLlama-1.1B-Chat](https://huggingface.co/TinyLlama/TinyLlama-1.1B-Chat-v1.0)
-- Dataset: [shionhonda/reviewer2-1k](https://huggingface.co/datasets/shionhonda/reviewer2-1k)
+- Dataset: [shionhonda/reviewer2-1k-paired](https://huggingface.co/datasets/shionhonda/reviewer2-1k-paired)
 - DPO trainer: [TRL](https://huggingface.co/docs/trl/en/index) v0.8.5
 - LoRA: [PEFT](https://huggingface.co/docs/peft/en/index) v0.10.0
 
@@ -35,7 +37,7 @@ The [DPO trainer requires a preference dataset](https://huggingface.co/docs/trl/
 - chosen: preferred output text
 - rejected: non-preferred output text
 
-To quickly build a dataset of this format ([reviewer2-1k](https://huggingface.co/datasets/shionhonda/reviewer2-1k)), I took a creative route:
+To quickly build a dataset of this format ([reviewer2-1k-paired](https://huggingface.co/datasets/shionhonda/reviewer2-1k-paired)), I took a creative route:
 
 1. Collect 1,100 titles from [NeurIPS 2023 accepted papers](https://neurips.cc/virtual/2023/papers.html)
 2. Ask TinyLlama to generate negative reviews about the papers by literally asking "generate negative reviews" with examples
@@ -84,7 +86,7 @@ class Config:
     optimizer_type = "paged_adamw_32bit"
     batch_size = 10
     lora_alpha = 16
-    lora_dropout =0.05
+    lora_dropout = 0.05
     lora_r =8
     max_prompt_length = 256
     max_length = 128
@@ -97,13 +99,13 @@ The entire script is [here](https://colab.research.google.com/drive/1jKRuC70skQx
 
 Here are the learning curves:
 
-![](loss.png)
+![loss](loss.png)
 
-![](reward.png)
+![reward](reward.png)
 
 Well, it doesn't seem to work well. The training loss keeps fluctuating and the validation loss is not decreasing at all. We observe the similar behavior for the reward as well. I tried different hyperparameters but the results were similar. I suspect that this is because I faked the prompts in the preference dataset. However, when we look at the generated outputs, they are not bad! Here is an example:
 
-![](sample.png)
+![output_sample](sample.png)
 
 Yes, this is a harsh review that I would expect from Reviewer #2!
 
@@ -111,10 +113,11 @@ Yes, this is a harsh review that I would expect from Reviewer #2!
 
 DPO is a novel approach to align LLMs without reinforcement learning and already adopted by many successful LLMs. In this example, I showed how to train Reviewer #2 Bot with DPO. The results were not great, but the generated outputs show signs of success.
 
-If you are interested in training larger models, I also recommend [this article](https://huggingface.co/blog/dpo-trl). The authors trained a 7B-parameter model with DPO here. Also, if your dataset is not paired, you can use a method called [**Kahneman-Tversky Optimization**](https://arxiv.org/abs/2402.01306) (**KTO**). [TRL already supports KTO](https://huggingface.co/docs/trl/main/en/kto_trainer) so you can try it out.
+If you are interested in training larger models, I also recommend [this article](https://huggingface.co/blog/dpo-trl). The authors trained a 7B-parameter model with DPO here. Also, if your dataset is not paired, you can use a method called [**Kahneman-Tversky Optimization**](https://arxiv.org/abs/2402.01306) (**KTO**). [TRL already supports KTO](https://huggingface.co/docs/trl/main/en/kto_trainer) so you can try it out. [^4]
 
 I hope this article helps you create your own DPO-trained LLMs!
 
 [^1]: https://arxiv.org/abs/2401.04088
 [^2]: https://ai.meta.com/blog/meta-llama-3/
 [^3]: https://researcher.life/blog/article/peer-review-basics-who-is-reviewer-2/#Reviewer_2_Stereotypes_and_Perceptions
+[^4]: [I updated the Reviewer #2 Bot with KTO](https://hippocampus-garden.com/tiny_llama_kto_lora/)
