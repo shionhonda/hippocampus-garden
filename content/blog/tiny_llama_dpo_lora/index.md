@@ -12,10 +12,12 @@ In this article, I will explain how to use DPO to create your very own LLM, like
 
 For your reference, all resources used in this project are publicly accessible:
 
-- [Dataset shionhonda/reviewer2-1k](https://huggingface.co/datasets/shionhonda/reviewer2-1k)
+- [Dataset shionhonda/reviewer2-1k-paired](https://huggingface.co/datasets/shionhonda/reviewer2-1k-paired)
 - [Model shionhonda/tiny-llama-reviewer2-1.1B-dpo-lora](https://huggingface.co/shionhonda/tiny-llama-reviewer2-1.1B-dpo-lora)
 - [Training script](https://colab.research.google.com/drive/1jKRuC70skQx0HQrhVb5pHEOooCZkqU-6?usp=sharing)
 - [Training log](https://wandb.ai/shion_honda/reviewer-2-bot-dpo-tiny-llama)
+
+Also, if you are interested in the theory behind DPO, I recommend reading the [original paper](https://arxiv.org/abs/2305.18290). Simply put, the authors derived an optimal policy corresponding to the reward model in a closed form and found a way to solve the RLHF problem with a classification loss.
 
 ## Setup
 
@@ -23,7 +25,7 @@ In this experiment, I used the following resources:
 
 - Hardware: Colab L4 instance (22.5GB VRAM)
 - Pretrained model: [TinyLlama-1.1B-Chat](https://huggingface.co/TinyLlama/TinyLlama-1.1B-Chat-v1.0)
-- Dataset: [shionhonda/reviewer2-1k](https://huggingface.co/datasets/shionhonda/reviewer2-1k)
+- Dataset: [shionhonda/reviewer2-1k-paired](https://huggingface.co/datasets/shionhonda/reviewer2-1k-paired)
 - DPO trainer: [TRL](https://huggingface.co/docs/trl/en/index) v0.8.5
 - LoRA: [PEFT](https://huggingface.co/docs/peft/en/index) v0.10.0
 
@@ -35,7 +37,7 @@ The [DPO trainer requires a preference dataset](https://huggingface.co/docs/trl/
 - chosen: preferred output text
 - rejected: non-preferred output text
 
-To quickly build a dataset of this format ([reviewer2-1k](https://huggingface.co/datasets/shionhonda/reviewer2-1k)), I took a creative route:
+To quickly build a dataset of this format ([reviewer2-1k-paired](https://huggingface.co/datasets/shionhonda/reviewer2-1k-paired)), I took a creative route:
 
 1. Collect 1,100 titles from [NeurIPS 2023 accepted papers](https://neurips.cc/virtual/2023/papers.html)
 2. Ask TinyLlama to generate negative reviews about the papers by literally asking "generate negative reviews" with examples
