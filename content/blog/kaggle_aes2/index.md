@@ -1,12 +1,12 @@
 ---
-title: "Kaggle Competition Report: LLM Science Exam"
-date: "2023-11-19T20:01:03.284Z"
+title: "Kaggle Competition Report: Automated Essay Scoring 2.0"
+date: "2024-07-19T20:01:03.284Z"
 description: "Can LLMs answer scientific questions? See how Kaggle winners used LLMs and RAG!"
-featuredImage: kaggle_llm/ogp.jpg
+featuredImage: kaggle_aes2/ogp.jpg
 tags: ["en", "kaggle", "nlp"]
 ---
 
-The Kaggle competition "Kaggle - LLM Science Exam" wrapped up on Oct 11th, attracting over 2,600 teams.
+The Kaggle competition "Learning Agency Lab - Automated Essay Scoring 2.0" wrapped up on July 3rd, attracting over 2,600 teams.
 
 Though I wasn't among the competitors, I'm going to create a retrospective analysis on the winners' solutions, as they offer valuable insights into how we use LLMs for answering questions based on certain contexts.
 
@@ -24,13 +24,18 @@ This competition is interesting in 3 ways:
 
 The final standings are in the image below.
 
-![](leaderboard.png)
+![alt text](image.png)
+
+![alt text](image-1.png)
+https://www.kaggle.com/competitions/learning-agency-lab-automated-essay-scoring-2/discussion/516579
 
 ## Solutions
 
 Let's have a look the solutions of the top five teams.
 
 ### 1st Place
+
+https://www.kaggle.com/competitions/learning-agency-lab-automated-essay-scoring-2/discussion/516791
 
 [Team H2O LLM Studio](https://www.kaggle.com/competitions/kaggle-llm-science-exam/discussion/446422) secured the first place by making the full use of LLMs and RAG.
 
@@ -42,6 +47,10 @@ They created five 7B models and one 13B model with different configurations (dat
 
 ### 2nd Place
 
+https://www.kaggle.com/competitions/learning-agency-lab-automated-essay-scoring-2/discussion/516790
+
+https://www.kaggle.com/competitions/learning-agency-lab-automated-essay-scoring-2/discussion/516582
+
 Solo competitor [@solokin](https://www.kaggle.com/competitions/kaggle-llm-science-exam/discussion/448256) clinched the runner-up spot by blending traditional and cutting-edge methods.
 
 The retrieval system utilized [graelo/wikipedia/20230601.en](https://huggingface.co/datasets/graelo/wikipedia/viewer/20230601.en) dataset as a single source of knowledge. Documents were segmented into sentences and organized into overlapping chunks, which then were indexed using [Apache Lucene's **BM-25** algorithm](https://lucene.apache.org/core/7_0_1/core/org/apache/lucene/search/similarities/BM25Similarity.html). Retrieved chunks were reordered by a DeBERTa v3 reranker when composing a prompt.
@@ -52,11 +61,15 @@ The outputs of these models were mixed by a custom XGBRanker.
 
 ### 3rd Place
 
+https://www.kaggle.com/competitions/learning-agency-lab-automated-essay-scoring-2/discussion/516631
+
 [@podpall](https://www.kaggle.com/competitions/kaggle-llm-science-exam/discussion/446358) created a huge pipeline including many small LMs and even two 70B models! I won't go into the details of this, but it's incredible to manage to run this system on a Kaggle's notebook.
 
 ![huge pipeline](podpall.png)
 
 ### 4th Place
+
+https://www.kaggle.com/competitions/learning-agency-lab-automated-essay-scoring-2/discussion/516639
 
 [📝 Preferred Scantron 📝](https://www.kaggle.com/competitions/kaggle-llm-science-exam/discussion/446307) earned fourth place without using billion-parameter models for answering questions.
 
@@ -76,16 +89,16 @@ In the modeling phase, they used Mistral 7B and Llama 2 70B, with a focus on non
 
 Finally, they adopted a unique 3-stage inference pipeline, where smaller models like Mistral 7B answer easy problems and larger models like Llama 2 70B answer difficult problems. This way, they made full use of the limited inference time.
 
-## Conclusion
+## My Experience
 
-In this blog post, I summarized top-5 solutions from Kaggle's "LLM Science Exam" competition. Through writing this post, I learned the following takeaways:
+I had trouble in the computing environment ([which was resolved at the very end of the competition](https://hippocampus-garden.com/workbench_shm/)), so I couldn't increase the model size and image size as I wanted. The final solution looks like this:
 
-- High-quality data was essential for good retrieval
-- It was beneficial to have diverse contexts retrieved by different algorithms such as BM-25, Elasticseach, BERT family, and LLM
-- Reranking helped to make the diverse contexts more relevant
-- Given sufficient contexts, DeBERTa v3 was still competitive to 70B LLMs in multiple choice questions
+- 😀 Heavy augmentations
+- 😐 UNet of *medium* encoders
+- 😐 Medium-sized input images
+- 😀 TTA 
+- 😰 No external datasets or pseudo labels
 
-## References
+Finally, I'd like to add some comments on the thresholding algorithm. The evaluation metric, the Dice coefficient, is very sensitive to the threshold you choose. This means that the threshold must be adjusted each time you want to evaluate the model. To make matters worse, the optimal thresholds are different for the train set (HPA) and the test set (HuBMAP). It's almost impossible to tune the threshold using the leaderboard score! To address this issue, I used an automatic thresholding algorithm called **Otsu's binarization**. Otsu's method is essentially a **discriminant analysis** for binarizing images. You can use it easily with [OpenCV](https://docs.opencv.org/4.x/d7/d4d/tutorial_py_thresholding.html). In my experiments, Otsu's method performed comparable to manual tuning and better than adaptive thresholding algorithms.
 
-[1] [kaggle LLM コンペ　上位解法まとめ](https://zenn.dev/yume_neko/articles/7347ba6b081e93)  
-[2] [Kaggle コンペ（LLM Science Exam）の振り返りと上位解法まとめ](https://zenn.dev/nishimoto/articles/aff1fba9c75c34)
+![alt text](image-2.png)

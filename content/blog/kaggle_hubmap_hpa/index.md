@@ -3,7 +3,7 @@ title: "Kaggle Competition Report: HuBMAP + HPA"
 date: "2022-12-17T22:01:03.284Z"
 description: 'HuBMAP + HPA was a competition on image segmentation with a twist in how to split the dataset. How did winners approach this problem?'
 featuredImage: kaggle_hubmap_hpa/ogp.png
-tags: ["en", "kaggle"]
+tags: ["en", "kaggle", "cv"]
 ---
 
 The Kaggle competition "HuBMAP + HPA - Hacking the Human Body", which is about organ segmentation, ended on September 30. More than 1,000 teams joined the competition, and I came in 176th (top 15%). 
