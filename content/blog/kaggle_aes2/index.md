@@ -1,104 +1,131 @@
 ---
 title: "Kaggle Competition Report: Automated Essay Scoring 2.0"
-date: "2024-07-19T20:01:03.284Z"
-description: "Can LLMs answer scientific questions? See how Kaggle winners used LLMs and RAG!"
+date: "2024-07-07T20:01:03.284Z"
+description: "This competition was all about distribution shift. Let's learn how the winners conquered the challenge."
 featuredImage: kaggle_aes2/ogp.jpg
 tags: ["en", "kaggle", "nlp"]
 ---
 
-The Kaggle competition "Learning Agency Lab - Automated Essay Scoring 2.0" wrapped up on July 3rd, attracting over 2,600 teams.
-
-Though I wasn't among the competitors, I'm going to create a retrospective analysis on the winners' solutions, as they offer valuable insights into how we use LLMs for answering questions based on certain contexts.
+The Kaggle competition "**Learning Agency Lab - Automated Essay Scoring 2.0**" concluded on July 3rd, attracting over 2,700 teams. I participated and finished in 839th place (top 31%). For those who didn't participate, this post outlines the problem setting, summarizes the top solutions, and shares my experience.
 
 ## Problem Setting
 
-In this competition, the task was to answer science questions written by an LLM, specifically GPT-3.5, on a topic drawn from Wikipedia. Each question presented five possible choices. Participants had to rank the five choices in the descending order of correctness. Then the submissions were evaluated based on **mean average precision** (**MAP**) @5.
+In this competition, the task was to grade student essays on a scale of 1 to 6, with submissions evaluated based on [**quadratic weighted kappa**](https://datatab.net/tutorial/weighted-cohens-kappa) (**QWK**). QWK is a specific variant of [Cohen's kappa](https://en.wikipedia.org/wiki/Cohen%27s_kappa#Weighted_kappa) with heavier penalties for larger disagreements.
 
-This competition is interesting in 3 ways:
-
-- Due to the Kaggle Notebook's constraints, the largest model that can run in a ordinary setting waas around 10B. So, this competition could be seen as a problem of using smaller LLMs to answer questions from larger LLMs
-- The simplest approach to this problem was to use large text models for classification. But there was a much more promising approach, **retrieval augmented generation** (**RAG**). This is, as you may know, the hottest topic in the industry nowadays
-- The provided train set contained only 400 questions, meaning that crafting high-quality datasets (for training and for retrieval) could be a key to winning
+Here are some important details about the dataset. The train set contains 17k essays and their grades. [@mpware identified](https://www.kaggle.com/competitions/learning-agency-lab-automated-essay-scoring-2/discussion/498478) that each essay was written in response to one of seven prompts (e.g., _Do you agree or disagree with legalizing driverless cars?_). It was aslo discovered that the train set derives from two data sources: [Persuade 2.0](https://github.com/scrosseye/persuade_corpus_2.0) (13k essays) and something new (let's call it "Kaggle Only"; 4k essays). As Persuade 2.0 has 26k essays in total, we could expand the train set by including the remaining 13k essays. The competition host didn't disclose any information about the test set, but according to [leaderboard probing by the participants](https://www.kaggle.com/competitions/learning-agency-lab-automated-essay-scoring-2/discussion/499959), the test set had no overlaps with Persuade 2.0, implying there was no data leakage. 😌
 
 ## Final Standings
 
-The final standings are in the image below.
+The final standings are depicted in the image below.
 
-![alt text](image.png)
+![Leaderboard](leaderboard.png)
 
-![alt text](image-1.png)
-https://www.kaggle.com/competitions/learning-agency-lab-automated-essay-scoring-2/discussion/516579
+As you can see, we had a huge shake up/down. [@samvelkoch](https://www.kaggle.com/competitions/learning-agency-lab-automated-essay-scoring-2/discussion/516579) visualized that in a nice way.
+
+![Huge shake up](shake_up_plot.png)
+
+The ranks for the top ~1300 teams fluctuated significantly, partly because QWK's sensitivity to chosen thresholds made participants overfit to the public leaderboard. High-scoring public notebooks, which are represented by the connected dots in the plot, also contributed to this variability. However, the top 5 solutions, summarized here, are genuinely insightful.
 
 ## Solutions
 
-Let's have a look the solutions of the top five teams.
+Now, let's dive into the top solutions.
+
+### Baseline
+
+First of all, let's have a quick look at [@cdeotte's great starter notebook](https://www.kaggle.com/code/cdeotte/deberta-v3-small-starter-cv-0-820-lb-0-800). It fine-tunes a **DeBERTa V3** Small regressor for 4 epochs with **mean squared error** (**MSE**) as the loss function. At inference time, the outputs are rounded to the nearest integer. The 5-fold training completes in just 11 minutes, achieving a score of 0.801 on the public leaderboard. It has two details worth mentioning:
+
+- It adds two new tokens to the tokenizer: new line (`\n`) and double space.
+- It removes all the dropouts as [they don't work well in the regression setting](https://www.kaggle.com/competitions/commonlitreadabilityprize/discussion/260729)
+
+If you are new to this competition, I definitely recommend starting with this notebook. Here is a non-exhaustive list of potential improvements:
+
+- Optimizing the thresholds for rounding the outputs – the outputs are biased towards the popular classes. For example, the predictions for the class 1 are biased towards 2 because the train set has more class 2 essays.
+- Exploiting the fact that the test set consists of Kaggle Only essays. For example, we can design a more sophisticated validation strategy and re-label the Persuade 2.0 essays.
+- Using a larger model like DeBERTa V3 Large.
+- Pre-training DeBERTa on the train set before fine-tuning.
+- Adding meta features to the input such as the data source and the predicted prompt name.
+- Exploring different loss functions such as QWK loss, focal loss, and ordinal regression loss.
+- Exploring different poolers such as attention pooling and mean pooling.
+- Incorporating rule-based features such as the number of typos.
 
 ### 1st Place
 
-https://www.kaggle.com/competitions/learning-agency-lab-automated-essay-scoring-2/discussion/516791
+[@ferdinandlimburg](https://www.kaggle.com/competitions/learning-agency-lab-automated-essay-scoring-2/discussion/516791) jumped up the leaderboard from 619th (public) to the top spot (private).
 
-[Team H2O LLM Studio](https://www.kaggle.com/competitions/kaggle-llm-science-exam/discussion/446422) secured the first place by making the full use of LLMs and RAG.
+The key to their success was a careful examination of the distribution shift between the train and test sets (i.e., Persuade 2.0 and Kaggle Only). They observed that the two data sources had different grading criteria. This prompted the implementation of a two-staged training process and pseudo labeling.
 
-In the retrieval phase, the team diversified their knowledge sources by using different Wikipedia dumps. An attempt to filter the sources for science articles did not work because the retrieval models were robust enough to ignore irrelevant documents. They incorporated different models from [MTEB leaderboard](https://huggingface.co/spaces/mteb/leaderboard) and embedded the concatenations of title and article chunk. The retrieval was done by a simple, but scalablly implemented PyTorch matrix multiplication.
+- Two-staged training (+0.015): Initially pre-training on Persuade 2.0 and subsequently fine-tuning on Kaggle Only
+- Pseudo labeling (+0.005): Training a model on the Kaggle Only data and re-labeling the Persuade 2.0 data with the model's predictions
 
-For training data, they relied on [@radek1's 6.5k samples generated by GPT-3.5](https://www.kaggle.com/datasets/radek1/additional-train-data-for-llm-science-exam). On this dataset, they fine-tuned all the linear layers of LLMs (7B - 13B) with LoRA, using a binary classification approach. Each model took as input a concatenation of retrieved contexts, question, and one of the possible answers, and it predicted the likelihood of the answer being correct. During the inference time, this prediction was repeated for all the five choices and the they were sorted in the order of the predicted score. It is worth noting that during this process, [the context and question was cached as `past_key_values`](https://discuss.huggingface.co/t/past-key-values-why-not-past-key-values-queries/31941).
-
-They created five 7B models and one 13B model with different configurations (data source, embedding model, and the number of retrieved chunks) and ensembled the outputs.
+The final submission was a simple average of 4 variations of DeBERTa V3 Large models. Thresholds were optimized model-wise and then averaged to avoid overfitting.
 
 ### 2nd Place
 
-https://www.kaggle.com/competitions/learning-agency-lab-automated-essay-scoring-2/discussion/516790
+[@syhens](https://www.kaggle.com/competitions/learning-agency-lab-automated-essay-scoring-2/discussion/516790) led the leaderboard for most of the competition and finished in second place.
 
-https://www.kaggle.com/competitions/learning-agency-lab-automated-essay-scoring-2/discussion/516582
-
-Solo competitor [@solokin](https://www.kaggle.com/competitions/kaggle-llm-science-exam/discussion/448256) clinched the runner-up spot by blending traditional and cutting-edge methods.
-
-The retrieval system utilized [graelo/wikipedia/20230601.en](https://huggingface.co/datasets/graelo/wikipedia/viewer/20230601.en) dataset as a single source of knowledge. Documents were segmented into sentences and organized into overlapping chunks, which then were indexed using [Apache Lucene's **BM-25** algorithm](https://lucene.apache.org/core/7_0_1/core/org/apache/lucene/search/similarities/BM25Similarity.html). Retrieved chunks were reordered by a DeBERTa v3 reranker when composing a prompt.
-
-For training, they first curated a larger dataset than [@radek1's](https://www.kaggle.com/datasets/radek1/additional-train-data-for-llm-science-exam). Then they trained models (DeBERTa v3 and Mistral) with a multi-class classification objective.
-
-The outputs of these models were mixed by a custom XGBRanker.
+Their final submission was an ensemble of five DeBERTa V3 Large, all of which underwent two-staging training similar to @ferdinandlimburg's solution. @syhens used, however, the entire train set for the first stage. The variations included techniques such as ordinal regression and [contextual positional encoding](https://arxiv.org/abs/2405.18719). The ensemble was hard voting.
 
 ### 3rd Place
 
-https://www.kaggle.com/competitions/learning-agency-lab-automated-essay-scoring-2/discussion/516631
+[@dsohonosom](https://www.kaggle.com/competitions/learning-agency-lab-automated-essay-scoring-2/discussion/517014), another leader of this competition, adopted a similar two-staged training.
 
-[@podpall](https://www.kaggle.com/competitions/kaggle-llm-science-exam/discussion/446358) created a huge pipeline including many small LMs and even two 70B models! I won't go into the details of this, but it's incredible to manage to run this system on a Kaggle's notebook.
+1. Train with the entire train set and evaluate on Kaggle Only
+2. Train with Kaggle Only and evaluate on Persuade 2.0 to avoid overfitting
 
-![huge pipeline](podpall.png)
+The final submission was an ensemble of 7 DeBERTa V3 Base models and 4 Large models with different context lengths and poolers. The ensembling weights were determined by Nelder-Mead optimization.
+
+Interestingly, threshold adjustments didn't work for @dsohonosom. I wonder how the simple rounding could lead to such high scores. 🤔
 
 ### 4th Place
 
-https://www.kaggle.com/competitions/learning-agency-lab-automated-essay-scoring-2/discussion/516639
+[@tascj0](https://www.kaggle.com/competitions/learning-agency-lab-automated-essay-scoring-2/discussion/516639) jumped up the leaderboard from 1277th (public) to the 4th place (private) with a simple training strategy.
 
-[📝 Preferred Scantron 📝](https://www.kaggle.com/competitions/kaggle-llm-science-exam/discussion/446307) earned fourth place without using billion-parameter models for answering questions.
+Like other winners, @tascj0 noticed the distribution shift. What is unique is that they counteracted it by adding a data source classification head to ensure the models can distinguish data sources. It seems this works as good as two-staged training.
 
-The team used Elasticsearch for sentence-wise keyword retrieval. They reranked the results via different methods: Elasticsearch score, edit distance score, and semantic search score. This system was tested in a zero-shot manner using a Llama 2 7B model and a subset of [@radek1's questions](https://www.kaggle.com/datasets/radek1/additional-train-data-for-llm-science-exam).
-
-They trained a DeBERTa v3 Large model (~300M parameters) on token lengths up to 1280 tokens. As they increased tokens from 512 to 1280, their public score steadily increased.
-
-The ensemble strategy involved using multiple contexts reranked by different metrics.
+In terms of models, this solution is more diverse than others, including `microsoft/deberta-large`, `microsoft/deberta-v3-large`, and `Qwen/Qwen2-1.5B-Instruct`.
 
 ### 5th Place
 
-[Preferred おしゃべりんぼう(ChattyKids)](https://www.kaggle.com/competitions/kaggle-llm-science-exam/discussion/446293) took the fifth prize with a 70B model and a 3-stage inference strategy.
-
-For finding the right information, they leaned on [pyserini](https://github.com/castorini/pyserini)'s implementation of BM25. They also implemented dense retrieval by embedding sentences and paragraphs from the Wikipedia dump.
-
-In the modeling phase, they used Mistral 7B and Llama 2 70B, with a focus on non-instruction tuned models. They finetuned models for a multi-class classification objective using QLoRA with 4-bit quantization and [xFormers](https://github.com/facebookresearch/xformers)' `memory_efficient_attention` to manage GPU memory constraints.
-
-Finally, they adopted a unique 3-stage inference pipeline, where smaller models like Mistral 7B answer easy problems and larger models like Llama 2 70B answer difficult problems. This way, they made full use of the limited inference time.
+The team "[GPU From onethingai.com](https://www.kaggle.com/competitions/learning-agency-lab-automated-essay-scoring-2/discussion/516922)" also adopted a two-staged training strategy and trained DeBERTa V3 Small/Base/Large models. Then they blended them with [the best public notebook](https://www.kaggle.com/code/batprem/aes2-tuning-ensemble).
 
 ## My Experience
 
-I had trouble in the computing environment ([which was resolved at the very end of the competition](https://hippocampus-garden.com/workbench_shm/)), so I couldn't increase the model size and image size as I wanted. The final solution looks like this:
+I joined in late May. I spent the first two weeks finding a good validation strategy. Cross validation on Kaggle Only data had a good correlation with the public leaderboard (see the image below). This was especially useful when optimizing thresholds, where I used Nelder-Mead optimization with bootstrapping to prevent overfitting.
 
-- 😀 Heavy augmentations
-- 😐 UNet of *medium* encoders
-- 😐 Medium-sized input images
-- 😀 TTA 
-- 😰 No external datasets or pseudo labels
+![cv_lb](cv_lb.png)
 
-Finally, I'd like to add some comments on the thresholding algorithm. The evaluation metric, the Dice coefficient, is very sensitive to the threshold you choose. This means that the threshold must be adjusted each time you want to evaluate the model. To make matters worse, the optimal thresholds are different for the train set (HPA) and the test set (HuBMAP). It's almost impossible to tune the threshold using the leaderboard score! To address this issue, I used an automatic thresholding algorithm called **Otsu's binarization**. Otsu's method is essentially a **discriminant analysis** for binarizing images. You can use it easily with [OpenCV](https://docs.opencv.org/4.x/d7/d4d/tutorial_py_thresholding.html). In my experiments, Otsu's method performed comparable to manual tuning and better than adaptive thresholding algorithms.
+After establishing my validation strategy, I tried different loss functions and found that MSE and ordinal log loss are good. I relabeled the training data with out-of-fold predictions. It slightly worked but this is where I could do better. I did this to reduce noisy labels but I should have done this to cancel the distribution shift. My final submission was an ensemble of:
 
-![alt text](image-2.png)
+- DeBERTa large regression
+- DeBERTa base regression
+- DeBERTa base classification
+
+What worked (high impact):
+
+- Validation on Kaggle Only data
+- Threshold optimization with bootstrapping
+- Ordinal log loss for classification model
+- Add new tokens (new line and double space)
+
+What worked (low impact):
+
+- Use of external Persuade 2.0 data
+- Pseudo labeling (different from the one in the 1st place solution)
+- Ensemble with LightGBM on statistical features
+
+What didn't work for me:
+
+- Poolers other than the default CLS pooling (e.g., attention pooling and mean pooling)
+- Context length longer than 1024
+- Stacking LightGBM on DeBERTa
+
+What I should have tried
+
+- Pseudo labeling for canceling the distribution shift
+- Put more weight on Kaggle Only data
+
+## Conclusion
+
+In this post, I summarized the top solutions of the recent Kaggle competition "Learning Agency Lab - Automated Essay Scoring 2.0". In essence, the key to success was carefully handling the distribution shift between the train and test sets. This was common in the top 5 solutions. On the other hand, many of the best public notebooks without this consideration didn't perform well on the private leaderboard. While I considered the distribution shift in local validation, I should have exploited the Kaggle Only data more during model training, for example, by using two-staged training, an additional classification head, and [oversampling the Kaggle Only data](https://kaggle.com/competitions/learning-agency-lab-automated-essay-scoring-2/discussion/516585).
+
+I hope this post helps you understand the competition and inspires you to participate in future competitions!
