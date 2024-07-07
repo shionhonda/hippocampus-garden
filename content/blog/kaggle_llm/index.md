@@ -3,7 +3,7 @@ title: "Kaggle Competition Report: LLM Science Exam"
 date: "2023-11-19T20:01:03.284Z"
 description: "Can LLMs answer scientific questions? See how Kaggle winners used LLMs and RAG!"
 featuredImage: kaggle_llm/ogp.jpg
-tags: ["en", "kaggle"]
+tags: ["en", "kaggle", "nlp"]
 ---
 
 The Kaggle competition "Kaggle - LLM Science Exam" wrapped up on Oct 11th, attracting over 2,600 teams.

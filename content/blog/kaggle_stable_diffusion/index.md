@@ -3,7 +3,7 @@ title: "Kaggle Competition Report: Stable Diffusion"
 date: "2023-06-25T22:01:03.284Z"
 description: "How do you invert the text-to-image generation by Stable Diffusion? Let's take a look at the solutions by the winning teams."
 featuredImage: kaggle_stable_diffusion/ogp.jpg
-tags: ["en", "kaggle"]
+tags: ["en", "kaggle", "cv", "nlp"]
 ---
 
 The Kaggle competition "Stable Diffusion - Image to Prompts" concluded on May 15th, attracting over 1,000 participants.
