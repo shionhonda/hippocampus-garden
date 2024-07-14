@@ -1,6 +1,6 @@
 ---
 title: フランスでのエンジニア生活体験記
-date: "2024-07-19T23:02:03.284Z"
+date: "2024-07-14T23:02:03.284Z"
 description: "新天地で働き始めてもうすぐ1年になるので、所感をまとめました。"
 featuredImage: mle_in_paris/ogp.jpg
 tags: ["ja", "france", "career"]
