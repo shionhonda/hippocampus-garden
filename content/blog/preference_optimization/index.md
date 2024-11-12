@@ -1,12 +1,12 @@
 ---
-title: "Preference optimization"
+title: "Preference Optimization"
 date: "2024-11-13T22:01:03.284Z"
 description: ""
 featuredImage: preference_optimization/ogp.jpg
-tags: ["en", "nlp", "deep-learning"]
+tags: ["en", "deep-learning", "machine-learning"]
 ---
 
-The process of controlling the behavior of LLMs to align with human values, which is called **preference optimization**, remains challenging due to the complexity of human preferences. The most common approach is **reinforcement learning from human feedback (RLHF)**, but it has limitations such as complexity and instability because it requires training a separate reward model (which is also an LLM). To address these challenges, many new algorithms have been developed, such as **direct preference optimization** (**DPO**) and **Kahneman-Tversky optimization** (**KTO**). This post will introduce different preference optimization algorithms and discuss their benefits and challenges.
+The process of controlling the behavior of LLMs to align with human values, which is called **preference optimization**, remains challenging due to the complexity of human preferences. The most common approach is **reinforcement learning from human feedback (RLHF)**, but it has limitations such as complexity and instability because it requires training a separate reward model (which is also an LLM). To address these challenges, many new algorithms have been developed, such as [**direct preference optimization**](https://arxiv.org/abs/2305.18290) (**DPO**) and **Kahneman-Tversky optimization** (**KTO**). This post will introduce different preference optimization algorithms and discuss their benefits and challenges.
 
 ## Key Concepts in Preference Optimization
 
@@ -21,7 +21,7 @@ Here are some key concepts related to preference optimization:
   - Implicit, as in DPO, where the reward function is embedded within the policy network itself.
 - Policy model: This is the LLM being optimized. It takes a prompt as input and generates a response. The policy model is trained to maximize the expected reward, leading to the generation of more human-preferred responses.
 - Reference model: This is a pre-trained LLM that serves as a starting point for preference optimization. The reference model is often fine-tuned with supervised learning on high-quality data before preference optimization to improve its performance on the target task. We prevent the policy model from deviating too far from the reference model to maintain coherence and general knowledge, often by using the KL divergence as a regularizer.
-- Loss function: This is a function that quantifies the difference between the model's output and human preferences. This can be based on a certain mathematcical model for preference data, such as the **Bradley-Terry model** for paired comparisons.
+- Loss function: This is a function that quantifies the difference between the model's output and human preferences. This can be based on a certain mathematcical model for preference data, such as the **Bradley-Terry model** for paired comparisons [1].
 
 Several challenges need to be addressed to improve preference optimization:
 
@@ -31,7 +31,11 @@ Several challenges need to be addressed to improve preference optimization:
 
 ## Direct Preference Optimization
 
-DPO is an innovative technique for aligning LLMs with human preferences. Presented as a simpler and more stable alternative to RLHF, DPO addresses some of the complexities associated with traditional preference optimization methods.
+DPO is an innovative technique for aligning LLMs with human preferences [2]. Presented as a simpler and more stable alternative to RLHF, DPO addresses some of the complexities associated with traditional preference optimization methods. Today, DPO is a popular choice and has been adopted in various works such as Llama and Mistral.
+
+![Direct Preference Optimizationt](dpo.png)
+
+<div style="text-align: center;"><small>Image taken from<a href="https://arxiv.org/abs/2305.18290">Direct Preference Optimization: Your Language Model is Secretly a Reward Model</a>.</small></div>
 
 ### How DPO Works
 
@@ -56,26 +60,32 @@ Experiments have shown that DPO can achieve performance comparable to RLHF while
 
 Besides DPO, there are other significant algorithms in the field of preference optimization.
 
-**Sequence likelihood calibration** (**SLiC**) aims to improve the alignment with human preferences while maintaining the overall quality of generated texts by combining a max-margin loss for preferences with a standard language modeling loss. The max-margin loss encourages the model to assign higher probabilities to preferred outputs and the language modeling loss helps maintain fluency.
+[**Sequence likelihood calibration**](https://arxiv.org/abs/2210.00045) (**SLiC**) aims to improve the alignment with human preferences while maintaining the overall quality of generated texts by combining a max-margin loss for preferences with a standard language modeling loss. The max-margin loss encourages the model to assign higher probabilities to preferred outputs and the language modeling loss helps maintain fluency.
 
-**Identity-preference optimization** (**IPO**) was developed as a theoretical framework to address overfitting issues in DPO. It directly optimizes a regularized version of total preferences without relying on the Bradley-Terry model, which can be problematic with deterministic or near-deterministic preferences. IPO utilizes a bounded function for preference aggregation to ensure the KL regularization remains effective even with deterministic preferences. This approach mitigates overfitting to the preference dataset, potentially at the cost of ignoring the KL-regularization term.
+[**Identity-preference optimization**](https://arxiv.org/abs/2310.12036) (**IPO**) was developed as a theoretical framework to address overfitting issues in DPO. It directly optimizes a regularized version of total preferences without relying on the Bradley-Terry model, which can be problematic with deterministic or near-deterministic preferences. IPO utilizes a bounded function for preference aggregation to ensure the KL regularization remains effective even with deterministic preferences. This approach mitigates overfitting to the preference dataset, potentially at the cost of ignoring the KL-regularization term.
 
-**Kahneman-Tversky optimization** (KTO) utilizes the principles of prospect theory, a behavioral economics theory that describes how people make decisions under risk, to align LLMs with human preferences. It maximizes the utility of model outputs instead of focusing on preference likelihood.
-Unlike other preference optimization algorithms that require paired preferences, KTO only needs binary labels (desirable/undesirable) to train the model [1-3].
-This simplifies data collection and makes KTO suitable for real-world applications where preference data is limited.
-KTO leverages the concept of a reference point, representing the decision-maker's current state.
-The algorithm evaluates outputs based on their perceived gains or losses relative to this reference point.
-KTO incorporates loss aversion, a key principle of prospect theory, positing that the pain of a loss is greater than the pleasure of an equivalent gain.
-The KTO loss function adjusts the model's output probabilities to align with human preferences by considering both the magnitude and the direction of the deviation from the reference point.
-Experiments show that KTO achieves comparable or superior performance to preference-based methods like DPO, even at large model scales [2, 3].
-Furthermore, KTO can effectively align LLMs without requiring prior supervised finetuning (SFT) at large scales, a capability not observed in other tested methods [4].
+[**Kahneman-Tversky optimization**](https://arxiv.org/abs/2402.01306) (**KTO**) utilizes the principles of **prospect theory**, a behavioral economics theory that describes how people make decisions under risk, to align LLMs with human preferences. It maximizes the utility of model outputs instead of focusing on preference likelihood. Unlike other preference optimization algorithms that require paired preferences, KTO only needs binary labels (desirable/undesirable) to train the model. This simplifies data collection and makes KTO suitable for real-world applications where preference data is limited.
 
-Generalized Preference Optimization (GPO): GPO is a novel preference optimization algorithm that extends the capabilities of existing methods by incorporating a generalized loss function [6]. The sources note that GPO can handle a wide range of preference data types, including paired comparisons, rankings, and binary labels [6]. By leveraging a unified loss function, GPO simplifies the preference optimization process and improves the model's ability to align with human preferences across diverse tasks [6]. GPO's flexibility and adaptability make it a promising approach for training large-scale language models effectively [6].
+KTO leverages the concept of a reference point, representing the decision-maker's current state. The algorithm evaluates outputs based on their perceived gains or losses relative to this reference point. KTO incorporates loss aversion, a key principle of prospect theory, positing that the pain of a loss is greater than the pleasure of an equivalent gain. Experiments show that KTO achieves comparable or superior performance to preference-based methods like DPO, and it works without requiring prior **supervised finetuning** (**SFT**), a capability not observed in other tested methods.
 
-Discovered Preference Optimization (DiscoPOP): DiscoPOP emerged from an LLM-driven objective discovery process designed to generate state-of-the-art preference optimization algorithms automatically [6]. DiscoPOP dynamically blends logistic and exponential losses, with the weighting determined by a sigmoid calculation of the difference in log-ratios (ρ) [7]. DiscoPOP is notable for its non-convex segment and negative gradients at the start of training (ρ = 0), suggesting potential benefits for curriculum learning or introducing stochasticity. [8] DiscoPOP generally performs well across multiple held-out evaluation tasks, such as single-turn dialogue generation, summarization, and controlled sentiment generation [9]. However, it can struggle to converge with very low or very high β values, potentially due to limitations in the discovery process where β was fixed at 0.05 [10].
+![Kahneman-Tversky optimization](kto.png)
 
-The sources emphasize that further research is needed to understand the relative strengths and weaknesses of different preference optimization approaches fully.
+<div style="text-align: center;"><small>Image taken from<a href=https://arxiv.org/abs/2402.01306v3">KTO: Model Alignment as Prospect Theoretic Optimization</a>.</small></div>
+
+So far, we have seen four different preference optimization algorithms. Let's take a step back here. [Tang et al.](https://arxiv.org/abs/2402.05749v2) introduced a unifying framework that encompasses existing algorithms such as DPO, IPO, and SLiC as special cases, while also introducing a new variants, **generalized preference optimization** (**GPO**). The proposed framework helps to better understand the tradeoffs between different algorithmic variants, especially with regard to the strength of regularization.
+
+![different preference optimization algorithms](gpo.png)
+
+<div style="text-align: center;"><small>Image taken from<a href="https://arxiv.org/abs/2402.05749v2">Generalized Preference Optimization: A Unified Approach to Offline Alignment</a>.</small></div>
+
+Once the search space is defined, the next step is to automatically explore it to discover the optimal algorithm. **Discovered preference optimization** (**DiscoPOP**) emerged from an LLM-driven objective discovery process. DiscoPOP dynamically blends logistic and exponential losses. DiscoPOP is notable for its non-convex segment and negative gradients at the start of training, suggesting potential benefits for curriculum learning or introducing stochasticity. DiscoPOP generally performs well across multiple held-out evaluation tasks However, it can struggle to converge with very low or very high β values, potentially due to limitations in the discovery process where β was fixed at 0.05.
 
 ## Conclusion
 
-Preference optimization is crucial for aligning LLMs with human values and preferences. [1, 2] DPO offers a simpler and more stable alternative to RLHF. [1, 2, 5-8] The field of preference optimization is rapidly evolving, with new algorithms like IPO, KTO, GPO, and DiscoPOP emerging. [5, 8, 12, 14, 15, 17, 20-27, 29, 30] This evolution is driven by the need to address limitations of existing methods, such as overfitting and the complexity of RLHF, and the desire to explore novel approaches to algorithm design, as exemplified by DiscoPOP's automatic discovery. [5, 8, 12, 14, 15, 17, 20-27, 29, 30] The continued advancement of these algorithms is essential for building safe, helpful, and reliable LLMs for the future. [17, 29, 30]
+Preference optimization is crucial for aligning LLMs with human values. While DPO offers a simpler and more stable alternative to RLHF, the field is rapidly evolving, with new algorithms such as IPO, KTO, GPO, and DiscoPOP, just to name a few. The continued advancement of these algorithms is essential for building safe, helpful, and reliable LLMs for the future.
+
+[^1]: This blog covered the Bradley-Terry model in [a previous post](https://hippocampus-garden.com/elo_vs_bt/).
+
+[^2]: This blog covered DPO in [a previous post](https://hippocampus-garden.com/tiny_llama_dpo_lora/).
+
+[^3]: This blog covered KTO in [a previous post](https://hippocampus-garden.com/tiny_llama_kto_lora/).
