@@ -23,7 +23,7 @@ First, let's recap some key concepts related to preference optimization:
   - Implicit, as in DPO, where the reward function is embedded within the policy network itself.
 - Policy model: This is the LLM being optimized. It takes a prompt as input and generates a response. The policy model is trained to maximize the expected reward, leading to the generation of more human-preferred responses.
 - Reference model: This pre-trained LLM serves as a starting point for preference optimization. The reference model is often fine-tuned with supervised learning on high-quality data before preference optimization to improve its performance on the target task. We prevent the policy model from deviating too far from the reference model to maintain coherence and general knowledge, often by using KL divergence as a regularizer.
-- Loss function: This quantifies the difference between the model's output and human preferences. It can be based on a certain mathematcical model for preference data, such as the **Bradley-Terry model** for paired comparisons [1].
+- Loss function: This quantifies the difference between the model's output and human preferences. It can be based on a certain mathematcical model for preference data, such as the **Bradley-Terry model** for paired comparisons [^1].
 
 Preference optimization has several challenges, including:
 
@@ -35,7 +35,7 @@ To address these challenges, researchers have developed various preference optim
 
 ## Direct Preference Optimization
 
-DPO is a simpler and more stable alternative to RLHF, addressing the complexities associated with reinforcement learning [2]. Today, DPO is a popular choice and has been adopted in various model families such as Llama and Mistral.
+DPO is a simpler and more stable alternative to RLHF, addressing the complexities associated with reinforcement learning [^2]. Today, DPO is a popular choice and has been adopted in various model families such as Llama and Mistral.
 
 ![Direct Preference Optimizationt](dpo.png)
 
@@ -68,7 +68,7 @@ Besides DPO, there are other significant algorithms in the field of preference o
 
 [**Identity-preference optimization**](https://arxiv.org/abs/2310.12036) (**IPO**) was developed as a theoretical framework to address overfitting issues in DPO. It directly optimizes a regularized version of total preferences without relying on the Bradley-Terry model, which can be problematic with deterministic or near-deterministic preferences. IPO utilizes a bounded function for preference aggregation to ensure the KL regularization remains effective even with deterministic preferences. This approach mitigates overfitting to the preference dataset.
 
-[**Kahneman-Tversky optimization**](https://arxiv.org/abs/2402.01306) (**KTO**) utilizes the principles of **prospect theory**, a behavioral economics theory that describes how people make decisions under risk, to align LLMs with human preferences. It maximizes the utility of model outputs instead of focusing on preference likelihood. Unlike other preference optimization algorithms that require paired preferences, KTO only needs binary labels (desirable/undesirable) to train the model. This simplifies data collection and makes KTO suitable for real-world applications where preference data is limited.
+[**Kahneman-Tversky optimization**](https://arxiv.org/abs/2402.01306) (**KTO**) utilizes the principles of **prospect theory**, a behavioral economics theory that describes how people make decisions under risk, to align LLMs with human preferences [^3]. It maximizes the utility of model outputs instead of focusing on preference likelihood. Unlike other preference optimization algorithms that require paired preferences, KTO only needs binary labels (desirable/undesirable) to train the model. This simplifies data collection and makes KTO suitable for real-world applications where preference data is limited.
 
 KTO leverages the concept of a reference point, representing the decision-maker's current state. The algorithm evaluates outputs based on their perceived gains or losses relative to this reference point. KTO incorporates loss aversion, a key principle of prospect theory, positing that the pain of a loss is greater than the pleasure of an equivalent gain. Experiments show that KTO achieves comparable or superior performance to preference-based methods like DPO, and it works without requiring prior **supervised finetuning** (**SFT**), a capability not observed in other tested methods.
 
