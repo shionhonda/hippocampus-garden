@@ -1,6 +1,6 @@
 ---
 title: 2024年に読んだ本
-date: "2025-02-24T23:02:03.284Z"
+date: "2025-01-25T23:02:03.284Z"
 description: "2024年に読んだ本を振り返ります。"
 featuredImage: books_2024/ogp.jpg
 tags: ["ja", "book"]
