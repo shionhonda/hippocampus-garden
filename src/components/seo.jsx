@@ -97,6 +97,7 @@ const Seo = ({ title, desc, banner, pathname, article }) => (
           },
         ]
       }
+      console.log("&&&", seo.image)
 
       return (
         <>
