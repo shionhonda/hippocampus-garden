@@ -1,13 +1,13 @@
-const config = require('./config/site');
+const config = require("./config/site")
 const activeEnv =
-  process.env.GATSBY_ACTIVE_ENV || process.env.NODE_ENV || 'development';
-require('dotenv').config({
+  process.env.GATSBY_ACTIVE_ENV || process.env.NODE_ENV || "development"
+require("dotenv").config({
   path: `.env.${activeEnv}`,
-});
+})
 
 module.exports = {
   siteMetadata: {
-    ...config
+    ...config,
   },
   plugins: [
     {
@@ -30,9 +30,9 @@ module.exports = {
       options: {
         plugins: [
           {
-            resolve: 'gatsby-remark-code-titles',
+            resolve: "gatsby-remark-code-titles",
             options: {
-              className: "gatsby-code-title"
+              className: "gatsby-code-title",
             },
           }, // IMPORTANT: this must be ahead of other plugins that use code blocks
           {
@@ -45,8 +45,8 @@ module.exports = {
             resolve: "gatsby-remark-embed-youtube",
             options: {
               width: 800,
-              height: 400
-            }
+              height: 400,
+            },
           },
           {
             resolve: `gatsby-remark-responsive-iframe`,
@@ -66,15 +66,15 @@ module.exports = {
             resolve: "gatsby-remark-embed-spotify",
             options: {
               // width: 600, // default is "100%"
-              height: 300 // default is 400
-            }
+              height: 300, // default is 400
+            },
           },
           {
             resolve: `gatsby-remark-katex`,
             options: {
               // Add any KaTeX options from https://github.com/KaTeX/KaTeX/blob/master/docs/options.md here
-              strict: `ignore`
-            }
+              strict: `ignore`,
+            },
           },
           {
             resolve: `gatsby-remark-footnotes`,
@@ -87,8 +87,8 @@ module.exports = {
               //use "front" for Wikipedia style ^ links
               footnoteBackRefInnerTextStartPosition: "front",
               useFootnoteMarkerText: false, // Defaults to false
-              useCustomDivider: "<hr/>" // Defaults to <hr/>
-            }
+              useCustomDivider: "<hr/>", // Defaults to <hr/>
+            },
           },
           `gatsby-remark-copy-linked-files`,
           `gatsby-remark-smartypants`,
@@ -129,7 +129,7 @@ module.exports = {
         feeds: [
           {
             serialize: ({ query: { site, allMarkdownRemark } }) => {
-              return allMarkdownRemark.nodes.map(node => {
+              return allMarkdownRemark.nodes.map((node) => {
                 return Object.assign({}, node.frontmatter, {
                   description: node.excerpt,
                   date: node.frontmatter.date,
@@ -179,20 +179,20 @@ module.exports = {
       },
     },
     `gatsby-plugin-twitter`,
-    'gatsby-plugin-sitemap',
+    "gatsby-plugin-sitemap",
     {
-      resolve: 'gatsby-plugin-manifest',
+      resolve: "gatsby-plugin-manifest",
       options: {
         name: config.title,
         short_name: config.shortName,
         description: config.description,
         start_url: config.pathPrefix,
-        display: 'standalone',
+        display: "standalone",
         icon: config.favicon,
       },
     },
 
-    'gatsby-plugin-offline',
+    "gatsby-plugin-offline",
     {
       resolve: `gatsby-plugin-styled-components`,
       options: {
