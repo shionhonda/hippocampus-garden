@@ -10,18 +10,16 @@ import { rhythm, scale } from "../utils/typography"
 require(`katex/dist/katex.min.css`)
 
 const BlogPostTemplate = ({ data, pageContext, location }) => {
-  const post = data.markdownRemark;
-  const { previous, next } = pageContext;
-  const { siteTitle, author, url } = data.site.siteMetadata;
-  const pageViews = data.totalPageViews ? data.totalPageViews.count : 0;
-  const formatter = new Intl.NumberFormat('ja-JP');
+  const post = data.markdownRemark
+  const { previous, next } = pageContext
+  const { siteTitle, author, url } = data.site.siteMetadata
+  const pageViews = data.totalPageViews ? data.totalPageViews.count : 0
+  const formatter = new Intl.NumberFormat("ja-JP")
   const content = (
     <p>
-      Written by <strong>{author}</strong>.
-      If you like this, please share!
+      Written by <strong>{author}</strong>. If you like this, please share!
     </p>
   )
-
 
   return (
     <Layout location={location} title={siteTitle} toc={post.tableOfContents}>
@@ -33,9 +31,7 @@ const BlogPostTemplate = ({ data, pageContext, location }) => {
         article={true}
       />
       <article style={{ backgroundColor: "white", padding: rhythm(1) }}>
-        <h1 style={{ marginBottom: 0 }}>
-          {post.frontmatter.title}
-        </h1>
+        <h1 style={{ marginBottom: 0 }}>{post.frontmatter.title}</h1>
         <p
           style={{
             ...scale(-1 / 5),
@@ -43,7 +39,6 @@ const BlogPostTemplate = ({ data, pageContext, location }) => {
             marginBottom: rhythm(0),
           }}
         >
-
           {post.frontmatter.date}&nbsp; | &nbsp;
           {post.timeToRead} min read&nbsp; | &nbsp;
           {formatter.format(pageViews)} views
@@ -68,7 +63,7 @@ const BlogPostTemplate = ({ data, pageContext, location }) => {
               justifyContent: `space-between`,
               listStyle: `none`,
               padding: 0,
-              margin: 0
+              margin: 0,
             }}
           >
             <li style={{ width: `45%` }}>
@@ -78,18 +73,31 @@ const BlogPostTemplate = ({ data, pageContext, location }) => {
                 </Link>
               )}
             </li>
-            <li style={{ width: `45%`, textAlign: `right` }} >
+            <li style={{ width: `45%`, textAlign: `right` }}>
               {next && (
                 <Link to={next.fields.slug} rel="next">
-                  Next → <br />{next.frontmatter.title}
+                  Next → <br />
+                  {next.frontmatter.title}
                 </Link>
               )}
             </li>
           </ul>
         </nav>
-
       </article>
-    </Layout >
+    </Layout>
+  )
+}
+
+export const Head = ({ data, location }) => {
+  const post = data.markdownRemark
+  return (
+    <Seo
+      title={post.frontmatter.title}
+      desc={post.frontmatter.description || post.excerpt}
+      banner={post.frontmatter.featuredImage}
+      pathname={post.fields.slug}
+      article={true}
+    />
   )
 }
 
@@ -121,7 +129,7 @@ export const pageQuery = graphql`
         slug
       }
     }
-    totalPageViews(path: {eq: $slug }) {
+    totalPageViews(path: { eq: $slug }) {
       count
     }
   }
