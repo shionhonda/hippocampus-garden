@@ -4,7 +4,7 @@ import { useStaticQuery, graphql } from "gatsby"
 
 const Seo = ({ title, desc, banner, pathname, article }) => {
   const data = useStaticQuery(graphql`
-    {
+    query SeoQuery {
       site {
         buildTime(formatString: "MMMM DD, YYYY")
         siteMetadata {
@@ -39,6 +39,15 @@ const Seo = ({ title, desc, banner, pathname, article }) => {
       banner || data.site.siteMetadata.defaultBanner
     )
   })
+
+  if (!imageNode?.childImageSharp?.gatsbyImageData?.images?.fallback?.src) {
+    console.warn(
+      "Could not find image for SEO:",
+      banner || data.site.siteMetadata.defaultBanner
+    )
+    return null
+  }
+
   const seo = {
     title: title + ` | ` + data.site.siteMetadata.defaultTitle,
     image: `${data.site.siteMetadata.siteUrl}${imageNode.childImageSharp.gatsbyImageData.images.fallback.src}`,
