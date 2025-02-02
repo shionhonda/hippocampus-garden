@@ -88,17 +88,18 @@ const BlogPostTemplate = ({ data, pageContext, location }) => {
   )
 }
 
-export const Head = ({ data, location }) => {
+export const Head = ({ data }) => {
+  if (!data?.markdownRemark) {
+    return null
+  }
   const post = data.markdownRemark
-  return (
-    <Seo
-      title={post.frontmatter.title}
-      desc={post.frontmatter.description || post.excerpt}
-      banner={post.frontmatter.featuredImage}
-      pathname={post.fields.slug}
-      article={true}
-    />
-  )
+  return React.createElement(Seo, {
+    title: post.frontmatter.title,
+    desc: post.frontmatter.description || post.excerpt,
+    banner: post.frontmatter.featuredImage,
+    pathname: post.fields.slug,
+    article: true,
+  })
 }
 
 export default BlogPostTemplate
