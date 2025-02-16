@@ -24,82 +24,146 @@ Let me walk you through each chapter and share what I learned.
 
 The journey begins with the fundamentals of AI engineering. The chapter introduces key concepts like masked language models, autoregressive language models, self-supervision, and foundation models. What's particularly interesting is how it frames these concepts in the context of recent AI developments - especially the transformative impact of ChatGPT since 2022.
 
-Foundation models have revolutionized multiple domains, enabling sophisticated coding assistance, content creation, chatbot development, workflow automation, and media generation. However, the chapter makes an important point: **don't use AI just because it's trendy**. Each AI application needs careful evaluation, especially considering safety and regulatory requirements. This is particularly crucial because AI systems are less controllable than traditional software models.
+Foundation models are versatile, applicable in coding, writing, chatbots, workflow automation, and media generation. However, the chapter stresses the importance of carefully evaluating the use case when developing AI applications, as AI should not be employed simply because it is available. Safety and regulatory considerations are critical, given AI's limited controllability compared to traditional models.
+
+The book differentiates AI engineering from traditional machine learning engineering by emphasizing its product-oriented approach. AI engineering consists of three key layers: application development, model development, and infrastructure, with a greater focus on the first two. Unlike traditional approaches that start with data, AI engineering begins with product requirements and adapts models accordingly, highlighting a shift towards prioritizing product outcomes.
 
 ### Chapter 2: Understanding Foundation Models
 
-This chapter dives deeper into what makes foundation models tick. One key insight is that _these models are only as good as their training data_. The challenges are significant: training data often contains problematic content like clickbait and misinformation, necessitating proper filtering and diverse language representation.
+This chapter further digs into the basics of foundation models. Given their reliance on large datasets, foundation models are only as good as the data they are trained on, with common datasets often plagued by issues like clickbait, misinformation, and conspiracy theories. As such, effective data filtering and the inclusion of diverse languages are essential to ensure robustness and wide applicability. While general-purpose models serve common needs, domain-specific models, such as those for genetic research or medical imaging, are vital for specialized fields.
 
-The chapter explains two main types of models: **general-purpose models** that handle common tasks, and **domain-specific models** specialized for fields like genetic research or medical imaging. A significant portion focuses on model architectures, particularly the Transformer, which dominates language-based foundation models. The discussion covers attention mechanisms, multi-head attention, and alternative architectures like Mamba and H3.
+The chapter also highlights the significance of model architectures, focusing on the Transformer, which dominates language-based foundation models. Key concepts such as attention mechanisms and multi-head attention are discussed, along with alternatives like state-space models (e.g., Mamba and H3).
 
-The chapter uses a helpful analogy to explain model training: a _pre-trained model_ talks like a webpage (raw, unstructured), while a _post-trained model_ talks like a human (natural, coherent). The text also explores various sampling strategies: **top-k sampling** (choosing from k most likely tokens), **top-p sampling** (selecting from tokens until reaching a probability threshold), and **beam search** (generating multiple sequences to pick the best).
+To align models with human values, post-training processes, including supervised finetuning and preference optimization techniques like Reinforcement Learning from Human Feedback (RLHF) and Direct Preference Optimization (DPO), are essential. An analogy to understand this is:
+
+- A pretrained model talks like a webpage, producing raw, unstructured text.
+- A post-trained model talks like a human, generating more natural, coherent responses.
+
+It's important to understand the probabilistic nature of language models. Sampling strategies significantly influence model outputs, with parameters like temperature affecting creativity and determinism. There are three main sampling strategies:
+
+- Top-k sampling: The model selects from the k most probable tokens.
+- Top-p (nucleus) sampling: The model chooses from the smallest set of tokens whose cumulative probability exceeds a threshold p.
+- Beam search: The model generates multiple sequences and selects the best one.
+
+Many model providers offer structured output features, where the output is constrained by a predefined schema. This is done by limiting the possible tokens that can be generated by the provided schema. Despite all the advancements, challenges like inconsistencies and hallucinations persist, underscoring the need for ongoing efforts to enhance AI reliability and trustworthiness.
 
 ### Chapter 3: Evaluation Methodology
 
-As Greg Brockman noted, "_evaluations are surprisingly often all we need_." This chapter tackles the challenge of properly assessing AI models. It points out a common pitfall: many rely on subjective "vibe checks" instead of rigorous evaluation methods.
+As Greg Brockman noted, evaluations are suprisingly often all we need. Due to its challenges, many people rely on subjective assessments, such as trusting opinions without rigorous validation or eyeballing outputs (also known as a "vibe check"). However, these methods are not reliable and can lead to incorrect conclusions. As AI models grow more sophisticated, traditional benchmarks like GLUE are becoming saturated, necessitating new evaluation methods to effectively distinguish between high-performing models.
 
-The chapter introduces **perplexity** as a key metric for measuring model performance. This metric helps evaluate how well a model predicts the next token, detect potential memorization issues, and identify data leakage when perplexity is unusually low.
+A key concept introduced is perplexity, which helps measure a model's predictive capability and detect memorization issues by indicating how well a model can predict the next token in a sequence. Perplexity is 2 to the power of the entropy of the model's predictions, and it is the inverse of the probability of the next token. Lower perplexity suggests better performance, while unusually low perplexity on a text may indicate data leakage.
 
-For comparing model outputs with ground truth, the chapter presents several approaches: exact match evaluations for strict comparisons, lexical similarity metrics like BLEU and ROUGE for more flexible matching, and embedding-based similarity measures for semantic understanding. An interesting development is using LLMs themselves as judges, though this comes with its own challenges.
+To compare the model outputs with the ground truth, we can use exact match evaluations, lexical similarity metrics like BLEU and ROUGE, and embedding-based similarity for more nuanced and flexible model assessments. The recent advancements in LLMs have made it possible to use LLMs to evaluate the quality of the model outputs (AI as a judge), though this comes with challenges such as AI's probabilistic nature and inherent biases.
 
 ### Chapter 4: Evaluating AI Systems
 
-This chapter provides a practical framework for evaluating AI systems in the real world. The key message? **Align your evaluation metrics with business KPIs**. After all, what matters is delivering actual value to users.
+This chapter focuses on the methodologies for evaluating AI systems, emphasizing the alignment of evaluation metrics with business KPIs to ensure that AI applications deliver tangible value. It highlights several critical aspects to consider when selecting models, such as domain-specific capabilities, generation quality, and instruction-following abilities. Given the plethora of models available, both proprietary and open-source, a structured approach is necessary for effective model selection.
 
-The chapter outlines a systematic approach to model selection. First, filter by hard requirements such as open source versus proprietary options, multi-modal capabilities, and deployment constraints. Then, use public benchmarks to assess model quality, cost considerations, and latency requirements. Next, test with your own data through offline evaluations and specific use case measurements. Finally, monitor the model's performance in production by tracking real-world metrics and gathering user feedback.
+This chapter provides a framework for choosing the right model for your use case among many available models.
 
-The chapter presents a detailed five-step evaluation pipeline. Start by evaluating all components - for instance, in a PDF-based system, test the text extraction accuracy while considering both per-turn and full-conversation metrics. Then, define clear guidelines, such as determining whether an AI coach should prioritize politeness or directness in feedback, and create detailed scoring rubrics that link to business goals.
+1. Filter out models by hard attributes (e.g., open source, multi-modal, etc.)
+2. Use public benchmarks to narrow down the list (e.g., model quality, cost, latency, etc.)
+3. Run offline evaluations on your own data
+4. Monitor the model's performance online
 
-For evaluation methods, the chapter recommends automating where possible while incorporating human evaluation when needed. When calculating sample sizes, use this reference: 10,000 samples to detect a 1% difference, 1,000 samples for 3%, and 100 samples for 10% differences. Finally, continuously refine your evaluation process and adapt to new challenges.
+Building an evaluation pipeline is detailed in five steps, starting with evaluating all system components and defining clear evaluation guidelines. It stresses the importance of both automated and human evaluations, determining appropriate sample sizes for statistical reliability, and iterating on the evaluation process to maintain relevance and robustness. The chapter concludes by underscoring the necessity of combining automated and manual methods to optimize AI applications for accuracy and efficiency.
+
+1. Evaluate all system components
+   - If your system extracts text from PDFs, evaluate its extraction accuracy.
+   - Use both turn-based and task-based (i.e., per conversation) evaluations
+2. Define evaluation guidelines
+   - Which is a good response from an AI-powered coach, a polite but not helpful feedback, or a direct but helpful feedback?
+   - For customer support AI, a good response might be defined based on relevance, factual consistency, and safety.
+   - Once criteria are set, create scoring rubrics with clear examples and tie evaluation metrics to business objectives.
+3. Define evaluation methods & data
+   - Use automated metrics whenever possible
+   - But don’t hesitate to incorporate human evaluation when needed.
+4. Determining sample size
+   - To detect a 1% difference, you need 10,000 samples (95% confidence).
+   - For a 3% difference, you need 1,000 samples.
+   - For a 10% difference, you need 100 samples.
+5. Iterating on the evaluation pipeline
 
 ### Chapter 5: Prompt Engineering
 
-While often called an "art," prompt engineering has a scientific foundation. This chapter focuses on the systematic aspects that remain constant even as best practices evolve.
+Prompt engineerig is a crucial component for optimizing AI model performance but sometimes it is an art rather than a science. As the "art" part changes over time, this chapter focuses on the science part.
 
-A well-structured prompt consists of three main elements: task description, examples, and the actual task. The chapter introduces the concept of **prompt hierarchy**, where system prompts take highest priority, followed by user prompts, and finally tool prompts.
+A prompt typically includes a task description, examples, and the task itself. Thanks to the in-context learning capabiliry, models can learn from prompts without retraining. There are different types of prompts: system prompts, user prompts, and tool prompts, in the order of the priority. Language models can only process text within a fixed context length, typically ranging from 1000 to 1 million tokens. Models prioritize information at the beginning and end of prompts. Here are some tips for writing effective prompts:
 
-The chapter provides practical guidelines for effective prompting. Instead of vague instructions like "Explain this," use specific directives such as "Summarize this in 3 sentences." When requiring structured output, specify the exact format, such as JSON structures. Additionally, leverage few-shot learning through examples, break down complex tasks into manageable steps, and implement Chain of Thought (CoT) reasoning.
+1. Be clear & unambiguous (e.g., “Explain this” → instead, say “Summarize this in 3 sentences.”).
+2. Specify the output format (e.g., “Respond in JSON format: {‘summary’: ‘…’}”)
+3. Provide examples (few-shot learning)
+4. Break down complex tasks into simpler subtasks
+5. Use Chain of Thought (CoT) reasoning
 
-Security considerations are equally important. The chapter covers defending against prompt attacks, implementing system-level security measures, and establishing proper context filtering and prompt hardening protocols.
+As you iterate on the prompts, it will get harder to manage them. There are many tools available to track versions, compare prompt on various evaluation metrics, and optimize for better performance.
+
+It is essential to defend your system against prompt attacks like jailbreaking, information extraction, and remote code execution. Common mitigation strategies include system-level defenses, context filtering, and prompt hardening. Nevertheless, it is hard to defend your prompt against all attacks, so it is important to safeguard sensitive information at the system level.
 
 ### Chapter 6: RAG and Agents
 
-This chapter explores two powerful patterns for enhancing AI models with external information: **RAG** (Retrieval-Augmented Generation) and **Agents**.
+AI models require contextual information to perform well. There are two dominant patterns to provide contextual information: retrieval-augmented generation (RAG) and agents.
 
-RAG systems function like a smart reference library for AI models, combining searchable external memory, a retriever, and a generative model. The chapter discusses two main approaches to building retrievers. Term-based retrieval works at the word level using methods like TF-IDF and BM25, offering simplicity and speed but potentially missing semantic connections. Embedding-based retrieval operates at the meaning level using vector databases like FAISS and HNSW, providing better contextual understanding but requiring more complex optimization.
+RAG systems combine an external memory for searching documents, tables, or chat histories with a retriever and a generative model. The quality of the retriever is crucial for success. There are two approaches to build a retriever:
 
-The chapter then explores agents, which are AI systems capable of both understanding and acting on their environment. These systems are more complex than RAG due to compounding errors and higher stakes in real-world interactions. Agents utilize three categories of tools: knowledge tools for information retrieval and database queries, capability tools like code interpreters and analysis tools, and action tools for tasks such as sending emails or writing to databases.
+- Term-based retrieval: Operates on a lexical level (e.g., TF-IDF and BM25)
+- Embedding-based retrieval: Operates on a semantic level, embedding documents and storing them in a vector database (e.g., FAISS, ScaNN, and HNSW).
 
-Best practices for agent development include generating and validating plans before execution, implementing reflection and error correction mechanisms, establishing proper security controls, and maintaining ongoing monitoring of tool usage patterns.
+Term-based retrieval is simpler, faster, cheaper, and works well out of the box. Embedding-based retrieval is complex but can outperform term-based retrieval if optimized. We can also take a hybrid approach by using both term-based and embedding-based retrieval. Common evaluation metrics for retrieval include context precision, recall, NDCG, MAP, and MRR. Performance metrics like query throughput and build time are also important. To optimize RAG, we typically tweak chunking strategies, re-ranking, and query rewriting.
+
+An agent is any system that can perceive its environment and act upon it. Compared to RAG, agents typically require more powerful models because error rates compound exponentially over multiple steps and there is a higher stake for interacting with the real world. Agents leverage external tools to solve tasks:
+
+- Knowledge Augmentation: Helps retrieve relevant information (e.g., text retrieval, querying a database).
+- Capability Extension: Extends the agent’s abilities beyond the model (e.g., code interpreters, web browsers).
+- Action Execution: Allows agents to interact with external environments (e.g., sending an email, writing to a database).
+
+To complete tasks successfully, an agent needs a good planning strategy. A naive approach is to generate a plan and execute it immediately. However, this approach is risky because the plan may contain errors. A better approach is to generate a plan and validate it before execution. The validation can be done using heuristics (e.g., the plan is valid if it is shorter than 10 steps) or by using another LLM call.
+
+To boost agent performance, typical systems include plan generation, reflection, error correction, and execution validation, and function calling. If an agent uses many tools, tool usage data can be leveraged to optimize execution. For example, if two tools are frequently used together, they can be combined to reduce overhead. Also, it is important to restrict the agent's access to the real world to avoid security risks.
 
 ### Chapter 7: Finetuning
 
-This chapter tackles a crucial question: **When should you finetune your model?**
+Finetuning is used to improve a model’s instruction-following ability, particularly to ensure it adheres to specific output styles and formats. While finetuning can help create models that are more customized to your needs, it also requires a significant upfront investment.
 
-The chapter begins by outlining important considerations before embarking on finetuning. There are several reasons to be cautious: the risk of performance degradation on other tasks, the need for deep training expertise, significant cost investment, and the possibility that model provider updates might invalidate your work. The general recommendation is to consider finetuning only after exhausting prompt engineering options, when specific output formats are required, for specialized domain knowledge, or when RAG proves insufficient.
+Should we use finetuning or RAG? There are several reasons why you might want to avoid jumping into finetuning. First, finetuning can degrade a model’s performance on other tasks. Second, finetuning requires knowledge of how to train models effectively. Third, finetuning is costly. Fourth, while you are finetuning, model providers may release improvements to their models, which can make your finetuning efforts less effective. The general recommendation is to improve performance with prompt engineering as much as possible, and only consider finetuning after exhausting all options with prompting. One of the most common reasons AI systems fail is a lack of information, which RAG can help solve.
 
-The technical portion covers essential concepts for successful finetuning. This includes understanding backpropagation for model learning, numeric representations for data processing, hyperparameter tuning (learning rate, batch size, epochs), and parameter-efficient techniques like LoRA and other modern approaches.
+To successfully finetune a model, you need to understand how to train models. Key concepts include backpropagation, numeric representations, training hyperparameters (e.g., learning rate, batch size, number of epochs), loss functions, and parameter-efficient finetuning techniques (e.g., LoRA).
 
 ### Chapter 8: Data Set Engineering
 
-This chapter emphasizes a crucial truth: **Quality beats quantity in training data**. The discussion centers on what makes data high-quality, identifying six key aspects: relevance to the use case, consistency in patterns, correctness of information, appropriate formatting, uniqueness without redundancy, and compliance with legal requirements.
+To ensure the success of finetuning, you need to create a high-quality data set. This chapter focuses on how to build effective data for training.
 
-The chapter explores two main approaches to data collection. Human annotation, while valuable for real-world understanding, presents challenges in maintaining consistent guidelines and scoring. Synthetic data generation using other LLMs offers advantages in coverage, privacy protection, and quality control, though it comes with its own considerations.
+Data quality is paramount—often, even a small amount of high-quality data can outperform a large amount of noisy data. This is highlighted in papers such as Llama 3, which concluded that human-generated data is more prone to errors and inconsistencies, especially regarding safety policies. So, what makes data high-quality? Several aspects are crucial: relevance, consistency, correctness, format, uniqueness, and compliance. The data set should cover a broad range of problems that your agent is expected to solve. For instance, if your model is expected to perform coding, your data set should include coding tasks. If you want your chat model to handle different languages, the data set should contain those languages. The amount of data you need depends heavily on several factors such as the finetuning techniques used, task complexity, and performance goals. It is important to find the right balance between data quantity and quality.
 
-The data processing workflow is detailed in three main steps. The inspection phase involves plotting distributions, checking for outliers, and verifying time ranges. Cleaning focuses on removing irrelevant data, duplicates, sensitive content, and toxic elements. Finally, validation encompasses both manual checks and automated testing to ensure data quality.
+Annotating data is not an easy task. You first need to define clear guidelines; otherwise, annotators may provide misaligned scores. Given the challenges of data annotation, it can be tempting to synthesize data using another large language model (LLM). This approach allows you to enhance data quantity and coverage, mitigate privacy concerns, and improve overall data quality.
+
+Data must be processed according to the requirements of the specific use case. First, inspect the data to ensure it meets your goals. Plot the distribution of the data, check for outliers, and inspect the time range, etc. If you notice any issues, you need to clean the data. It's crucial to remove irrelevant, duplicated, sensitive, copyrighted, and toxic data. Manual inspection of the data is essential to ensure that your data processing techniques are working as intended.
 
 ### Chapter 9: Inference Optimization
 
-This chapter addresses the practical aspects of deploying AI systems efficiently. The focus is on making models both fast and cost-effective, as even the best model becomes impractical if it's too slow or expensive to run.
+If you decide to serve your model, you want to optimize the inference process to minimize the cost.
 
-The discussion begins with key timing metrics: Time to First Token (TTFT), Time Per Output Token (TPOT), Time Between Tokens (TBT), overall latency, and throughput. Understanding these metrics is crucial for optimization. The chapter also explains the hardware stack, from the fastest but limited GPU Static RAM to the slower but more abundant CPU Dynamic RAM.
+Inference optimization techniques often involve trade-offs between different metrics. Therefore it is important to understand common metrics: time to first token (TTFT), time per output token (TPOT), time between tokens (TBT), latency,throughput, and so on. To select the best hardware, it’s essential to understand the memory hierarchy (GPU Static RAM, High Bandwidth Memory, and CPU Dynamic RAM), different utilization metrics, and different AI accelerators.
 
-The optimization techniques are organized into three categories. Memory optimization includes quantization for reducing precision, distillation for creating smaller models, and KV cache for efficient attention computation. Speed optimization covers speculative execution for fast predictions, batching for improved GPU utilization, and prompt caching for reusing computations. Advanced techniques discuss parallel processing across GPUs, reference-based inference for leveraging existing outputs, and efficient resource management.
+You can optimize your inference process using various techniques, such as:
+
+- Quantization: Reducing the precision of the model weights to lower memory usage and computational cost.
+- Distillation: Training a smaller model to mimic the behavior of a larger model.
+- Speculative execution: Decoding multiple tokens quickly with a lightweight model and verifying those predictions in parallel with the original model.
+- Inference with references: Using reference tokens from the input and verifying them using the original model. This can be useful for tasks such as updating code drafts.
+- Batching: Increasing GPU utilization by batching multiple requests together
+- Key-value cache: Reducing the amount of computation for the attention mechanism by caching the key and value matrices.
+- Prompt cache: Caching the pre-fill results to avoid recomputing them for repeated queries.
+- Advanced parallelism techniques: Reduce the redundant memory usage among GPUs
 
 ### Chapter 10: AI Engineering Architecture and Feedback
 
-The final chapter synthesizes the book's concepts into a comprehensive framework for building production-ready AI systems. It presents an iterative process for system development that begins with enhancing context through data sources and tools, then adds protection through guardrails and security measures. The process continues with resource optimization through model routing and gateway configuration, performance improvements via caching and latency reduction, and capability expansion through agent patterns and automation.
+This chapter discusses how to apply the techniques covered in this textbook to build successful products. This takes an iterative process.
 
-The chapter provides valuable insights into feedback collection in the context of LLMs. It distinguishes between explicit feedback methods, such as direct user questions and satisfaction surveys, and implicit signals derived from user behavior patterns and interaction analysis. However, it also warns about common feedback challenges: the inherent randomness in responses, position and recency biases in user judgments, and the expertise gap that can make technical evaluation difficult for users.
+1. Enhance context by gicing the model access to external data sources and tools
+2. Add guardrails to protect your system and your users
+3. Add model routers and gateways to optimize cost and performance
+4. Optimize for latency and costs with caching
+5. Add agent patterns to maximize the capabilities of your system
 
-The key takeaway is the importance of systematic feedback collection while understanding its limitations. The chapter emphasizes the need to validate improvements with objective metrics rather than relying solely on user feedback.
+To iterate on the above steps, user feedback plays a critical role. With LLMs, there are new ways to gather feedback. We can get explicit feedback by simply asking, “Did we solve your problem?” We can also gather implicit feedback by inferring it from user actions. For example, if users stop the response generation halfway or exit the app in the middle, or if they show frustration, these signals might indicate the chat is not performing well. However, be aware of feedback limitations. Feedback often contains randomness, position bias, and recency bias, so we can’t fully trust feedback initially. Users might struggle to judge which response is better in cases involving math problems.
