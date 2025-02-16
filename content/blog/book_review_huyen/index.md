@@ -6,7 +6,7 @@ featuredImage: book_review_huyen/ogp.jpg
 tags: ["en", "book", "machine-learning"]
 ---
 
-I recently read "AI Engineering" by Chip Huyen (published by O'Reilly in 2025) and will summarize its content along with my thoughts.
+I recently read "[AI Engineering](https://amzn.to/3QGwm2N)" by Chip Huyen (published by O'Reilly in 2025) and will summarize its content along with my thoughts.
 
 ## General overview and thoughts
 
@@ -44,7 +44,7 @@ Many model providers now offer structured output features, which constrain the o
 
 ### Chapter 3: Evaluation Methodology
 
-As Greg Brockman noted, evaluations are suprisingly often all we need. Despite their importance, many people still rely on subjective methods like personal opinions or simply glancing at outputs, often referred to as a "vibe check." These approaches are not dependable and can lead to wrong conclusions. As AI models become more advanced, traditional benchmarks such as GLUE are no longer sufficient. This means we need new ways to evaluate models to accurately identify which ones perform best.
+[As Greg Brockman noted](https://x.com/gdb/status/1733553161884127435), evaluations are suprisingly often all we need. Despite their importance, many people still rely on subjective methods like personal opinions or simply glancing at outputs, often referred to as a "vibe check." These approaches are not dependable and can lead to wrong conclusions. As AI models become more advanced, traditional benchmarks such as GLUE are no longer sufficient. This means we need new ways to evaluate models to accurately identify which ones perform best.
 
 One important concept in model evaluation is **perplexity**. Perplexity helps us understand how well a model can predict the next word in a sequence, which is a measure of its predictive power. It is calculated as 2 raised to the power of the entropy of the model's predictions, and it is the inverse of the probability of the next word. A lower perplexity indicates better performance, but if the perplexity is too low, it might suggest that the model has memorized the data, which is not desirable.
 
