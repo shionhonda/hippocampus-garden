@@ -1,7 +1,7 @@
 ---
 title: How to Customize Claude with your own MCP Server
 date: "2025-04-23T23:02:03.284Z"
-description: "Learn how to extend Claude's capabilities by building your own Model Context Protocol server"
+description: "Learn how to extend Claude's capabilities by building your own Model Context Protocol server."
 featuredImage: claude_mcp/ogp.jpg
 tags: ["en", "programming"]
 ---
@@ -59,7 +59,7 @@ Once your server is working, you can connect it to Claude Desktop by editing the
 {
   "mcpServers": {
     "gsheet": {
-      "command": "/path/to/python",
+      "command": "/path/to/uv",
       "env": {
         "GOOGLE_APPLICATION_CREDENTIALS": "/path/to/your/service-account-key.json"
       },
@@ -75,4 +75,4 @@ This tells Claude Desktop to launch your MCP server whenever it starts up.
 
 Building an MCP server allows you to dramatically expand what Claude can do for you. Whether you're connecting to cloud services, databases, or specialized tools, MCP transforms your AI client into a powerful assistant that can work directly with your digital ecosystem.
 
-We're still in the early stages of discovering what's possible with MCP. I'm excited to see how it evolves in the future.
+We're still in the early stages of discovering what's possible with MCP. I'm excited to see how it evolves in the future!
