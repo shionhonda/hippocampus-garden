@@ -1,10 +1,22 @@
-# Book Review: Database Internals
+---
+title: "Book Review: Database Internals"
+date: "2025-04-27T22:12:03.284Z"
+description: "A deep dive into how databases work."
+featuredImage: book_review_petrov/ogp.jpg
+tags: ["en", "book", "database"]
+---
+
+I recently read "[Database Internals](https://amzn.to/4jqqgzX)" by Alex Petrov (published by O'Reilly in 2019). In this post, I will summarize its content along with my thoughts.
 
 ## General overview and thoughts
 
 We tend to treat databases as a black box, understanding what's inside is crucial for modern software development. For example, when we choose a database, we need to understand what trade-offs we are making. When there is a performance problem, we need to understand where to look. This book is a good resource to understand what's inside a database.
 
-While some parts overlap with the popular book "Designing Data-Intensive Applications", this book explains the internals in more depth. For example, the book covers B-trees and consensus algorithms in more depth.
+While some parts overlap with the popular book "[Designing Data-Intensive Applications](https://amzn.to/42TwOAk)", this book explains the internals in more depth. For example, the book covers B-trees and consensus algorithms in more depth.
+
+Some concepts discussed in this book are easier to understand with videos. For instance, this video could be a good complementary material to learn about LSM trees.
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/I6jB0nM9SKU?si=v7H-A45vsxHiTuhK" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
 ## Summary of the book
 
@@ -46,16 +58,6 @@ By using indexes, databases can efficiently answer queries, enforce uniqueness, 
 
 B-trees are organized into **nodes** (pages), each containing keys and pointers. Operations like search, insert, and delete are performed by traversing from the root to the leaves, using binary search within nodes. The time complexity for these operations is O(log n), where n is the number of keys in the tree, since the tree height grows logarithmically with the number of entries. When nodes become full, they are split; when underfilled, they may be merged or rebalanced. Real-world implementations include optimizations like **page compression**, **sibling links**, and **deferred maintenance** (e.g., compaction and vacuuming) to improve space utilization and performance.
 
-```mermaid
-graph TD
-    A[Root Node] --> B[Internal Node 1]
-    A --> C[Internal Node 2]
-    B --> D[Leaf Node 1]
-    B --> E[Leaf Node 2]
-    C --> F[Leaf Node 3]
-    C --> G[Leaf Node 4]
-```
-
 #### B-Tree Variants
 
 Several B-tree variants have been developed to address specific performance and concurrency needs:
@@ -72,14 +74,6 @@ These variants often differ in how they handle concurrency, on-disk representati
 **Log-structured merge trees** (**LSM-trees**) are designed for write-heavy workloads. Instead of updating records in place, they buffer writes in memory (the **memtable**) and periodically flush them to disk as immutable, sorted files (**SSTables**). Over time, these files are merged in the background to reclaim space and maintain order. This approach favors sequential writes, which are faster on disk, and allows high write throughput at the cost of more complex reads and background maintenance.
 
 LSM-trees use additional data structures like **Bloom filters** (to quickly check if a key might exist) and **skip lists** (for efficient in-memory sorting). Deletes are handled by writing special markers called **tombstones**, which are reconciled during merges.
-
-```mermaid
-graph TD
-    A[MemTable (in-memory)] --> B[SSTable 1 (disk)]
-    A --> C[SSTable 2 (disk)]
-    B --> D[Compaction]
-    C --> D
-```
 
 #### Transaction Processing and Recovery
 
