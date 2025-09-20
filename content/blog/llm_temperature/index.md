@@ -1,7 +1,7 @@
 ---
 title: "Why are Sampling Knobs Disabled on Some Reasoning Models?"
-date: "2025-09-04T22:01:03.284Z"
-description: "A deep dive into how LLMs serialize prompts, output schemas, and tool descriptions into a token sequence, with examples from Llama 4's implementation."
+date: "2025-09-20T22:01:03.284Z"
+description: "With reasoning models, fundamentals of statistics and machine learning are more relevant."
 featuredImage: llm_temperature/ogp.png
 tags: ["en", "deep-learning", "nlp"]
 ---
@@ -65,7 +65,7 @@ The above describes naive sampling, where you sample directly from the full soft
 
 ### Top-p sampling
 
-**Top-p sampling**, also known as **nucleus sampling**, adapts the token pool based on probability mass rather than a fixed count. Instead of picking the top $k$ tokens, it keeps the smallest set of tokens whose cumulative prob ≥ p, then samples. So `top_p=0.6` means only the tokens comprising the top 60% of the probability mass are considered. This adapts the pool size to uncertainty and often yields more natural, less degenerate text than naive sampling.
+**Top-p sampling**, also known as **nucleus sampling**, adapts the token pool based on probability mass rather than a fixed count. Instead of picking the top $k$ tokens, it keeps the smallest set of tokens whose cumulative probability is larger than $p$, then samples. So `top_p=0.6` means only the tokens comprising the top 60% of the probability mass are considered. This adapts the pool size to uncertainty and often yields more natural, less degenerate text than naive sampling.
 
 ### Sampling with search and re-ranking
 
@@ -78,7 +78,7 @@ The above strategies sample one token at each position in the sequence, which ca
 
 <br/>
 
-**Best-of-N sampling** is the simplest form of such an approach: generate $N$ independent samples and pick the best one according to some scoring function (e.g., **perplexity**, or a separate value function ("verifier")). This can improve quality but is more computationally expensive.
+**Best-of-N sampling** is the simplest form of such an approach: generate $N$ independent samples and pick the best one according to some scoring function (e.g., **perplexity**, or a separate value function ("verifier")). This is a common technique when we can verify the output automatically (e.g., math problems, code generation). [2]
 
 **Beam search** keeps track of the top $B$ candidate sequences (beams) at each step, expanding each beam with all possible next tokens and retaining only the top $B$ overall. This allows the model to explore multiple paths and can yield higher-quality text.
 
@@ -86,30 +86,11 @@ The above strategies sample one token at each position in the sequence, which ca
 
 ## So why are the knobs disabled on reasoning models?
 
-Short version: because the decoding pipeline for o-series / GPT-5-class reasoning models isn’t a single ancestral sample you should tweak directly. It’s an internally-tuned multi-pass process that trades simple sampling knobs for reasoning effort and safety/reliability. OpenAI/ Azure docs explicitly list these parameters as unsupported for reasoning models (e.g., temperature, top_p, penalties, logprobs, logit_bias, etc.).  ￼
+The decoding path for modern reasoning models (like GPT-5, o3, o4-mini) is likely more complex than a single pass of sampling from a softmax distribution. They may involve multiple rounds of generation, verification, and selection, at least in the internal chain-of-thought process. [3] And model providers use calibrated parameters to achieve the best outcomes. Exposing external temperature/top_p would break these calibrations and destabilize quality and safety, so they’re disabled. For example, if the user set the temperature to 0, all the mutiple paths of reasoning would collapse to a single greedy path, defeating the purpose of the multi-pass reasoning.
 
-OpenAI’s public posts emphasize that these models learn to “think” longer and do better when they’re allowed more test-time reasoning. That’s a strong hint they generate multiple candidate thought paths and use some form of verification/selection under a compute budget—rather than exposing raw sampling controls.  ￼
-
-A plausible internal picture (what likely happens under the hood)
-
-1. Fixed policy sampler
-The system runs with internally chosen temperature/nucleus/repetition controls calibrated to the model’s RL training and safety filters. This produces multiple candidate reasoning traces under a compute budget (the “reasoning effort”). External temperature/top_p would destabilize those internals, so they’re disabled.  ￼
-
-2. Opportunistic tool use
-Inside traces, the model may call tools (Python, web, vision, file readers). Different tool outcomes can branch traces. This is consistent with OpenAI’s descriptions of more time “thinking” and stronger tool use in o-series.
-
-3. Verifier / reranker / consensus
-The system likely selects among candidate traces with a learned value model, a heuristic vote (self-consistency), or a reranker. OpenAI has publicly highlighted that performance improves with more time thinking, and they’ve reported consensus-style metrics on hard benchmarks—consistent with internal multi-sample selection rather than a single pass.  
-￼
-4. Post-selection output (no raw logprobs)
-The final answer is a post-selected artifact (possibly stitched from several internal passes). Token-level logprobs of that final text would be misleading (they wouldn’t reflect one ancestral sample), which is why logprobs is listed as unsupported.  ￼
-
-## Conclusion
-
-- Reasoning models run a calibrated multi-pass decoding recipe (internal sampling + branching + checking) to keep chains of thought stable, safe, and high-quality.
-- Letting callers change temperature/top_p would fight those calibrations and increase variance in safety and correctness.
-- Instead of sampling knobs, you get a “reasoning effort” knob (compute budget) and tool permissions.
-- Disabling logprobs avoids reporting numbers that no longer correspond to a single straight-through decode.
-- You can still influence style/creativity on non-reasoning models with standard knobs; for reasoning models, think in terms of effort and tools.
+To allow users to steer the output, OpenAI introduced parameters such as `reasoning_effort` and `verbosity`. Verbosity is clear: it adjusts the length of the output. Reasoning effort is more interesting: it likely adjusts not only the depth of the reasoning, but also the width (number of paths). This hypothesis is in line with published research on test-time scaling of LLMs. [4]
 
 [^1]: If you are interested in the (non-)determinism of LLMs, [this blog post from Thinking Machines](https://thinkingmachines.ai/blog/defeating-nondeterminism-in-llm-inference/) is a great read.
+[^2]: Bradley Brown, Jordan Juravsky, Ryan Ehrlich, Ronald Clark, Quoc V. Le, Christopher Ré, Azalia Mirhoseini. [Large Language Monkeys: Scaling Inference Compute with Repeated Sampling](https://arxiv.org/abs/2407.21787). 2024.
+[^3]: While open source reasoning models such as [DeepSeek R1](https://arxiv.org/abs/2501.12948), [QwQ](https://qwenlm.github.io/blog/qwq-32b/), and [Magistral](https://arxiv.org/abs/2506.10910) don't seem to use these techniques, I believe this is one of the key differences between them and the closed-source models that disable sampling knobs.
+[^4]: Charlie Snell, Jaehoon Lee, Kelvin Xu, Aviral Kumar. [Scaling LLM Test-Time Compute Optimally can be More Effective than Scaling Model Parameters](https://arxiv.org/abs/2408.03314v1). 2024.
