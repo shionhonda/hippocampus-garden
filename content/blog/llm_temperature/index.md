@@ -38,12 +38,11 @@ p_i(T) \;=\; \frac{\exp\!\left(\tfrac{z_i}{T}\right)}
                   {\sum_{j=1}^K \exp\!\left(\tfrac{z_j}{T}\right)}
 $$
 
-Here's the effect of different temperature settings ($T=0.1, 1, 10$):
+Let's stop here for a moment and think about what this means. When $T=1$, the distribution is identical to the original softmax distribution. When $T \to \infty$, $p_i(T)$ approaches $\frac{1}{K}$, which is a uniform distribution over all tokens. When $T \to 0$, $p_i(T)$ approaches a one-hot distribution that puts all the probability mass on the token with the highest logit. This is called "**greedy decoding**," which deterministically picks the highest-probability token. [^1]
 
+You can see this effect in the figure below. Here's the effect of different temperature settings ($T=0.1, 1, 10$):
 
 ![Distribution of tokens (T=0.1, 1, 10)](2025-09-18-21-10-54.png)
-
-As you can see, higher temperatures (T > 1) flatten the distribution, putting more weight on rare tokens. On the other hand, lower temperatures (T < 1) make the distribution peakier, favoring high-probability tokens more strongly. In theory you cannot set $T=0$ because that would lead to division by zero; however, model providers interpret $T=0$ as "**greedy decoding**," which always picks the highest-probability token. [^1]
 
 Here's another visualization of how temperature affects the distribution:
 
@@ -51,26 +50,39 @@ Here's another visualization of how temperature affects the distribution:
 
 ## Recap of sampling strategies
 
-The above describes naive sampling, where you sample directly from the full softmax distribution. This can lead to incoherent or repetitive text, especially in long generations. To mitigate this, several sampling strategies have been developed:
+The above describes naive sampling, where you sample directly from the full softmax distribution. This can lead to incoherent or repetitive text, especially in long generations. To mitigate this, several sampling strategies have been developed.
 
 ### Top-k sampling
 
+![Top-k and top-p](top_pk.png)
 
-Top-k truncates the candidate pool to the top k tokens, then samples. It reduces crazy low-probability picks while keeping some variety. Fixed k can be brittle across contexts (flat vs. sharp distributions).  ￼
+<div style="text-align: center;"><small>Top-k and top-p cut off the candidate tokens with the given threshold.</small></div>
 
-### Top-p (nucleus) sampling
+<br/>
 
-Top-p (aka nucleus) keeps the smallest set of tokens whose cumulative prob ≥ p, then samples. This adapts the pool size to uncertainty and often yields more natural, less degenerate text than beam or naive sampling.  ￼
 
-![](top_pk.png)
+**Top-k sampling** truncates the candidate pool to the top k tokens, then samples. It reduces crazy low-probability picks while keeping some variety. However, choosing the optimal $k$ is challenging and can lead to abrupt cutoffs in the distribution.  ￼
 
-### Beam search
+### Top-p sampling
 
-Beam search tracks multiple high-probability partial sequences and expands them step-by-step, returning the best overall. Great for tasks like translation/summarization, but can over-optimize for likelihood and become repetitive in open-ended generation.  ￼
+**Top-p sampling**, also known as **nucleus sampling**, adapts the token pool based on probability mass rather than a fixed count. Instead of picking the top $k$ tokens, it keeps the smallest set of tokens whose cumulative prob ≥ p, then samples. So `top_p=0.6` means only the tokens comprising the top 60% of the probability mass are considered. This adapts the pool size to uncertainty and often yields more natural, less degenerate text than naive sampling.
 
-### MCTS (Monte-Carlo Tree Search), conceptually
+### Sampling with search and re-ranking
 
-Instead of deciding one token at a time with only local scores, MCTS searches a small tree of continuations and uses a learned value or discriminator to guide rollouts toward globally better completions. It’s been shown to help with constrained or value-guided generation (e.g., polarity control, PPO value-guided decoding). It’s powerful but compute-heavy.  ￼
+The above strategies sample one token at each position in the sequence, which can lead to locally optimal but globally suboptimal sequences. Is it possible to improve quality by considering multiple candidate sequences? Yes, through search and re-ranking.
+
+![Sampling with search and re-ranking](2025-09-20-17-49-57.png)
+
+<div style="text-align: center;"><small>Advanced sampling methods with search and re-ranking. Image taken from "<a href="https://arxiv.org/abs/2408.03314v1">Scaling LLM Test-Time Compute Optimally can be More Effective than Scaling Model Parameters</a>."
+</small></div>
+
+<br/>
+
+**Best-of-N sampling** is the simplest form of such an approach: generate $N$ independent samples and pick the best one according to some scoring function (e.g., **perplexity**, or a separate value function ("verifier")). This can improve quality but is more computationally expensive.
+
+**Beam search** keeps track of the top $B$ candidate sequences (beams) at each step, expanding each beam with all possible next tokens and retaining only the top $B$ overall. This allows the model to explore multiple paths and can yield higher-quality text.
+
+**Lookahead search** goes even further by simulating multiple future steps for each candidate token, estimating the long-term value of each choice. This is more computationally intensive but can significantly improve coherence and relevance.
 
 ## So why are the knobs disabled on reasoning models?
 
