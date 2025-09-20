@@ -80,7 +80,7 @@ The strategies above sample one token at each position in the sequence, which ca
 
 <br/>
 
-**Best-of-N sampling** is the simplest version: generate $N$ independent samples and pick the best one using a scoring function (e.g., **perplexity** or a separate value function, a "verifier"). This is common when we can verify the output automatically (e.g., math problems, code generation). [2]
+**Best-of-N sampling** is the simplest version: generate $N$ independent samples and pick the best one using a scoring function (e.g., **perplexity** or a separate value function, a "verifier"). This is common when we can verify the output automatically (e.g., math problems, code generation). [^2]
 
 **Beam search** keeps the top $B$ candidate sequences (beams) at each step, expands each beam with all possible next tokens, and retains only the top $B$ overall. This explores multiple paths and often yields higher-quality text.
 
@@ -88,9 +88,9 @@ The strategies above sample one token at each position in the sequence, which ca
 
 ## Why Reasoning Models Disable Temperature/Top‑p
 
-The decoding path for modern reasoning models (like GPT-5, o3, and o4-mini) is likely more complex than a single pass of sampling from a softmax distribution. They may involve multiple rounds of generation, verification, and selection—at least in an internal chain-of-thought process—even if that process is hidden from the user. [3] Providers tune and calibrate these steps to get the best outcomes. Exposing external `temperature`/`top_p` would break those calibrations and destabilize quality and safety, so they’re disabled. For example, if the user set `temperature=0`, all the multiple paths of reasoning would collapse to a single greedy path, defeating the purpose of multi-pass reasoning.
+The decoding path for modern reasoning models (like GPT-5, o3, and o4-mini) is likely more complex than a single pass of sampling from a softmax distribution. They may involve multiple rounds of generation, verification, and selection—at least in an internal chain-of-thought process—even if that process is hidden from the user. [^3] Providers tune and calibrate these steps to get the best outcomes. Exposing external `temperature`/`top_p` would break those calibrations and destabilize quality and safety, so they’re disabled. For example, if the user set `temperature=0`, all the multiple paths of reasoning would collapse to a single greedy path, defeating the purpose of multi-pass reasoning.
 
-To let users steer the output, OpenAI introduced parameters such as `reasoning_effort` and `verbosity`. `verbosity` is straightforward: it adjusts the length of the output. `reasoning_effort` is more interesting: it likely adjusts not only the depth of reasoning, but also the width (the number of paths). This hypothesis aligns with published research on test-time scaling of LLMs. [4]
+To let users steer the output, OpenAI introduced parameters such as `reasoning_effort` and `verbosity`. `verbosity` is straightforward: it adjusts the length of the output. `reasoning_effort` is more interesting: it likely adjusts not only the depth of reasoning, but also the width (the number of paths). This hypothesis aligns with published research on test-time scaling of LLMs. [^4]
 
 [^1]: If you are interested in the (non-)determinism of LLMs, [this blog post from Thinking Machines](https://thinkingmachines.ai/blog/defeating-nondeterminism-in-llm-inference/) is a great read.
 [^2]: Bradley Brown, Jordan Juravsky, Ryan Ehrlich, Ronald Clark, Quoc V. Le, Christopher Ré, Azalia Mirhoseini. [Large Language Monkeys: Scaling Inference Compute with Repeated Sampling](https://arxiv.org/abs/2407.21787). 2024.
