@@ -1,10 +1,12 @@
 ---
-title: "Why You Can’t Set Temperature on GPT‑5/o3"
+title: "Why You Can’t Set Temperature on GPT-5/o3"
 date: "2025-09-20T22:01:03.284Z"
-description: "Some LLMs disbale sampling knobs like temperature and top_p. Here’s why."
+description: "Some LLMs disable sampling knobs like temperature and top_p. Here’s why."
 featuredImage: llm_temperature/ogp.png
 tags: ["en", "deep-learning", "nlp"]
 ---
+
+TL;DR: Modern reasoning models like GPT-5, o3, and o4-mini disable sampling parameters such as `temperature` and `top_p` because their internal generation process likely involves multiple rounds of reasoning, verification, and selection. Allowing users to adjust these parameters would disrupt the carefully calibrated process that ensures high-quality and safe outputs.
 
 ![Unsupported value: 'temperature' does not support 0 with this model. Only the default (1) value is supported.](carbon.png)
 
@@ -44,15 +46,15 @@ You can see this effect in the figure below. Here's the effect of different temp
 
 ![Distribution of tokens (T=0.1, 1, 10)](2025-09-18-21-10-54.png)
 
-Here's another visualization of how temperature affects the distribution:
+Another visualization of how temperature affects the distribution is shown below:
 
 ![Distribution of tokens with different temperatures](2025-09-18-21-08-22.png)
 
-## Different sampling strategies
+## Different Sampling Strategies
 
-The above describes naive sampling, where you sample directly from the full softmax distribution. This can lead to incoherent or repetitive text, especially in long generations. To mitigate this, several sampling strategies have been developed.
+The discussion above describes naive sampling, where you sample directly from the full softmax distribution. This can lead to incoherent or repetitive text, especially in long generations. To mitigate this, several sampling strategies have been developed.
 
-### Top-k sampling
+### Top-k Sampling
 
 ![Top-k and top-p](top_pk.png)
 
@@ -63,7 +65,7 @@ The above describes naive sampling, where you sample directly from the full soft
 
 **Top-k sampling** truncates the candidate pool to the top $k$ tokens, then samples. It reduces extremely low-probability picks while keeping some variety. However, choosing the optimal $k$ is hard and can lead to abrupt cutoffs in the distribution.
 
-### Top-p sampling
+### Top-p Sampling
 
 **Top-p sampling**, also known as **nucleus sampling**, adapts the token pool based on probability mass rather than a fixed count. Instead of picking the top $k$ tokens, it keeps the smallest set of tokens whose cumulative probability is at least $p$, then samples. So `top_p=0.6` means only the tokens comprising the top 60% of the probability mass are considered. This adapts the pool size to model uncertainty and often yields more natural, less degenerate text than naive sampling.
 
