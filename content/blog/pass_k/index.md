@@ -1,136 +1,135 @@
 ---
 title: "Pass@k and Pass^k Tell Different Stories from Mean Success Rate"
 date: "2025-10-28T22:01:03.284Z"
-description: "."
-featuredImage: pass_hat_k/ogp.png
+description: "These metrics capture coverage and reliability."
+featuredImage: pass_k/pass_hat_k.png
 tags: ["en", "deep-learning", "nlp"]
 ---
 
-[Tau-bench](https://openreview.net/forum?id=roNSXZpUDN) (ICLR 2025) evaluates AI agents in realistic environments — with APIs, domain rules, and interactive user sessions. The key insight from the authors was unsettling: models that look good on average can become wildly unstable when run repeatedly.
+[Tau-Bench](https://openreview.net/forum?id=roNSXZpUDN) at ICLR 2025 evaluates AI agents in realistic environments with APIs, domain rules, and interactive user sessions. The unsettling result is that agents that look good on average can become wildly unstable when we run them repeatedly.
 
-To capture this instability, they proposed a new metric called pass^k, which measures the probability that an agent never fails across $k$ consecutive runs — a direct measure of reliability, not just average performance.
+To capture this instability, the authors introduced the metric **pass^k**. It measures the probability that an agent finishes $k$ consecutive runs without a single failure. That value speaks directly to reliability rather than mean performance.
 
-This article explains what pass^k really measures, why it differs fundamentally from pass@k or average success rate with simple examples.
+This article explains what pass^k really measures, why it differs from **pass@k** and the mean success rate, and how a simple change in the distribution of per task success rates reshapes both metrics.
 
-## A Thought Experiment: The Coin and the Million-Dollar Game
+## Reliability Beyond the Mean
 
-Imagine the following game: you win $100 if you flip a coin and get 10 heads in a row.
+Imagine a game where you earn $100 if you flip a coin and see ten heads in a row.
 
-You can choose one of two types of coins:
+You may choose one of two coin options:
 
-1. A fair coin (50% heads each toss).
-2. A bag of two biased coins: one always heads, one always tails. You draw one coin at random and use it for all 10 flips.
+1. A fair coin with head probability 0.5 on every toss.
+2. A bag with two coins. One coin lands on heads every time, the other lands on tails every time. You draw one coin at random and use it for all ten flips.
 
-Both options have the same average success probability per toss: 0.5. But the chance of 10 consecutive heads is drastically different:
+Each option has the same mean success probability per toss, yet the chance of ten heads in a row is very different.
 
-- Fair coin: $(1/2)^{10} = 1/1024$
-- Mixed coins: $1/2 \times 1^{10} + 1/2 \times 0^{10} = 1/2$
+1. Fair coin: $(1/2)^{10} = 1/1024$.
+2. Mixed bag: $1/2 \times 1^{10} + 1/2 \times 0^{10} = 1/2$.
 
-In other words, the same average success (0.5) yields “continuous success” that differs by 500x. That’s exactly what pass^k captures — the difference between occasional luck and consistent reliability.
+In other words, the same average success rate (0.5) yields “continuous success” that differs by 500 times. That’s exactly what pass^k captures — the difference between occasional luck and consistent reliability.
 
+## Definition
 
-## Defining the Metrics — Same $k$, Different Questions
-
-Let each task $i$ have a single-run success probability $p_i \in [0, 1]$. Across tasks, these probabilities follow some distribution $P(p)$. Throughout, we assume repeated trials on the same task are independent draws with that task’s fixed $p_i$.
+Consider a task $i$ with single run success probability $p_i \in [0, 1]$. Across tasks the probabilities follow some distribution $P(p)$. Repeated trials on the same task are independent draws with the same $p_i$ throughout.
 
 | Metric | Definition | Intuition |
 | --- | --- | --- |
-| Average success rate | $\mathrm{pass}^1 = \mathbb{E}[p]$ | “How often does it succeed once?” |
-| Continuous success (pass^k) | $\mathrm{pass}^k = \mathbb{E}[p^k]$ | “How often does it succeed $k$ times in a row?” |
-| Coverage (pass@k) | $\mathrm{pass}@k = \mathbb{E}[1 - (1-p)^k]$ | “How often does it succeed at least once in $k$ trials?” |
-
+| Average success rate | $\mathrm{pass}^1 = \mathbb{E}[p]$ | Probability of a single success |
+| Continuous success (pass^k) | $\mathrm{pass}^k = \mathbb{E}[p^k]$ | Probability of $k$ straight successful runs |
+| Coverage (pass@k) | $\mathrm{pass}@k = \mathbb{E}[1 - (1-p)^k]$ | Probability of at least one success in $k$ tries |
 
 ## A Toy Experiment: Same Mean, Different Shapes
 
-Fix the average success rate at 0.5, but vary the shape of the per-task distribution.
+Hold the average success rate $\mu$ at 0.5 but change the shape of the per task distribution.
 
 | Scenario | Probabilities $p_i$ | Average | Standard deviation | Description |
 | --- | --- | --- | --- | --- |
-| homogeneous | 0.50 (100%) | 0.5 | 0.0 | Even skill on every task. |
-| no skew | 0.20 (50%), 0.80 (50%) | 0.5 | ~0.30 | Half the tasks are easy wins, half are stubborn misses. |
-| negative skew | 0.07 (~33%), 0.715 (~67%) | 0.5 | ~0.30 | Great at most tasks but extremely bad at the others |
-| positive skew | 0.93 (~33%), 0.285 (~67%) | 0.5 | ~0.30 | Bad at most tasks but extremely good at the others |
+| homogeneous | 0.50 (100%) | 0.5 | 0.0 | Uniform skill on every task |
+| no skew | 0.20 (50%), 0.80 (50%) | 0.5 | ~0.30 | Half the tasks are easy wins, half resist |
+| negative skew | 0.07 (~33%), 0.715 (~67%) | 0.5 | ~0.30 | Most tasks are easy yet a few almost always fail |
+| positive skew | 0.93 (~33%), 0.285 (~67%) | 0.5 | ~0.30 | Most tasks are hard yet a few are guaranteed wins |
 
-
-## 1) k-Sweep: Comparing pass@k (Dashed) vs pass^k (Solid)
+## k-sweep: Comparing pass@k and pass^k
 
 ![pass@k vs. pass^k for different distributions.](./pass_hat_k.png)
-*Figure 1: Coverage (dashed) climbs while reliability (solid) decays under the same mean success rate.*
 
-Key takeaways:
-
-- For the homogeneous case, pass@k converges to 1 and pass^k decays to 0 quickly.
-- Heterogeneity (i.e., variance) in $p$ makes the convergence of both metrics slower, as we have seen in the coin example.
-- Both metrics are sensitive to the skewness, not just the mean and variance. Positive skew yields higher pass@k and pass^k than negative skew.
-
-To ground the curves, look at $k=3$: the homogeneous agent already hits pass@k ≈ 0.88 but pass^k ≈ 0.13, while the positively skewed agent keeps pass^k roughly twice as high (≈ 0.28) by banking a few “always right” tasks.
+<div style="text-align: center;"><small>Pass@k (dashed) and pass^k (solid).</small></div>
 
 
-## 2) Quantifying the Shape Effect: $\Delta_k$
+The figure sweeps $k$ from one to eight and plots pass@k with dashed lines and pass^k with solid lines. Several patterns stand out:
 
-We saw that heterogeneity in $P(p)$ can drastically change pass^k even with the same mean. Let’s quantify this effect as gain from heterogeneity:
+- The homogeneous agent reaches pass@k close to one by $k = 5$ while pass^k falls rapidly toward zero because even steady agents eventually miss.
+- Introducing variance in $p$ slows the change in both metrics. Heterogeneity keeps pass^k higher for small $k$ because some tasks are near certain wins.
+- Skew matters. Positive skew (some perfect tasks) lifts both pass@k and pass^k. Negative skew drags both curves down even though the mean and variance match the other cases.
+
+At $k = 3$ the homogeneous agent records pass@k about $0.88$ but pass^k about $0.13$. The positively skewed agent keeps pass^k near $0.28$ by relying on the guaranteed tasks.
+
+## $\Delta_k$: Quantifying the Shape Effect
+
+We saw that heterogeneity in $P(p)$ can reshape pass^k at constant mean. Define the reliability gain
 
 $$
 \Delta_k = \mathrm{pass}^k - (\mathrm{pass}^1)^k
 $$
 
 ![Delta_k for non-homogeneous distributions.](./delta.png)
-*Figure 2: Heterogeneity bonus $\Delta_k$ peaks at modest $k$ before reliability decays.*
 
-- For homogeneous → $\Delta_k = 0$.
-- For heterogeneous → $\Delta_k > 0$: right-side mass lift pass^k.
-- Without any $p = 1$ mass, $\Delta_k$ peaks at moderate $k$ then fades (as $\mathbb{E}[p^k] \to 0$).
+<div style="text-align: center;"><small>Heterogeneity bonus peaks at modest k before reliability decays.</small></div>
 
-Positive skew keeps climbing through $k \approx 5$ with $\Delta_k \approx 0.20$ before tapering, while negative skew peaks earlier around $\Delta_k \approx 0.12$, highlighting how a handful of near-certain wins can meaningfully pad reliability in short bursts.
+This measures how much heterogeneity boosts pass^k beyond what the mean alone predicts. Three observations:
 
+- Homogeneous agents yield $\Delta_k = 0$ for all $k$.
+- Any distribution with mass near $p = 1$ produces $\Delta_k > 0$.
+- When a distribution lacks perfect tasks, $\Delta_k$ peaks at moderate $k$ and then fades because $\mathbb{E}[p^k]$ still goes to zero.
 
-## Why This Happens — Jensen’s Inequality, Visually
+The positively skewed agent keeps increasing through roughly $k = 5$ with $\Delta_k \approx 0.20$ before tapering. The negatively skewed agent peaks closer to $0.12$. A small set of nearly certain wins provides real insurance against short streaks of failures.
 
-Let's check the math. For $k \ge 2$, $p^k$ is a convex function on $[0, 1]$, and always $p^k \le p$. By Jensen’s inequality,
+## Why This Happens: Jensen’s Inequality
+
+For $k \ge 2$, the function $p^k$ is convex on $[0, 1]$ and always satisfies $p^k \le p$. By **Jensen’s inequality**,
 
 $$
 (\mathbb{E}[p])^k = \mu^k \le \mathbb{E}[p^k] \le \mathbb{E}[p] = \mu.
 $$
 
-Thus,
+Therefore,
 
 $$
 \Delta_k = \mathbb{E}[p^k] - \mu^k \ge 0,
 $$
 
-meaning heterogeneity (mass near $p = 1$) always boosts pass^k.
+so heterogeneity, especially mass near $p = 1$, always boosts pass^k.
 
-If we fix $\mu$ but vary shape, the theoretical upper bound is
+If we fix $\mu$ but allow different shapes, the upper bound is
 
 $$
 \max \Delta_k = \mu - \mu^k,
 $$
 
-achieved by a two-point distribution
+which a two point distribution attains:
 
 $$
 P(p = 1) = \mu,\quad P(p = 0) = 1 - \mu.
 $$
 
-Intuitively, a few “always-correct” cases lift reliability far more than they lift average success.
+Intuitively, a few always correct tasks push reliability far more than they shift the mean.
 
-What about pass@k? While pass^k increases under heterogeneity (mass near $p=1$), pass@k actually decreases when per-task success rates are uneven. This is because $1-(1-p)^k$ is concave, so Jensen’s inequality flips:
+Pass@k behaves the other way because $1 - (1 - p)^k$ is concave. Jensen’s inequality reverses:
 
 $$
-\mu \;\le\; \mathrm{pass}@k \;\le\; 1-(1-\mu)^k.
+\mu \le \mathrm{pass}@k \le 1 - (1 - \mu)^k.
 $$
 
-In plain terms: retry helps homogeneously skilled agents more than uneven ones. If you’re consistently “okay” everywhere, retries almost guarantee a win — but if you’re brilliant on some tasks and hopeless on others, retries can’t save you on the hard cases.
+A system with uniform skill benefits the most from retries. A system that is brilliant on some tasks and helpless on others gains less, since retries do not rescue the hopeless cases.
 
-Taken together, the twin inequalities explain why reliability metrics reward a few sure-things while coverage metrics celebrate teams that never have glaring blind spots.
-
+Together these inequalities explain why reliability metrics reward a handful of sure bets while coverage metrics celebrate agents without glaring blind spots.
 
 ## Key Takeaways
 
-- pass@k measures coverage; pass^k measures reliability.
-- pass@k is suitable for exploration. When you validate the output before using, pass@k tells how many samples to draw. It makes sense coding benchmakrs adopt pass@k because they can verify correctness automatically with unit tests.
-- pass^k is suitable for reliability. When you can't afford failures, pass^k tells how reliable the system is over repeated uses. It makes sense Tau-bench adopted pass^k because it simulates a customer support agent that doesn't have a way to verify its own output.
-- Even with identical means and variances, distribution shape (skewness, tails, multimodality) can change pass^k dramatically.
+1. Pass@k measures coverage; pass^k measures reliability across repeated uses.
+2. Pass@k is ideal when you can check outputs before deployment, such as coding benchmarks with unit tests.
+3. Pass^k is ideal when a single failure is costly, such as customer support simulations where the agent cannot self check.
+4. Even with equal means and variances, the shape of $P(p)$ can shift pass^k dramatically, so reporting mean success alone can be misleading.
 
 ## Appendix: Code to Generate the Figures
 
