@@ -31,7 +31,7 @@ In other words, the same average success (0.5) yields “continuous success” t
 
 ## Defining the Metrics — Same $k$, Different Questions
 
-Let each task $i$ have a single-run success probability $p_i \in [0, 1]$. Across tasks, these probabilities follow some distribution $P(p)$.
+Let each task $i$ have a single-run success probability $p_i \in [0, 1]$. Across tasks, these probabilities follow some distribution $P(p)$. Throughout, we assume repeated trials on the same task are independent draws with that task’s fixed $p_i$.
 
 | Metric | Definition | Intuition |
 | --- | --- | --- |
@@ -55,12 +55,15 @@ Fix the average success rate at 0.5, but vary the shape of the per-task distribu
 ## 1) k-Sweep: Comparing pass@k (Dashed) vs pass^k (Solid)
 
 ![pass@k vs. pass^k for different distributions.](./pass_hat_k.png)
+*Figure 1: Coverage (dashed) climbs while reliability (solid) decays under the same mean success rate.*
 
 Key takeaways:
 
 - For the homogeneous case, pass@k converges to 1 and pass^k decays to 0 quickly.
 - Heterogeneity (i.e., variance) in $p$ makes the convergence of both metrics slower, as we have seen in the coin example.
 - Both metrics are sensitive to the skewness, not just the mean and variance. Positive skew yields higher pass@k and pass^k than negative skew.
+
+To ground the curves, look at $k=3$: the homogeneous agent already hits pass@k ≈ 0.88 but pass^k ≈ 0.13, while the positively skewed agent keeps pass^k roughly twice as high (≈ 0.28) by banking a few “always right” tasks.
 
 
 ## 2) Quantifying the Shape Effect: $\Delta_k$
@@ -72,10 +75,13 @@ $$
 $$
 
 ![Delta_k for non-homogeneous distributions.](./delta.png)
+*Figure 2: Heterogeneity bonus $\Delta_k$ peaks at modest $k$ before reliability decays.*
 
 - For homogeneous → $\Delta_k = 0$.
 - For heterogeneous → $\Delta_k > 0$: right-side mass lift pass^k.
 - Without any $p = 1$ mass, $\Delta_k$ peaks at moderate $k$ then fades (as $\mathbb{E}[p^k] \to 0$).
+
+Positive skew keeps climbing through $k \approx 5$ with $\Delta_k \approx 0.20$ before tapering, while negative skew peaks earlier around $\Delta_k \approx 0.12$, highlighting how a handful of near-certain wins can meaningfully pad reliability in short bursts.
 
 
 ## Why This Happens — Jensen’s Inequality, Visually
@@ -108,9 +114,7 @@ $$
 
 Intuitively, a few “always-correct” cases lift reliability far more than they lift average success.
 
-Here is a smooth continuation you can paste under your Jensen section:
-
-What About pass@k? While pass^k increases under heterogeneity (mass near p=1), pass@k actually decreases when per-task success rates are uneven. This is because $1-(1-p)^k$ is concave, so Jensen’s inequality flips:
+What about pass@k? While pass^k increases under heterogeneity (mass near $p=1$), pass@k actually decreases when per-task success rates are uneven. This is because $1-(1-p)^k$ is concave, so Jensen’s inequality flips:
 
 $$
 \mu \;\le\; \mathrm{pass}@k \;\le\; 1-(1-\mu)^k.
@@ -118,12 +122,14 @@ $$
 
 In plain terms: retry helps homogeneously skilled agents more than uneven ones. If you’re consistently “okay” everywhere, retries almost guarantee a win — but if you’re brilliant on some tasks and hopeless on others, retries can’t save you on the hard cases.
 
+Taken together, the twin inequalities explain why reliability metrics reward a few sure-things while coverage metrics celebrate teams that never have glaring blind spots.
+
 
 ## Key Takeaways
 
 - pass@k measures coverage; pass^k measures reliability.
-- pass@k is suitable for exploration. When you validate the output before using, pass@k tells how many samples to draw. 
-- pass^k is suitable for reliability. When you can't afford failures, pass^k tells how reliable the system is over repeated uses.
+- pass@k is suitable for exploration. When you validate the output before using, pass@k tells how many samples to draw. It makes sense coding benchmakrs adopt pass@k because they can verify correctness automatically with unit tests.
+- pass^k is suitable for reliability. When you can't afford failures, pass^k tells how reliable the system is over repeated uses. It makes sense Tau-bench adopted pass^k because it simulates a customer support agent that doesn't have a way to verify its own output.
 - Even with identical means and variances, distribution shape (skewness, tails, multimodality) can change pass^k dramatically.
 
 ## Appendix: Code to Generate the Figures
