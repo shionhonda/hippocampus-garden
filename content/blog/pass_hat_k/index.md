@@ -1,5 +1,5 @@
 ---
-title: "Measuring “Continuous Success” Beyond Average — Understanding pass^k in the Context of Tau-bench"
+title: "Pass@k and Pass^k Tell Different Stories from Mean Success Rate"
 date: "2025-10-28T22:01:03.284Z"
 description: "."
 featuredImage: pass_hat_k/ogp.png
@@ -58,33 +58,32 @@ Fix the average success rate at 0.5, but vary the shape of the per-task distribu
 
 Key takeaways:
 
-- pass@k saturates quickly. For the homogeneous case, $\mathrm{pass}@8 \approx 0.996$, yet $\mathrm{pass}^8 = 0.5^8 \approx 0.004$. “Hit at least once” vs. “never miss once” are orders of magnitude apart.
-- pass^k is shape-sensitive. Positive skew yields the largest pass^k (few high-$p$ tasks dominate via convexity), negative skew yields the smallest pass^k (a thin low-$p$ tail kills reliability), homogeneous drops smoothly as $0.5^k$, and ranking can invert: a distribution worse in pass@k may be better in pass^k.
+- For the homogeneous case, pass@k converges to 1 and pass^k decays to 0 quickly.
+- Heterogeneity (i.e., variance) in $p$ makes the convergence of both metrics slower, as we have seen in the coin example.
+- Both metrics are sensitive to the skewness, not just the mean and variance. Positive skew yields higher pass@k and pass^k than negative skew.
 
 
 ## 2) Quantifying the Shape Effect: $\Delta_k$
 
-Define
+We saw that heterogeneity in $P(p)$ can drastically change pass^k even with the same mean. Let’s quantify this effect as gain from heterogeneity:
 
 $$
 \Delta_k = \mathrm{pass}^k - (\mathrm{pass}^1)^k
 $$
 
-— the “gain from heterogeneity”.
-
 ![Delta_k for non-homogeneous distributions.](./delta.png)
 
 - For homogeneous → $\Delta_k = 0$.
-- For heterogeneous → $\Delta_k > 0$: right-side mass or fat tails lift pass^k.
+- For heterogeneous → $\Delta_k > 0$: right-side mass lift pass^k.
 - Without any $p = 1$ mass, $\Delta_k$ peaks at moderate $k$ then fades (as $\mathbb{E}[p^k] \to 0$).
 
 
 ## Why This Happens — Jensen’s Inequality, Visually
 
-The math is simple but deep. For $k \ge 2$, $p^k$ is a convex function on $[0, 1]$, and always $p^k \le p$. By Jensen’s inequality,
+Let's check the math. For $k \ge 2$, $p^k$ is a convex function on $[0, 1]$, and always $p^k \le p$. By Jensen’s inequality,
 
 $$
-(\mathbb{E}[p])^k \le \mathbb{E}[p^k] \le \mathbb{E}[p] = \mu.
+(\mathbb{E}[p])^k = \mu^k \le \mathbb{E}[p^k] \le \mathbb{E}[p] = \mu.
 $$
 
 Thus,
@@ -109,33 +108,23 @@ $$
 
 Intuitively, a few “always-correct” cases lift reliability far more than they lift average success.
 
+Here is a smooth continuation you can paste under your Jensen section:
 
-## Practical Use: Lessons from Tau-bench
+What About pass@k? While pass^k increases under heterogeneity (mass near p=1), pass@k actually decreases when per-task success rates are uneven. This is because $1-(1-p)^k$ is concave, so Jensen’s inequality flips:
 
-| Use case | Metric | Question answered | Typical setting |
-| --- | --- | --- | --- |
-| Exploration | pass@k | “How many retries until we get one right?” | Idea generation, sampling, brainstorming |
-| Reliability | pass^k | “How often do we avoid all failures?” | Production, user-facing systems, compliance pipelines |
+$$
+\mu \;\le\; \mathrm{pass}@k \;\le\; 1-(1-\mu)^k.
+$$
 
-Consider an automated support agent that answers thousands of times a day. One failure can violate SLA/SLO targets. Here, pass^k is the relevant metric — not average accuracy.
-
-Recommended reporting set:
-
-1. pass$^1$ (mean success rate) + confidence interval.
-2. pass^k curve across $k$ (reliability curve).
-3. Optionally pass@k and $\Delta_k$ for coverage comparison.
-
-Small $k$ (2–4) suits dev-testing gates; larger $k$ (4–8+) suits production SLOs.
-
+In plain terms: retry helps homogeneously skilled agents more than uneven ones. If you’re consistently “okay” everywhere, retries almost guarantee a win — but if you’re brilliant on some tasks and hopeless on others, retries can’t save you on the hard cases.
 
 
 ## Key Takeaways
 
 - pass@k measures coverage; pass^k measures reliability.
-- Even with identical means, distribution shape (skewness, tails, multimodality) can change pass^k by orders of magnitude.
-- Jensen’s inequality bounds the metric: $(\mathbb{E}[p])^k \le \mathbb{E}[p^k] \le \mathbb{E}[p]$, with theoretical maximum gain $\mu - \mu^k$.
-- Tau-bench highlights that average performance is not enough — consistent success defines reliability.
-
+- pass@k is suitable for exploration. When you validate the output before using, pass@k tells how many samples to draw. 
+- pass^k is suitable for reliability. When you can't afford failures, pass^k tells how reliable the system is over repeated uses.
+- Even with identical means and variances, distribution shape (skewness, tails, multimodality) can change pass^k dramatically.
 
 ## Appendix: Code to Generate the Figures
 
