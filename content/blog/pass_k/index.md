@@ -1,6 +1,6 @@
 ---
 title: "Pass@k and Pass^k Tell Different Stories from Mean Success Rate"
-date: "2025-10-28T22:01:03.284Z"
+date: "2025-10-30T22:01:03.284Z"
 description: "These metrics capture coverage and reliability."
 featuredImage: pass_k/pass_hat_k.png
 tags: ["en", "deep-learning", "nlp"]
