@@ -127,8 +127,8 @@ Together these inequalities explain why reliability metrics reward a handful of 
 ## Key Takeaways
 
 1. Pass@k measures coverage; pass^k measures reliability across repeated uses.
-2. Pass@k is ideal when you can check outputs before deployment, such as coding benchmarks with unit tests.
-3. Pass^k is ideal when a single failure is costly, such as customer support simulations where the agent cannot self check.
+2. Pass@k is ideal when you can check outputs before deployment, such as coding benchmarks with unit tests (e.g., SWE-bench).
+3. Pass^k is ideal when a single failure is costly, such as customer support simulations where the agent cannot self check (e.g., Tau-bench).
 4. Even with equal means and variances, the shape of $P(p)$ can shift pass^k dramatically, so reporting mean success alone can be misleading.
 
 ## Appendix: Code to Generate the Figures
