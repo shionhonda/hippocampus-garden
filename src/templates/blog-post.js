@@ -13,8 +13,6 @@ const BlogPostTemplate = ({ data, pageContext, location }) => {
   const post = data.markdownRemark
   const { previous, next } = pageContext
   const { siteTitle, author, url } = data.site.siteMetadata
-  const pageViews = data.totalPageViews ? data.totalPageViews.count : 0
-  const formatter = new Intl.NumberFormat("ja-JP")
   const content = (
     <p>
       Written by <strong>{author}</strong>. If you like this, please share!
@@ -40,8 +38,7 @@ const BlogPostTemplate = ({ data, pageContext, location }) => {
           }}
         >
           {post.frontmatter.date}&nbsp; | &nbsp;
-          {post.timeToRead} min read&nbsp; | &nbsp;
-          {formatter.format(pageViews)} views
+          {post.timeToRead} min read
         </p>
         <Tags tags={post.frontmatter.tags} />
 
