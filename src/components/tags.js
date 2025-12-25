@@ -9,10 +9,12 @@ const Tag = ({ tag }) => {
       <Link
         to={`/tags/${kebabCase(tag)}/`}
         style={{
+          display: `inline-flex`,
+          alignItems: `center`,
           marginRight: rhythm(1 / 4),
           marginBottom: rhythm(1 / 4),
-          paddingTop: rhythm(1 / 3),
-          paddingBottom: 0,
+          paddingTop: rhythm(1 / 6),
+          paddingBottom: rhythm(1 / 6),
           paddingLeft: rhythm(1 / 4),
           paddingRight: rhythm(1 / 4),
           fontSize: 16,
@@ -20,7 +22,7 @@ const Tag = ({ tag }) => {
           color: `black`,
           backgroundColor: `#f0f0f0`,
           borderRadius: rhythm(1 / 4),
-          lineHeight: 0.5,
+          lineHeight: 1,
         }}
       >
         {tag}

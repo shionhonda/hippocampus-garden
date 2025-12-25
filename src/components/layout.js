@@ -35,19 +35,7 @@ const Layout = ({ location, title, children, toc }) => {
   ) {
     content = (
       <div className="flexbox">
-        <div className="mainbox grid">
           <main>{children}</main>
-        </div>
-        <div className="sidebar">
-          <a
-            className="twitter-timeline"
-            data-width="300"
-            data-height="800"
-            href="https://twitter.com/shion_honda?ref_src=twsrc%5Etfw"
-          >
-            Tweets by shion_honda
-          </a>
-        </div>
       </div>
     )
   } else if (location.pathname === "/privacy-policy/") {
