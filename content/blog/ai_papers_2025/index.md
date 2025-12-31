@@ -2,7 +2,7 @@
 title: Top 5 AI Papers of 2025
 date: "2025-12-31T22:02:03.284Z"
 description: "This article picks five notable AI papers from 2025 and summarizes their key ideas and limitations, including reinforcement learning for reasoning, agent benchmarks, long‑task metrics, and a statistical explanation of hallucinations."
-featuredImage: ai_papers_2025_en/ogp.jpg
+featuredImage: ai_papers_2025/ogp.jpg
 tags: ["en", "deep-learning", "llm"]
 ---
 
