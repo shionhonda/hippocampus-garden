@@ -2,11 +2,18 @@ import React from "react"
 import PropTypes from "prop-types"
 import { useStaticQuery, graphql } from "gatsby"
 
-const Seo = ({ title, desc, banner, pathname, article }) => {
+const Seo = ({
+  title,
+  desc,
+  banner,
+  pathname,
+  article,
+  datePublished,
+  dateModified,
+}) => {
   const data = useStaticQuery(graphql`
     query SeoQuery {
       site {
-        buildTime(formatString: "MMMM DD, YYYY")
         siteMetadata {
           defaultTitle: title
           titleAlt
@@ -80,8 +87,8 @@ const Seo = ({ title, desc, banner, pathname, article }) => {
           url: seo.image,
         },
         description: seo.description,
-        datePublished: data.site.buildTime,
-        dateModified: data.site.buildTime,
+        datePublished,
+        dateModified: dateModified || datePublished,
         author: {
           "@type": "Person",
           name: data.site.siteMetadata.author,
@@ -112,6 +119,7 @@ const Seo = ({ title, desc, banner, pathname, article }) => {
       <html lang={data.site.siteMetadata.siteLanguage} />
       <meta name="description" content={seo.description} />
       <meta name="image" content={seo.image} />
+      <meta name="robots" content="max-image-preview:large" />
       <meta
         name="apple-mobile-web-app-title"
         content={data.site.siteMetadata.shortName}
@@ -157,6 +165,8 @@ Seo.propTypes = {
   banner: PropTypes.string,
   pathname: PropTypes.string,
   article: PropTypes.bool,
+  datePublished: PropTypes.string,
+  dateModified: PropTypes.string,
 }
 
 Seo.defaultProps = {
@@ -165,4 +175,6 @@ Seo.defaultProps = {
   banner: null,
   pathname: null,
   article: false,
+  datePublished: null,
+  dateModified: null,
 }
