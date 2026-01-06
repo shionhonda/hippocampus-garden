@@ -28,7 +28,6 @@ const BlogPostTemplate = ({ data, pageContext, location }) => {
         pathname={post.fields.slug}
         article={true}
         datePublished={post.frontmatter.date}
-        dateModified={post.frontmatter.lastModified}
       />
       <article style={{ backgroundColor: "white", padding: rhythm(1) }}>
         <h1 style={{ marginBottom: 0 }}>{post.frontmatter.title}</h1>
@@ -99,7 +98,6 @@ export const Head = ({ data }) => {
     pathname: post.fields.slug,
     article: true,
     datePublished: post.frontmatter.date,
-    dateModified: post.frontmatter.lastModified,
   })
 }
 
@@ -121,7 +119,6 @@ export const pageQuery = graphql`
       frontmatter {
         title
         date(formatString: "MMMM DD, YYYY")
-        lastModified(formatString: "MMMM DD, YYYY")
         description
         featuredImage
         tags
