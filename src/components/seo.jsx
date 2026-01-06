@@ -112,6 +112,7 @@ const Seo = ({ title, desc, banner, pathname, article }) => {
       <html lang={data.site.siteMetadata.siteLanguage} />
       <meta name="description" content={seo.description} />
       <meta name="image" content={seo.image} />
+      <meta name="robots" content="max-image-preview:large" />
       <meta
         name="apple-mobile-web-app-title"
         content={data.site.siteMetadata.shortName}
