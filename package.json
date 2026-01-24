@@ -47,7 +47,6 @@
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-helmet-async": "^2.0.5",
-    "react-instantsearch-dom": "^6.40.4",
     "react-share": "^4.4.1",
     "react-typography": "^0.16.23",
     "rehype-katex": "^6.0.3",
@@ -70,9 +69,6 @@
     "prettier": "^2.8.1",
     "react-test-renderer": "^18.2.0",
     "sass": "^1.56.2"
-  },
-  "overrides": {
-    "ajv": "6.12.6"
   },
   "homepage": "https://github.com/gatsbyjs/gatsby-starter-blog#readme",
   "keywords": [
