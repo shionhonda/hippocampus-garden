@@ -9,7 +9,7 @@ import TagList from "./tag-list"
 import "./layout.scss"
 import { rhythm } from "../utils/typography"
 
-const Layout = ({ location, title, children, toc }) => {
+const Layout = ({ location, title, children, toc, relatedPosts }) => {
   const isRootPath = location.pathname === `${__PATH_PREFIX__}/`
   const pageNumber = location.pathname.split("/").filter(Boolean).pop()
   const isPaginatedPath = pageNumber && Boolean(pageNumber.match(/^[0-9]+$/))
@@ -51,6 +51,7 @@ const Layout = ({ location, title, children, toc }) => {
             <h3>Table of Contents</h3>
             <div dangerouslySetInnerHTML={{ __html: toc }} />
           </div>
+          {relatedPosts}
           <PopularPost />
           <TagList />
         </div>

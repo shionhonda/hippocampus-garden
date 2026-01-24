@@ -3,6 +3,7 @@ const fs = require('fs');
 const _ = require("lodash")
 const { createFilePath } = require(`gatsby-source-filesystem`)
 const { google } = require('googleapis')
+const TinySegmenter = require('tiny-segmenter')
 const activeEnv =
   process.env.GATSBY_ACTIVE_ENV || process.env.NODE_ENV || 'development';
 require('dotenv').config({
@@ -18,9 +19,11 @@ exports.createPages = async ({ graphql, actions }) => {
   postsRemark: allMarkdownRemark(sort: {frontmatter: {date: DESC}}, limit: 1000) {
     edges {
       node {
+        id
         fields {
           slug
         }
+        rawMarkdownBody
         frontmatter {
           title
           tags
@@ -41,6 +44,7 @@ exports.createPages = async ({ graphql, actions }) => {
   }
 
   const posts = result.data.postsRemark.edges
+  const relatedPostsBySlug = buildRelatedPosts(posts)
   // Create blog post list pages
   const postsPerPage = 10;
   const numPages = Math.ceil(posts.length / postsPerPage);
@@ -61,6 +65,8 @@ exports.createPages = async ({ graphql, actions }) => {
   posts.forEach((post, index) => {
     const previous = index === posts.length - 1 ? null : posts[index + 1].node
     const next = index === 0 ? null : posts[index - 1].node
+    const relatedPostSlugs =
+      relatedPostsBySlug[post.node.fields.slug] ?? []
     createPage({
       path: post.node.fields.slug,
       component: blogPost,
@@ -68,6 +74,7 @@ exports.createPages = async ({ graphql, actions }) => {
         slug: post.node.fields.slug,
         previous,
         next,
+        relatedPostSlugs,
       },
     })
   });
@@ -84,6 +91,150 @@ exports.createPages = async ({ graphql, actions }) => {
       },
     })
   })
+}
+
+function buildRelatedPosts(posts) {
+  const segmenter = new TinySegmenter()
+  const stopWords = new Set([
+    'a',
+    'an',
+    'and',
+    'are',
+    'as',
+    'at',
+    'be',
+    'but',
+    'by',
+    'for',
+    'from',
+    'has',
+    'have',
+    'if',
+    'in',
+    'into',
+    'is',
+    'it',
+    'its',
+    'of',
+    'on',
+    'or',
+    'that',
+    'the',
+    'their',
+    'then',
+    'this',
+    'to',
+    'was',
+    'were',
+    'will',
+    'with',
+  ])
+  const tokensBySlug = new Map()
+  const termFreqBySlug = new Map()
+  const docFreq = new Map()
+  const docs = posts.map((post) => post.node)
+
+  docs.forEach((post) => {
+    const tokens = tokenizeContent(
+      post.rawMarkdownBody || '',
+      segmenter,
+      stopWords
+    )
+    tokensBySlug.set(post.fields.slug, tokens)
+    const termFreq = new Map()
+    tokens.forEach((token) => {
+      termFreq.set(token, (termFreq.get(token) || 0) + 1)
+    })
+    termFreqBySlug.set(post.fields.slug, termFreq)
+    new Set(tokens).forEach((token) => {
+      docFreq.set(token, (docFreq.get(token) || 0) + 1)
+    })
+  })
+
+  const totalDocs = docs.length
+  const idfByTerm = new Map()
+  docFreq.forEach((freq, term) => {
+    idfByTerm.set(term, Math.log((totalDocs + 1) / (freq + 1)) + 1)
+  })
+
+  const tfidfBySlug = new Map()
+  termFreqBySlug.forEach((termFreq, slug) => {
+    const vector = new Map()
+    let norm = 0
+    termFreq.forEach((count, term) => {
+      const tf = count / (tokensBySlug.get(slug).length || 1)
+      const tfidf = tf * (idfByTerm.get(term) || 0)
+      vector.set(term, tfidf)
+      norm += tfidf * tfidf
+    })
+    tfidfBySlug.set(slug, { vector, norm: Math.sqrt(norm) })
+  })
+
+  const relatedPostsBySlug = {}
+  docs.forEach((post) => {
+    const slug = post.fields.slug
+    const tags = new Set(post.frontmatter.tags || [])
+    const scores = []
+    docs.forEach((candidate) => {
+      if (candidate.fields.slug === slug) {
+        return
+      }
+      const tagScore = computeTagScore(tags, candidate.frontmatter.tags)
+      const tfidfScore = cosineSimilarity(
+        tfidfBySlug.get(slug),
+        tfidfBySlug.get(candidate.fields.slug)
+      )
+      const score = tagScore * 0.6 + tfidfScore * 0.4
+      if (score > 0) {
+        scores.push({ slug: candidate.fields.slug, score })
+      }
+    })
+    scores.sort((a, b) => b.score - a.score)
+    relatedPostsBySlug[slug] = scores.slice(0, 5).map((item) => item.slug)
+  })
+
+  return relatedPostsBySlug
+}
+
+function tokenizeContent(content, segmenter, stopWords) {
+  const normalized = content.toLowerCase()
+  const japaneseTokens = segmenter
+    .segment(normalized)
+    .map((token) => token.trim())
+    .filter((token) => token && !stopWords.has(token))
+  const englishTokens = normalized
+    .replace(/[^a-z0-9\s]/g, ' ')
+    .split(/\s+/)
+    .map((token) => token.trim())
+    .filter((token) => token && token.length > 1 && !stopWords.has(token))
+  return [...japaneseTokens, ...englishTokens]
+}
+
+function computeTagScore(tags, candidateTags = []) {
+  if (tags.size === 0 || candidateTags.length === 0) {
+    return 0
+  }
+  let matches = 0
+  candidateTags.forEach((tag) => {
+    if (tags.has(tag)) {
+      matches += 1
+    }
+  })
+  return matches / Math.max(tags.size, candidateTags.length)
+}
+
+function cosineSimilarity(source, target) {
+  if (!source || !target || source.norm === 0 || target.norm === 0) {
+    return 0
+  }
+  let dot = 0
+  source.vector.forEach((value, term) => {
+    const targetValue = target.vector.get(term)
+    if (targetValue) {
+      dot += value * targetValue
+    }
+  })
+  return dot / (source.norm * target.norm)
 }
 
 exports.onCreateNode = ({ node, actions, getNode }) => {
