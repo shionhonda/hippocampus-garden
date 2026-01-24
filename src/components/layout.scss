@@ -21,6 +21,12 @@
 }
 
 @media screen and (max-width: 1000px) {
+  .layout-container {
+    max-width: 100% !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+
   .flexbox {
     display: block;
     .mainbox {
@@ -31,6 +37,9 @@
       width: 100%;
       margin: auto;
       text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
       .toc {
         display: none;
       }

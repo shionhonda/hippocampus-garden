@@ -3,6 +3,7 @@ import { Link, graphql } from "gatsby"
 
 import Bio from "../components/bio"
 import Layout from "../components/layout"
+import RelatedPosts from "../components/related-posts"
 import Seo from "../components/seo.jsx"
 import Tags from "../components/tags"
 import Share from "../components/share"
@@ -11,7 +12,16 @@ require(`katex/dist/katex.min.css`)
 
 const BlogPostTemplate = ({ data, pageContext, location }) => {
   const post = data.markdownRemark
-  const { previous, next } = pageContext
+  const { previous, next, relatedPostSlugs = [] } = pageContext
+  const relatedPostMap = new Map(
+    (data.relatedPosts?.edges || []).map((edge) => [
+      edge.node.fields.slug,
+      edge.node,
+    ])
+  )
+  const relatedPosts = relatedPostSlugs
+    .map((slug) => relatedPostMap.get(slug))
+    .filter(Boolean)
   const { siteTitle, author, url } = data.site.siteMetadata
   const content = (
     <p>
@@ -20,7 +30,12 @@ const BlogPostTemplate = ({ data, pageContext, location }) => {
   )
 
   return (
-    <Layout location={location} title={siteTitle} toc={post.tableOfContents}>
+    <Layout
+      location={location}
+      title={siteTitle}
+      toc={post.tableOfContents}
+      relatedPosts={<RelatedPosts posts={relatedPosts} />}
+    >
       <Seo
         title={post.frontmatter.title}
         desc={post.frontmatter.description || post.excerpt}
@@ -104,7 +119,7 @@ export const Head = ({ data }) => {
 export default BlogPostTemplate
 
 export const pageQuery = graphql`
-  query BlogPostBySlug($slug: String!) {
+  query BlogPostBySlug($slug: String!, $relatedPostSlugs: [String!] = []) {
     site {
       siteMetadata {
         title
@@ -127,6 +142,21 @@ export const pageQuery = graphql`
       timeToRead
       fields {
         slug
+      }
+    }
+    relatedPosts: allMarkdownRemark(
+      filter: { fields: { slug: { in: $relatedPostSlugs } } }
+    ) {
+      edges {
+        node {
+          fields {
+            slug
+          }
+          frontmatter {
+            title
+            featuredImage
+          }
+        }
       }
     }
     totalPageViews(path: { eq: $slug }) {
