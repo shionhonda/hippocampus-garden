@@ -71,6 +71,9 @@
     "react-test-renderer": "^18.2.0",
     "sass": "^1.56.2"
   },
+  "overrides": {
+    "ajv": "6.12.6"
+  },
   "homepage": "https://github.com/gatsbyjs/gatsby-starter-blog#readme",
   "keywords": [
     "gatsby"
