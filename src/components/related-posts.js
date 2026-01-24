@@ -1,5 +1,6 @@
 import React from "react"
 import { Link } from "gatsby"
+import Image from "../components/image"
 import { rhythm } from "../utils/typography"
 
 const RelatedPosts = ({ posts }) => {
@@ -20,7 +21,28 @@ const RelatedPosts = ({ posts }) => {
       <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
         {posts.map((post) => (
           <li key={post.fields.slug} style={{ marginBottom: rhythm(0.4) }}>
-            <Link to={post.fields.slug}>{post.frontmatter.title}</Link>
+            <Link
+              style={{
+                boxShadow: `none`,
+                textDecoration: `none`,
+                color: `inherit`,
+              }}
+              to={post.fields.slug}
+            >
+              <div
+                style={{
+                  display: "flex",
+                  flexFlow: "row",
+                }}
+              >
+                <div style={{ width: "120px", paddingRight: rhythm(0.5) }}>
+                  <Image filename={post.frontmatter.featuredImage} />
+                </div>
+                <small style={{ width: "150px" }}>
+                  {post.frontmatter.title}
+                </small>
+              </div>
+            </Link>
           </li>
         ))}
       </ul>
