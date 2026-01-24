@@ -1,2 +1,3 @@
 User-agent: *
 Disallow:
+Sitemap: https://hippocampus-garden.com/sitemap-index.xml
