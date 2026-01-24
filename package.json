@@ -47,8 +47,6 @@
     "prismjs": "^1.30.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "react-helmet-async": "^2.0.5",
-    "react-share": "^4.4.1",
     "react-typography": "^0.16.23",
     "rehype-katex": "^6.0.3",
     "styled-components": "^5.3.11",
