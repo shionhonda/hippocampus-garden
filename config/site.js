@@ -6,7 +6,7 @@ module.exports = {
     url: 'https://hippocampus-garden.com',
     siteUrl: 'https://hippocampus-garden.com',
     siteLanguage: 'en',
-    logo: 'content/assets/profile-pic.png',
+    logo: 'logo.png',
     banner: 'banner.png',
     favicon: 'content/assets/profile-pic.png',
     shortName: `Hippocampus's Garden`,
