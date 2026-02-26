@@ -41,7 +41,7 @@
     "gatsby-transformer-remark": "^6.15.0",
     "gatsby-transformer-sharp": "^5.15.0",
     "googleapis": "^128.0.0",
-    "katex": "^0.13.24",
+    "katex": "^0.16.21",
     "lazysizes": "^5.3.2",
     "lodash.kebabcase": "^4.1.1",
     "prismjs": "^1.30.0",
