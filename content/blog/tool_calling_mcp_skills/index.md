@@ -1,6 +1,6 @@
 ---
 title: "Tool Calling, MCP, and Skills: How LLM Agents Actually Use External Capabilities"
-date: "2026-03-27T22:01:03.284Z"
+date: "2026-03-29T22:01:03.284Z"
 description: "A practical, implementation-level explanation of tool calling, MCP, skills, and why CLI-based agents have become common."
 featuredImage: tool_calling_mcp_skills/ogp.jpg
 tags: ["en", "llm", "programming"]
