@@ -3,7 +3,7 @@ title: "Why You Can’t Set Temperature on GPT-5/o3"
 date: "2025-09-20T22:01:03.284Z"
 description: "Some LLMs disable sampling knobs like temperature and top_p. Here’s why."
 featuredImage: llm_temperature/ogp.png
-tags: ["en", "deep-learning", "nlp"]
+tags: ["en", "deep-learning", "llm"]
 ---
 
 TL;DR: Modern reasoning models like GPT-5, o3, and o4-mini disable sampling parameters such as `temperature` and `top_p` because their internal generation process likely involves multiple rounds of reasoning, verification, and selection. Allowing users to adjust these parameters would disrupt the carefully calibrated process that ensures high-quality and safe outputs.
