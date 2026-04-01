@@ -4,6 +4,7 @@ import { useStaticQuery, graphql } from "gatsby"
 import { rhythm } from "../utils/typography"
 import "./footer.scss"
 import { StaticImage } from "gatsby-plugin-image"
+import { reopenCookieConsent } from "../utils/cookie-consent"
 
 const Footer = () => {
   const data = useStaticQuery(graphql`
@@ -60,6 +61,11 @@ const Footer = () => {
               </li>
               <li>
                 <Link to={"/privacy-policy/"}>Privacy Policy</Link>
+              </li>
+              <li>
+                <button type="button" onClick={reopenCookieConsent}>
+                  Cookie Settings
+                </button>
               </li>
               <li>
                 <Link to={"/rss.xml/"}>RSS</Link>

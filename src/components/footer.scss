@@ -15,7 +15,7 @@
 
       li {
         list-style: none;
-        width: 70px;
+        width: 90px;
         a {
           box-shadow: none;
           text-decoration: none;
@@ -23,6 +23,15 @@
           :hover {
             text-decoration: underline;
           }
+        }
+        button {
+          background: transparent;
+          border: 0;
+          color: inherit;
+          cursor: pointer;
+          font: inherit;
+          padding: 0;
+          text-decoration: underline;
         }
       }
     }
