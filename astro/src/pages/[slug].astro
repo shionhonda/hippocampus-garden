@@ -1,0 +1,65 @@
+---
+import { render } from "astro:content"
+import AuthorSummary from "../components/AuthorSummary.astro"
+import PostCard from "../components/PostCard.astro"
+import TableOfContents from "../components/TableOfContents.astro"
+import PostLayout from "../layouts/PostLayout.astro"
+import { getAllPosts, getPostSlug, getReadingTime, getRelatedPosts } from "../lib/posts"
+
+export async function getStaticPaths() {
+  const posts = await getAllPosts()
+  return posts.map((post) => ({
+    params: { slug: getPostSlug(post) },
+    props: { post },
+  }))
+}
+
+const { post } = Astro.props
+const { Content, headings } = await render(post)
+const relatedPosts = await getRelatedPosts(post)
+const isJapanese = post.data.lang === "ja"
+const localizedHeadings = isJapanese
+  ? headings.map((heading) => ({
+      ...heading,
+      text: heading.text === "Footnotes" ? "脚注" : heading.text,
+    }))
+  : headings
+---
+
+<PostLayout title={post.data.title} description={post.data.description}>
+  <article class:list={["prose", isJapanese && "prose-ja"]}>
+    <header class="article-head">
+      <h1 class="article-title">{post.data.title}</h1>
+      <p class="article-dek">{post.data.description}</p>
+      <div class="meta-row">
+        <span>{post.data.date.toISOString().slice(0, 10)}</span>
+        <span>{getReadingTime(post)} min read</span>
+        {post.data.lang ? <span>{post.data.lang.toUpperCase()}</span> : null}
+      </div>
+    </header>
+
+    {localizedHeadings.length >= 4 && (
+      <TableOfContents
+        headings={localizedHeadings}
+        title={isJapanese ? "目次" : "Table of contents"}
+      />
+    )}
+
+    <Content />
+  </article>
+
+  {relatedPosts.length > 0 && (
+    <section class="section post-support">
+      <div class="section-header">
+        <h2 class="section-title">Related posts</h2>
+      </div>
+      <div class="divider-list">
+        {relatedPosts.map((relatedPost) => <PostCard post={relatedPost} />)}
+      </div>
+    </section>
+  )}
+
+  <section class="section post-support">
+    <AuthorSummary />
+  </section>
+</PostLayout>

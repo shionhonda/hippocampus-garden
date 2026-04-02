@@ -1,0 +1,53 @@
+---
+import PageLayout from "../../layouts/PageLayout.astro"
+import { getAllPosts } from "../../lib/posts"
+import { getAllTopics, getRecentMajorTopics } from "../../lib/topics"
+
+const posts = await getAllPosts()
+const recentTopics = getRecentMajorTopics(posts)
+const allTopics = getAllTopics(posts)
+---
+
+<PageLayout title="Topics">
+  <section class="section" style="max-width:var(--width-wide-max);margin-inline:auto;">
+    <div class="hero-block" style="padding:var(--space-8) var(--space-6);">
+      <div class="eyebrow">Topics</div>
+      <h1 style="font-family:var(--font-ui);font-size:clamp(2rem, 4vw, 3.25rem);line-height:1.04;letter-spacing:-0.03em;margin:var(--space-2) 0 0;">
+        A map of the subjects this site returns to.
+      </h1>
+    </div>
+  </section>
+
+  <section class="section" style="max-width:var(--width-wide-max);margin-inline:auto;">
+    {recentTopics.length > 0 && (
+      <>
+        <div class="section-header">
+          <div>
+            <div class="eyebrow" style="margin-bottom:var(--space-2);">Recent</div>
+            <h2 class="section-title" style="font-size:var(--text-xl);">Recent major topics</h2>
+          </div>
+        </div>
+        <div style="display:flex;gap:var(--space-2);flex-wrap:wrap;margin-bottom:var(--space-8);">
+          {recentTopics.map((topic) => (
+            <a href={`/topics/${topic.slug}/`} class="topic-chip">
+              {topic.label} ({topic.count})
+            </a>
+          ))}
+        </div>
+      </>
+    )}
+    <div class="section-header">
+      <div>
+        <div class="eyebrow" style="margin-bottom:var(--space-2);">Index</div>
+        <h2 class="section-title" style="font-size:var(--text-xl);">All topics</h2>
+      </div>
+    </div>
+    <div style="display:flex;gap:var(--space-2);flex-wrap:wrap;">
+      {allTopics.map((topic) => (
+        <a href={`/topics/${topic.slug}/`} class="topic-chip">
+          {topic.label} ({topic.count})
+        </a>
+      ))}
+    </div>
+  </section>
+</PageLayout>

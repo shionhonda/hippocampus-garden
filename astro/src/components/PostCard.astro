@@ -1,0 +1,38 @@
+---
+import { Image } from "astro:assets"
+import type { CollectionEntry } from "astro:content"
+import { getFeaturedImage } from "../lib/post-images"
+import { getPostPath, getReadingTime } from "../lib/posts"
+
+const { post } = Astro.props as { post: CollectionEntry<"posts"> }
+const featuredImage = getFeaturedImage(post)
+---
+
+<article class="divider-item post-row" style="height:100%;">
+  {featuredImage && (
+    <a href={getPostPath(post)} class="post-row-thumb" style="text-decoration:none;">
+      <Image
+        src={featuredImage}
+        alt={post.data.title}
+        widths={[320, 480]}
+        sizes="(max-width: 720px) 100vw, 240px"
+        style="width:100%;height:auto;aspect-ratio:1.91 / 1;object-fit:cover;border-radius:var(--radius-md);border:1px solid rgba(197, 210, 215, 0.72);"
+      />
+    </a>
+  )}
+  <div class="post-row-copy">
+    <a href={getPostPath(post)} style="text-decoration:none;color:inherit;">
+      <h2
+        style="font-family:var(--font-ui);font-size:clamp(1.5rem, 2.2vw, 1.9rem);line-height:1.08;letter-spacing:-0.02em;margin:0 0 var(--space-3);color:var(--color-ink-strong);max-width:44rem;"
+      >
+        {post.data.title}
+      </h2>
+    </a>
+    <p style="margin:0;max-width:44rem;color:var(--color-ink-soft);">
+      {post.data.description}
+    </p>
+  </div>
+  <div class="post-row-meta">
+    {post.data.date.toISOString().slice(0, 10)} · {getReadingTime(post)} min read{post.data.lang ? ` · ${post.data.lang.toUpperCase()}` : ""}
+  </div>
+</article>

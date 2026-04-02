@@ -1,0 +1,43 @@
+---
+import { Image } from "astro:assets"
+import { getFeaturedImage } from "../lib/post-images"
+import { getPostPath } from "../lib/posts"
+
+const {
+  title,
+  items,
+} = Astro.props as {
+  title: string
+  items: { post: import("../lib/posts").Post; node: { count: number } }[]
+}
+---
+
+<section class="panel surface" style="padding:var(--space-5);">
+  <h2 class="section-title" style="font-size:var(--text-xl);margin-bottom:var(--space-4);">{title}</h2>
+  <div class="compact-link-list">
+    {items.map(({ post }) => {
+      const image = getFeaturedImage(post)
+      const href = getPostPath(post)
+      return (
+        <article class="compact-link-item popular-row">
+          {image && (
+            <a href={href} class="popular-row-thumb">
+              <Image
+                src={image}
+                alt={post.data.title}
+                widths={[240]}
+                sizes="112px"
+                style="width:100%;height:auto;aspect-ratio:1.91 / 1;object-fit:cover;border-radius:var(--radius-sm);border:1px solid rgba(197, 210, 215, 0.72);"
+              />
+            </a>
+          )}
+          <div style="min-width:0;">
+            <a href={href} style="font-family:var(--font-ui);text-decoration:none;color:inherit;">
+              {post.data.title}
+            </a>
+          </div>
+        </article>
+      )
+    })}
+  </div>
+</section>

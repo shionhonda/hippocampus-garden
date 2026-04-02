@@ -1,0 +1,62 @@
+---
+import AuthorSummary from "../components/AuthorSummary.astro"
+import Pagination from "../components/Pagination.astro"
+import PopularSection from "../components/PopularSection.astro"
+import PostCard from "../components/PostCard.astro"
+import TopicList from "../components/TopicList.astro"
+import HomeLayout from "../layouts/HomeLayout.astro"
+import { site } from "../data/site"
+import { getMostReadPosts, getTrendingPosts } from "../lib/analytics"
+import { getAllPosts, paginatePosts } from "../lib/posts"
+import { getRecentMajorTopics } from "../lib/topics"
+
+const allPosts = await getAllPosts()
+const { items: posts, totalPages } = paginatePosts(allPosts, 1, site.postsPerPage)
+const topics = getRecentMajorTopics(allPosts)
+const trending = await getTrendingPosts(5)
+const mostRead = await getMostReadPosts(5)
+---
+
+<HomeLayout title="Home" description={site.description}>
+  <section class="section home-intro">
+    <div class="intro-block">
+      <p class="home-intro-copy">
+        I write about machine learning, software, books, and the systems behind thoughtful technical work.
+      </p>
+    </div>
+  </section>
+
+  <section class="section home-section">
+    <div class="section-header">
+      <h2 class="section-title">Recent posts</h2>
+    </div>
+    {posts.length > 0 ? (
+      <div class="divider-list">
+        {posts.map((post) => <PostCard post={post} />)}
+      </div>
+    ) : (
+      <div class="panel" style="padding:var(--space-5);">No posts have been migrated yet.</div>
+    )}
+    <Pagination currentPage={1} totalPages={totalPages} />
+  </section>
+
+  {(trending.length > 0 || mostRead.length > 0) && (
+    <section class="section home-section">
+      <div class="popular-grid">
+        {trending.length > 0 && <PopularSection title="Trending" items={trending} />}
+        {mostRead.length > 0 && <PopularSection title="Most read" items={mostRead} />}
+      </div>
+    </section>
+  )}
+
+  <section class="section home-section">
+    <div class="section-header">
+      <h2 class="section-title">Topics</h2>
+    </div>
+    <TopicList topics={topics} />
+  </section>
+
+  <section class="section home-section">
+    <AuthorSummary />
+  </section>
+</HomeLayout>

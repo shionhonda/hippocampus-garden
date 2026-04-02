@@ -1,0 +1,115 @@
+---
+import PageLayout from "../layouts/PageLayout.astro"
+import { profile } from "../data/profile"
+import { getAllPosts, getSelectedWriting, getPostPath } from "../lib/posts"
+
+const posts = await getAllPosts()
+const selectedWriting = await getSelectedWriting(posts)
+---
+
+<PageLayout title="About" description={profile.aboutSummary}>
+  <section class="section" style="max-width:var(--width-content-max);">
+    <div style="display:grid;gap:var(--space-6);grid-template-columns:minmax(0, 1fr);">
+      <div class="hero-block">
+        <div style="display:flex;gap:var(--space-5);align-items:start;flex-wrap:wrap;">
+          <img
+            src="/profile-pic.png"
+            alt={profile.name}
+            width="88"
+            height="88"
+            style="width:88px;height:88px;border-radius:50%;object-fit:cover;border:1px solid var(--color-line);flex:0 0 auto;"
+          />
+          <div style="flex:1;min-width:16rem;">
+            <div class="eyebrow" style="margin-bottom:var(--space-2);">About</div>
+            <h1 style="font-family:var(--font-ui);margin:0 0 var(--space-2);font-size:clamp(2rem, 4vw, 3.25rem);letter-spacing:-0.03em;line-height:1.04;">
+              {profile.name}
+            </h1>
+            <div style="font-family:var(--font-ui);color:var(--color-muted);margin-bottom:var(--space-4);">
+              {profile.role} · {profile.location} · {profile.currentCompany}
+            </div>
+            <p style="margin:0 0 var(--space-4);max-width:40rem;">{profile.intro}</p>
+            <div style="display:flex;gap:var(--space-3);flex-wrap:wrap;font-family:var(--font-ui);font-size:var(--text-sm);">
+              {profile.socials.map((social) => (
+                <a href={social.href} target="_blank" rel="noreferrer">{social.label}</a>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" style="max-width:var(--width-content-max);">
+    <div class="section-header">
+      <div>
+        <div class="eyebrow" style="margin-bottom:var(--space-2);">Focus</div>
+        <h2 class="section-title">What I work on</h2>
+      </div>
+    </div>
+    <div class="panel surface" style="padding:var(--space-5);">
+      <ul style="margin:0;padding-left:1.25rem;">
+        {profile.focus.map((item) => <li>{item}</li>)}
+      </ul>
+    </div>
+  </section>
+
+  <section class="section" style="max-width:var(--width-content-max);">
+    <div class="section-header">
+      <div>
+        <div class="eyebrow" style="margin-bottom:var(--space-2);">Writing</div>
+        <h2 class="section-title">Selected writing</h2>
+      </div>
+    </div>
+    <div class="compact-link-list">
+      {selectedWriting.map((post) => (
+        <article class="compact-link-item">
+          <a href={getPostPath(post)} style="text-decoration:none;color:inherit;">
+            <h3 style="font-family:var(--font-ui);margin:0 0 var(--space-2);font-size:var(--text-xl);line-height:1.12;">{post.data.title}</h3>
+          </a>
+          <p style="margin:0;color:var(--color-ink-soft);">{post.data.description}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="section" style="max-width:var(--width-content-max);">
+    <div class="section-header">
+      <div>
+        <div class="eyebrow" style="margin-bottom:var(--space-2);">Career</div>
+        <h2 class="section-title">Career snapshot</h2>
+      </div>
+    </div>
+    <div class="divider-list">
+      {profile.career.map((item) => (
+        <article class="divider-item">
+          <div style="font-family:var(--font-ui);font-size:var(--text-sm);color:var(--color-muted);margin-bottom:var(--space-2);">
+            {item.period}
+          </div>
+          <h3 style="font-family:var(--font-ui);margin:0 0 var(--space-2);font-size:var(--text-lg);">
+            {item.title}
+          </h3>
+          <p style="margin:0;color:var(--color-ink-soft);">{item.detail}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="section" style="max-width:var(--width-content-max);">
+    <div class="section-header">
+      <div>
+        <div class="eyebrow" style="margin-bottom:var(--space-2);">External</div>
+        <h2 class="section-title">Books and external writing</h2>
+      </div>
+    </div>
+    <div class="divider-list">
+      {profile.booksAndWriting.map((item) => (
+        <article class="divider-item">
+          <a href={item.href} target="_blank" rel="noreferrer" style="font-family:var(--font-ui);font-size:var(--text-lg);">
+            {item.label}
+          </a>
+          <p style="margin:var(--space-2) 0 0;color:var(--color-ink-soft);">{item.note}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+</PageLayout>

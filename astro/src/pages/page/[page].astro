@@ -1,0 +1,32 @@
+---
+import HomeLayout from "../../layouts/HomeLayout.astro"
+import Pagination from "../../components/Pagination.astro"
+import PostCard from "../../components/PostCard.astro"
+import { site } from "../../data/site"
+import { getAllPosts, paginatePosts } from "../../lib/posts"
+
+export async function getStaticPaths() {
+  const posts = await getAllPosts()
+  const totalPages = Math.max(1, Math.ceil(posts.length / site.postsPerPage))
+  return Array.from({ length: Math.max(0, totalPages - 1) }, (_, index) => ({
+    params: { page: String(index + 2) },
+  }))
+}
+
+const page = Number(Astro.params.page ?? "2")
+const allPosts = await getAllPosts()
+const { items, totalPages, currentPage } = paginatePosts(allPosts, page, site.postsPerPage)
+---
+
+<HomeLayout title={`Page ${currentPage}`}>
+  <section class="section home-section">
+    <div class="section-header">
+      <h1 class="section-title" style="font-size:var(--text-3xl);">Older posts</h1>
+      <a href="/">Back to latest</a>
+    </div>
+    <div class="divider-list">
+      {items.map((post) => <PostCard post={post} />)}
+    </div>
+    <Pagination currentPage={currentPage} totalPages={totalPages} />
+  </section>
+</HomeLayout>
