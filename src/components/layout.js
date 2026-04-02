@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useEffect, useRef } from "react"
 import "lazysizes"
 import "lazysizes/plugins/parent-fit/ls.parent-fit"
 
@@ -6,14 +6,38 @@ import Header from "./header.js"
 import Footer from "./footer.js"
 import PopularPost from "./popular"
 import TagList from "./tag-list"
+import CookieConsentBanner from "./cookie-consent-banner"
 import "./layout.scss"
 import { rhythm } from "../utils/typography"
+import {
+  cookieConsent,
+  getCookieConsent,
+  initializeAnalytics,
+  trackPageView,
+} from "../utils/cookie-consent"
 
 const Layout = ({ location, title, children, toc, relatedPosts }) => {
+  const previousPathRef = useRef(null)
   const isRootPath = location.pathname === `${__PATH_PREFIX__}/`
   const pageNumber = location.pathname.split("/").filter(Boolean).pop()
   const isPaginatedPath = pageNumber && Boolean(pageNumber.match(/^[0-9]+$/))
   const isTagPath = Boolean(location.pathname.match(/tags\/.+$/))
+
+  useEffect(() => {
+    if (getCookieConsent() !== cookieConsent.values.accepted) {
+      previousPathRef.current = location.pathname + (location.search || "")
+      return
+    }
+
+    initializeAnalytics()
+    const currentPath = location.pathname + (location.search || "")
+
+    if (!previousPathRef.current || previousPathRef.current !== currentPath) {
+      trackPageView(currentPath)
+    }
+
+    previousPathRef.current = currentPath
+  }, [location.pathname, location.search])
 
   let content
 
@@ -62,6 +86,7 @@ const Layout = ({ location, title, children, toc, relatedPosts }) => {
   return (
     <div style={{ width: "100%", height: "100%", backgroundColor: "#F2F3F6" }}>
       <Header />
+      <CookieConsentBanner />
       <div
         className="layout-container"
         style={{
