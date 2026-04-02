@@ -17,7 +17,9 @@ This directory contains the first Astro scaffold for the Hippocampus's Garden re
 From the repository root:
 
 ```bash
+npm run astro:migrate-posts
 npm run astro:dev
+npm run astro:check
 npm run astro:build
 ```
 
@@ -30,7 +32,7 @@ npm run dev
 
 ## Next steps
 
-1. Install Astro dependencies in `astro/`
-2. Migrate posts from `content/blog/*` to `astro/src/content/posts/*`
-3. Migrate privacy policy content
-4. Port image handling and markdown rendering details
+1. Refine markdown rendering and image treatment
+2. Port the remaining fixed-page content
+3. Replace scaffold copy with production copy
+4. Implement the redesigned visual system on top of the current skeleton

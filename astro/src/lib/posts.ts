@@ -16,7 +16,13 @@ export function getPostPath(post: Post) {
 }
 
 export function getPostSlug(post: Post) {
-  return post.data.slug ?? post.id.replace(/\/index$/, "")
+  return (
+    post.data.slug ??
+    post.id
+      .replace(/\/index\.md$/, "")
+      .replace(/\/index$/, "")
+      .replace(/\.md$/, "")
+  )
 }
 
 export function getReadingTime(post: Post) {
