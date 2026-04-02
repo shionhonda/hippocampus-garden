@@ -95,7 +95,8 @@
     "@graphql-codegen/schema-ast": "5.0.1",
     "@graphql-codegen/visitor-plugin-common": "6.2.4",
     "@graphql-codegen/typescript": "5.0.9",
-    "@graphql-codegen/typescript-operations": "5.0.9"
+    "@graphql-codegen/typescript-operations": "5.0.9",
+    "sass-loader": "16.0.7"
   },
   "resolutions": {
     "sharp": "0.32.6",
