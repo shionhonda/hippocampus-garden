@@ -19,12 +19,9 @@ const { items, totalPages, currentPage } = paginatePosts(allPosts, page, site.po
 ---
 
 <HomeLayout title={`Page ${currentPage}`}>
-  <section class="section">
+  <section class="section home-section">
     <div class="section-header">
-      <div>
-        <div class="eyebrow" style="margin-bottom:var(--space-2);">Archive</div>
-        <h1 class="section-title" style="font-size:var(--text-3xl);">Older posts</h1>
-      </div>
+      <h1 class="section-title" style="font-size:var(--text-3xl);">Older posts</h1>
       <a href="/">Back to latest</a>
     </div>
     <div class="divider-list">

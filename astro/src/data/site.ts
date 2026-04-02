@@ -6,6 +6,6 @@ export const site = {
   shortTitle: "Hippocampus",
   topicLabel: "Topics",
   locale: "en",
-  postsPerPage: 12,
+  postsPerPage: 10,
   majorTopicsWindowDays: 365,
 } as const

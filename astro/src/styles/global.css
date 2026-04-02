@@ -118,37 +118,10 @@ img {
   color: var(--color-ink-soft);
 }
 
-.hero-block {
-  position: relative;
-  overflow: hidden;
-  padding: clamp(2rem, 5vw, 4rem);
-  border: 1px solid rgba(197, 210, 215, 0.72);
-  border-radius: calc(var(--radius-xl) + 0.25rem);
-  background:
-    radial-gradient(circle at top left, rgba(158, 223, 214, 0.26), transparent 26%),
-    linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(247, 250, 250, 0.92));
-  box-shadow: var(--shadow-soft);
-}
-
-.hero-block::after {
-  content: "";
-  position: absolute;
-  inset: auto -8% -18% auto;
-  width: 16rem;
-  height: 16rem;
-  border-radius: 50%;
-  background:
-    radial-gradient(circle, rgba(255, 122, 107, 0.12), rgba(255, 122, 107, 0) 65%);
-}
-
-.hero-title {
-  max-width: 13ch;
-  margin: var(--space-3) 0 var(--space-4);
-  font-family: var(--font-ui);
-  font-size: clamp(2.4rem, 5vw, 4.5rem);
-  line-height: 0.98;
-  letter-spacing: -0.03em;
-  color: var(--color-ink-strong);
+.intro-block {
+  max-width: var(--width-content-max);
+  margin-inline: auto;
+  padding: 0;
 }
 
 .hero-copy {
@@ -259,6 +232,67 @@ img {
   border-top: 0;
 }
 
+.home-shell,
+.home-section {
+  max-width: var(--width-wide-max);
+  margin-inline: auto;
+}
+
+.home-intro {
+  margin-block: var(--space-10) var(--space-8);
+}
+
+.home-intro-copy {
+  margin: 0;
+  font-size: clamp(1.05rem, 1.2vw, 1.2rem);
+  line-height: 1.7;
+  color: var(--color-ink-soft);
+}
+
+.post-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(12rem, 15rem);
+  grid-template-areas:
+    "copy thumb"
+    "meta thumb";
+  gap: var(--space-6);
+  align-items: start;
+}
+
+.post-row-copy {
+  grid-area: copy;
+  min-width: 0;
+}
+
+.post-row-thumb {
+  grid-area: thumb;
+  display: block;
+}
+
+.post-row-meta {
+  grid-area: meta;
+  font-family: var(--font-ui);
+  font-size: var(--text-sm);
+  color: var(--color-muted);
+}
+
+.popular-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-5);
+}
+
+.popular-row {
+  display: grid;
+  grid-template-columns: 7rem minmax(0, 1fr);
+  gap: var(--space-3);
+  align-items: start;
+}
+
+.popular-row-thumb {
+  display: block;
+}
+
 .toc {
   margin-inline: auto;
 }
@@ -300,7 +334,17 @@ img {
     margin-block: var(--space-12);
   }
 
-  .hero-block {
-    padding: var(--space-8) var(--space-5);
+  .post-row {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "thumb"
+      "copy"
+      "meta";
+    gap: var(--space-4);
+  }
+
+  .popular-grid,
+  .popular-row {
+    grid-template-columns: 1fr;
   }
 }

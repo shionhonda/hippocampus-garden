@@ -1,6 +1,4 @@
 import { getCollection, type CollectionEntry } from "astro:content"
-import fs from "node:fs"
-import { fileURLToPath } from "node:url"
 import { profile } from "../data/profile"
 import { topicSlug } from "./topics"
 
@@ -53,27 +51,6 @@ export async function getRelatedPosts(post: Post, limit = 3) {
     .sort((a, b) => b.score - a.score)
     .slice(0, limit)
     .map(({ candidate }) => candidate)
-}
-
-type AnalyticsNode = { path: string; count: number }
-
-export async function getMostReadPosts(limit = 5) {
-  const jsonPath = fileURLToPath(
-    new URL("../../../content/assets/google-analytics-v3.json", import.meta.url),
-  )
-
-  if (!fs.existsSync(jsonPath)) return []
-
-  const data = JSON.parse(fs.readFileSync(jsonPath, "utf8")) as {
-    nodes: AnalyticsNode[]
-  }
-  const posts = await getAllPosts()
-  const postsByPath = new Map(posts.map((post) => [getPostPath(post), post]))
-
-  return data.nodes
-    .map((node) => ({ node, post: postsByPath.get(node.path) }))
-    .filter((entry): entry is { node: AnalyticsNode; post: Post } => Boolean(entry.post))
-    .slice(0, limit)
 }
 
 export async function getPostsForTopic(topic: string) {

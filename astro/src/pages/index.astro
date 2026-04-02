@@ -1,38 +1,34 @@
 ---
 import AuthorSummary from "../components/AuthorSummary.astro"
 import Pagination from "../components/Pagination.astro"
+import PopularSection from "../components/PopularSection.astro"
 import PostCard from "../components/PostCard.astro"
 import TopicList from "../components/TopicList.astro"
 import HomeLayout from "../layouts/HomeLayout.astro"
-import { profile } from "../data/profile"
 import { site } from "../data/site"
-import { getAllPosts, getMostReadPosts, paginatePosts } from "../lib/posts"
+import { getMostReadPosts, getTrendingPosts } from "../lib/analytics"
+import { getAllPosts, paginatePosts } from "../lib/posts"
 import { getRecentMajorTopics } from "../lib/topics"
 
 const allPosts = await getAllPosts()
 const { items: posts, totalPages } = paginatePosts(allPosts, 1, site.postsPerPage)
 const topics = getRecentMajorTopics(allPosts)
+const trending = await getTrendingPosts(5)
 const mostRead = await getMostReadPosts(5)
 ---
 
 <HomeLayout title="Home" description={site.description}>
-  <section class="section">
-    <div class="hero-block">
-      <div class="eyebrow">
-      Hippocampus's Garden
-      </div>
-      <h1 class="hero-title">Quiet writing about software, learning, and ideas worth revisiting.</h1>
-      <p class="hero-copy">{profile.bio}</p>
+  <section class="section home-intro">
+    <div class="intro-block">
+      <p class="home-intro-copy">
+        I write about machine learning, software, books, and the systems behind thoughtful technical work.
+      </p>
     </div>
   </section>
 
-  <section class="section">
+  <section class="section home-section">
     <div class="section-header">
-      <div>
-        <div class="eyebrow" style="margin-bottom:var(--space-2);">Latest</div>
-        <h2 class="section-title">Recent posts</h2>
-      </div>
-      {totalPages > 1 && <a href="/page/2/">Older posts</a>}
+      <h2 class="section-title">Recent posts</h2>
     </div>
     {posts.length > 0 ? (
       <div class="divider-list">
@@ -44,41 +40,23 @@ const mostRead = await getMostReadPosts(5)
     <Pagination currentPage={1} totalPages={totalPages} />
   </section>
 
-  <section class="section">
-    <div class="section-header">
-      <div>
-        <div class="eyebrow" style="margin-bottom:var(--space-2);">Index</div>
-        <h2 class="section-title">Topics</h2>
-      </div>
-      <p class="section-copy">A compact map of what the site has been about recently.</p>
-    </div>
-    <TopicList topics={topics} />
-  </section>
-
-  {mostRead.length > 0 && (
-    <section class="section">
-      <div class="section-header">
-        <div>
-          <div class="eyebrow" style="margin-bottom:var(--space-2);">Popular</div>
-          <h2 class="section-title">Most read</h2>
-        </div>
-      </div>
-      <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(16rem, 1fr));gap:var(--space-4);">
-        {mostRead.map(({ post, node }) => (
-          <article class="panel surface" style="padding:var(--space-4);">
-            <a href={`/${post.data.slug ?? post.id.replace(/\/index$/, "")}/`} style="text-decoration:none;color:inherit;">
-              <h3 style="position:relative;font-family:var(--font-ui);margin:0 0 var(--space-2);font-size:var(--text-lg);line-height:1.2;">{post.data.title}</h3>
-            </a>
-            <div style="position:relative;font-family:var(--font-ui);font-size:var(--text-sm);color:var(--color-muted);">
-              {node.count.toLocaleString("en-US")} views
-            </div>
-          </article>
-        ))}
+  {(trending.length > 0 || mostRead.length > 0) && (
+    <section class="section home-section">
+      <div class="popular-grid">
+        {trending.length > 0 && <PopularSection title="Trending" items={trending} />}
+        {mostRead.length > 0 && <PopularSection title="Most read" items={mostRead} />}
       </div>
     </section>
   )}
 
-  <section class="section">
+  <section class="section home-section">
+    <div class="section-header">
+      <h2 class="section-title">Topics</h2>
+    </div>
+    <TopicList topics={topics} />
+  </section>
+
+  <section class="section home-section">
     <AuthorSummary />
   </section>
 </HomeLayout>
