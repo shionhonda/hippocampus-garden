@@ -16,24 +16,38 @@
       li {
         list-style: none;
         width: 90px;
-        a {
-          box-shadow: none;
-          text-decoration: none;
-          color: inherit;
-          :hover {
-            text-decoration: underline;
-          }
-        }
-        button {
-          background: transparent;
-          border: 0;
-          color: inherit;
-          cursor: pointer;
-          font: inherit;
-          padding: 0;
-          text-decoration: underline;
-        }
       }
     }
   }
+}
+
+footer .footer-inline-link,
+footer .footer-inline-link:visited,
+footer .footer a,
+footer .footer a:visited,
+footer .footer-cookie-button {
+  background: none !important;
+  background-image: none !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  color: inherit !important;
+  cursor: pointer;
+  font: inherit;
+  outline: none;
+  padding: 0;
+  text-decoration-line: none !important;
+  text-decoration: none !important;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+footer .footer-inline-link:hover,
+footer .footer-inline-link:focus,
+footer .footer a:hover,
+footer .footer a:focus,
+footer .footer-cookie-button:hover,
+footer .footer-cookie-button:focus {
+  box-shadow: none !important;
+  color: inherit !important;
+  text-decoration: underline !important;
 }

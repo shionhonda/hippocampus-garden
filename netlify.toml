@@ -1,2 +1,5 @@
 [build]
   publish = "public"
+
+[build.environment]
+  NODE_VERSION = "22.15.0"
