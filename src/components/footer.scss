@@ -37,3 +37,20 @@
     }
   }
 }
+
+footer a,
+footer a:visited,
+footer button {
+  box-shadow: none !important;
+  color: inherit !important;
+  text-decoration: none !important;
+}
+
+footer a:hover,
+footer a:focus,
+footer button:hover,
+footer button:focus {
+  box-shadow: none !important;
+  color: inherit !important;
+  text-decoration: underline !important;
+}
