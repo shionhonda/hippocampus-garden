@@ -54,9 +54,12 @@ export function getReadingTime(post: Post) {
   return Math.max(1, Math.ceil(englishMinutes + japaneseMinutes))
 }
 
-export async function getSelectedWriting(posts?: Post[]) {
+export async function getSelectedWriting(
+  posts?: Post[],
+  selectedSlugs = profile.selectedWritingSlugs,
+) {
   const allPosts = posts ?? (await getAllPosts())
-  return profile.selectedWritingSlugs
+  return selectedSlugs
     .map((slug) => allPosts.find((post) => getPostSlug(post) === slug))
     .filter((post): post is Post => Boolean(post))
 }

@@ -7,14 +7,18 @@ import { site } from "../data/site"
 const {
   title,
   description = site.description,
+  lang = site.locale,
+  alternates = [],
 } = Astro.props as {
   title?: string
   description?: string
+  lang?: string
+  alternates?: Array<{ hrefLang: string; href: string }>
 }
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang={lang}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -22,6 +26,9 @@ const {
     <meta name="description" content={description} />
     <meta name="theme-color" content="#f3f8f8" />
     <link rel="icon" href="/favicon.ico" />
+    {alternates.map((alternate) => (
+      <link rel="alternate" hreflang={alternate.hrefLang} href={alternate.href} />
+    ))}
   </head>
   <body>
     <Header />

@@ -1,13 +1,15 @@
 ---
 import BaseLayout from "./BaseLayout.astro"
 
-const { title, description } = Astro.props as {
+const { title, description, lang, alternates } = Astro.props as {
   title?: string
   description?: string
+  lang?: string
+  alternates?: Array<{ hrefLang: string; href: string }>
 }
 ---
 
-<BaseLayout title={title} description={description}>
+<BaseLayout title={title} description={description} lang={lang} alternates={alternates}>
   <div class="container section">
     <slot />
   </div>
