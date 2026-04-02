@@ -3,7 +3,6 @@ import path from "node:path"
 import { fileURLToPath } from "node:url"
 import { defineConfig } from "astro/config"
 import dotenv from "dotenv"
-import rehypeAutolinkHeadings from "rehype-autolink-headings"
 import rehypeKatex from "rehype-katex"
 import rehypeSlug from "rehype-slug"
 import remarkGfm from "remark-gfm"
@@ -32,25 +31,6 @@ export default defineConfig({
       wrap: true,
     },
     remarkPlugins: [remarkCodeMeta, remarkGfm, remarkMath],
-    rehypePlugins: [
-      [rehypeKatex, { strict: "ignore" }],
-      rehypeSlug,
-      [
-        rehypeAutolinkHeadings,
-        {
-          behavior: "append",
-          properties: {
-            className: ["heading-anchor"],
-            ariaLabel: "Anchor link",
-          },
-          content: [
-            {
-              type: "text",
-              value: "#",
-            },
-          ],
-        },
-      ],
-    ],
+    rehypePlugins: [[rehypeKatex, { strict: "ignore" }], rehypeSlug],
   },
 })

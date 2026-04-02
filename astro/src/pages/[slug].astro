@@ -17,15 +17,19 @@ export async function getStaticPaths() {
 const { post } = Astro.props
 const { Content, headings } = await render(post)
 const relatedPosts = await getRelatedPosts(post)
+const isJapanese = post.data.lang === "ja"
+const localizedHeadings = isJapanese
+  ? headings.map((heading) => ({
+      ...heading,
+      text: heading.text === "Footnotes" ? "脚注" : heading.text,
+    }))
+  : headings
 ---
 
 <PostLayout title={post.data.title} description={post.data.description}>
-  <article class="prose">
+  <article class:list={["prose", isJapanese && "prose-ja"]}>
     <header class="article-head">
-      <div class="eyebrow">Essay</div>
-      <div>
-        <h1 class="article-title">{post.data.title}</h1>
-      </div>
+      <h1 class="article-title">{post.data.title}</h1>
       <p class="article-dek">{post.data.description}</p>
       <div class="meta-row">
         <span>{post.data.date.toISOString().slice(0, 10)}</span>
@@ -34,18 +38,20 @@ const relatedPosts = await getRelatedPosts(post)
       </div>
     </header>
 
-    {headings.length >= 4 && <TableOfContents headings={headings} />}
+    {localizedHeadings.length >= 4 && (
+      <TableOfContents
+        headings={localizedHeadings}
+        title={isJapanese ? "目次" : "Table of contents"}
+      />
+    )}
 
     <Content />
   </article>
 
   {relatedPosts.length > 0 && (
-    <section class="section">
+    <section class="section post-support">
       <div class="section-header">
-        <div>
-          <div class="eyebrow" style="margin-bottom:var(--space-2);">Continue reading</div>
-          <h2 class="section-title">Related posts</h2>
-        </div>
+        <h2 class="section-title">Related posts</h2>
       </div>
       <div class="divider-list">
         {relatedPosts.map((relatedPost) => <PostCard post={relatedPost} />)}
@@ -53,7 +59,7 @@ const relatedPosts = await getRelatedPosts(post)
     </section>
   )}
 
-  <section class="section" style="max-width:var(--width-content-max);margin-inline:auto;">
+  <section class="section post-support">
     <AuthorSummary />
   </section>
 </PostLayout>

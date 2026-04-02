@@ -1,6 +1,7 @@
 ---
 import { Image } from "astro:assets"
 import { getFeaturedImage } from "../lib/post-images"
+import { getPostPath } from "../lib/posts"
 
 const {
   title,
@@ -16,10 +17,11 @@ const {
   <div class="compact-link-list">
     {items.map(({ post }) => {
       const image = getFeaturedImage(post)
+      const href = getPostPath(post)
       return (
         <article class="compact-link-item popular-row">
           {image && (
-            <a href={`/${post.data.slug ?? post.id.replace(/\/index$/, "")}/`} class="popular-row-thumb">
+            <a href={href} class="popular-row-thumb">
               <Image
                 src={image}
                 alt={post.data.title}
@@ -30,7 +32,7 @@ const {
             </a>
           )}
           <div style="min-width:0;">
-            <a href={`/${post.data.slug ?? post.id.replace(/\/index$/, "")}/`} style="font-family:var(--font-ui);text-decoration:none;color:inherit;">
+            <a href={href} style="font-family:var(--font-ui);text-decoration:none;color:inherit;">
               {post.data.title}
             </a>
           </div>

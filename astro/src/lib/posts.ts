@@ -23,9 +23,35 @@ export function getPostSlug(post: Post) {
   )
 }
 
+function stripNonProseContent(value: string) {
+  return value
+    .replace(/^---[\s\S]*?---/, "")
+    .replace(/```[\s\S]*?```/g, " ")
+    .replace(/`[^`]+`/g, " ")
+    .replace(/<[^>]+>/g, " ")
+}
+
+function countLatinWords(value: string) {
+  return (
+    value.match(
+      /[A-Za-z0-9]+(?:[-'./_:][A-Za-z0-9]+)*/g,
+    ) ?? []
+  ).length
+}
+
+function countCjkCharacters(value: string) {
+  return (
+    value.match(/[\u3040-\u30ff\u3400-\u4dbf\u4e00-\u9fff\uf900-\ufaff]/g) ?? []
+  ).length
+}
+
 export function getReadingTime(post: Post) {
-  const words = post.body.split(/\s+/).filter(Boolean).length
-  return Math.max(1, Math.round(words / 220))
+  const body = stripNonProseContent(post.body)
+  const latinWords = countLatinWords(body)
+  const cjkCharacters = countCjkCharacters(body)
+  const englishMinutes = latinWords / 220
+  const japaneseMinutes = cjkCharacters / 500
+  return Math.max(1, Math.ceil(englishMinutes + japaneseMinutes))
 }
 
 export async function getSelectedWriting(posts?: Post[]) {
@@ -35,7 +61,7 @@ export async function getSelectedWriting(posts?: Post[]) {
     .filter((post): post is Post => Boolean(post))
 }
 
-export async function getRelatedPosts(post: Post, limit = 3) {
+export async function getRelatedPosts(post: Post, limit = 5) {
   const allPosts = await getAllPosts()
   const sourceTags = new Set(post.data.tags)
 

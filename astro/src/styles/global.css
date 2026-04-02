@@ -179,8 +179,21 @@ img {
 }
 
 .reading-shell {
-  width: min(100%, var(--width-wide-max));
+  width: min(100%, 58rem);
   margin: 0 auto;
+}
+
+.post-support {
+  width: min(100%, 58rem);
+  margin-inline: auto;
+}
+
+.article-page {
+  margin-block: var(--space-10) var(--space-16);
+}
+
+.article-page.section {
+  margin-block: var(--space-4) var(--space-16);
 }
 
 .article-head {
@@ -201,7 +214,7 @@ img {
 }
 
 .article-dek {
-  max-width: 42rem;
+  max-width: 58rem;
   margin: 0;
   font-size: var(--text-lg);
   color: var(--color-ink-soft);
@@ -247,6 +260,28 @@ img {
   font-size: clamp(1.05rem, 1.2vw, 1.2rem);
   line-height: 1.7;
   color: var(--color-ink-soft);
+}
+
+.site-header-inner {
+  padding-block: var(--space-5);
+}
+
+.site-header-row {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-4);
+  align-items: flex-end;
+  flex-wrap: wrap;
+}
+
+.site-nav {
+  display: flex;
+  gap: var(--space-4);
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  font-family: var(--font-ui);
+  font-size: var(--text-sm);
 }
 
 .post-row {
@@ -330,6 +365,72 @@ img {
 }
 
 @media (max-width: 720px) {
+  .article-page.section {
+    margin-block: 0 var(--space-12);
+  }
+
+  .article-page {
+    margin-block: 0 var(--space-12);
+  }
+
+  .reading-shell,
+  .post-support {
+    width: min(100%, calc(100% - 1.5rem));
+  }
+
+  .article-head {
+    gap: 0.22rem;
+    margin-bottom: 0.55rem;
+    padding-bottom: 0.45rem;
+  }
+
+  .article-title {
+    font-size: clamp(1.36rem, 6.4vw, 1.86rem);
+    line-height: 0.98;
+    letter-spacing: -0.04em;
+  }
+
+  .article-dek {
+    font-size: 0.84rem;
+    line-height: 1.42;
+  }
+
+  .meta-row {
+    gap: 0.12rem 0.36rem;
+    font-size: 0.68rem;
+  }
+
+  .toc {
+    margin-bottom: 0.65rem !important;
+  }
+
+  .toc summary {
+    font-size: 0.8rem;
+  }
+
+  .site-header-inner {
+    padding-block: 0.65rem;
+  }
+
+  .site-header-row {
+    gap: 0.5rem;
+    align-items: flex-start;
+  }
+
+  .site-title-link {
+    font-size: 1.02rem !important;
+  }
+
+  .site-tagline {
+    margin-top: 0.08rem !important;
+    font-size: 0.7rem !important;
+  }
+
+  .site-nav {
+    gap: 0.72rem;
+    font-size: 0.7rem;
+  }
+
   .section {
     margin-block: var(--space-12);
   }

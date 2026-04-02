@@ -9,7 +9,10 @@ type TocNode = Heading & {
   children: TocNode[]
 }
 
-const { headings } = Astro.props as { headings: Heading[] }
+const { headings, title = "Table of contents" } = Astro.props as {
+  headings: Heading[]
+  title?: string
+}
 
 function escapeHtml(value: string) {
   return value
@@ -59,6 +62,6 @@ const markup = renderNodes(tree)
 ---
 
 <details class="panel surface toc" style="padding:var(--space-4);margin-bottom:var(--space-8);">
-  <summary style="font-family:var(--font-ui);cursor:pointer;">Table of contents</summary>
+  <summary style="font-family:var(--font-ui);cursor:pointer;">{title}</summary>
   <div set:html={markup} />
 </details>

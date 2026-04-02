@@ -8,7 +8,9 @@ const { title, description } = Astro.props as {
 ---
 
 <BaseLayout title={title} description={description}>
-  <div class="container section reading-shell">
-    <slot />
+  <div class="container section article-page">
+    <div class="reading-shell">
+      <slot />
+    </div>
   </div>
 </BaseLayout>

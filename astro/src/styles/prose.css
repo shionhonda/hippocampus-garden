@@ -1,8 +1,8 @@
 .prose {
-  width: min(100%, var(--width-reading-max));
+  width: min(100%, 58rem);
   margin-inline: auto;
-  font-size: var(--text-lg);
-  line-height: var(--leading-relaxed);
+  font-size: clamp(1.05rem, 1rem + 0.22vw, 1.16rem);
+  line-height: 1.9;
   color: var(--color-ink);
 }
 
@@ -15,21 +15,6 @@
   line-height: var(--leading-snug);
   margin-top: var(--space-10);
   margin-bottom: var(--space-4);
-}
-
-.prose h2,
-.prose h3,
-.prose h4 {
-  position: relative;
-}
-
-.prose h2:hover .heading-anchor,
-.prose h3:hover .heading-anchor,
-.prose h4:hover .heading-anchor,
-.prose h2:focus-within .heading-anchor,
-.prose h3:focus-within .heading-anchor,
-.prose h4:focus-within .heading-anchor {
-  opacity: 1;
 }
 
 .prose p,
@@ -140,20 +125,6 @@
   background: rgba(231, 243, 241, 0.65);
 }
 
-.prose .heading-anchor {
-  margin-left: 0.45rem;
-  font-family: var(--font-ui);
-  font-weight: var(--weight-medium);
-  text-decoration: none;
-  color: var(--color-muted);
-  opacity: 0;
-  transition: opacity 140ms ease;
-}
-
-.prose .heading-anchor:hover {
-  color: var(--color-reef-coral);
-}
-
 .prose iframe,
 .prose video {
   width: 100%;
@@ -183,6 +154,15 @@
   overflow: visible;
   clip: auto;
   white-space: normal;
+}
+
+.prose-ja .footnotes h2 {
+  font-size: 0;
+}
+
+.prose-ja .footnotes h2::after {
+  content: "脚注";
+  font-size: var(--text-2xl);
 }
 
 .prose .footnotes ol {
@@ -217,4 +197,12 @@
 
 .prose .task-list-item input {
   margin-top: 0.35rem;
+}
+
+@media (max-width: 720px) {
+  .prose {
+    width: 100%;
+    font-size: 1.03rem;
+    line-height: 1.9;
+  }
 }
