@@ -74,16 +74,19 @@
   ],
   "license": "MIT",
   "main": "n/a",
+  "engines": {
+    "node": "22.15.0"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/gatsbyjs/gatsby-starter-blog.git"
   },
   "scripts": {
-    "build": "NODE_OPTIONS=--require=./scripts/polyfill-crypto.js GATSBY_EXPERIMENTAL_PAGE_BUILD_ON_DATA_CHANGES=true gatsby build --log-pages",
-    "develop": "NODE_OPTIONS=--require=./scripts/polyfill-crypto.js gatsby develop",
+    "build": "GATSBY_EXPERIMENTAL_PAGE_BUILD_ON_DATA_CHANGES=true gatsby build --log-pages",
+    "develop": "gatsby develop",
     "format": "prettier --write \"**/*.{js,jsx,json,md}\"",
     "start": "npm run develop",
-    "serve": "NODE_OPTIONS=--require=./scripts/polyfill-crypto.js gatsby serve",
+    "serve": "gatsby serve",
     "clean": "gatsby clean",
     "test": "jest",
     "preinstall": "npx npm-force-resolutions"
