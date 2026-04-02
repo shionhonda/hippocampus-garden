@@ -21,10 +21,10 @@ const BlogPostTemplate = ({ data, pageContext, location }) => {
   const relatedPosts = relatedPostSlugs
     .map((slug) => relatedPostMap.get(slug))
     .filter(Boolean)
-  const { siteTitle, author, url } = data.site.siteMetadata
+  const { siteTitle, author } = data.site.siteMetadata
   const content = (
     <p>
-      Written by <strong>{author}</strong>. If you like this, please share!
+      Written by <strong>{author}</strong>.
     </p>
   )
 
@@ -121,7 +121,6 @@ export const pageQuery = graphql`
       siteMetadata {
         title
         author
-        url
       }
     }
     markdownRemark(fields: { slug: { eq: $slug } }) {

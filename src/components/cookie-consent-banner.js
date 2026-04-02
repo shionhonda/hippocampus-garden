@@ -33,7 +33,6 @@ const CookieConsentBanner = () => {
       aria-live="polite"
     >
       <div className="cookie-banner__content">
-        <p className="cookie-banner__eyebrow">Privacy choices</p>
         <h2>Analytics cookies are optional</h2>
         <p>
           This site uses Google Analytics only if you allow it. We also use
