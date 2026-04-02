@@ -79,11 +79,11 @@
     "url": "git+https://github.com/gatsbyjs/gatsby-starter-blog.git"
   },
   "scripts": {
-    "build": "GATSBY_EXPERIMENTAL_PAGE_BUILD_ON_DATA_CHANGES=true gatsby build --log-pages",
-    "develop": "gatsby develop",
+    "build": "NODE_OPTIONS=--require=./scripts/polyfill-crypto.js GATSBY_EXPERIMENTAL_PAGE_BUILD_ON_DATA_CHANGES=true gatsby build --log-pages",
+    "develop": "NODE_OPTIONS=--require=./scripts/polyfill-crypto.js gatsby develop",
     "format": "prettier --write \"**/*.{js,jsx,json,md}\"",
     "start": "npm run develop",
-    "serve": "gatsby serve",
+    "serve": "NODE_OPTIONS=--require=./scripts/polyfill-crypto.js gatsby serve",
     "clean": "gatsby clean",
     "test": "jest",
     "preinstall": "npx npm-force-resolutions"

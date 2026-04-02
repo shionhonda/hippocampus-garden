@@ -48,7 +48,9 @@ const Footer = () => {
       <small>
         {title} © {new Date().getFullYear()}, {author}. Built with
         {` `}
-        <a href="https://www.gatsbyjs.org">Gatsby</a>
+        <a href="https://www.gatsbyjs.org" className="footer-inline-link">
+          Gatsby
+        </a>
         <br />
         <nav className="footer">
           <div className="footer-item">
@@ -63,7 +65,11 @@ const Footer = () => {
                 <Link to={"/privacy-policy/"}>Privacy Policy</Link>
               </li>
               <li>
-                <button type="button" onClick={reopenCookieConsent}>
+                <button
+                  type="button"
+                  className="footer-cookie-button"
+                  onClick={reopenCookieConsent}
+                >
                   Cookie Settings
                 </button>
               </li>
