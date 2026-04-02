@@ -1,0 +1,64 @@
+---
+type Heading = {
+  depth: number
+  slug: string
+  text: string
+}
+
+type TocNode = Heading & {
+  children: TocNode[]
+}
+
+const { headings } = Astro.props as { headings: Heading[] }
+
+function escapeHtml(value: string) {
+  return value
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#39;")
+}
+
+function buildTree(entries: Heading[]) {
+  const root: TocNode[] = []
+  const stack: TocNode[] = []
+
+  for (const heading of entries) {
+    const node: TocNode = { ...heading, children: [] }
+
+    while (stack.length > 0 && stack[stack.length - 1].depth >= node.depth) {
+      stack.pop()
+    }
+
+    if (stack.length === 0) {
+      root.push(node)
+    } else {
+      stack[stack.length - 1].children.push(node)
+    }
+
+    stack.push(node)
+  }
+
+  return root
+}
+
+function renderNodes(nodes: TocNode[]): string {
+  return `<ul class="toc-list">${nodes
+    .map(
+      (node) =>
+        `<li class="toc-item toc-depth-${node.depth}"><a href="#${escapeHtml(node.slug)}">${escapeHtml(node.text)}</a>${
+          node.children.length > 0 ? renderNodes(node.children) : ""
+        }</li>`,
+    )
+    .join("")}</ul>`
+}
+
+const tree = buildTree(headings.filter((heading) => heading.depth >= 2 && heading.depth <= 4))
+const markup = renderNodes(tree)
+---
+
+<details class="panel surface toc" style="padding:var(--space-4);margin-bottom:var(--space-8);">
+  <summary style="font-family:var(--font-ui);cursor:pointer;">Table of contents</summary>
+  <div set:html={markup} />
+</details>
