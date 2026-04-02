@@ -25,11 +25,12 @@
 初期リリースの対象ページ:
 
 1. Home
-2. Post detail
-3. About
-4. Tag index
-5. Tag archive
-6. 404
+2. Home pagination
+3. Post detail
+4. About
+5. Topics index
+6. Topic archive
+7. 404
 
 将来追加してもよいページ:
 
@@ -127,6 +128,7 @@ Primary nav の候補:
 内容:
 
 - 新しい順の記事一覧
+- ページネーション
 
 各カードの要素:
 
@@ -154,6 +156,14 @@ Primary nav の候補:
 - 日本語タイトルでも英語タイトルでも高さの破綻が起きない
 - 長いタイトルは 3 行程度まで許容し、説明文は 2 行程度に制御する
 - サムネイルなし記事でも成立する
+- Home はページネーションを持つ
+- 古い記事への主要導線は Home のページネーションと Topics archive とする
+
+ページネーション案:
+
+- `/`
+- `/page/2/`
+- `/page/3/`
 
 ### 3. Topics
 
