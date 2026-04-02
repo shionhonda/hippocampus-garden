@@ -3,13 +3,13 @@ import { site } from "../data/site"
 ---
 
 <header style="border-bottom:1px solid var(--color-line-soft);">
-  <div class="container" style="padding-block: var(--space-5);">
+  <div class="container shell" style="padding-block: var(--space-5);">
     <a href="#main" class="sr-only">Skip to content</a>
     <div style="display:flex;justify-content:space-between;gap:var(--space-4);align-items:flex-end;flex-wrap:wrap;">
       <div>
         <a
           href="/"
-          style="font-family:var(--font-ui);font-size:var(--text-2xl);font-weight:var(--weight-semibold);text-decoration:none;color:var(--color-ink-strong);"
+          style="font-family:var(--font-ui);font-size:clamp(1.35rem, 2vw, 1.75rem);font-weight:var(--weight-semibold);letter-spacing:-0.03em;text-decoration:none;color:var(--color-ink-strong);"
         >
           {site.title}
         </a>
@@ -18,7 +18,7 @@ import { site } from "../data/site"
         </div>
       </div>
       <nav aria-label="Primary">
-        <ul style="display:flex;gap:var(--space-4);list-style:none;padding:0;margin:0;font-family:var(--font-ui);">
+        <ul style="display:flex;gap:var(--space-4);list-style:none;padding:0;margin:0;font-family:var(--font-ui);font-size:var(--text-sm);">
           <li><a href="/">Home</a></li>
           <li><a href="/about/">About</a></li>
           <li><a href="/topics/">Topics</a></li>

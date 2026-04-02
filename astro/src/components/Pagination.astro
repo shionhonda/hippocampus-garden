@@ -10,14 +10,14 @@ const hrefForPage = (page: number) => (page === 1 ? "/" : `/page/${page}/`)
 {
   totalPages > 1 && (
     <nav aria-label="Pagination" style="margin-top:var(--space-8);">
-      <ul style="display:flex;gap:var(--space-2);flex-wrap:wrap;list-style:none;padding:0;margin:0;font-family:var(--font-ui);">
+      <ul style="display:flex;gap:var(--space-2);flex-wrap:wrap;list-style:none;padding:0;margin:0;font-family:var(--font-ui);font-size:var(--text-sm);">
         {Array.from({ length: totalPages }, (_, index) => index + 1).map((page) => (
           <li>
             <a
               href={hrefForPage(page)}
               aria-current={page === currentPage ? "page" : undefined}
-              class="panel"
-              style={`display:inline-block;padding:0.6rem 0.9rem;text-decoration:none;color:inherit;border-color:${page === currentPage ? "var(--color-line-strong)" : "var(--color-line-soft)"};`}
+              class="topic-chip"
+              style={page === currentPage ? "border-color:rgba(14, 63, 82, 0.4);background:rgba(231, 243, 241, 0.92);" : undefined}
             >
               {page}
             </a>

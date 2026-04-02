@@ -2,22 +2,22 @@
 import { profile } from "../data/profile"
 ---
 
-<section class="panel" style="padding:var(--space-5);">
-  <div style="font-family:var(--font-ui);font-size:var(--text-xs);letter-spacing:0.08em;text-transform:uppercase;color:var(--color-muted);">
+<section class="panel surface" style="padding:var(--space-6);">
+  <div class="eyebrow">
     Author
   </div>
-  <h2 style="font-family:var(--font-ui);font-size:var(--text-xl);margin:var(--space-2) 0 var(--space-2);">
+  <h2 style="position:relative;font-family:var(--font-ui);font-size:var(--text-xl);margin:var(--space-2) 0 var(--space-2);">
     {profile.name}
   </h2>
-  <p style="margin:0 0 var(--space-4);color:var(--color-ink-soft);">
+  <p style="position:relative;margin:0 0 var(--space-4);max-width:40rem;color:var(--color-ink-soft);">
     {profile.aboutSummary}
   </p>
-  <div style="display:flex;gap:var(--space-3);flex-wrap:wrap;font-family:var(--font-ui);font-size:var(--text-sm);">
+  <div style="position:relative;display:flex;gap:var(--space-3);flex-wrap:wrap;font-family:var(--font-ui);font-size:var(--text-sm);">
     {profile.socials.map((social) => (
       <a href={social.href} target="_blank" rel="noreferrer">{social.label}</a>
     ))}
   </div>
-  <div style="margin-top:var(--space-4);font-family:var(--font-ui);font-size:var(--text-sm);">
+  <div style="position:relative;margin-top:var(--space-4);font-family:var(--font-ui);font-size:var(--text-sm);">
     <a href="/about/">About Shion</a>
   </div>
 </section>

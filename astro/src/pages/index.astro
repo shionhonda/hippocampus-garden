@@ -16,25 +16,26 @@ const mostRead = await getMostReadPosts(5)
 ---
 
 <HomeLayout title="Home" description={site.description}>
-  <section class="section" style="max-width:var(--width-content-max);">
-    <div style="font-family:var(--font-ui);font-size:var(--text-xs);letter-spacing:0.08em;text-transform:uppercase;color:var(--color-muted);">
+  <section class="section">
+    <div class="hero-block">
+      <div class="eyebrow">
       Hippocampus's Garden
+      </div>
+      <h1 class="hero-title">Quiet writing about software, learning, and ideas worth revisiting.</h1>
+      <p class="hero-copy">{profile.bio}</p>
     </div>
-    <h1 style="font-family:var(--font-ui);font-size:clamp(2rem, 4vw, 3.25rem);line-height:1.1;margin:var(--space-3) 0 var(--space-4);max-width:14ch;">
-      Quiet writing about software, learning, and ideas worth revisiting.
-    </h1>
-    <p style="max-width:var(--width-content-max);font-size:var(--text-lg);color:var(--color-ink-soft);margin:0;">
-      {profile.bio}
-    </p>
   </section>
 
   <section class="section">
-    <div style="display:flex;justify-content:space-between;gap:var(--space-4);align-items:end;flex-wrap:wrap;margin-bottom:var(--space-5);">
-      <h2 style="font-family:var(--font-ui);font-size:var(--text-2xl);margin:0;">Recent posts</h2>
+    <div class="section-header">
+      <div>
+        <div class="eyebrow" style="margin-bottom:var(--space-2);">Latest</div>
+        <h2 class="section-title">Recent posts</h2>
+      </div>
       {totalPages > 1 && <a href="/page/2/">Older posts</a>}
     </div>
     {posts.length > 0 ? (
-      <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(18rem, 1fr));gap:var(--space-5);">
+      <div class="divider-list">
         {posts.map((post) => <PostCard post={post} />)}
       </div>
     ) : (
@@ -44,20 +45,31 @@ const mostRead = await getMostReadPosts(5)
   </section>
 
   <section class="section">
-    <h2 style="font-family:var(--font-ui);font-size:var(--text-2xl);margin-bottom:var(--space-5);">Topics</h2>
+    <div class="section-header">
+      <div>
+        <div class="eyebrow" style="margin-bottom:var(--space-2);">Index</div>
+        <h2 class="section-title">Topics</h2>
+      </div>
+      <p class="section-copy">A compact map of what the site has been about recently.</p>
+    </div>
     <TopicList topics={topics} />
   </section>
 
   {mostRead.length > 0 && (
     <section class="section">
-      <h2 style="font-family:var(--font-ui);font-size:var(--text-2xl);margin-bottom:var(--space-5);">Most read</h2>
+      <div class="section-header">
+        <div>
+          <div class="eyebrow" style="margin-bottom:var(--space-2);">Popular</div>
+          <h2 class="section-title">Most read</h2>
+        </div>
+      </div>
       <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(16rem, 1fr));gap:var(--space-4);">
         {mostRead.map(({ post, node }) => (
-          <article class="panel" style="padding:var(--space-4);">
+          <article class="panel surface" style="padding:var(--space-4);">
             <a href={`/${post.data.slug ?? post.id.replace(/\/index$/, "")}/`} style="text-decoration:none;color:inherit;">
-              <h3 style="font-family:var(--font-ui);margin:0 0 var(--space-2);font-size:var(--text-lg);">{post.data.title}</h3>
+              <h3 style="position:relative;font-family:var(--font-ui);margin:0 0 var(--space-2);font-size:var(--text-lg);line-height:1.2;">{post.data.title}</h3>
             </a>
-            <div style="font-family:var(--font-ui);font-size:var(--text-sm);color:var(--color-muted);">
+            <div style="position:relative;font-family:var(--font-ui);font-size:var(--text-sm);color:var(--color-muted);">
               {node.count.toLocaleString("en-US")} views
             </div>
           </article>

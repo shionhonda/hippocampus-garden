@@ -19,10 +19,15 @@ const posts = await getPostsForTopic(topic.slug)
 ---
 
 <PageLayout title={topic.label}>
-  <section class="section">
-    <h1 style="font-family:var(--font-ui);font-size:var(--text-3xl);margin-top:0;">{topic.label}</h1>
-    <p style="color:var(--color-muted);margin-bottom:var(--space-6);">{topic.count} posts</p>
-    <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(18rem, 1fr));gap:var(--space-5);">
+  <section class="section" style="max-width:var(--width-wide-max);margin-inline:auto;">
+    <div class="section-header">
+      <div>
+        <div class="eyebrow" style="margin-bottom:var(--space-2);">Topic</div>
+        <h1 class="section-title" style="font-size:var(--text-3xl);">{topic.label}</h1>
+      </div>
+      <p style="margin:0;color:var(--color-muted);">{topic.count} posts</p>
+    </div>
+    <div class="divider-list">
       {posts.map((post) => <PostCard post={post} />)}
     </div>
   </section>

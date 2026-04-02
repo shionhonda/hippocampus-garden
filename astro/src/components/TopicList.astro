@@ -10,8 +10,7 @@ const {
   {topics.map((topic) => (
     <a
       href={`/topics/${topic.slug}/`}
-      class="panel"
-      style="padding:0.5rem 0.75rem;border-radius:var(--radius-pill);text-decoration:none;font-family:var(--font-ui);font-size:var(--text-sm);"
+      class="topic-chip"
     >
       {topic.label} <span style="color:var(--color-muted);">({topic.count})</span>
     </a>
