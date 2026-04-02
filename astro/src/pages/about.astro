@@ -1,0 +1,54 @@
+---
+import PageLayout from "../layouts/PageLayout.astro"
+import { profile } from "../data/profile"
+import { getAllPosts, getSelectedWriting, getPostPath } from "../lib/posts"
+
+const posts = await getAllPosts()
+const selectedWriting = await getSelectedWriting(posts)
+---
+
+<PageLayout title="About" description={profile.aboutSummary}>
+  <section class="section" style="max-width:var(--width-content-max);">
+    <div style="display:grid;gap:var(--space-6);grid-template-columns:minmax(0, 1fr);">
+      <div class="panel" style="padding:var(--space-6);">
+        <div style="display:flex;gap:var(--space-5);align-items:start;flex-wrap:wrap;">
+          <img
+            src="/profile-pic.png"
+            alt={profile.name}
+            width="112"
+            height="112"
+            style="width:112px;height:112px;border-radius:50%;object-fit:cover;border:1px solid var(--color-line);"
+          />
+          <div style="flex:1;min-width:16rem;">
+            <h1 style="font-family:var(--font-ui);margin:0 0 var(--space-2);font-size:var(--text-3xl);">
+              {profile.name}
+            </h1>
+            <div style="font-family:var(--font-ui);color:var(--color-muted);margin-bottom:var(--space-4);">
+              {profile.role} · {profile.location}
+            </div>
+            <p style="margin:0 0 var(--space-4);max-width:40rem;">{profile.aboutSummary}</p>
+            <div style="display:flex;gap:var(--space-3);flex-wrap:wrap;font-family:var(--font-ui);font-size:var(--text-sm);">
+              {profile.socials.map((social) => (
+                <a href={social.href} target="_blank" rel="noreferrer">{social.label}</a>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" style="max-width:var(--width-content-max);">
+    <h2 style="font-family:var(--font-ui);font-size:var(--text-2xl);">Selected writing</h2>
+    <div style="display:grid;gap:var(--space-4);">
+      {selectedWriting.map((post) => (
+        <article class="panel" style="padding:var(--space-4);">
+          <a href={getPostPath(post)} style="text-decoration:none;color:inherit;">
+            <h3 style="font-family:var(--font-ui);margin:0 0 var(--space-2);">{post.data.title}</h3>
+          </a>
+          <p style="margin:0;color:var(--color-ink-soft);">{post.data.description}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+</PageLayout>

@@ -1,0 +1,29 @@
+---
+import PageLayout from "../../layouts/PageLayout.astro"
+import PostCard from "../../components/PostCard.astro"
+import { getPostsForTopic } from "../../lib/posts"
+import { getAllTopics } from "../../lib/topics"
+
+export async function getStaticPaths() {
+  const { getAllPosts } = await import("../../lib/posts")
+  const posts = await getAllPosts()
+  const topics = getAllTopics(posts)
+  return topics.map((topic) => ({
+    params: { topic: topic.slug },
+    props: { topic },
+  }))
+}
+
+const { topic } = Astro.props
+const posts = await getPostsForTopic(topic.slug)
+---
+
+<PageLayout title={topic.label}>
+  <section class="section">
+    <h1 style="font-family:var(--font-ui);font-size:var(--text-3xl);margin-top:0;">{topic.label}</h1>
+    <p style="color:var(--color-muted);margin-bottom:var(--space-6);">{topic.count} posts</p>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(18rem, 1fr));gap:var(--space-5);">
+      {posts.map((post) => <PostCard post={post} />)}
+    </div>
+  </section>
+</PageLayout>

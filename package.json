@@ -82,6 +82,10 @@
     "url": "git+https://github.com/gatsbyjs/gatsby-starter-blog.git"
   },
   "scripts": {
+    "astro:dev": "npm --prefix astro run dev",
+    "astro:build": "npm --prefix astro run build",
+    "astro:preview": "npm --prefix astro run preview",
+    "astro:check": "npm --prefix astro run check",
     "build": "GATSBY_EXPERIMENTAL_PAGE_BUILD_ON_DATA_CHANGES=true gatsby build --log-pages",
     "develop": "gatsby develop",
     "format": "prettier --write \"**/*.{js,jsx,json,md}\"",

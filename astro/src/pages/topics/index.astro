@@ -1,0 +1,35 @@
+---
+import PageLayout from "../../layouts/PageLayout.astro"
+import { getAllPosts } from "../../lib/posts"
+import { getAllTopics, getRecentMajorTopics } from "../../lib/topics"
+
+const posts = await getAllPosts()
+const recentTopics = getRecentMajorTopics(posts)
+const allTopics = getAllTopics(posts)
+---
+
+<PageLayout title="Topics">
+  <section class="section">
+    <h1 style="font-family:var(--font-ui);font-size:var(--text-3xl);margin-top:0;">Topics</h1>
+    {recentTopics.length > 0 && (
+      <>
+        <h2 style="font-family:var(--font-ui);font-size:var(--text-xl);">Recent major topics</h2>
+        <div style="display:flex;gap:var(--space-2);flex-wrap:wrap;margin-bottom:var(--space-8);">
+          {recentTopics.map((topic) => (
+            <a href={`/topics/${topic.slug}/`} class="panel" style="padding:0.5rem 0.75rem;border-radius:var(--radius-pill);text-decoration:none;">
+              {topic.label} ({topic.count})
+            </a>
+          ))}
+        </div>
+      </>
+    )}
+    <h2 style="font-family:var(--font-ui);font-size:var(--text-xl);">All topics</h2>
+    <div style="display:flex;gap:var(--space-2);flex-wrap:wrap;">
+      {allTopics.map((topic) => (
+        <a href={`/topics/${topic.slug}/`} class="panel" style="padding:0.5rem 0.75rem;border-radius:var(--radius-pill);text-decoration:none;">
+          {topic.label} ({topic.count})
+        </a>
+      ))}
+    </div>
+  </section>
+</PageLayout>
