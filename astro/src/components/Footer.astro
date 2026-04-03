@@ -13,8 +13,28 @@ const year = new Date().getFullYear()
         <li><a href="/about/">About</a></li>
         <li><a href="/topics/">Topics</a></li>
         <li><a href="/privacy-policy/">Privacy Policy</a></li>
+        <li>
+          <button type="button" class="footer-cookie-button" data-cookie-settings-button>
+            Cookie Settings
+          </button>
+        </li>
         <li><a href="/rss.xml">RSS</a></li>
       </ul>
     </nav>
   </div>
 </footer>
+
+<script>
+  import { reopenCookieConsent } from "../lib/cookie-consent"
+
+  const setupCookieSettingsButton = () => {
+    document
+      .querySelector<HTMLButtonElement>("[data-cookie-settings-button]")
+      ?.addEventListener("click", () => {
+        reopenCookieConsent()
+      })
+  }
+
+  document.addEventListener("astro:page-load", setupCookieSettingsButton)
+  setupCookieSettingsButton()
+</script>

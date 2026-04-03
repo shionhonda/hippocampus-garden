@@ -88,47 +88,18 @@ Primary nav の候補:
 
 ### セクション構成
 
-1. Intro
-2. Recent posts
-3. Topics
-4. Optional trending / most read
-5. Author block
+1. Recent posts
+2. Topics
+3. Optional trending / most read
+4. Author block
 
-### 1. Intro
-
-内容:
-
-- サイト名
-- 1 行の説明
-- 2 行程度の補足
-
-文量の目安:
-
-- 説明文は 2 段落以内
-- 自己紹介はここでは短く抑える
-
-レイアウト:
-
-- 横長のヒーローではなく、本文開始前の静かな導入ブロック
-- 左寄せ基調
-- ブランド背景を強く塗らない
-
-入れてよい要素:
-
-- 「Machine Learning, Software, Books, Notes」のような短い領域提示
-
-入れない要素:
-
-- 大きな CTA
-- Featured post
-- カルーセル
-
-### 2. Recent posts
+### 1. Recent posts
 
 内容:
 
 - 新しい順の記事一覧
 - ページネーション
+- 必要なら短いセクション見出し
 
 各カードの要素:
 
@@ -165,7 +136,19 @@ Primary nav の候補:
 - `/page/2/`
 - `/page/3/`
 
-### 3. Topics
+レイアウト:
+
+- ヘッダー直下から始める
+- Home 専用の大きなヒーローや横長導入ブロックは置かない
+- 必要なら 1 行だけの補助説明を `Recent posts` 見出し周辺に添える
+
+目的:
+
+- 最新記事への最短導線を維持する
+- Home の主役を明確にする
+- 装飾よりも読み始めやすさを優先する
+
+### 2. Topics
 
 内容:
 
@@ -184,7 +167,7 @@ Primary nav の候補:
 - 発見導線の提供
 - サイト全体の話題領域を伝える
 
-### 4. Optional trending / most read
+### 3. Optional trending / most read
 
 内容:
 
@@ -202,7 +185,7 @@ Primary nav の候補:
 - 露出が強くなりすぎないよう、Recent posts より視覚的に弱くする
 - 記事数は 3 から 5 件程度に抑える
 
-### 5. Author block
+### 4. Author block
 
 内容:
 

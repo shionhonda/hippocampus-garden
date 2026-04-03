@@ -61,8 +61,14 @@
   --radius-lg: 1rem;
   --radius-xl: 1.5rem;
   --radius-pill: 999px;
+  --border-thin: 1px solid var(--color-line);
+  --border-soft: 1px solid var(--color-line-soft);
+  --border-strong: 1px solid var(--color-line-strong);
   --shadow-soft: 0 10px 30px rgba(6, 43, 56, 0.06);
   --shadow-line: 0 1px 0 rgba(6, 43, 56, 0.08);
+  --duration-fast: 120ms;
+  --duration-normal: 180ms;
+  --ease-standard: ease;
   --width-page-max: 80rem;
   --width-content-max: 46rem;
   --width-reading-max: 42rem;

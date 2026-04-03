@@ -1,0 +1,76 @@
+---
+const privacyPolicyHref = "/privacy-policy/"
+---
+
+<aside
+  class="cookie-banner"
+  aria-label="Cookie consent banner"
+  role="dialog"
+  aria-live="polite"
+  hidden
+  data-cookie-banner
+>
+  <div class="cookie-banner__inner">
+    <div class="cookie-banner__content">
+      <h2>Analytics cookies are optional</h2>
+      <p>
+        This site uses Google Analytics only if you allow it. We also use Amazon affiliate links,
+        and Amazon may apply its own tracking after you follow those links. See the
+        <a href={privacyPolicyHref}>Privacy Policy</a> for details.
+      </p>
+    </div>
+    <div class="cookie-banner__actions">
+      <button
+        type="button"
+        class="cookie-banner__button cookie-banner__button--secondary"
+        data-cookie-action="reject"
+      >
+        Reject
+      </button>
+      <button type="button" class="cookie-banner__button" data-cookie-action="accept">
+        Accept
+      </button>
+    </div>
+  </div>
+</aside>
+
+<script>
+  import {
+    cookieConsentValues,
+    getCookieConsent,
+    setCookieConsent,
+    subscribeToCookieConsent,
+  } from "../lib/cookie-consent"
+
+  const setupCookieBanner = () => {
+    const banner = document.querySelector<HTMLElement>("[data-cookie-banner]")
+    if (!banner) {
+      return
+    }
+
+    const toggleBanner = (value: string | null) => {
+      banner.hidden = Boolean(value)
+    }
+
+    toggleBanner(getCookieConsent())
+
+    banner
+      .querySelector<HTMLButtonElement>('[data-cookie-action="reject"]')
+      ?.addEventListener("click", () => {
+        setCookieConsent(cookieConsentValues.rejected)
+      })
+
+    banner
+      .querySelector<HTMLButtonElement>('[data-cookie-action="accept"]')
+      ?.addEventListener("click", () => {
+        setCookieConsent(cookieConsentValues.accepted)
+      })
+
+    subscribeToCookieConsent((value) => {
+      toggleBanner(value)
+    })
+  }
+
+  document.addEventListener("astro:page-load", setupCookieBanner)
+  setupCookieBanner()
+</script>

@@ -60,6 +60,14 @@ const languageLinks = [
     <div class="about-intro-grid">
       <div class="about-photo-wrap">
         <Image src={faceImage} alt={profile.name} class="about-photo" widths={[320, 512]} sizes="(max-width: 720px) 180px, 240px" />
+        <img
+          src="/site-icon-128.png"
+          alt=""
+          aria-hidden="true"
+          class="about-photo-badge"
+          width="44"
+          height="44"
+        />
       </div>
       <div>
         <h1 class="intro-title">{profile.name}</h1>
@@ -180,17 +188,19 @@ const languageLinks = [
     box-shadow: 0 14px 34px rgba(6, 43, 56, 0.08);
   }
 
-  .about-photo-wrap::after {
-    content: "";
+  .about-photo-badge {
     position: absolute;
     inset: auto 1.1rem 1.1rem auto;
     width: 2.2rem;
     height: 2.2rem;
     border-radius: 50%;
-    background: radial-gradient(circle at 35% 35%, rgba(255, 255, 255, 0.9), rgba(255, 122, 107, 0.6) 38%, rgba(14, 63, 82, 0.92) 100%);
+    background: rgba(255, 255, 255, 0.94);
+    border: 1px solid rgba(197, 210, 215, 0.72);
     box-shadow:
       0 0 0 0.42rem rgba(255, 122, 107, 0.1),
       0 0 0 0.86rem rgba(158, 223, 214, 0.12);
+    object-fit: contain;
+    padding: 0.15rem;
   }
 
   .about-photo {
