@@ -37,6 +37,7 @@ const languageLinks = [
   description={profile.aboutSummary}
   lang={Astro.props.lang}
   alternates={Astro.props.alternates}
+  canonicalPath={locale === "ja" ? "/about-ja/" : "/about/"}
 >
   <section class="section about-shell">
     <div class="about-topbar">

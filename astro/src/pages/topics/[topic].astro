@@ -18,7 +18,11 @@ const { topic } = Astro.props
 const posts = await getPostsForTopic(topic.slug)
 ---
 
-<PageLayout title={topic.label}>
+<PageLayout
+  title={topic.label}
+  description={`Posts filed under ${topic.label}.`}
+  canonicalPath={`/topics/${topic.slug}/`}
+>
   <section class="section" style="max-width:var(--width-wide-max);margin-inline:auto;">
     <div class="section-header">
       <div>

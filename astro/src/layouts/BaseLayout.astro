@@ -4,18 +4,34 @@ import CookieConsentBanner from "../components/CookieConsentBanner.astro"
 import Footer from "../components/Footer.astro"
 import Header from "../components/Header.astro"
 import { site } from "../data/site"
+import { getDefaultSocialImage, toAbsoluteUrl } from "../lib/seo"
 
 const {
   title,
   description = site.description,
   lang = site.locale,
   alternates = [],
+  canonicalPath,
+  canonicalUrl,
+  socialImage = getDefaultSocialImage(),
+  ogType = "website",
+  noindex = false,
 } = Astro.props as {
   title?: string
   description?: string
   lang?: string
   alternates?: Array<{ hrefLang: string; href: string }>
+  canonicalPath?: string
+  canonicalUrl?: string
+  socialImage?: string
+  ogType?: "website" | "article"
+  noindex?: boolean
 }
+
+const pageTitle = title ? `${title} | ${site.title}` : site.title
+const resolvedCanonicalUrl =
+  canonicalUrl ?? toAbsoluteUrl(canonicalPath ?? Astro.url.pathname)
+const resolvedSocialImage = socialImage ?? getDefaultSocialImage()
 ---
 
 <!doctype html>
@@ -23,13 +39,27 @@ const {
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>{title ? `${title} | ${site.title}` : site.title}</title>
+    <title>{pageTitle}</title>
     <meta name="description" content={description} />
     <meta name="theme-color" content="#f3f8f8" />
+    <link rel="canonical" href={resolvedCanonicalUrl} />
     <link rel="icon" href="/favicon.ico" sizes="any" />
     <link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32" />
     <link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180" />
+    <meta property="og:site_name" content={site.title} />
+    <meta property="og:locale" content={lang} />
+    <meta property="og:type" content={ogType} />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={resolvedCanonicalUrl} />
+    <meta property="og:image" content={resolvedSocialImage} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={resolvedSocialImage} />
+    <meta name="twitter:creator" content={site.twitterHandle} />
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
     {alternates.map((alternate) => (
       <link rel="alternate" hreflang={alternate.hrefLang} href={alternate.href} />
     ))}

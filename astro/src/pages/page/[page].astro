@@ -18,7 +18,7 @@ const allPosts = await getAllPosts()
 const { items, totalPages, currentPage } = paginatePosts(allPosts, page, site.postsPerPage)
 ---
 
-<HomeLayout title={`Page ${currentPage}`}>
+<HomeLayout title={`Page ${currentPage}`} canonicalPath={`/page/${currentPage}/`}>
   <section class="section home-section">
     <div class="section-header">
       <h1 class="section-title" style="font-size:var(--text-3xl);">Older posts</h1>

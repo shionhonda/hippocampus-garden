@@ -1,15 +1,37 @@
 ---
 import BaseLayout from "./BaseLayout.astro"
 
-const { title, description, lang, alternates } = Astro.props as {
+const {
+  title,
+  description,
+  lang,
+  alternates,
+  canonicalPath,
+  canonicalUrl,
+  socialImage,
+  noindex = false,
+} = Astro.props as {
   title?: string
   description?: string
   lang?: string
   alternates?: Array<{ hrefLang: string; href: string }>
+  canonicalPath?: string
+  canonicalUrl?: string
+  socialImage?: string
+  noindex?: boolean
 }
 ---
 
-<BaseLayout title={title} description={description} lang={lang} alternates={alternates}>
+<BaseLayout
+  title={title}
+  description={description}
+  lang={lang}
+  alternates={alternates}
+  canonicalPath={canonicalPath}
+  canonicalUrl={canonicalUrl}
+  socialImage={socialImage}
+  noindex={noindex}
+>
   <div class="container section">
     <slot />
   </div>
