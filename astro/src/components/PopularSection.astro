@@ -1,40 +1,40 @@
 ---
-import { Image } from "astro:assets"
-import { getFeaturedImage } from "../lib/post-images"
 import { getPostPath } from "../lib/posts"
+import type { Post } from "../lib/posts"
 
 const {
   title,
   items,
+  showDescription = false,
 } = Astro.props as {
   title: string
-  items: { post: import("../lib/posts").Post; node: { count: number } }[]
+  items: Array<Post | { post: Post }>
+  showDescription?: boolean
 }
 ---
 
-<section class="panel surface" style="padding:var(--space-5);">
-  <h2 class="section-title" style="font-size:var(--text-xl);margin-bottom:var(--space-4);">{title}</h2>
-  <div class="compact-link-list">
-    {items.map(({ post }) => {
-      const image = getFeaturedImage(post)
+<section class="ranking-module">
+  <div class="ranking-header">
+    <h2 class="ranking-title">{title}</h2>
+  </div>
+  <div class="ranking-list">
+    {items.map((item, index) => {
+      const post = "post" in item ? item.post : item
       const href = getPostPath(post)
       return (
-        <article class="compact-link-item popular-row">
-          {image && (
-            <a href={href} class="popular-row-thumb">
-              <Image
-                src={image}
-                alt={post.data.title}
-                widths={[240]}
-                sizes="112px"
-                style="width:100%;height:auto;aspect-ratio:1.91 / 1;object-fit:cover;border-radius:var(--radius-sm);border:1px solid rgba(197, 210, 215, 0.72);"
-              />
-            </a>
-          )}
-          <div style="min-width:0;">
-            <a href={href} style="font-family:var(--font-ui);text-decoration:none;color:inherit;">
+        <article class="ranking-item">
+          <div class="ranking-index" aria-hidden="true">{String(index + 1).padStart(2, "0")}</div>
+          <div class="ranking-copy">
+            <a href={href} class="ranking-link">
               {post.data.title}
             </a>
+            {showDescription && post.data.description && (
+              <p class="ranking-description">{post.data.description}</p>
+            )}
+            <div class="ranking-meta">
+              {post.data.date.toISOString().slice(0, 10)}
+              {post.data.lang ? ` · ${post.data.lang.toUpperCase()}` : ""}
+            </div>
           </div>
         </article>
       )

@@ -20,10 +20,10 @@ const featuredImage = getFeaturedImage(post)
       />
     </a>
   )}
-  <div class="post-row-copy">
+  <div class:list={["post-row-copy", post.data.lang === "ja" ? "lang-ja" : "lang-en"]}>
     <a href={getPostPath(post)} style="text-decoration:none;color:inherit;">
       <h2
-        style="font-family:var(--font-ui);font-size:clamp(1.5rem, 2.2vw, 1.9rem);line-height:1.08;letter-spacing:-0.02em;margin:0 0 var(--space-3);color:var(--color-ink-strong);max-width:44rem;"
+        class="post-row-title"
       >
         {post.data.title}
       </h2>

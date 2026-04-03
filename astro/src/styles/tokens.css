@@ -16,10 +16,15 @@
   --color-paper: #ffffff;
   --color-panel: #f7fafa;
   --color-canvas: #f3f8f8;
-  --font-body:
-    "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Georgia, serif;
+  --font-body-en:
+    "Newsreader", "Iowan Old Style", "Palatino Linotype", "Book Antiqua",
+    Georgia, serif;
+  --font-body-ja:
+    "Noto Serif JP", "Hiragino Mincho ProN", "Yu Mincho", "MS PMincho",
+    serif;
+  --font-body: var(--font-body-en);
   --font-ui:
-    "Avenir Next", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+    "Manrope", "Avenir Next", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
   --font-code:
     "SFMono-Regular", "SF Mono", "JetBrains Mono", "Cascadia Code", Consolas,
     monospace;

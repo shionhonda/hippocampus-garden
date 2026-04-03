@@ -2,24 +2,22 @@
 import { site } from "../data/site"
 ---
 
-<header class="site-header" style="border-bottom:1px solid var(--color-line-soft);">
-  <div class="container shell site-header-inner" style="padding-block: var(--space-5);">
+<header class="site-header">
+  <div class="container shell site-header-inner">
     <a href="#main" class="sr-only">Skip to content</a>
-    <div class="site-header-row" style="display:flex;justify-content:space-between;gap:var(--space-4);align-items:flex-end;flex-wrap:wrap;">
-      <div>
+    <div class="site-header-row">
+      <div class="site-identity">
         <a
           href="/"
           class="site-title-link"
-          style="font-family:var(--font-ui);font-size:clamp(1.35rem, 2vw, 1.75rem);font-weight:var(--weight-semibold);letter-spacing:-0.03em;text-decoration:none;color:var(--color-ink-strong);"
         >
-          {site.title}
+          <span class="site-emblem" aria-hidden="true"></span>
+          <span>{site.title}</span>
         </a>
-        <div class="site-tagline" style="font-family:var(--font-ui);font-size:var(--text-sm);color:var(--color-muted);margin-top:var(--space-1);">
-          Machine learning, software, books, notes
-        </div>
+        <div class="site-tagline">Machine learning, software, books, notes</div>
       </div>
-      <nav aria-label="Primary">
-        <ul class="site-nav" style="display:flex;gap:var(--space-4);list-style:none;padding:0;margin:0;font-family:var(--font-ui);font-size:var(--text-sm);">
+      <nav aria-label="Primary" class="site-nav-shell">
+        <ul class="site-nav">
           <li><a href="/">Home</a></li>
           <li><a href="/about/">About</a></li>
           <li><a href="/topics/">Topics</a></li>
