@@ -91,6 +91,10 @@ a:hover {
   color: var(--color-reef-coral);
 }
 
+button {
+  font: inherit;
+}
+
 a:focus-visible,
 button:focus-visible,
 summary:focus-visible {
@@ -361,138 +365,145 @@ img {
   pointer-events: none;
 }
 
+.cookie-banner {
+  position: fixed;
+  inset: auto var(--space-4) var(--space-4);
+  z-index: 30;
+  display: flex;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.cookie-banner[hidden] {
+  display: none;
+}
+
+.cookie-banner__inner {
+  width: min(100%, 48rem);
+  display: grid;
+  gap: var(--space-5);
+  padding: var(--space-5);
+  border: var(--border-strong);
+  border-radius: var(--radius-xl);
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.96), rgba(247, 250, 250, 0.92)),
+    linear-gradient(180deg, rgba(30, 140, 138, 0.08), rgba(255, 122, 107, 0.04));
+  box-shadow: 0 24px 64px rgba(6, 43, 56, 0.16);
+  pointer-events: auto;
+}
+
+.cookie-banner__content {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.cookie-banner__content h2 {
+  margin: 0;
+  font-family: var(--font-ui);
+  font-size: clamp(1.15rem, 1.05rem + 0.4vw, 1.4rem);
+  line-height: var(--leading-snug);
+  letter-spacing: -0.03em;
+  color: var(--color-ink-strong);
+}
+
+.cookie-banner__content p {
+  margin: 0;
+  color: var(--color-ink-soft);
+  font-size: var(--text-sm);
+  line-height: 1.7;
+}
+
+.cookie-banner__actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: var(--space-3);
+}
+
+.cookie-banner__button,
+.footer-cookie-button {
+  appearance: none;
+  border-radius: var(--radius-pill);
+  border: 1px solid rgba(6, 43, 56, 0.14);
+  background: rgba(14, 63, 82, 0.96);
+  color: var(--color-paper);
+  padding: 0.72rem 1.1rem;
+  font-family: var(--font-ui);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-semibold);
+  letter-spacing: 0.01em;
+  cursor: pointer;
+  transition:
+    background-color var(--duration-normal) var(--ease-standard),
+    border-color var(--duration-normal) var(--ease-standard),
+    color var(--duration-normal) var(--ease-standard),
+    transform var(--duration-fast) var(--ease-standard);
+}
+
+.cookie-banner__button:hover,
+.footer-cookie-button:hover {
+  background: rgba(255, 122, 107, 0.96);
+  border-color: rgba(255, 122, 107, 0.52);
+  color: var(--color-paper);
+  transform: translateY(-1px);
+}
+
+.cookie-banner__button--secondary,
+.footer-cookie-button {
+  background: rgba(255, 255, 255, 0.72);
+  color: var(--color-ink);
+}
+
+.cookie-banner__button--secondary:hover,
+.footer-cookie-button:hover {
+  color: var(--color-ink-strong);
+}
+
+.footer-cookie-button {
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: var(--color-reef-surface);
+  font-weight: var(--weight-medium);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.16em;
+  transform: none;
+}
+
+.footer-cookie-button:hover {
+  background: transparent;
+  border-color: transparent;
+  color: var(--color-reef-coral);
+  transform: none;
+}
+
+@media (max-width: 42rem) {
+  .cookie-banner {
+    inset-inline: var(--space-3);
+    bottom: var(--space-3);
+  }
+
+  .cookie-banner__inner {
+    gap: var(--space-4);
+    padding: var(--space-4);
+  }
+
+  .cookie-banner__actions {
+    justify-content: stretch;
+  }
+
+  .cookie-banner__button {
+    flex: 1 1 12rem;
+    justify-content: center;
+  }
+}
+
 .home-shell,
 .home-section {
   max-width: var(--width-wide-max);
   margin-inline: auto;
-}
-
-.home-intro {
-  margin-block: var(--space-6) var(--space-8);
-  max-width: var(--width-wide-max);
-  margin-inline: auto;
-}
-
-.home-intro-copy {
-  margin: 0;
-  max-width: 18ch;
-  font-family: var(--font-ui);
-  font-size: clamp(1.5rem, 3vw, 2.6rem);
-  line-height: 1.06;
-  letter-spacing: -0.05em;
-  color: var(--color-ink-strong);
-}
-
-.home-intro-support {
-  margin: var(--space-4) 0 0;
-  max-width: 42rem;
-  color: var(--color-ink-soft);
-  font-size: clamp(1rem, 1.2vw, 1.12rem);
-}
-
-.reef-hero {
-  position: relative;
-  display: block;
-  padding: clamp(1rem, 2vw, 1.5rem);
-  border: 1px solid rgba(197, 210, 215, 0.66);
-  border-radius: max(var(--radius-xl), 2rem);
-  background:
-    linear-gradient(135deg, rgba(255, 255, 255, 0.82), rgba(255, 255, 255, 0.58)),
-    linear-gradient(130deg, rgba(6, 43, 56, 0.06), rgba(30, 140, 138, 0.05) 42%, rgba(255, 122, 107, 0.08) 100%);
-  box-shadow: 0 14px 40px rgba(6, 43, 56, 0.06);
-  overflow: clip;
-}
-
-.reef-hero::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(circle at 18% 22%, rgba(255, 122, 107, 0.16), transparent 18%),
-    radial-gradient(circle at 76% 20%, rgba(158, 223, 214, 0.28), transparent 22%),
-    radial-gradient(circle at 68% 76%, rgba(30, 140, 138, 0.12), transparent 22%);
-  pointer-events: none;
-}
-
-.reef-hero::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background-image:
-    radial-gradient(circle at center, rgba(14, 63, 82, 0.1) 0.7px, transparent 0.8px),
-    linear-gradient(120deg, rgba(255, 255, 255, 0.22), transparent 42%);
-  background-size: 18px 18px, auto;
-  opacity: 0.22;
-  mask-image: linear-gradient(90deg, transparent 0%, rgba(0, 0, 0, 0.8) 24%, rgba(0, 0, 0, 0.9) 100%);
-  pointer-events: none;
-}
-
-.reef-hero-copy,
-.reef-hero-art {
-  position: relative;
-  z-index: 1;
-}
-
-.reef-hero-art {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-}
-
-.reef-hero-bloom {
-  position: absolute;
-  display: block;
-  border-radius: 50%;
-  border: 1px solid rgba(197, 210, 215, 0.4);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.44);
-}
-
-.reef-hero-bloom::before,
-.reef-hero-bloom::after {
-  content: "";
-  position: absolute;
-  inset: 12%;
-  border-radius: inherit;
-}
-
-.reef-hero-bloom::before {
-  border: 1px dashed rgba(14, 63, 82, 0.14);
-}
-
-.reef-hero-bloom::after {
-  inset: 32%;
-  background: radial-gradient(circle, rgba(255, 255, 255, 0.42), transparent 68%);
-}
-
-.reef-hero-bloom-a {
-  right: 7%;
-  top: 1.4rem;
-  width: clamp(8rem, 18vw, 12rem);
-  height: clamp(8rem, 18vw, 12rem);
-  background:
-    radial-gradient(circle at 38% 34%, rgba(255, 122, 107, 0.5), rgba(255, 122, 107, 0.14) 38%, transparent 66%),
-    linear-gradient(180deg, rgba(255, 255, 255, 0.2), rgba(158, 223, 214, 0.14));
-}
-
-.reef-hero-bloom-b {
-  right: 23%;
-  bottom: 1.2rem;
-  width: clamp(6.4rem, 14vw, 9rem);
-  height: clamp(6.4rem, 14vw, 9rem);
-  background:
-    radial-gradient(circle at 44% 42%, rgba(30, 140, 138, 0.34), rgba(30, 140, 138, 0.1) 44%, transparent 70%),
-    linear-gradient(180deg, rgba(255, 255, 255, 0.16), rgba(14, 63, 82, 0.04));
-}
-
-.reef-hero-bloom-c {
-  right: 18%;
-  bottom: 2.6rem;
-  width: clamp(4.5rem, 9vw, 6rem);
-  height: clamp(4.5rem, 9vw, 6rem);
-  background:
-    radial-gradient(circle at 38% 38%, rgba(255, 122, 107, 0.24), rgba(255, 122, 107, 0.05) 44%, transparent 70%),
-    linear-gradient(180deg, rgba(255, 255, 255, 0.26), rgba(158, 223, 214, 0.12));
 }
 
 .site-header-inner {
@@ -518,7 +529,7 @@ img {
 .site-title-link {
   display: inline-flex;
   align-items: center;
-  gap: 0.85rem;
+  gap: 1rem;
   font-family: var(--font-ui);
   font-size: clamp(1.42rem, 2vw, 1.9rem);
   font-weight: 700;
@@ -528,13 +539,10 @@ img {
 }
 
 .site-emblem {
-  width: 1rem;
-  height: 1rem;
-  border-radius: 50%;
-  background: radial-gradient(circle at 34% 34%, rgba(255, 255, 255, 0.9), rgba(255, 122, 107, 0.72) 38%, rgba(14, 63, 82, 0.92) 100%);
-  box-shadow:
-    0 0 0 0.35rem rgba(255, 122, 107, 0.12),
-    0 0 0 0.7rem rgba(158, 223, 214, 0.14);
+  width: 2rem;
+  height: 2rem;
+  object-fit: contain;
+  filter: drop-shadow(0 0 0.22rem rgba(255, 122, 107, 0.16));
 }
 
 .site-tagline {
@@ -801,6 +809,11 @@ img {
     font-size: 1.02rem !important;
   }
 
+  .site-emblem {
+    width: 1.4rem;
+    height: 1.4rem;
+  }
+
   .site-tagline {
     margin-top: 0.08rem !important;
     font-size: 0.7rem !important;
@@ -813,41 +826,6 @@ img {
 
   .section {
     margin-block: var(--space-12);
-  }
-
-  .reef-hero {
-    padding: var(--space-4);
-  }
-
-  .reef-hero-art {
-    inset: 0;
-  }
-
-  .home-intro-copy {
-    max-width: 15ch;
-    font-size: clamp(1.35rem, 7vw, 1.95rem);
-  }
-
-  .reef-hero-bloom-a {
-    right: 0.8rem;
-    top: auto;
-    bottom: -1.2rem;
-    width: 8.4rem;
-    height: 8.4rem;
-  }
-
-  .reef-hero-bloom-b {
-    right: 5.8rem;
-    bottom: 0.8rem;
-    width: 6.8rem;
-    height: 6.8rem;
-  }
-
-  .reef-hero-bloom-c {
-    right: 2.8rem;
-    bottom: 2.8rem;
-    width: 4.6rem;
-    height: 4.6rem;
   }
 
   .post-row {
