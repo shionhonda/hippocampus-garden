@@ -18,11 +18,16 @@ const mostRead = await getMostReadPosts(5)
 ---
 
 <HomeLayout title="Home" description={site.description}>
-  <section class="section home-intro">
-    <div class="intro-block">
+  <section class="section home-intro reef-hero">
+    <div class="intro-block reef-hero-copy">
       <p class="home-intro-copy">
-        I write about machine learning, software, books, and the systems behind thoughtful technical work.
+        I write practical essays about AI systems and software, alongside notes on books, careers, and life in Europe.
       </p>
+    </div>
+    <div class="reef-hero-art" aria-hidden="true">
+      <span class="reef-hero-bloom reef-hero-bloom-a"></span>
+      <span class="reef-hero-bloom reef-hero-bloom-b"></span>
+      <span class="reef-hero-bloom reef-hero-bloom-c"></span>
     </div>
   </section>
 
@@ -40,21 +45,27 @@ const mostRead = await getMostReadPosts(5)
     <Pagination currentPage={1} totalPages={totalPages} />
   </section>
 
-  {(trending.length > 0 || mostRead.length > 0) && (
-    <section class="section home-section">
-      <div class="popular-grid">
-        {trending.length > 0 && <PopularSection title="Trending" items={trending} />}
-        {mostRead.length > 0 && <PopularSection title="Most read" items={mostRead} />}
-      </div>
-    </section>
-  )}
-
   <section class="section home-section">
     <div class="section-header">
       <h2 class="section-title">Topics</h2>
     </div>
     <TopicList topics={topics} />
   </section>
+
+  {(trending.length > 0 || mostRead.length > 0) && (
+    <section class="section home-section">
+      <div class="section-header">
+        <div>
+          <h2 class="section-title">Further reading</h2>
+          <p class="section-copy">Signals from the archive for readers who want to wander beyond the newest posts.</p>
+        </div>
+      </div>
+      <div class="popular-grid">
+        {trending.length > 0 && <PopularSection title="Trending" items={trending.map(({ post }) => post)} showDescription={true} />}
+        {mostRead.length > 0 && <PopularSection title="Most read" items={mostRead.map(({ post }) => post)} showDescription={true} />}
+      </div>
+    </section>
+  )}
 
   <section class="section home-section">
     <AuthorSummary />

@@ -1,9 +1,14 @@
 .prose {
   width: min(100%, 58rem);
   margin-inline: auto;
+  font-family: var(--font-body-en);
   font-size: clamp(1.05rem, 1rem + 0.22vw, 1.16rem);
   line-height: 1.9;
   color: var(--color-ink);
+}
+
+.prose-ja {
+  font-family: var(--font-body-ja);
 }
 
 .prose h1,
@@ -29,6 +34,12 @@
 
 .prose p {
   text-wrap: pretty;
+}
+
+.prose-ja p,
+.prose-ja li,
+.prose-ja blockquote {
+  line-height: 1.95;
 }
 
 .prose pre,
@@ -154,6 +165,14 @@
   overflow: visible;
   clip: auto;
   white-space: normal;
+}
+
+.prose-ja h2,
+.prose-ja h3,
+.prose-ja h4 {
+  font-family: var(--font-body-ja);
+  font-weight: 700;
+  letter-spacing: -0.03em;
 }
 
 .prose-ja .footnotes h2 {

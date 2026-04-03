@@ -28,7 +28,7 @@ const localizedHeadings = isJapanese
 
 <PostLayout title={post.data.title} description={post.data.description}>
   <article class:list={["prose", isJapanese && "prose-ja"]}>
-    <header class="article-head">
+    <header class:list={["article-head", isJapanese ? "article-head-ja" : "article-head-en"]}>
       <h1 class="article-title">{post.data.title}</h1>
       <p class="article-dek">{post.data.description}</p>
       <div class="meta-row">

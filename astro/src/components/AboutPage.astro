@@ -1,6 +1,9 @@
 ---
+import { Image } from "astro:assets"
+import faceImage from "../../../content/assets/face.jpg"
 import { getProfile, type Locale } from "../data/profile"
-import { getAllPosts, getPostPath, getSelectedWriting } from "../lib/posts"
+import { getAllPosts, getSelectedWriting } from "../lib/posts"
+import PopularSection from "./PopularSection.astro"
 import PageLayout from "../layouts/PageLayout.astro"
 
 const { locale } = Astro.props as {
@@ -13,10 +16,6 @@ const profile = getProfile(locale)
 const posts = await getAllPosts()
 const selectedWriting = await getSelectedWriting(posts, profile.selectedWritingSlugs)
 const isJapanese = locale === "ja"
-const writingLanguageLabel = {
-  en: { en: "English", ja: "Japanese" },
-  ja: { en: "英語", ja: "日本語" },
-} as const
 const languageLinks = [
   {
     code: "en",
@@ -58,15 +57,22 @@ const languageLinks = [
         </ul>
       </nav>
     </div>
-    <h1 class="intro-title">{profile.name}</h1>
-    <div class="intro-meta">
-      {profile.role} · {profile.location} · {profile.currentCompany}
-    </div>
-    <div class="intro-copy prose" set:html={profile.introHtml} />
-    <div class="social-row">
-      {profile.socials.map((social) => (
-        <a href={social.href} target="_blank" rel="noreferrer">{social.label}</a>
-      ))}
+    <div class="about-intro-grid">
+      <div class="about-photo-wrap">
+        <Image src={faceImage} alt={profile.name} class="about-photo" widths={[320, 512]} sizes="(max-width: 720px) 180px, 240px" />
+      </div>
+      <div>
+        <h1 class="intro-title">{profile.name}</h1>
+        <div class="intro-meta">
+          {profile.role} · {profile.location} · {profile.currentCompany}
+        </div>
+        <div class="intro-copy prose" set:html={profile.introHtml} />
+        <div class="social-row">
+          {profile.socials.map((social) => (
+            <a href={social.href} target="_blank" rel="noreferrer">{social.label}</a>
+          ))}
+        </div>
+      </div>
     </div>
   </section>
 
@@ -84,26 +90,7 @@ const languageLinks = [
   </section>
 
   <section class="section about-shell">
-    <div class="section-header about-section-header">
-      <div>
-        <h2 class="section-title">{profile.sectionLabels.selectedWritingTitle}</h2>
-      </div>
-    </div>
-    <div class="compact-link-list">
-      {selectedWriting.map((post) => (
-        <article class="compact-link-item">
-          <a href={getPostPath(post)} style="text-decoration:none;color:inherit;">
-            <h3 class="writing-title">{post.data.title}</h3>
-          </a>
-          <p class="writing-description">{post.data.description}</p>
-          <div class="writing-language">
-            {post.data.lang === "ja"
-              ? writingLanguageLabel[locale].ja
-              : writingLanguageLabel[locale].en}
-          </div>
-        </article>
-      ))}
-    </div>
+    <PopularSection title={profile.sectionLabels.selectedWritingTitle} items={selectedWriting} showDescription={true} />
   </section>
 
   <section class="section about-shell">
@@ -173,6 +160,45 @@ const languageLinks = [
     align-items: center;
     margin-bottom: var(--space-5);
     flex-wrap: wrap;
+  }
+
+  .about-intro-grid {
+    display: grid;
+    grid-template-columns: minmax(10rem, 14rem) minmax(0, 1fr);
+    gap: var(--space-8);
+    align-items: start;
+  }
+
+  .about-photo-wrap {
+    position: relative;
+    padding: 0.85rem;
+    border: 1px solid rgba(197, 210, 215, 0.72);
+    border-radius: calc(var(--radius-xl) + 0.5rem);
+    background:
+      linear-gradient(180deg, rgba(255, 255, 255, 0.82), rgba(255, 255, 255, 0.66)),
+      linear-gradient(145deg, rgba(255, 122, 107, 0.12), rgba(158, 223, 214, 0.1));
+    box-shadow: 0 14px 34px rgba(6, 43, 56, 0.08);
+  }
+
+  .about-photo-wrap::after {
+    content: "";
+    position: absolute;
+    inset: auto 1.1rem 1.1rem auto;
+    width: 2.2rem;
+    height: 2.2rem;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 35%, rgba(255, 255, 255, 0.9), rgba(255, 122, 107, 0.6) 38%, rgba(14, 63, 82, 0.92) 100%);
+    box-shadow:
+      0 0 0 0.42rem rgba(255, 122, 107, 0.1),
+      0 0 0 0.86rem rgba(158, 223, 214, 0.12);
+  }
+
+  .about-photo {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    border-radius: calc(var(--radius-xl) + 0.1rem);
+    border: 1px solid rgba(197, 210, 215, 0.58);
   }
 
   .language-switch {
@@ -253,29 +279,21 @@ const languageLinks = [
     margin-top: var(--space-2);
   }
 
-  .writing-title {
-    margin: 0 0 var(--space-2);
-    font-family: var(--font-ui);
-    font-size: var(--text-xl);
-    line-height: 1.12;
-  }
-
-  .writing-description {
-    margin: 0;
-    color: var(--color-ink-soft);
-  }
-
-  .writing-language {
-    margin-top: var(--space-2);
-    font-family: var(--font-ui);
-    font-size: var(--text-sm);
-    color: var(--color-muted);
-  }
-
   .timeline {
     position: relative;
     display: grid;
     gap: var(--space-4);
+  }
+
+  @media (max-width: 720px) {
+    .about-intro-grid {
+      grid-template-columns: 1fr;
+      gap: var(--space-5);
+    }
+
+    .about-photo-wrap {
+      width: min(15rem, 58vw);
+    }
   }
 
   .timeline::before {
