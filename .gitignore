@@ -58,6 +58,8 @@ typings/
 # gatsby files
 .cache/
 public
+!astro/public/
+!astro/public/**
 
 # astro files
 astro/.astro/
