@@ -5,6 +5,7 @@ import PostCard from "../components/PostCard.astro"
 import TableOfContents from "../components/TableOfContents.astro"
 import PostLayout from "../layouts/PostLayout.astro"
 import { getAllPosts, getPostSlug, getReadingTime, getRelatedPosts } from "../lib/posts"
+import { getPostCanonicalUrl, getPostSocialImage } from "../lib/seo"
 
 export async function getStaticPaths() {
   const posts = await getAllPosts()
@@ -26,7 +27,13 @@ const localizedHeadings = isJapanese
   : headings
 ---
 
-<PostLayout title={post.data.title} description={post.data.description}>
+<PostLayout
+  title={post.data.title}
+  description={post.data.description}
+  canonicalPath={`/${getPostSlug(post)}/`}
+  canonicalUrl={getPostCanonicalUrl(post)}
+  socialImage={getPostSocialImage(post)}
+>
   <article class:list={["prose", isJapanese && "prose-ja"]}>
     <header class:list={["article-head", isJapanese ? "article-head-ja" : "article-head-en"]}>
       <h1 class="article-title">{post.data.title}</h1>

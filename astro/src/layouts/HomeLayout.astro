@@ -1,13 +1,14 @@
 ---
 import BaseLayout from "./BaseLayout.astro"
 
-const { title, description } = Astro.props as {
+const { title, description, canonicalPath } = Astro.props as {
   title?: string
   description?: string
+  canonicalPath?: string
 }
 ---
 
-<BaseLayout title={title} description={description}>
+<BaseLayout title={title} description={description} canonicalPath={canonicalPath}>
   <div class="container">
     <slot />
   </div>

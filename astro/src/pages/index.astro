@@ -17,7 +17,7 @@ const trending = await getTrendingPosts(5)
 const mostRead = await getMostReadPosts(5)
 ---
 
-<HomeLayout title="Home" description={site.description}>
+<HomeLayout title="Home" description={site.description} canonicalPath="/">
   <section class="section home-section">
     <div class="section-header">
       <h2 class="section-title">Recent posts</h2>
