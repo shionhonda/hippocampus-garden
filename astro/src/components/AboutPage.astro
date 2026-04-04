@@ -1,4 +1,5 @@
 ---
+import "../styles/prose.css"
 import { Image } from "astro:assets"
 import faceImage from "../../../content/assets/face.jpg"
 import { getProfile, type Locale } from "../data/profile"
@@ -62,7 +63,7 @@ const languageLinks = [
       <div class="about-photo-wrap">
         <Image src={faceImage} alt={profile.name} class="about-photo" widths={[320, 512]} sizes="(max-width: 720px) 180px, 240px" />
         <img
-          src="/site-icon-128.png"
+          src="/site-icon-64.png"
           alt=""
           aria-hidden="true"
           class="about-photo-badge"
