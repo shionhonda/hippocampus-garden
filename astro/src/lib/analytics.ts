@@ -18,7 +18,7 @@ let cache:
 
 function getJsonPath() {
   return fileURLToPath(
-    new URL("../../../content/assets/google-analytics-v3.json", import.meta.url),
+    new URL("../data/google-analytics-v3.json", import.meta.url),
   )
 }
 
