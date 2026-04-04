@@ -24,7 +24,7 @@ const mostRead = await getMostReadPosts(5)
     </div>
     {posts.length > 0 ? (
       <div class="divider-list">
-        {posts.map((post) => <PostCard post={post} />)}
+        {posts.map((post, index) => <PostCard post={post} priority={index === 0} />)}
       </div>
     ) : (
       <div class="panel" style="padding:var(--space-5);">No posts have been migrated yet.</div>

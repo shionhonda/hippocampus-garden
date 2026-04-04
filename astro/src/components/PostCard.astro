@@ -4,7 +4,10 @@ import type { CollectionEntry } from "astro:content"
 import { getFeaturedImage } from "../lib/post-images"
 import { getPostPath, getReadingTime } from "../lib/posts"
 
-const { post } = Astro.props as { post: CollectionEntry<"posts"> }
+const { post, priority = false } = Astro.props as {
+  post: CollectionEntry<"posts">
+  priority?: boolean
+}
 const featuredImage = getFeaturedImage(post)
 ---
 
@@ -16,6 +19,9 @@ const featuredImage = getFeaturedImage(post)
         alt={post.data.title}
         widths={[320, 480]}
         sizes="(max-width: 720px) 100vw, 240px"
+        loading={priority ? "eager" : "lazy"}
+        fetchpriority={priority ? "high" : "auto"}
+        decoding={priority ? "sync" : "async"}
         style="width:100%;height:auto;aspect-ratio:1.91 / 1;object-fit:cover;border-radius:var(--radius-md);border:1px solid rgba(197, 210, 215, 0.72);"
       />
     </a>

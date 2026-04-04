@@ -1,7 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600;6..72,700&family=Noto+Serif+JP:wght@400;500;600;700&display=swap");
-@import "katex/dist/katex.min.css";
 @import "./tokens.css";
-@import "./prose.css";
 
 html {
   background:
