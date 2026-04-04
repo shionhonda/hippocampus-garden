@@ -55,13 +55,11 @@ typings/
 # dotenv environment variable files
 .env*
 
-# gatsby files
+# Build artifacts
 .cache/
-public
-!astro/public/
-!astro/public/**
+public/
 
-# astro files
+# Astro files
 astro/.astro/
 astro/dist/
 
