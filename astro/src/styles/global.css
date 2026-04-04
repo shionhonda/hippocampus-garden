@@ -10,21 +10,31 @@ html {
   font-family: var(--font-body-en);
   line-height: var(--leading-relaxed);
   scroll-behavior: smooth;
+  box-sizing: border-box;
+  width: 100%;
+  overflow-x: hidden;
 }
 
 html:lang(ja) {
   font-family: var(--font-body-ja);
 }
 
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
 body {
   margin: 0;
+  width: 100%;
   min-height: 100vh;
   color: var(--color-ink);
   background:
     linear-gradient(180deg, rgba(255, 255, 255, 0.44), rgba(255, 255, 255, 0.84) 16%, rgba(255, 249, 244, 0.92) 100%),
     radial-gradient(circle at top left, rgba(255, 255, 255, 0.84), transparent 30%);
   position: relative;
-  overflow-x: clip;
+  overflow-x: hidden;
 }
 
 body::before,
@@ -59,6 +69,7 @@ body::after {
 main {
   position: relative;
   isolation: isolate;
+  overflow-x: clip;
 }
 
 main::before {
