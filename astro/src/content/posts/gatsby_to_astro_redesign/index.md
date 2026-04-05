@@ -1,5 +1,5 @@
 ---
-title: "I Redesigned This Blog While Migrating from Gatsby to Astro"
+title: "A New Look for This Blog"
 date: "2026-04-05T18:05:21.000Z"
 description: "I migrated this personal blog from Gatsby to Astro, but the main goal was to fix long-standing UI problems and simplify the site's structure."
 tags: ["programming", "web"]
@@ -7,9 +7,9 @@ slug: "gatsby_to_astro_redesign"
 lang: "en"
 ---
 
-This blog started as a student project around 2020. At the time, I wanted to learn more than just JavaScript syntax. I wanted to understand how a real website was put together: **static site generation** (**SSG**), deployment, **Open Graph Protocol** (**OGP**) images, **Lighthouse**, and a bit of **GraphQL**. Gatsby was a natural choice back then because it had momentum, a rich plugin ecosystem, and a reputation for being a modern way to build blogs.
+This blog started as a student project around 2020.[^1] At the time, I wanted to learn more than just JavaScript syntax. I wanted to understand how a real website was put together: **static site generation** (**SSG**), deployment, **Open Graph Protocol** (**OGP**) images, **Lighthouse**, and a bit of **GraphQL**. [Gatsby](https://www.gatsbyjs.com/) was a natural choice back then because it had momentum, a rich plugin ecosystem, and a reputation for being a modern way to build blogs.
 
-That first version did its job. I learned a lot from building it, and I used it for years. However, as I gained more experience as an engineer, I also became less satisfied with the design and information architecture of my own site. Recently, I finally took the time to rebuild it. I migrated the blog from Gatsby to Astro, but the more important change was that I redesigned the UI from the ground up.
+That first version did its job. I learned a lot from building it, and I used it for years. However, as I gained more experience as an engineer, I also became less satisfied with the design and information architecture of my own site. Recently, I finally took the time to rebuild it. I migrated the blog from Gatsby to [Astro](https://astro.build/), but the more important change was that I redesigned the UI from the ground up.
 
 ## What Had Started to Feel Wrong
 
@@ -41,7 +41,7 @@ Although this post is mainly about the redesign, the framework migration mattere
 
 Gatsby was a good framework for learning. It exposed me to **GraphQL** and taught me how data can be transformed into a static site through a structured pipeline. However, over time I realized that I was not really using GraphQL in a way that justified its complexity for this particular blog. The site is mostly a collection of Markdown posts and a handful of supporting pages. For that kind of content-driven website, Gatsby had started to feel heavier than necessary.
 
-Astro felt more direct. Content collections are easy to understand, page generation is straightforward, and the overall mental model is closer to what this site actually is. I no longer needed to maintain a GraphQL layer that I was not taking full advantage of. In practice, this made the rebuild easier to reason about.
+Astro felt more direct. Its positioning as a framework for fast, content-driven websites matched this blog much better. Content collections are easy to understand, page generation is straightforward, and the overall mental model is closer to what this site actually is. I no longer needed to maintain a GraphQL layer that I was not taking full advantage of. In practice, this made the rebuild easier to reason about.
 
 Build performance improved dramatically as well, which was one of the motivations for the migration. The first deployed Astro version did not immediately outperform the old Gatsby site in **Lighthouse**, and the main regression came from a worse **First Contentful Paint** (**FCP**). Once I pointed it out, Codex fixed it in a few seconds, and the Astro site ended up with better performance scores than the Gatsby version.
 
@@ -53,3 +53,5 @@ Build performance improved dramatically as well, which was one of the motivation
 |SEO | 83 | 92|
 
 Of course, I completed most of this rebuild with AI and wrote very little code myself. Without AI, I'd never had time to do this myself. It's a great time for builders.
+
+[^1]: My very first article on this blog was [Top Navbar for Gatsby Blog](https://hippocampus-garden.com/navbar/).
