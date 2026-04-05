@@ -2,7 +2,7 @@
 title: "I Redesigned This Blog While Migrating from Gatsby to Astro"
 date: "2026-04-05T18:05:21.000Z"
 description: "I migrated this personal blog from Gatsby to Astro, but the main goal was to fix long-standing UI problems and simplify the site's structure."
-tags: ["en", "programming", "web"]
+tags: ["programming", "web"]
 slug: "gatsby_to_astro_redesign"
 lang: "en"
 ---
@@ -15,13 +15,13 @@ That first version did its job. I learned a lot from building it, and I used it 
 
 The old blog was not broken, but it had accumulated several design decisions that no longer felt right.
 
+![before](./before.jpg)
+
 The first issue was the card-heavy layout. The home page followed an older blog pattern where almost everything had similar visual weight, and the right column stacked modules such as trending posts, most-read posts, and tags. That made the page dense without providing much guidance about where the eye should go first. Instead of leading readers toward the newest writing, the interface encouraged scanning without a clear sense of priority.
 
 The second issue was the tag list. As the number of posts grew, the list of tags became longer and visually louder. Tags are useful as an index, but they should not dominate the page. In the old design, they gradually turned from navigation into noise.
 
 The third issue was the layout system itself. Article pages relied heavily on the right column for the table of contents, related posts, popular posts, and tags. On wide screens, that already felt dated. On narrow screens, it was fragile. The CSS also depended on many fixed widths such as `300px`, `350px`, and `70%`, which gave the whole site an "old responsive design" feel rather than a flexible layout. Overall, it was not a design that helped readers focus on the article itself.
-
-<!-- TODO: Add a screenshot of the old Gatsby home page showing the card layout and long tag list. -->
 
 ## What I Changed in the Redesign
 
@@ -33,7 +33,7 @@ I kept the blog's long-running "coral reef" concept, but I translated it more co
 
 To make those decisions explicit, I started with a design brief and then iteratively developed design tokens while talking with Codex. That process turned vague preferences into concrete rules. Once I decided that recent writing should dominate the home page and that coral colors should remain accents rather than become the main background, many implementation choices became easier.
 
-<!-- TODO: Add a before/after comparison of the home page or a small diagram showing the new information hierarchy. -->
+![comparison](./comparison.png)
 
 ## Why Astro Was a Better Fit Than Gatsby
 
@@ -43,12 +43,13 @@ Gatsby was a good framework for learning. It exposed me to **GraphQL** and taugh
 
 Astro felt more direct. Content collections are easy to understand, page generation is straightforward, and the overall mental model is closer to what this site actually is. I no longer needed to maintain a GraphQL layer that I was not taking full advantage of. In practice, this made the rebuild easier to reason about.
 
-Build performance improved dramatically as well, which was one of the motivations for the migration. The first deployed Astro version did not immediately outperform the old Gatsby site in **Lighthouse**, and the main regression came from a worse **First Contentful Paint** (**FCP**). After fixing that, the Astro site ended up with better performance scores than the Gatsby version.
+Build performance improved dramatically as well, which was one of the motivations for the migration. The first deployed Astro version did not immediately outperform the old Gatsby site in **Lighthouse**, and the main regression came from a worse **First Contentful Paint** (**FCP**). Once I pointed it out, Codex fixed it in a few seconds, and the Astro site ended up with better performance scores than the Gatsby version.
 
-<!-- TODO: Add a small table or screenshot comparing key Lighthouse metrics before and after the FCP fix. -->
+| | Gatsby | Astro |
+|-|-|-|
+|Peformance| 81| 98|
+|Accessibility | 100 | 100|
+|Best practices | 96|100|
+|SEO | 83 | 92|
 
-## Closing Thoughts
-
-Looking back, I do not think of this project as a simple Gatsby-to-Astro migration. It was more like correcting a long-standing mismatch between the blog's content and its presentation. The framework change helped, but the more important improvement was clarifying what the site should prioritize and what it should downplay.
-
-I completed most of this rebuild with **AI** and wrote very little code myself. The important part was not just speed. The tools helped me stay faithful to the design concept throughout the process, from the brief to the implementation. The result is a blog that feels closer to how I want my writing to be read today.
+Of course, I completed most of this rebuild with AI and wrote very little code myself. Without AI, I'd never had time to do this myself. It's a great time for builders.
