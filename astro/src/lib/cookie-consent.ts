@@ -70,7 +70,8 @@ export const initializeAnalytics = () => {
   window.gtag =
     window.gtag ||
     function gtag(...args: unknown[]) {
-      window.dataLayer?.push(args)
+      void args
+      window.dataLayer?.push(arguments)
     }
 
   if (!window.__gaInitialized) {
