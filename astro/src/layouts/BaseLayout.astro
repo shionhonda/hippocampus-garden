@@ -75,13 +75,9 @@ const resolvedSocialImage = socialImage ?? getDefaultSocialImage()
 </html>
 
 <script>
-  import { getCookieConsent, initializeAnalytics, trackPageView } from "../lib/cookie-consent"
+  import { initializeAnalytics, trackPageView } from "../lib/cookie-consent"
 
   const setupAnalytics = () => {
-    if (getCookieConsent() !== "accepted") {
-      return
-    }
-
     initializeAnalytics()
     trackPageView()
   }

@@ -37,14 +37,6 @@ export const getCookieConsent = (): CookieConsentValue | null => {
   return isConsentValue(value) ? value : null
 }
 
-const setAnalyticsDisabled = (disabled: boolean) => {
-  if (!isBrowser()) {
-    return
-  }
-
-  window[`ga-disable-${GA_MEASUREMENT_ID}`] = disabled
-}
-
 const updateAnalyticsConsent = (granted: boolean) => {
   if (!isBrowser() || typeof window.gtag !== "function") {
     return
@@ -68,12 +60,11 @@ const injectAnalyticsScript = () => {
 }
 
 export const initializeAnalytics = () => {
-  if (!isBrowser() || getCookieConsent() !== cookieConsentValues.accepted) {
+  if (!isBrowser()) {
     return
   }
 
   injectAnalyticsScript()
-  setAnalyticsDisabled(false)
 
   window.dataLayer = window.dataLayer || []
   window.gtag =
@@ -91,15 +82,11 @@ export const initializeAnalytics = () => {
     window.__gaInitialized = true
   }
 
-  updateAnalyticsConsent(true)
+  updateAnalyticsConsent(getCookieConsent() === cookieConsentValues.accepted)
 }
 
 export const trackPageView = (path = window.location.pathname + window.location.search) => {
-  if (
-    !isBrowser() ||
-    getCookieConsent() !== cookieConsentValues.accepted ||
-    typeof window.gtag !== "function"
-  ) {
+  if (!isBrowser() || typeof window.gtag !== "function") {
     return
   }
 
@@ -116,14 +103,8 @@ export const setCookieConsent = (value: CookieConsentValue) => {
   }
 
   window.localStorage.setItem(CONSENT_STORAGE_KEY, value)
-
-  if (value === cookieConsentValues.accepted) {
-    initializeAnalytics()
-    trackPageView()
-  } else {
-    setAnalyticsDisabled(true)
-    updateAnalyticsConsent(false)
-  }
+  initializeAnalytics()
+  updateAnalyticsConsent(value === cookieConsentValues.accepted)
 
   dispatchConsentChange(value)
 }
@@ -133,9 +114,9 @@ export const reopenCookieConsent = () => {
     return
   }
 
-  setAnalyticsDisabled(true)
-  updateAnalyticsConsent(false)
   window.localStorage.removeItem(CONSENT_STORAGE_KEY)
+  initializeAnalytics()
+  updateAnalyticsConsent(false)
   dispatchConsentChange(null)
 }
 
@@ -163,6 +144,5 @@ declare global {
     __gaInitialized?: boolean
     dataLayer?: unknown[]
     gtag?: (...args: unknown[]) => void
-    [key: `ga-disable-${string}`]: boolean | undefined
   }
 }
