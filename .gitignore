@@ -58,6 +58,8 @@ typings/
 # Build artifacts
 .cache/
 public/
+!astro/public/
+!astro/public/**
 
 # Astro files
 astro/.astro/
