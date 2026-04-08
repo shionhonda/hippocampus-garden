@@ -270,7 +270,7 @@ export async function getSelectedWriting(
 // Related posts are ranked primarily by same-language TF-IDF similarity over
 // title, description, and prose-only body text. Internal links add a strong
 // editorial signal, while tag overlap and recency only act as tie-breakers.
-export async function getRelatedPosts(post: Post, limit = 5) {
+export async function getRelatedPosts(post: Post, limit = 3) {
   const allPosts = await getAllPosts()
   const relatedPostFeatures = await buildRelatedPostFeatures(allPosts)
   const tagDocumentFrequency = buildTagDocumentFrequency(allPosts)
