@@ -27,10 +27,12 @@ export const GET: APIRoute = async () => {
     urlEntry("/privacy-policy/"),
     urlEntry("/topics/"),
     ...Array.from({ length: Math.max(0, totalPages - 1) }, (_, index) =>
-      urlEntry(`/page/${index + 2}/`),
+      urlEntry(`/page/${index + 2}/`)
     ),
     ...topics.map((topic) => urlEntry(`/topics/${topic.slug}/`)),
-    ...posts.map((post) => urlEntry(getPostPath(post), post.data.updated ?? post.data.date)),
+    ...posts.map((post) =>
+      urlEntry(getPostPath(post), post.data.updated ?? post.data.date)
+    ),
   ]
 
   return new Response(
@@ -44,6 +46,6 @@ export const GET: APIRoute = async () => {
       headers: {
         "Content-Type": "application/xml; charset=utf-8",
       },
-    },
+    }
   )
 }

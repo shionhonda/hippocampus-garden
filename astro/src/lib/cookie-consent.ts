@@ -14,7 +14,8 @@ type CookieConsentValue =
 const isBrowser = () => typeof window !== "undefined"
 
 const isConsentValue = (value: string | null): value is CookieConsentValue =>
-  value === cookieConsentValues.accepted || value === cookieConsentValues.rejected
+  value === cookieConsentValues.accepted ||
+  value === cookieConsentValues.rejected
 
 const dispatchConsentChange = (value: CookieConsentValue | null) => {
   if (!isBrowser()) {
@@ -24,7 +25,7 @@ const dispatchConsentChange = (value: CookieConsentValue | null) => {
   window.dispatchEvent(
     new CustomEvent(CONSENT_EVENT_NAME, {
       detail: { value },
-    }),
+    })
   )
 }
 
@@ -70,8 +71,7 @@ export const initializeAnalytics = () => {
   window.gtag =
     window.gtag ||
     function gtag(...args: unknown[]) {
-      void args
-      window.dataLayer?.push(arguments)
+      window.dataLayer?.push(args)
     }
 
   if (!window.__gaInitialized) {
@@ -86,7 +86,9 @@ export const initializeAnalytics = () => {
   updateAnalyticsConsent(getCookieConsent() === cookieConsentValues.accepted)
 }
 
-export const trackPageView = (path = window.location.pathname + window.location.search) => {
+export const trackPageView = (
+  path = window.location.pathname + window.location.search
+) => {
   if (!isBrowser() || typeof window.gtag !== "function") {
     return
   }
@@ -122,14 +124,15 @@ export const reopenCookieConsent = () => {
 }
 
 export const subscribeToCookieConsent = (
-  callback: (value: CookieConsentValue | null) => void,
+  callback: (value: CookieConsentValue | null) => void
 ) => {
   if (!isBrowser()) {
     return () => {}
   }
 
   const handler = (event: Event) => {
-    const detail = (event as CustomEvent<{ value?: CookieConsentValue | null }>).detail
+    const detail = (event as CustomEvent<{ value?: CookieConsentValue | null }>)
+      .detail
     callback(detail?.value ?? getCookieConsent())
   }
 

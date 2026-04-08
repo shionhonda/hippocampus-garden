@@ -18,26 +18,30 @@ const {
     <h2 class="ranking-title">{title}</h2>
   </div>
   <div class="ranking-list">
-    {items.map((item, index) => {
-      const post = "post" in item ? item.post : item
-      const href = getPostPath(post)
-      return (
-        <article class="ranking-item">
-          <div class="ranking-index" aria-hidden="true">{String(index + 1).padStart(2, "0")}</div>
-          <div class="ranking-copy">
-            <a href={href} class="ranking-link">
-              {post.data.title}
-            </a>
-            {showDescription && post.data.description && (
-              <p class="ranking-description">{post.data.description}</p>
-            )}
-            <div class="ranking-meta">
-              {post.data.date.toISOString().slice(0, 10)}
-              {post.data.lang ? ` · ${post.data.lang.toUpperCase()}` : ""}
+    {
+      items.map((item, index) => {
+        const post = "post" in item ? item.post : item
+        const href = getPostPath(post)
+        return (
+          <article class="ranking-item">
+            <div class="ranking-index" aria-hidden="true">
+              {String(index + 1).padStart(2, "0")}
             </div>
-          </div>
-        </article>
-      )
-    })}
+            <div class="ranking-copy">
+              <a href={href} class="ranking-link">
+                {post.data.title}
+              </a>
+              {showDescription && post.data.description && (
+                <p class="ranking-description">{post.data.description}</p>
+              )}
+              <div class="ranking-meta">
+                {post.data.date.toISOString().slice(0, 10)}
+                {post.data.lang ? ` · ${post.data.lang.toUpperCase()}` : ""}
+              </div>
+            </div>
+          </article>
+        )
+      })
+    }
   </div>
 </section>

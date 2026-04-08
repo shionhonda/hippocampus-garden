@@ -32,11 +32,7 @@ function stripNonProseContent(value: string) {
 }
 
 function countLatinWords(value: string) {
-  return (
-    value.match(
-      /[A-Za-z0-9]+(?:[-'./_:][A-Za-z0-9]+)*/g,
-    ) ?? []
-  ).length
+  return (value.match(/[A-Za-z0-9]+(?:[-'./_:][A-Za-z0-9]+)*/g) ?? []).length
 }
 
 function countCjkCharacters(value: string) {
@@ -56,7 +52,7 @@ export function getReadingTime(post: Post) {
 
 export async function getSelectedWriting(
   posts?: Post[],
-  selectedSlugs = profile.selectedWritingSlugs,
+  selectedSlugs = profile.selectedWritingSlugs
 ) {
   const allPosts = posts ?? (await getAllPosts())
   return selectedSlugs
@@ -71,10 +67,15 @@ export async function getRelatedPosts(post: Post, limit = 5) {
   return allPosts
     .filter((candidate) => getPostSlug(candidate) !== getPostSlug(post))
     .map((candidate) => {
-      const overlap = candidate.data.tags.filter((tag) => sourceTags.has(tag)).length
+      const overlap = candidate.data.tags.filter((tag) =>
+        sourceTags.has(tag)
+      ).length
       const sameLanguage = candidate.data.lang === post.data.lang ? 1 : 0
       const recency = candidate.data.date.getTime()
-      return { candidate, score: overlap * 10 + sameLanguage * 3 + recency / 1e13 }
+      return {
+        candidate,
+        score: overlap * 10 + sameLanguage * 3 + recency / 1e13,
+      }
     })
     .filter(({ score }) => score > 0)
     .sort((a, b) => b.score - a.score)
@@ -85,7 +86,7 @@ export async function getRelatedPosts(post: Post, limit = 5) {
 export async function getPostsForTopic(topic: string) {
   const posts = await getAllPosts()
   return posts.filter((post) =>
-    post.data.tags.some((tag) => topicSlug(tag) === topic),
+    post.data.tags.some((tag) => topicSlug(tag) === topic)
   )
 }
 

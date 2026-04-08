@@ -11,6 +11,29 @@
     "build": "npm --prefix astro run build",
     "preview": "npm --prefix astro run preview",
     "check": "npm --prefix astro run check",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier --write \"package.json\" \".prettierrc\" \"eslint.config.mjs\" \"astro/astro.config.mjs\" \"astro/public/**/*.js\" \"astro/src/**/*.{astro,ts,js,css}\" \".github/workflows/*.{yml,yaml}\" \".vscode/*.json\" \"README.md\" \"docs/**/*.md\"",
+    "format:check": "prettier --check \"package.json\" \".prettierrc\" \"eslint.config.mjs\" \"astro/astro.config.mjs\" \"astro/public/**/*.js\" \"astro/src/**/*.{astro,ts,js,css}\" \".github/workflows/*.{yml,yaml}\" \".vscode/*.json\" \"README.md\" \"docs/**/*.md\"",
+    "prepare": "husky",
     "start": "npm run dev"
+  },
+  "lint-staged": {
+    "*.{js,mjs,cjs,ts,astro}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{md,css,json,yml,yaml}": "prettier --write"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "eslint": "^10.2.0",
+    "eslint-plugin-astro": "^1.7.0",
+    "globals": "^17.4.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.4.0",
+    "prettier": "^3.8.1",
+    "prettier-plugin-astro": "^0.14.1",
+    "typescript-eslint": "^8.58.1"
   }
 }

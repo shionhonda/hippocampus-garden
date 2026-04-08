@@ -17,11 +17,10 @@
   --color-panel: #f7fafa;
   --color-canvas: #f3f8f8;
   --font-body-en:
-    Charter, "Iowan Old Style", "Palatino Linotype", "Book Antiqua",
-    Georgia, serif;
-  --font-body-ja:
-    "Hiragino Mincho ProN", "Yu Mincho", "BIZ UDPMincho", "MS PMincho",
+    Charter, "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Georgia,
     serif;
+  --font-body-ja:
+    "Hiragino Mincho ProN", "Yu Mincho", "BIZ UDPMincho", "MS PMincho", serif;
   --font-body: var(--font-body-en);
   --font-ui:
     ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",

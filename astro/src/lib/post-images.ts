@@ -6,7 +6,7 @@ const imageModules = import.meta.glob<{ default: ImageMetadata }>(
   "../content/posts/**/*.{png,jpg,jpeg,webp,avif,gif}",
   {
     eager: true,
-  },
+  }
 )
 
 const imagesByKey = new Map<string, ImageMetadata>()

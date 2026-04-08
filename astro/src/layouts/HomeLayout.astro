@@ -8,7 +8,11 @@ const { title, description, canonicalPath } = Astro.props as {
 }
 ---
 
-<BaseLayout title={title} description={description} canonicalPath={canonicalPath}>
+<BaseLayout
+  title={title}
+  description={description}
+  canonicalPath={canonicalPath}
+>
   <div class="container">
     <slot />
   </div>

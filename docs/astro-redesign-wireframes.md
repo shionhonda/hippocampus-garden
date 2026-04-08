@@ -10,7 +10,6 @@
 
 - [astro-redesign-design-brief.md](/Users/shionhonda/Projects/hippocampus-garden/docs/astro-redesign-design-brief.md)
 
-
 ## 共通原則
 
 - 画面幅が広くても、本文や主要情報は必要以上に広げない
@@ -18,7 +17,6 @@
 - セクションは「背景色の切り替え」よりも「余白」と「見出し」で区切る
 - モバイルで自然に縦積みされることを前提にする
 - アニメーションは前提にしない
-
 
 ## サイト全体のサイトマップ
 
@@ -38,7 +36,6 @@
 - Archive by year
 - Uses / Setup
 - Reading log landing page
-
 
 ## 共通レイアウト
 
@@ -76,7 +73,6 @@ Primary nav の候補:
 - 「Built with ...」は載せない
 - 情報量は少なくてよい
 - 装飾性より整い方を優先する
-
 
 ## 1. Home
 
@@ -205,7 +201,6 @@ Primary nav の候補:
 - SNS アイコンは数を絞り、意味のあるリンクだけを置く
 - 冗長な経歴全文は置かない
 
-
 ## 2. Post Detail
 
 ### ページの役割
@@ -307,7 +302,6 @@ Primary nav の候補:
 
 - 毎記事で長い自己紹介
 
-
 ## 3. About
 
 ### ページの役割
@@ -407,7 +401,6 @@ Primary nav の候補:
 - アイコンのみではなく、意味のわかるリンクとして扱う
 - 外部リンクの数は絞る
 
-
 ## 4. Topics Index
 
 ### ページの役割
@@ -426,7 +419,6 @@ Primary nav の候補:
 - 直近 1 年の主要 Topics を先頭に見せてもよい
 - count は補助情報にとどめる
 - あくまで index であり、主役は記事群である
-
 
 ## 5. Topic Archive
 
@@ -447,7 +439,6 @@ Topic header に含めるもの:
 
 Post list は Home の post card と同じ部品を使う。
 
-
 ## レスポンシブ方針
 
 ### Desktop
@@ -467,7 +458,6 @@ Post list は Home の post card と同じ部品を使う。
 - メタ情報は 2 行以内で収める
 - コードブロックと表の横スクロールを許容しつつ、崩れを防ぐ
 
-
 ## 不採用事項
 
 - Featured essay
@@ -477,7 +467,6 @@ Post list は Home の post card と同じ部品を使う。
 - カルーセル
 - 自動再生や強いモーション
 - 巨大ヒーロー画像
-
 
 ## 次に必要な成果物
 

@@ -12,25 +12,34 @@ const featuredImage = getFeaturedImage(post)
 ---
 
 <article class="divider-item post-row" style="height:100%;">
-  {featuredImage && (
-    <a href={getPostPath(post)} class="post-row-thumb" style="text-decoration:none;">
-      <Image
-        src={featuredImage}
-        alt={post.data.title}
-        widths={[320, 480]}
-        sizes="(max-width: 720px) 100vw, 240px"
-        loading={priority ? "eager" : "lazy"}
-        fetchpriority={priority ? "high" : "auto"}
-        decoding={priority ? "sync" : "async"}
-        style="width:100%;height:auto;aspect-ratio:1.91 / 1;object-fit:cover;border-radius:var(--radius-md);border:1px solid rgba(197, 210, 215, 0.72);"
-      />
-    </a>
-  )}
-  <div class:list={["post-row-copy", post.data.lang === "ja" ? "lang-ja" : "lang-en"]}>
-    <a href={getPostPath(post)} style="text-decoration:none;color:inherit;">
-      <h2
-        class="post-row-title"
+  {
+    featuredImage && (
+      <a
+        href={getPostPath(post)}
+        class="post-row-thumb"
+        style="text-decoration:none;"
       >
+        <Image
+          src={featuredImage}
+          alt={post.data.title}
+          widths={[320, 480]}
+          sizes="(max-width: 720px) 100vw, 240px"
+          loading={priority ? "eager" : "lazy"}
+          fetchpriority={priority ? "high" : "auto"}
+          decoding={priority ? "sync" : "async"}
+          style="width:100%;height:auto;aspect-ratio:1.91 / 1;object-fit:cover;border-radius:var(--radius-md);border:1px solid rgba(197, 210, 215, 0.72);"
+        />
+      </a>
+    )
+  }
+  <div
+    class:list={[
+      "post-row-copy",
+      post.data.lang === "ja" ? "lang-ja" : "lang-en",
+    ]}
+  >
+    <a href={getPostPath(post)} style="text-decoration:none;color:inherit;">
+      <h2 class="post-row-title">
         {post.data.title}
       </h2>
     </a>
@@ -39,6 +48,8 @@ const featuredImage = getFeaturedImage(post)
     </p>
   </div>
   <div class="post-row-meta">
-    {post.data.date.toISOString().slice(0, 10)} · {getReadingTime(post)} min read{post.data.lang ? ` · ${post.data.lang.toUpperCase()}` : ""}
+    {post.data.date.toISOString().slice(0, 10)} · {getReadingTime(post)} min read{
+      post.data.lang ? ` · ${post.data.lang.toUpperCase()}` : ""
+    }
   </div>
 </article>

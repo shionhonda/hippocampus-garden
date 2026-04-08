@@ -23,11 +23,16 @@ const posts = await getPostsForTopic(topic.slug)
   description={`Posts filed under ${topic.label}.`}
   canonicalPath={`/topics/${topic.slug}/`}
 >
-  <section class="section" style="max-width:var(--width-wide-max);margin-inline:auto;">
+  <section
+    class="section"
+    style="max-width:var(--width-wide-max);margin-inline:auto;"
+  >
     <div class="section-header">
       <div>
         <div class="eyebrow" style="margin-bottom:var(--space-2);">Topic</div>
-        <h1 class="section-title" style="font-size:var(--text-3xl);">{topic.label}</h1>
+        <h1 class="section-title" style="font-size:var(--text-3xl);">
+          {topic.label}
+        </h1>
       </div>
       <p style="margin:0;color:var(--color-muted);">{topic.count} posts</p>
     </div>

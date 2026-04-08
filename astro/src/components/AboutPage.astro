@@ -15,7 +15,10 @@ const { locale } = Astro.props as {
 
 const profile = getProfile(locale)
 const posts = await getAllPosts()
-const selectedWriting = await getSelectedWriting(posts, profile.selectedWritingSlugs)
+const selectedWriting = await getSelectedWriting(
+  posts,
+  profile.selectedWritingSlugs
+)
 const isJapanese = locale === "ja"
 const languageLinks = [
   {
@@ -44,24 +47,32 @@ const languageLinks = [
     <div class="about-topbar">
       <nav aria-label={profile.sectionLabels.switchLanguage}>
         <ul class="language-switch">
-          {languageLinks.map((item) => (
-            <li>
-              <a
-                href={item.href}
-                hreflang={item.code}
-                aria-current={item.current ? "page" : undefined}
-                class:list={["language-pill", { current: item.current }]}
-              >
-                {item.label}
-              </a>
-            </li>
-          ))}
+          {
+            languageLinks.map((item) => (
+              <li>
+                <a
+                  href={item.href}
+                  hreflang={item.code}
+                  aria-current={item.current ? "page" : undefined}
+                  class:list={["language-pill", { current: item.current }]}
+                >
+                  {item.label}
+                </a>
+              </li>
+            ))
+          }
         </ul>
       </nav>
     </div>
     <div class="about-intro-grid">
       <div class="about-photo-wrap">
-        <Image src={faceImage} alt={profile.name} class="about-photo" widths={[320, 512]} sizes="(max-width: 720px) 180px, 240px" />
+        <Image
+          src={faceImage}
+          alt={profile.name}
+          class="about-photo"
+          widths={[320, 512]}
+          sizes="(max-width: 720px) 180px, 240px"
+        />
         <img
           src="/site-icon-64.png"
           alt=""
@@ -78,9 +89,13 @@ const languageLinks = [
         </div>
         <div class="intro-copy prose" set:html={profile.introHtml} />
         <div class="social-row">
-          {profile.socials.map((social) => (
-            <a href={social.href} target="_blank" rel="noreferrer">{social.label}</a>
-          ))}
+          {
+            profile.socials.map((social) => (
+              <a href={social.href} target="_blank" rel="noreferrer">
+                {social.label}
+              </a>
+            ))
+          }
         </div>
       </div>
     </div>
@@ -100,7 +115,11 @@ const languageLinks = [
   </section>
 
   <section class="section about-shell">
-    <PopularSection title={profile.sectionLabels.selectedWritingTitle} items={selectedWriting} showDescription={true} />
+    <PopularSection
+      title={profile.sectionLabels.selectedWritingTitle}
+      items={selectedWriting}
+      showDescription={true}
+    />
   </section>
 
   <section class="section about-shell">
@@ -110,16 +129,18 @@ const languageLinks = [
       </div>
     </div>
     <div class="timeline">
-      {profile.career.map((item) => (
-        <article class="timeline-item">
-          <div class="timeline-period">{item.period}</div>
-          <div class="timeline-marker" aria-hidden="true"></div>
-          <div class="timeline-body">
-            <h3 class="timeline-title">{item.title}</h3>
-            <p class="timeline-detail">{item.detail}</p>
-          </div>
-        </article>
-      ))}
+      {
+        profile.career.map((item) => (
+          <article class="timeline-item">
+            <div class="timeline-period">{item.period}</div>
+            <div class="timeline-marker" aria-hidden="true" />
+            <div class="timeline-body">
+              <h3 class="timeline-title">{item.title}</h3>
+              <p class="timeline-detail">{item.detail}</p>
+            </div>
+          </article>
+        ))
+      }
     </div>
   </section>
 
@@ -130,29 +151,31 @@ const languageLinks = [
       </div>
     </div>
     <div class="divider-list">
-      {profile.booksAndWriting.map((item) => (
-        <article class="divider-item">
-          <div class="resource-meta">
-            <span>{item.kind}</span>
-            <span>{item.language}</span>
-          </div>
-          <a
-            href={item.href}
-            target="_blank"
-            rel="noreferrer"
-            class="resource-link"
-          >
-            {item.label}
-          </a>
-          {item.originalTitle && (
-            <p class="resource-original">
-              {isJapanese ? "原題: " : "Original title: "}
-              {item.originalTitle}
-            </p>
-          )}
-          <p class="resource-note">{item.note}</p>
-        </article>
-      ))}
+      {
+        profile.booksAndWriting.map((item) => (
+          <article class="divider-item">
+            <div class="resource-meta">
+              <span>{item.kind}</span>
+              <span>{item.language}</span>
+            </div>
+            <a
+              href={item.href}
+              target="_blank"
+              rel="noreferrer"
+              class="resource-link"
+            >
+              {item.label}
+            </a>
+            {item.originalTitle && (
+              <p class="resource-original">
+                {isJapanese ? "原題: " : "Original title: "}
+                {item.originalTitle}
+              </p>
+            )}
+            <p class="resource-note">{item.note}</p>
+          </article>
+        ))
+      }
     </div>
   </section>
 </PageLayout>
@@ -185,8 +208,16 @@ const languageLinks = [
     border: 1px solid rgba(197, 210, 215, 0.72);
     border-radius: calc(var(--radius-xl) + 0.5rem);
     background:
-      linear-gradient(180deg, rgba(255, 255, 255, 0.82), rgba(255, 255, 255, 0.66)),
-      linear-gradient(145deg, rgba(255, 122, 107, 0.12), rgba(158, 223, 214, 0.1));
+      linear-gradient(
+        180deg,
+        rgba(255, 255, 255, 0.82),
+        rgba(255, 255, 255, 0.66)
+      ),
+      linear-gradient(
+        145deg,
+        rgba(255, 122, 107, 0.12),
+        rgba(158, 223, 214, 0.1)
+      );
     box-shadow: 0 14px 34px rgba(6, 43, 56, 0.08);
   }
 

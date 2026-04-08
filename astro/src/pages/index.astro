@@ -11,7 +11,11 @@ import { getAllPosts, paginatePosts } from "../lib/posts"
 import { getRecentMajorTopics } from "../lib/topics"
 
 const allPosts = await getAllPosts()
-const { items: posts, totalPages } = paginatePosts(allPosts, 1, site.postsPerPage)
+const { items: posts, totalPages } = paginatePosts(
+  allPosts,
+  1,
+  site.postsPerPage
+)
 const topics = getRecentMajorTopics(allPosts)
 const trending = await getTrendingPosts(5)
 const mostRead = await getMostReadPosts(5)
@@ -22,13 +26,19 @@ const mostRead = await getMostReadPosts(5)
     <div class="section-header">
       <h2 class="section-title">Recent posts</h2>
     </div>
-    {posts.length > 0 ? (
-      <div class="divider-list">
-        {posts.map((post, index) => <PostCard post={post} priority={index === 0} />)}
-      </div>
-    ) : (
-      <div class="panel" style="padding:var(--space-5);">No posts have been migrated yet.</div>
-    )}
+    {
+      posts.length > 0 ? (
+        <div class="divider-list">
+          {posts.map((post, index) => (
+            <PostCard post={post} priority={index === 0} />
+          ))}
+        </div>
+      ) : (
+        <div class="panel" style="padding:var(--space-5);">
+          No posts have been migrated yet.
+        </div>
+      )
+    }
     <Pagination currentPage={1} totalPages={totalPages} />
   </section>
 
@@ -39,20 +49,37 @@ const mostRead = await getMostReadPosts(5)
     <TopicList topics={topics} />
   </section>
 
-  {(trending.length > 0 || mostRead.length > 0) && (
-    <section class="section home-section">
-      <div class="section-header">
-        <div>
-          <h2 class="section-title">Further reading</h2>
-          <p class="section-copy">Signals from the archive for readers who want to wander beyond the newest posts.</p>
+  {
+    (trending.length > 0 || mostRead.length > 0) && (
+      <section class="section home-section">
+        <div class="section-header">
+          <div>
+            <h2 class="section-title">Further reading</h2>
+            <p class="section-copy">
+              Signals from the archive for readers who want to wander beyond the
+              newest posts.
+            </p>
+          </div>
         </div>
-      </div>
-      <div class="popular-grid">
-        {trending.length > 0 && <PopularSection title="Trending" items={trending.map(({ post }) => post)} showDescription={true} />}
-        {mostRead.length > 0 && <PopularSection title="Most read" items={mostRead.map(({ post }) => post)} showDescription={true} />}
-      </div>
-    </section>
-  )}
+        <div class="popular-grid">
+          {trending.length > 0 && (
+            <PopularSection
+              title="Trending"
+              items={trending.map(({ post }) => post)}
+              showDescription={true}
+            />
+          )}
+          {mostRead.length > 0 && (
+            <PopularSection
+              title="Most read"
+              items={mostRead.map(({ post }) => post)}
+              showDescription={true}
+            />
+          )}
+        </div>
+      </section>
+    )
+  }
 
   <section class="section home-section">
     <AuthorSummary />
