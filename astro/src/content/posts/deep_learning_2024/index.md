@@ -3,7 +3,7 @@ title: "Year in Review: Deep Learning Papers in 2024"
 date: "2024-12-29T22:01:03.284Z"
 description: "Reflecting on 2024's deep learning breakthroughs! Discover my top 10 favorite research papers that shaped the field this year."
 featuredImage: deep_learning_2024/ogp.jpg
-tags: ["en", "machine-learning", "deep-learning"]
+tags: ["machine-learning", "deep-learning"]
 slug: "deep_learning_2024"
 lang: "en"
 ---
@@ -23,8 +23,7 @@ In this year-in-review, I will share my 10 favorite research papers from 2024, h
 - [Differential Transformer](#differential-transformer)
 - [Large Concept Models: Language Modeling in a Sentence Representation Space](#large-concept-models-language-modeling-in-a-sentence-representation-space)
 
-*If you're interested, you can also check out [my review of the previous year, 2023](https://hippocampus-garden.com/deep_learning_2023/).*
-
+_If you're interested, you can also check out [my review of the previous year, 2023](https://hippocampus-garden.com/deep_learning_2023/)._
 
 ## Mamba: Linear-Time Sequence Modeling with Selective State Spaces
 
@@ -46,7 +45,6 @@ Further enhancing its capabilities, Mamba incorporates a hardware-aware algorith
 For readers interested in exploring Mamba and SSMs, [a follow-up paper from the same authors](https://arxiv.org/abs/2405.21060) was published at ICML 2024. Additionally, [this introductory reading](https://jackcook.com/2024/02/23/mamba.html) provides an excellent primer on the subject.
 
 By the way, [COLM](https://colmweb.org/) (conference on language modeling) is a new international conference in this field. Sounds like an exciting conference!
-
 
 ## Chatbot Arena: An Open Platform for Evaluating LLMs by Human Preference
 
@@ -78,12 +76,11 @@ Conventional LLMs primarily predict the next word based on patterns, which can h
 
 **Self-Taught Reasoner** (**STaR**) framework is one of those efforts. STaR creates large-scale datasets of CoT samples using limited input-output data and a small number of CoT examples. It strengthens reasoning capabilities by fine-tuning the LLM using only the CoTs that lead to correct answers, iteratively improving the model's reasoning ability.
 
-Building upon the STaR framework, **Quiet-STaR** enhances the reasoning capability by sampling internal thoughts in parallel at each token and rewarding those contributing to correct answers through reinforcement learning. This continuous internal reasoning mechanism  improves the model’s ability to navigate complex or unpredictable text segments.
+Building upon the STaR framework, **Quiet-STaR** enhances the reasoning capability by sampling internal thoughts in parallel at each token and rewarding those contributing to correct answers through reinforcement learning. This continuous internal reasoning mechanism improves the model’s ability to navigate complex or unpredictable text segments.
 
 ![quiet star](zelikman.png)
 
 The technical details of OpenAI's o1 remain undisclosed, but Quiet-STaR is said to be one of the foundational technologies behind it. Additionally, papers such as [Marco-o1](https://arxiv.org/abs/2411.14405) have emerged attempting to replicate o1. However, there are opinions suggesting that o1 is a simple autoregressive model that does not rely on MCTS, leaving it unclear how closely Marco-o1's methodology aligns with o1. [DeepSeek's r1 model](https://api-docs.deepseek.com/news/news1120) also showcases impressive benchmark results.
-
 
 ## Evolutionary Optimization of Model Merging Recipes
 
@@ -113,7 +110,7 @@ This is the first paper from [Sakana AI](https://sakana.ai/), an AI startup whic
 
 <blockquote class="twitter-tweet"><p lang="en" dir="ltr">The Road Less Scheduled [Defazio+, 2024, NeurIPS]<br>Schedule-Free achieves Pareto-optimal loss curves without any LR scheduling. The theory behind it unifies iterate averaging and scheduling, taking the best of both worlds (theory vs practice).<a href="https://t.co/YHHme56ZQ5">https://t.co/YHHme56ZQ5</a><a href="https://twitter.com/hashtag/NowReading?src=hash&amp;ref_src=twsrc%5Etfw">#NowReading</a> <a href="https://t.co/5cocZbjxlo">pic.twitter.com/5cocZbjxlo</a></p>&mdash; Shion Honda (@shion_honda) <a href="https://twitter.com/shion_honda/status/1870930682274615420?ref_src=twsrc%5Etfw">December 22, 2024</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
-Adam (or AdamW) with a **cosine learning rate schedule** is considered the industry-standard optimizer, but the inclusion of learning rate schedules introduces additional hyperparameters, such as maximum steps. 
+Adam (or AdamW) with a **cosine learning rate schedule** is considered the industry-standard optimizer, but the inclusion of learning rate schedules introduces additional hyperparameters, such as maximum steps.
 
 **Iterative averaging** on a sequence of parameters doesn't require such hyperparameters. Theoretically, **Polyak-Ruppert** (**PR**) **averaging** guarantees good convergence rates, yet it often fails in practical machine learning applications. This led the authors to ask: "Are there iterate averaging methods that can match the empirical performance of learning rate schedules without compromising theoretical guarantees?"
 
@@ -135,7 +132,7 @@ The theory behind Schedule-Free successfully combines the strengths of iterate a
 
 **Autoregressive image generation models** typically use **vector quantization** (**VQ**) to represent images as discrete token sequences. This paper poses a question to this premise and introduces a novel approach to autoregressive image generation that eliminates the need for VQ.
 
-The alternative  model proposed in this paper generates latent representations, which are converted into continuous image tokens using a **diffusion model**. This method introduces flexibility in attention directions, generation order, and token count. This allows the model to determin easy tokens first, resulting in improved speed and quality.
+The alternative model proposed in this paper generates latent representations, which are converted into continuous image tokens using a **diffusion model**. This method introduces flexibility in attention directions, generation order, and token count. This allows the model to determin easy tokens first, resulting in improved speed and quality.
 
 ![model overview](li_0.png)
 
@@ -204,7 +201,7 @@ The resulting **Differential Transformer**, equipped with this mechanism, demons
 
 LLMs process input and generate output at the token level, whereas humans operate at the level of "concepts." Concepts are abstract representations that transcend languages (e.g., English and Japanese) and modalities (e.g., text and images). This inspired the development of "**large concept models**" (**LCMs**), which function at the conceptual level rather than the token level.
 
-In this study, a concept corresponds to a sentence and is implemented as an embedding derived from the [**SONAR**](https://arxiv.org/abs/2308.11466) model, which supports both text and speech in 200 languages. By design, LCMs can generalize across the languages that their embedding model supports. Unlike traditional LLMs, LCMs predict sentence embeddings instead of tokens. To achieve this, concept encoders and decoders are trained separately and remain frozen during the training of the LCM itself. 
+In this study, a concept corresponds to a sentence and is implemented as an embedding derived from the [**SONAR**](https://arxiv.org/abs/2308.11466) model, which supports both text and speech in 200 languages. By design, LCMs can generalize across the languages that their embedding model supports. Unlike traditional LLMs, LCMs predict sentence embeddings instead of tokens. To achieve this, concept encoders and decoders are trained separately and remain frozen during the training of the LCM itself.
 
 ![large concept model](barrault.png)
 
@@ -218,7 +215,6 @@ Following the trend from 2023, top private labs like OpenAI and Google didn’t 
 
 The field of deep learning is increasingly becoming industrial and commercial, which is a positive development. However, we should not overlook the vital contributions of the academic world. I am eager to see what 2025 will bring. Until next time!
 
-*The images in this post are taken from the papers unless the original source is specified.*
+_The images in this post are taken from the papers unless the original source is specified._
 
 [^1]: These are not actually Elo ratings. They are calculated by a statistical model called Bradely-Terry because it is more sample-efficient. If you are interested in the difference between the two methods, here is [my blog post](https://hippocampus-garden.com/elo_vs_bt/) on this topic!
-

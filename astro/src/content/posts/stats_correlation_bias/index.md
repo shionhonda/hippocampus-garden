@@ -3,21 +3,21 @@ title: "Stats with Python: Sample Correlation Coefficient is Biased"
 date: "2021-02-24T22:10:03.284Z"
 description: "Is the sample correlation coefficient an unbiased estimator? No! This post visualizes how large its bias is and shows how to fix it."
 featuredImage: stats_correlation_bias/ogp.jpg
-tags: ["en", "stats", "python", "math"]
+tags: ["stats", "python", "math"]
 slug: "stats_correlation_bias"
 lang: "en"
 ---
 
-
 Have you ever wondered how much bias the sample correlation coefficient $r$ has with respect to the population correlation coefficient $\rho$? In fact, even if the sample size is about 20, there will be a bias of up to 5%, depending on the value of $\rho$. This post visualizes how large the bias is and shows how to fix it.
 
 ## Definition: Pearson's r
+
 As already discussed in [the previous post](https://hippocampus-garden.com/stats_rank_correlation/#pearson-correlation-coefficient), **Pearson product-moment correlation coefficient**, or simply **Pearson's r** of the paired sequences $\{(x_i,y_i)\}_{i=1}^n$ is given as:
 
 $$
 r = \frac{{\displaystyle \sum_{i = 1}^n (x_i - \overline{x})
-(y_i - \overline{y})}}{\sqrt{{\displaystyle \sum_{i = 1}^n 
-(x_i - \overline{x})^2}} \sqrt{{\displaystyle \sum_{i = 1}^n 
+(y_i - \overline{y})}}{\sqrt{{\displaystyle \sum_{i = 1}^n
+(x_i - \overline{x})^2}} \sqrt{{\displaystyle \sum_{i = 1}^n
 (y_i - \overline{y})^2}}} ,
 $$
 
@@ -28,9 +28,10 @@ $$
 $$
 
 ## Pearson's r For a Sample is Biased!
+
 So, is the sample correlation coefficient $r$ an unbiased estimator of the population correlation coefficient $\rho$? Unfortunately, the answer is no. $r$ is only asymptotically unbiased, so when the sample size is small, you need to care about its bias.
 
-In this post, I assume *the data $X$ and $Y$ follow a bivariate normal distribution* and experiment with unbiased estimators of the correlation coefficient. Then, the exact density function is given as:
+In this post, I assume _the data $X$ and $Y$ follow a bivariate normal distribution_ and experiment with unbiased estimators of the correlation coefficient. Then, the exact density function is given as:
 
 $$
 f(r) = \frac{(n-2)\Gamma(n-1)(1-\rho^2)^{\frac{n-1}{2}}(1-r^2)^{\frac{n-4}{2}}}{\sqrt{2\pi}\Gamma(n-\frac{1}{2})(1-\rho r)^{n-\frac{3}{2}}}~ \mathbf{_2F_1}\Bigl( \frac{1}{2},\frac{1}{2};\frac{2n-1}{2};\frac{\rho r+1}{2} \Bigr),
@@ -53,12 +54,13 @@ $$
 How large is the bias of the sample correlation coefficient? How good is the approximation? To answer these questions, I conducted some experiments in the next section.
 
 ## Experiment
-The code I used for the experiments below is available at [Colaboratory](https://colab.research.google.com/drive/1CLhEuKI2Hsx62x7LdDEDqThVthRMo2sm?usp=sharing). 
+
+The code I used for the experiments below is available at [Colaboratory](https://colab.research.google.com/drive/1CLhEuKI2Hsx62x7LdDEDqThVthRMo2sm?usp=sharing).
 
 I obtained correlated sequences and their correlation coefficients in the following way:
 
-1. Draw $n$ samples $x_1,\ldots,x_n$ from $\mathcal{N}(0,1)$ 
-2. Draw $n$ samples $e_1,\ldots,e_n$ from $\mathcal{N}(0,1)$ 
+1. Draw $n$ samples $x_1,\ldots,x_n$ from $\mathcal{N}(0,1)$
+2. Draw $n$ samples $e_1,\ldots,e_n$ from $\mathcal{N}(0,1)$
 3. Given $p$ ($0\leq p\leq1$), obtain $n$ samples by $y_i=px_i+(1-p)e_i$
 4. Compute the biased, the unbiased, and the adjusted correlation coefficients
 
@@ -144,7 +146,7 @@ One can observe the following:
 
 - The "biased estimator" is indeed asymptotically unbiased, but the bias remains non-subtle even when $n\sim 50$.
 - It looks like neither the "unbiased" estimator nor the "adjusted" estimator is completely unbiased. Still, they are significantly more accurate than the biased estimator.
-- The bias depends on $\rho$ as well as $n$. It seems that the smaller $|\rho|$ is, the larger the relative  bias is. 
+- The bias depends on $\rho$ as well as $n$. It seems that the smaller $|\rho|$ is, the larger the relative bias is.
 - When $\rho=1$ (perfect correlation), $r=r_{mvu}=r_{adj}=\rho=1$.
 - When $\rho=0$ (zero correlation), $r\simeq r_{mvu} \simeq r_{adj}$.
 
@@ -173,11 +175,13 @@ In a similar way, the approximated relative bias $(r_{adj} - r)/r_{adj}$ takes i
 ![](2021-02-23-21-03-49.png)
 
 ## Conclusion
-- The sample correlation coefficient $r$ is *not* an unbiased estimator of the population correlation coefficient $\rho$. The bias remains untrivial when $n\sim 50$
+
+- The sample correlation coefficient $r$ is _not_ an unbiased estimator of the population correlation coefficient $\rho$. The bias remains untrivial when $n\sim 50$
 - For the data that follow a bivariate normal distribution, the exact form of minimum variance unbiased estimator $r_{mvu}$ is known
 - The approximated version $r_{adj}$ is accurate enough and far handier
 - The smaller $|\rho|$ is, the larger the relative bias of $r$ is
 
 ## References
-[1] Ingram Olkin, John W. Pratt. "[Unbiased Estimation of Certain Correlation Coefficients](https://projecteuclid.org/journals/annals-of-mathematical-statistics/volume-29/issue-1/Unbiased-Estimation-of-Certain-Correlation-Coefficients/10.1214/aoms/1177706717.full)". *Ann. Math. Statist.* 1958.   
+
+[1] Ingram Olkin, John W. Pratt. "[Unbiased Estimation of Certain Correlation Coefficients](https://projecteuclid.org/journals/annals-of-mathematical-statistics/volume-29/issue-1/Unbiased-Estimation-of-Certain-Correlation-Coefficients/10.1214/aoms/1177706717.full)". _Ann. Math. Statist._ 1958.  
 [2] [Pearson correlation coefficient - Wikipedia](https://en.wikipedia.org/wiki/Pearson_correlation_coefficient)

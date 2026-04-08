@@ -3,7 +3,7 @@ title: "Year in Review: Deep Learning in 2022"
 date: "2023-01-17T22:01:03.284Z"
 description: "Uncover the top deep learning advancements of 2022. A year-in-review of key research papers and applications."
 featuredImage: deep_learning_2022/ogp.jpg
-tags: ["en", "machine-learning", "deep-learning"]
+tags: ["machine-learning", "deep-learning"]
 slug: "deep_learning_2022"
 lang: "en"
 ---
@@ -11,9 +11,11 @@ lang: "en"
 Reflecting on the past year, it's clear that 2022 brought significant advancements in the field of deep learning. In this year-in-review post, I'll take a look back at some of the most important developments in deep learning, highlighting representative research papers and application projects. If you're interested, you can also check out [my review of the previous year, 2021](https://hippocampus-garden.com/research_2021).
 
 ## Research Papers
+
 In this section, I've selected five papers that I found particularly interesting and impactful.
 
 ### Block-NeRF: Scalable Large Scene Neural View Synthesis
+
 - Authors: Matthew Tancik, Vincent Casser, Xinchen Yan, Sabeek Pradhan, Ben Mildenhall, Pratul P. Srinivasan, Jonathan T. Barron, Henrik Kretzschmar
 - Paper: https://arxiv.org/abs/2202.05263
 - Project page: https://waymo.com/research/block-nerf/
@@ -30,6 +32,7 @@ Rendering large scenes is a challenging task due to the varying conditions under
 ![](2023-01-12-09-55-25.png)
 
 ### Multi-Game Decision Transformers
+
 - Authors: Kuang-Huei Lee, Ofir Nachum, Mengjiao Yang, Lisa Lee, Daniel Freeman, Winnie Xu, Sergio Guadarrama, Ian Fischer, Eric Jang, Henryk Michalewski, Igor Mordatch
 - Paper: https://arxiv.org/abs/2205.15241
 - Project page: https://sites.google.com/view/multi-game-transformers
@@ -39,11 +42,11 @@ Rendering large scenes is a challenging task due to the varying conditions under
 
 Last year, **Decision Transformer** (**DT**) emerged as a powerful baseline for **offline reinforcement learning** (**offline RL**). Is it possible to create a generalist agent with DT in the same way that pretrained Transformers generalize to a variety of natural language tasks?
 
-To answer this question, researchers trained DT in a multi-game setting, where 41 games out of the Atari suite are used for offline training and 5 other games are held out for evaluating performance on unseen tasks. The offline training data include non-expert experience as well as expert experience. The interface of the DT used in this study is illustrated in the figure below: 
+To answer this question, researchers trained DT in a multi-game setting, where 41 games out of the Atari suite are used for offline training and 5 other games are held out for evaluating performance on unseen tasks. The offline training data include non-expert experience as well as expert experience. The interface of the DT used in this study is illustrated in the figure below:
 
 ![](2023-01-14-00-00-31.png)
 
-Without fine-tuning, the pretrained multi-game agent exceeds human-level performance for the 41 games seen during training, although it is not as good as the specialist agents trained on individual games. However, multi-game DT beats all the other generalist agents. So, *it is possible to create a generalist agent with DT*.
+Without fine-tuning, the pretrained multi-game agent exceeds human-level performance for the 41 games seen during training, although it is not as good as the specialist agents trained on individual games. However, multi-game DT beats all the other generalist agents. So, _it is possible to create a generalist agent with DT_.
 
 ![](2023-01-14-00-01-13.png)
 
@@ -52,6 +55,7 @@ Moreover, the scaling behavior known in the natural language tasks, for the firs
 ![](2023-01-14-00-00-04.png)
 
 ### Scaling Laws vs Model Architectures: How does Inductive Bias Influence Scaling?
+
 - Authors: Yi Tay, Mostafa Dehghani, Samira Abnar, Hyung Won Chung, William Fedus, Jinfeng Rao, Sharan Narang, Vinh Q. Tran, Dani Yogatama, Donald Metzler
 - Paper: https://arxiv.org/abs/2207.10551
 
@@ -62,12 +66,14 @@ Now it's natural to ask whether these alternative architectures scale or not. Th
 ![](2023-01-12-23-31-24.png)
 
 The results of the study are summarized in the above figure, which can be a bit difficult to interpret. The key takeaways from the study include:
+
 - Upstream scores do not correlate well with downstream scores
 - The optimal architecture can vary depending on the scale of the model
   - Models such as ALBERT and MLP-Mixer scales even negatively
-  - *On average, the vanilla Transformer demonstrates the best scaling behavior*
+  - _On average, the vanilla Transformer demonstrates the best scaling behavior_
 
 ### Cold Diffusion: Inverting Arbitrary Image Transforms Without Noise
+
 - Authors: Arpit Bansal, Eitan Borgnia, Hong-Min Chu, Jie S. Li, Hamid Kazemi, Furong Huang, Micah Goldblum, Jonas Geiping, Tom Goldstein
 - Paper: https://arxiv.org/abs/2208.09392
 - Code: https://github.com/arpitbansal297/Cold-Diffusion-Models
@@ -79,6 +85,7 @@ In experiments, the authors observe that diffusion models actually work with alt
 ![](2023-01-13-00-12-43.png)
 
 ### Robust Speech Recognition via Large-Scale Weak Supervision
+
 - Authors: Alec Radford, Jong Wook Kim, Tao Xu, Greg Brockman, Christine McLeavey, Ilya Sutskever
 - Paper: https://arxiv.org/abs/2212.04356
 - Code: https://github.com/openai/whisper
@@ -97,26 +104,31 @@ The second factor is the pretraining scheme. Whisper was trained on multiple spe
 ![](2023-01-16-13-01-20.png)
 
 ## Applications
+
 In this section, I've selected five novel AI applications.
 
 ### Stable Diffusion & DreamStudio
+
 In 2022, we saw many surprisingly successful text-to-image models: [DALL･E 2](https://openai.com/dall-e-2/), [midjourney](https://midjourney.com/), [Stable Diffusion](https://github.com/CompVis/stable-diffusion), [Imagen](https://imagen.research.google/), [Parti](https://parti.research.google/), and [Muse](https://muse-model.github.io/), just to name a few. Among them, **Stable Diffusion** is exceptional as it is fully open-source and runs faster than other alternatives. [Stability AI](https://stability.ai/), a generative AI startup, adopted Stable Diffusion to create its managed text-to-image service [DreamStudio](https://beta.dreamstudio.ai/dream).
 
 In just one year, AI-generated pictures have become ubiquitous. For example, the eyecatch picture of this post was generated by Stable Diffusion.
 
 ### ChatGPT
-If there were an "AI Company of the Year" award, it would likely go to OpenAI. In 2022, the company amazed the world three times by releasing DALL･E 2, Whisper, and [**ChatGPT**](https://chat.openai.com/chat). 
+
+If there were an "AI Company of the Year" award, it would likely go to OpenAI. In 2022, the company amazed the world three times by releasing DALL･E 2, Whisper, and [**ChatGPT**](https://chat.openai.com/chat).
 
 ChatGPT is a variant of GPT-3.5 with a key difference in its **alignment**. Unlike its predecessor, ChatGPT was trained to align with human values through a process known as **reinforcement learning from human feedback** (**RLHF**). But nothing more is disclosed for now. What did they do as "RLHF" exactly? How is it possible to handle tons of requests so fast? I hope this information will be public soon.
 
 This entire post was written with the help of ChatGPT.
 
 ### YouChat
+
 It is reported that [Microsoft and OpenAI are collaborating to integrate ChatGPT into Bing](https://www.theinformation.com/articles/microsoft-and-openai-working-on-chatgpt-powered-bing-in-challenge-to-google), potentially challenging Google's predominant position in search engines. However, you can already get a sense of this future technology at [YOU.com](https://you.com/), which supports YouChat. When you type a question into the search bar, the chatbot provides an answer by summarizing relevant web pages with references. This allows us to check if the answer is grounded in any evidence and if the evidence is reliable or not. This is a good solution to the hallucination issue of language models.
 
 ![](2023-01-17-10-16-41.png)
 
 ### Gran Turismo Sophy
+
 Sony developed an RL agent, named [Gran Turismo Sophy](https://www.gran-turismo.com/us/gran-turismo-sophy/), for its car racing game. GT Sophy was able to outrace even champion drivers.
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/_CrCpIIZeCc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
@@ -124,4 +136,5 @@ Sony developed an RL agent, named [Gran Turismo Sophy](https://www.gran-turismo.
 The technology behind GT Sophy is based on a combination of a realistic simulator, an RL algorithm, distributed and asynchronous training, and high-performance computing. This is detailed in [a paper published in Nature](https://www.nature.com/articles/s41586-021-04357-7).
 
 ## Concluding Remarks
+
 Thanks for reading this year-in-review post. I hope you enjoyed reflecting what happened in deep learning in 2022. I'm excited to see what 2023 will bring to the field.

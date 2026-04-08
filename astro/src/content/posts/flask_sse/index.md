@@ -3,12 +3,12 @@ title: "Simulating Real-Time Chats using Flask's Server-Sent Events"
 date: "2023-11-06T22:01:03.284Z"
 description: "Discover the power of Flask's Server-Sent Events for better developer's experience of chatbots."
 featuredImage: flask_sse/ogp.jpg
-tags: ["en", "python", "web"]
+tags: ["python", "web"]
 slug: "flask_sse"
 lang: "en"
 ---
 
-With the increasing adoption of OpenAI's GPT API and similar LLM APIs, chatbots have become a hot topic in the technology world. In chatbot-powered apps, the response from the GPT is often streamed to allow real-time conversation, which is enabled by  [**server-sent events**](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events) (**SSE**).
+With the increasing adoption of OpenAI's GPT API and similar LLM APIs, chatbots have become a hot topic in the technology world. In chatbot-powered apps, the response from the GPT is often streamed to allow real-time conversation, which is enabled by [**server-sent events**](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events) (**SSE**).
 
 This is cool, but here's the thing: when you develop your app with these APIs, it can get expensive, tricky with rate limits, and complex. So you may want to mock them during in the development environment. In this short blog post, I present a minimal implementation of a Flask server to simulate OpenAI's stream API.
 
@@ -95,4 +95,4 @@ When you open this file with a browser, you should see the streamed text. Happy 
 [2] [Using server-sent events - Web APIs | MDN](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events)  
 [3] [javascript - EventSource.onmessage is not firing even though Flask server push seems to work - Stack Overflow](https://stackoverflow.com/questions/56077192/eventsource-onmessage-is-not-firing-even-though-flask-server-push-seems-to-work)  
 [4] [Server-sent events in Flask without extra dependencies • Max Halford](https://maxhalford.github.io/blog/flask-sse-no-deps/)  
-[5] [How to stream completions | OpenAI Cookbook](https://cookbook.openai.com/examples/how_to_stream_completions)  
+[5] [How to stream completions | OpenAI Cookbook](https://cookbook.openai.com/examples/how_to_stream_completions)

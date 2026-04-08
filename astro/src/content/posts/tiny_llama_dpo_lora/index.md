@@ -3,7 +3,7 @@ title: "Aligning LLMs without Reinforcement Learning"
 date: "2024-04-27T22:01:03.284Z"
 description: "DPO reduces the effort required to align LLMs. Here is how I created the Reviewer #2 Bot from TinyLlama using DPO."
 featuredImage: tiny_llama_dpo_lora/ogp.jpg
-tags: ["en", "nlp", "deep-learning"]
+tags: ["nlp", "deep-learning"]
 slug: "tiny_llama_dpo_lora"
 lang: "en"
 ---
@@ -120,6 +120,9 @@ If you are interested in training larger models, I also recommend [this article]
 I hope this article helps you create your own DPO-trained LLMs!
 
 [^1]: https://arxiv.org/abs/2401.04088
+
 [^2]: https://ai.meta.com/blog/meta-llama-3/
+
 [^3]: https://researcher.life/blog/article/peer-review-basics-who-is-reviewer-2/#Reviewer_2_Stereotypes_and_Perceptions
+
 [^4]: [I updated the Reviewer #2 Bot with KTO](https://hippocampus-garden.com/tiny_llama_kto_lora/)

@@ -3,15 +3,14 @@ title: "Year in Review: Deep Learning Papers in 2023"
 date: "2024-01-27T22:01:03.284Z"
 description: "Let's look back at the significant progress made in deep learning in 2023! Here are my 10 favorite papers."
 featuredImage: deep_learning_2023/ogp.jpg
-tags: ["en", "machine-learning", "deep-learning"]
+tags: ["machine-learning", "deep-learning"]
 slug: "deep_learning_2023"
 lang: "en"
 ---
 
-As we step into 2024, let's take a moment to look back at the significant progress made in deep learning throughout the past year. In this year-in-review post, I'll share my 10 favorite papers from 2023. I hope you enjoy it! 
+As we step into 2024, let's take a moment to look back at the significant progress made in deep learning throughout the past year. In this year-in-review post, I'll share my 10 favorite papers from 2023. I hope you enjoy it!
 
-*If you're interested in this post, you can also check out [my review of the previous year, 2022](https://hippocampus-garden.com/deep_learning_2022/).*
-
+_If you're interested in this post, you can also check out [my review of the previous year, 2022](https://hippocampus-garden.com/deep_learning_2022/)._
 
 ## Fast Inference from Transformers via Speculative Decoding
 
@@ -21,7 +20,7 @@ As we step into 2024, let's take a moment to look back at the significant progre
 
 <blockquote class="twitter-tweet"><p lang="en" dir="ltr">Fast Inference from Transformers via Speculative Decoding [Leviathan+, 2023, ICML]<br>Speculative decoding allows autoregressive models to run 2-3x faster. A small model samples K tokens fast and a large model decides to accept or reject them.<a href="https://t.co/bcKEWeBxmA">https://t.co/bcKEWeBxmA</a><a href="https://twitter.com/hashtag/NowReading?src=hash&amp;ref_src=twsrc%5Etfw">#NowReading</a> <a href="https://t.co/2QtAXtjNm7">pic.twitter.com/2QtAXtjNm7</a></p>&mdash; Shion Honda (@shion_honda) <a href="https://twitter.com/shion_honda/status/1747519345784148071?ref_src=twsrc%5Etfw">January 17, 2024</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
-In LLM-powered applications such as chatbots, it's autoregressive decoding that limits the latency of the application. If you want to generate $N$ tokens, you need to run the inference $N$ times. This is slow. What can we do to make it faster without degrading the output quality? 
+In LLM-powered applications such as chatbots, it's autoregressive decoding that limits the latency of the application. If you want to generate $N$ tokens, you need to run the inference $N$ times. This is slow. What can we do to make it faster without degrading the output quality?
 
 **Speculative decoding** is a technique that allows autoregressive models to run faster without changing the outputs. The idea is to have a smaller (faster but less performant) language model that samples chunks of tokens quickly, and then the larger LM examines each of them to accept or reject. In the image below, each line represents one iteration, where the smaller LM samples $\gamma$ tokens (green) and the larger one rejects (red) and makes corrections (blue).
 
@@ -29,7 +28,7 @@ In LLM-powered applications such as chatbots, it's autoregressive decoding that 
 
 This is quite intuitive when you think that the difficulty of language modeling is not always the same. Sometimes it is very easy (what 3 tokens come after "Tokyo is the capital...?") and sometimes it is very ambiguous (you don't know what comes after "My favorite food is...").
 
-Once we have a chunk of $\gamma$ tokens ($x_{i+1}$,...,$x_{i+\gamma}$), we calculate the set of likelihoods $p(x_{i+1} | ...,x_i)$,..., $p(x_{i+\gamma} | ...,x_{i+\gamma-1})$ with the larger LM *in parallel* (no more sequential inference from the large model!). Then we check the likelihood one by one to reject unlikely tokens. Specifically, for each token, we sample a threadshold $r$ from the uniform distribution $U[0, 1]$, and if the likelihood computed the large model ($p$) is high enough compared to that by the small model ($q$), that is, if $ p / q > r$, we accept the token and look at the next one. Otherwise, we reject the token and the following ones. This way, we can sample tokens up to 3 times faster and still ensure the same output quality. See the figure below to get a sense of why speculative decoding is fast.
+Once we have a chunk of $\gamma$ tokens ($x_{i+1}$,...,$x_{i+\gamma}$), we calculate the set of likelihoods $p(x_{i+1} | ...,x_i)$,..., $p(x_{i+\gamma} | ...,x_{i+\gamma-1})$ with the larger LM _in parallel_ (no more sequential inference from the large model!). Then we check the likelihood one by one to reject unlikely tokens. Specifically, for each token, we sample a threadshold $r$ from the uniform distribution $U[0, 1]$, and if the likelihood computed the large model ($p$) is high enough compared to that by the small model ($q$), that is, if $ p / q > r$, we accept the token and look at the next one. Otherwise, we reject the token and the following ones. This way, we can sample tokens up to 3 times faster and still ensure the same output quality. See the figure below to get a sense of why speculative decoding is fast.
 
 ![trace_diagram](leviathan_1.png)
 
@@ -43,7 +42,6 @@ Once we have a chunk of $\gamma$ tokens ($x_{i+1}$,...,$x_{i+\gamma}$), we calcu
 <blockquote class="twitter-tweet"><p lang="en" dir="ltr">Adding Conditional Control to T2I Diffusion Models [Zhang+, 2023, ICCV]<br>ControlNet enables T2I DMs to follow instructions in images. Freezing the pretrained weights of T2I, it passes the encoded condition to the U-net decoder via &quot;zero-convs&quot;.<a href="https://t.co/BblF7bSxS9">https://t.co/BblF7bSxS9</a><a href="https://twitter.com/hashtag/NowReading?src=hash&amp;ref_src=twsrc%5Etfw">#NowReading</a> <a href="https://t.co/vsEYP4emUh">pic.twitter.com/vsEYP4emUh</a></p>&mdash; Shion Honda (@shion_honda) <a href="https://twitter.com/shion_honda/status/1723957944616996881?ref_src=twsrc%5Etfw">November 13, 2023</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 As I wrote in the [last year's review](https://hippocampus-garden.com/deep_learning_2022/#stable-diffusion--dreamstudio), we saw many cool text-to-image (T2I) models in 2022. But they struggled to provide control over the spatial composition of the image because fully expressing layouts, poses, and shapes with words is not easy. Sometimes, we want to give image-based instructions to generate our desired outputs. For example, we might want to use edge maps, human pose skeletons, segmentation maps, and depth maps. For example, we might use edge maps, human pose skeletons, segmentation maps, and depth maps. However, there was no model capable of taking any type of those image inputs and generating images based on it.
-
 
 **ControlNet** enables pre-trained T2I diffusion models, such as [Stable Diffusion](https://github.com/Stability-AI/stablediffusion), to follow instructions in images. Look at the figure below to see how ControlNet-powered Stable Diffusion can generate images that are loyal to the input Canny edge and human pose.
 
@@ -214,4 +212,4 @@ While these findings offer intriguing insights into superalignment, they are als
 
 As we look back on the advancements in deep learning in 2023, it's clear that the field continues to evolve at a rapid pace. From the exploration of Vision Transformers and their artifacts to the development of superalignment for super-human AIs, the year was filled with groundbreaking research and applications. As we move forward, it's exciting to think about what 2024 will bring. Until next time!
 
-*The images in this post are taken from the papers unless the original source is specified.*
+_The images in this post are taken from the papers unless the original source is specified._

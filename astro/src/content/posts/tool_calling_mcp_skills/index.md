@@ -3,7 +3,7 @@ title: "Tool Calling, MCP, and Skills: How Agents Use External Capabilities"
 date: "2026-03-29T22:01:03.284Z"
 description: "A practical, implementation-level explanation of tool calling, MCP, skills, and why CLI-based agents have become common."
 featuredImage: tool_calling_mcp_skills/ogp.jpg
-tags: ["en", "llm", "programming"]
+tags: ["llm", "programming"]
 slug: "tool_calling_mcp_skills"
 lang: "en"
 ---
@@ -111,8 +111,13 @@ Tool calling, MCP, and skills are not interchangeable. They solve different prob
 Once you separate those layers, recent agent design trends become easier to understand. Skills did not make MCP obsolete. CLI did not make structure irrelevant. What changed is that better models made it more practical to shift some complexity from rigid interfaces to prompt construction and runtime orchestration.
 
 [^1]: [How LLMs Actually Process Your Prompts, Tools, and Schemas](https://hippocampus-garden.com/llm_serialization/).
+
 [^2]: [Model Context Protocol introduction](https://modelcontextprotocol.io/introduction).
+
 [^3]: Anthropic, [Claude Code slash commands](https://docs.anthropic.com/en/docs/claude-code/slash-commands).
+
 [^4]: OpenAI, [Codex Skills](https://developers.openai.com/codex/skills/) and [Testing Agent Skills Systematically with Evals](https://developers.openai.com/blog/eval-skills/).
+
 [^5]: Sarat Mudunuri, Jian Wan, Ally Qin, Srinivasan Manoharan. [Semantic Tool Discovery for Large Language Models: A Vector-Based Approach to MCP Tool Selection](https://arxiv.org/abs/2603.20313).
+
 [^6]: Adrian Machado, [CLI vs MCP: Which Interface Works Best for AI Agents?](https://zuplo.com/blog/cli-or-mcp).

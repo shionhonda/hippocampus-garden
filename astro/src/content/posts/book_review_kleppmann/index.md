@@ -3,7 +3,7 @@ title: 書評『データ指向アプリケーションデザイン』
 date: "2023-05-14T22:12:03.284Z"
 description: "『データ指向アプリケーションデザイン』のまとめと感想です。"
 featuredImage: book_review_kleppmann/ogp.jpg
-tags: ["ja", "book"]
+tags: ["book"]
 slug: "book_review_kleppmann"
 lang: "ja"
 ---

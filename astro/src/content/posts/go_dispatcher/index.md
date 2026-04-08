@@ -3,11 +3,10 @@ title: "Ready Steady GO: Dispatcher-Worker with errgroup"
 date: "2021-02-14T22:10:03.284Z"
 description: "A golang implementation of dispatcher-worker pattern with errgroup. It immediately cancels the other jobs when an error occurs in any goroutine."
 featuredImage: go_dispatcher/ogp.jpg
-tags: ["en", "golang"]
+tags: ["golang"]
 slug: "go_dispatcher"
 lang: "en"
 ---
-
 
 Suppose you are asked to write a golang program that:
 
@@ -109,12 +108,13 @@ func main() {
 	}
 }
 ```
+
 <br/>
 
 You can try the above code [here](https://play.golang.org/p/8nyavxlrEsf). It results in:
 
 ```shell
-$ go run main.go 
+$ go run main.go
 Working on the job #6. Wait for 425 ms.
 Working on the job #7. Wait for 540 ms.
 ...
@@ -130,6 +130,7 @@ cannot wait for more than 990 ms: job #78; 996 ms
 <br/>
 
 ## References
+
 [1] [golang の channel を使って Dispatcher-Worker を作り goroutine 爆発させないようにする - at kaneshin](https://kaneshin.hateblo.jp/entry/2016/08/18/190435)  
 [2] [Re: golang の channel を使って Dispatcher-Worker を作り goroutine 爆発させないようにする - okzkメモ](http://okzk.hatenablog.com/entry/2016/08/19/121652)  
 [3] https://gist.github.com/okzk/4e5afec27927668e52d5eb6c5eb1bb72  

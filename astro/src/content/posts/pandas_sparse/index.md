@@ -3,13 +3,15 @@ title: "Meet Pandas: Converting DataFrame to CSR Matrix"
 date: "2022-03-08T22:10:03.284Z"
 description: "This post shows how to convert a DataFrame of user-item interactions to a compressed sparse row (CSR) matrix, the most common format for sparse matrices."
 featuredImage: pandas_sparse/ogp.jpg
-tags: ["en", "pandas", "data-analysis", "python"]
+tags: ["pandas", "data-analysis", "python"]
 slug: "pandas_sparse"
 lang: "en"
 ---
+
 Welcome back to the 🐼Meet Pandas🐼 series (a.k.a. my memorandum for learning Pandas)!
 
 When working with big data, we often encounter interactions between users and items. Examples of such data include:
+
 - User ratings of movies, restaurants, or marchandise
 - Number of times a song or video is played by each user
 
@@ -18,6 +20,7 @@ Representing these data as a dense matrix, where each row represents a user and 
 In this post, I will briefly show how to convert a `DataFrame` of user-item interactions to a **compressed sparse row** (**CSR**) matrix, the most common format for sparse matrices.
 
 ## Load Example Data
+
 As an example, we use the [MovieLens](https://movielens.org/) dataset provided [here](http://grouplens.org/datasets/movielens/). This is a collection of rmovie ratings by users. Movies are rated by a small fraction of users, so this is a perfect use case for a sparse matrix. MovieLens can be loaded by the following code:
 
 ```python
@@ -41,7 +44,8 @@ The dataframe should look something like this (a screenshot from Colaboratory):
 ![](2022-03-06-18-03-54.png)
 
 ## Converting to CSR Matrix
-To convert a `DataFrame` to a CSR matrix, you first need to create indices for users and movies. Then, you can perform conversion with the `sparse.csr_matrix` function. It is a bit faster to convert via a **coordinate** (**COO**) matrix. 
+
+To convert a `DataFrame` to a CSR matrix, you first need to create indices for users and movies. Then, you can perform conversion with the `sparse.csr_matrix` function. It is a bit faster to convert via a **coordinate** (**COO**) matrix.
 
 ```python
 from pandas.api.types import CategoricalDtype
@@ -62,7 +66,7 @@ coo = sparse.coo_matrix((df["rating"], (user_index, movie_index)), shape=shape)
 csr = coo.tocsr()
 ```
 
-For your information, I compare a dense matrix and its COO and CSR format in the figure below: 
+For your information, I compare a dense matrix and its COO and CSR format in the figure below:
 
 ![](2022-03-07-00-19-02.png)
 
@@ -71,6 +75,7 @@ CSR format consumes far less memory than its dense format for sparse matrices. A
 CSR matrix can be converted back to COO matrix by `.tocoo()` method and to dense matrix by `todense()`.
 
 ## References
+
 [1] [scipy.sparse.csr_matrix — SciPy v1.8.0 Manual](https://docs.scipy.org/doc/scipy/reference/generated/scipy.sparse.csr_matrix.html)  
 [2] [Python, SciPy（scipy.sparse）で疎行列を生成・変換 | note.nkmk.me](https://note.nkmk.me/python-scipy-sparse-matrix-csr-csc-coo-lil/)  
-[3] [scipy.sparseで疎行列入門 - Qiita](https://qiita.com/iwasaki620/items/603220d9102e82d4438e)  
+[3] [scipy.sparseで疎行列入門 - Qiita](https://qiita.com/iwasaki620/items/603220d9102e82d4438e)

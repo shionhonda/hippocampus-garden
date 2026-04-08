@@ -3,12 +3,12 @@ title: Top Navbar for Gatsby Blog
 date: "2020-02-26T22:12:03.284Z"
 description: "This post introduces how to make top navigation bar with background image for Gatsby blog."
 featuredImage: navbar/ogp.png
-tags: ["en", "gatsby", "programming"]
+tags: ["gatsby", "programming"]
 slug: "navbar"
 lang: "en"
 ---
 
-My first post on my new blog 🎉🎊  
+My first post on my new blog 🎉🎊
 
 This blog is initialized with [gatsby-starter-blog](https://www.gatsbyjs.org/starters/gatsbyjs/gatsby-starter-blog/).  
 Do you like the navigation bar at the top of this page?  
@@ -18,10 +18,11 @@ The default blog should look like [this](https://templates.netlify.com/template/
 
 ![](default.png)
 
-Too simple? Let's beautify it 🔥🔥   
+Too simple? Let's beautify it 🔥🔥
 
 ## Install gatsby-background-image
-\* Skip if you don't use a background image  
+
+\* Skip if you don't use a background image
 
 First, install [gatsby-background-image](https://www.gatsbyjs.org/packages/gatsby-background-image/) and declare it in `gatsby-config.js` as described in the document.
 
@@ -43,10 +44,12 @@ module.exports = {
     ...
    ],
 };
-```  
+```
 
 ## Navigation Menu
+
 In my case, the navigation menu has four items:
+
 1. Home (linked to '/')
 2. About (linked to '/about/')
 3. Blog (linked to '/blog/')
@@ -147,7 +150,8 @@ This JS file imports a style file to align the list items horizontally.
 ```
 
 ## Header
-Now we have all the necessary components, let's put them together!  
+
+Now we have all the necessary components, let's put them together!
 
 ```javascript:title=src/components/header.js
 import React from 'react'
@@ -220,18 +224,17 @@ const Header = ({ className }) => (
       }}
     />
   )
-  
+
   const StyledHeader = styled(Header)`
     width: 100%;
     background-position: center center;
     background-repeat: repeat-y;
     background-size: cover;
   `
-  
+
   export default StyledHeader
 ```
 
 I put the background image in `content/assets/`.
 
 That's it! The full code is [here](https://github.com/shionhonda/hippocampus-garden)
-

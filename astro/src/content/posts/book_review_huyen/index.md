@@ -3,7 +3,7 @@ title: "Book Review: AI Engineering by Chip Huyen"
 date: "2025-02-15T22:12:03.284Z"
 description: "A detailed guide on how to build applications with foundation models."
 featuredImage: book_review_huyen/ogp.jpg
-tags: ["en", "book", "machine-learning"]
+tags: ["book", "machine-learning"]
 slug: "book_review_huyen"
 lang: "en"
 ---

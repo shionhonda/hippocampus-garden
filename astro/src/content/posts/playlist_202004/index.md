@@ -3,7 +3,7 @@ title: Playlist for April 2020
 date: "2020-04-04T22:13:03.284Z"
 description: "2020年4月のプレイリストを作りました。"
 featuredImage: playlist_202004/ogp.png
-tags: ["ja", "music", "playlist"]
+tags: ["music", "playlist"]
 slug: "playlist_202004"
 lang: "ja"
 ---
@@ -17,6 +17,7 @@ https://open.spotify.com/playlist/1wX67h2VXQuwBvRHiKoBrO?si=OHMQoRLpTqWtkYG-u7_X
 以下、何曲かピックアップします。
 
 ## 新作
+
 『Blinding Lights』は、The Weekndの新譜『After Hours』からの現在ヒット中のシングルです。  
 『Salem』はBon Iverが昨年発表したアルバム『i,i』に収録されている曲で、ライブでのジャムアレンジが素晴らしかったです。  
 『The World is a Hungry Place』は、Wild Nothingによる没入感のあるシンセポップです。  
@@ -29,6 +30,7 @@ Tame ImpalaはThe Strokesとともに、[フジロックフェスティバル202
 Dua Lipaは新譜『Future Nostalgia』を発表しました。
 
 ## 旧作
+
 Richard Hawlyの『Tonight the Streets are Ours』は2007年の曲らしいですが、どこかで聞いたことがあるような気がしたので入れました。どこで聞いたのかは思い出せません。  
 Buddy Hollyの『Everyday』、Pixiesの『Where Is My Mind?』、Otis Reddingの『For Your Precious Love』は映画『Mr. Nobody』のサウンドトラックから選びました。  
 『Ms』はalt-Jの唯一無二の音を知るのにいい曲かもしれません。  

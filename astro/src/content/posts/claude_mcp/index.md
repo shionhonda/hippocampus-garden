@@ -3,7 +3,7 @@ title: How to Customize Claude with your own MCP Server
 date: "2025-04-13T23:02:03.284Z"
 description: "Learn how to extend Claude's capabilities by building your own Model Context Protocol server."
 featuredImage: claude_mcp/ogp.jpg
-tags: ["en", "programming"]
+tags: ["programming"]
 slug: "claude_mcp"
 lang: "en"
 ---

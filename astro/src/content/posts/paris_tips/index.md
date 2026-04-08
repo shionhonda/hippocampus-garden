@@ -3,7 +3,7 @@ title: パリ移住に関連する便利情報
 date: "2024-10-13T23:02:03.284Z"
 description: "パリ移住で様々な失敗を経ながら学んだ「生活の知恵」をまとめました。"
 featuredImage: paris_tips/ogp.jpg
-tags: ["ja", "france", "misc"]
+tags: ["france", "misc"]
 slug: "paris_tips"
 lang: "ja"
 ---

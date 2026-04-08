@@ -3,7 +3,7 @@ title: "Evolution of Preference Optimization Techniques"
 date: "2024-11-13T22:01:03.284Z"
 description: "RLHF is not the only method for AI alignment. This article introduces modern algorithms like DPO and KTO that offer simpler and more stable alternatives."
 featuredImage: preference_optimization/ogp.jpg
-tags: ["en", "deep-learning", "machine-learning"]
+tags: ["deep-learning", "machine-learning"]
 slug: "preference_optimization"
 lang: "en"
 ---

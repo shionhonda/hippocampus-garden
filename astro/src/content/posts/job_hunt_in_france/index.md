@@ -3,7 +3,7 @@ title: フランスでのエンジニア就活体験記
 date: "2023-08-19T23:02:03.284Z"
 description: "フランスのスタートアップでソフトウェアエンジニアとして働くことになったので、そのときの体験について書きます。"
 featuredImage: job_hunt_in_france/ogp.jpg
-tags: ["ja", "france", "career"]
+tags: ["france", "career"]
 slug: "job_hunt_in_france"
 lang: "ja"
 ---
@@ -176,9 +176,15 @@ Prampは、事前に申告した自分の習熟度に合わせて同じくらい
 本記事がどなたかの参考になれば幸いです。
 
 [^1]: [フランス・パリにソフトウェアエンジニアとして転職した話｜redryerye](https://note.com/redryerye/n/ne986531a907c)
+
 [^2]: [エンジニア向け海外就職ガイド by Port](https://port-jp.notion.site/port-jp/by-Port-b77968d52eec49cab781f4c06c73cb13)
+
 [^3]: [英国在住、とあるソフトウェアエンジニアによる転職活動の備忘録 2021｜Ken Wagatsuma](https://note.com/kenwagatsuma/n/n027dfb4b5cfc)
+
 [^4]: [Facebook London に入社することになりました](https://cyclic-burst-709.notion.site/Facebook-London-13743da603ce4632bd9f96672faa0d74)
+
 [^5]: 最近は[InterviewCat](https://interviewcat.dev/)という日本語の教材も出ているようです。リリースが就活終了後だったので私は購入していませんが、無料部分を一読した限り、非常に網羅的な情報源のように見えます。ただ、英語で面接を受ける予定なら、参考文献に挙げられている英語の元資料にあたった方が良いのではないかと個人的には思います。
+
 [^6]: 以前このブログで[書評記事](https://hippocampus-garden.com/book_review_kleppmann/)を書いたので、ご興味があればこちらもお読みください。
+
 [^7]: [3月に日本語訳が書籍として出版されています。](https://www.socym.co.jp/book/1406)

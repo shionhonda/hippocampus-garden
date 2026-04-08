@@ -3,7 +3,7 @@ title: "Kaggle Competition Report: Automated Essay Scoring 2.0"
 date: "2024-07-07T20:01:03.284Z"
 description: "This competition was all about distribution shift. Let's learn how the winners conquered the challenge."
 featuredImage: kaggle_aes2/ogp.jpg
-tags: ["en", "kaggle", "nlp"]
+tags: ["kaggle", "nlp"]
 slug: "kaggle_aes2"
 lang: "en"
 ---

@@ -3,7 +3,7 @@ title: "How LLMs Actually Process Your Prompts, Tools, and Schemas"
 date: "2025-08-04T22:01:03.284Z"
 description: "A deep dive into how LLMs serialize prompts, output schemas, and tool descriptions into a token sequence, with examples from Llama 4's implementation."
 featuredImage: llm_serialization/ogp.jpg
-tags: ["en", "deep-learning", "llm"]
+tags: ["deep-learning", "llm"]
 slug: "llm_serialization"
 lang: "en"
 ---

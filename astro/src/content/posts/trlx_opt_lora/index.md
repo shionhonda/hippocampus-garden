@@ -3,7 +3,7 @@ title: "Tuning Large Language Models with Reinforcement Learning on a Single GPU
 date: "2023-03-30T22:01:03.284Z"
 description: "A quick guide for RLHF using trlX, OPT-1.5B, and LoRA."
 featuredImage: trlx_opt_lora/ogp.jpg
-tags: ["en", "nlp", "deep-learning"]
+tags: ["nlp", "deep-learning"]
 slug: "trlx_opt_lora"
 lang: "en"
 ---
@@ -13,7 +13,9 @@ Since ChatGPT was released, **large language models** (**LLM**) and **reinforcem
 To get a sense of RLHF of LLM, I decided to conduct a quick experiment. The good news is that it is now possible to do this on a consumer-grade computer system. This blog post is a report of that experiment.
 
 ## The Setup
+
 For those new to RLHF, let me provide a quick recap. The process involves three steps:
+
 1. Pretraining a LLM
 2. Collecting human feedback and training a **reward model** (**RM**) with it
 3. Finetuning the LLM with reinforcement learning using the RM
@@ -25,6 +27,7 @@ To implement RL, I used the [trlX](https://trlx.readthedocs.io/en/latest/) libra
 For the training process, I used Colaboratory with an A100 GPU. However, the 40GB VRAM was not enough for training the 1.3B model, so I used the **LoRA** (**low-rank adaptation**) method to reduce the effective number of parameters [2]. This is the main difference from the official example mentioned above.
 
 ## Training OPT with RLHF
+
 Now, let's dive into the details of the experiment. The entire script is [here](https://colab.research.google.com/drive/1G8awJvEx3r5-ioyzMx1kNbIUEzukwYcT?usp=sharing) and the monitoring log is [here](https://wandb.ai/shion_honda/trlx/runs/pn6ik9jv).
 
 To begin, install and import some libraries in your environment. After that, set training configurations like below.
@@ -110,7 +113,7 @@ def main(hparams={}):
     def reward_fn(samples: List[str], **kwargs) -> List[float]:
         sentiments = list(map(get_positive_score, sentiment_fn(samples)))
         return sentiments
-    
+
     imdb = load_dataset("imdb", split="train+test")
     prompts = [" ".join(review.split()[:4]) for review in imdb["text"]]
     eval_prompts = [
@@ -142,6 +145,7 @@ This is almost the same as [the official example](https://github.com/CarperAI/tr
 Here, I am using a prompt to generate movie reviews only. In particular, the prompt "This movie was terrible" is expecting a negative review. Let's see what happens.
 
 ## Results
+
 The entire script runs in one or two hours. When you run the main function, you'll get a nice visualization of how LoRA is reducing the trainable parameters.
 
 ```
@@ -199,10 +203,12 @@ Now, let's compare the outputs before and after reinforcement learning.
 The model has learned to respond more positively to prompts, and this is apparent in the results. Notice how it responded to the prompt "This movie was terrible". It immediately denied that by saying "Really? I loved it". I love this!
 
 ## Concluding Remarks
-In this post, I showed the quickest way to tune a LLM with RLHF on a single GPU, using trlX, OPT, and LoRA.  If you're new to RLHF, this is a great place to start. 
+
+In this post, I showed the quickest way to tune a LLM with RLHF on a single GPU, using trlX, OPT, and LoRA. If you're new to RLHF, this is a great place to start.
 
 One of the possible next steps is to repeat this process using [Alpaca-7B](https://crfm.stanford.edu/2023/03/13/alpaca.html), an instruct-tuned LLM, with prompts like "give a negative review about the movie." I actually [tried this](https://colab.research.google.com/drive/1HSRgyB3DhxQ-u1bjXO-JuDUi1QGpla7Y?usp=sharing), but it didn't fit in a 40GB VRAM. If you have any success with this, please share how you did it! Another exciting next step would be to go to a more realistic setting. Anthropic released [a feedback dataset to align LLM to human values](https://huggingface.co/datasets/Anthropic/hh-rlhf). With this dataset, you can technically create a ChatGPT-like model. However, it could be too expensive for individuals.
 
 ## References
-[1] Zhang, Susan, et al. "[Opt: Open pre-trained transformer language models](https://arxiv.org/abs/2205.01068)." *arXiv preprint arXiv:2205.01068* (2022).  
-[2] Hu, Edward J., et al. "[Lora: Low-rank adaptation of large language models](https://openreview.net/forum?id=nZeVKeeFYf9)." In *ICLR* (2022).
+
+[1] Zhang, Susan, et al. "[Opt: Open pre-trained transformer language models](https://arxiv.org/abs/2205.01068)." _arXiv preprint arXiv:2205.01068_ (2022).  
+[2] Hu, Edward J., et al. "[Lora: Low-rank adaptation of large language models](https://openreview.net/forum?id=nZeVKeeFYf9)." In _ICLR_ (2022).

@@ -3,7 +3,7 @@ title: "How to Setup Jupyter in Pipenv / Poetry"
 date: "2021-08-11T22:01:03.284Z"
 description: "It's so easy for me to forget how to setup Jupyter in a newly created Poetry / Pipenv environment. So, here it is."
 featuredImage: jupyter_poetry_pipenv/ogp.jpg
-tags: ["en", "python"]
+tags: ["python"]
 slug: "jupyter_poetry_pipenv"
 lang: "en"
 ---
@@ -11,6 +11,7 @@ lang: "en"
 I tend to forget how to setup Jupyter in a newly created Poetry / Pipenv environment, so I leave a note here. It contains four ways to setup Jupyter: [Poetry, Pipenv] x [Native Jupyter, VSCode].
 
 ## Poetry
+
 Let's say you're going to use NumPy in your project. With Poetry, you can create a new virtual environment and install dependencies in the following commands:
 
 ```console
@@ -43,6 +44,7 @@ build-backend = "poetry.core.masonry.api"
 Now you are ready to go 🚀
 
 ### Native Jupyter
+
 The following command launches Jupyter server inside the virtual environment you just created.
 
 ```console
@@ -59,7 +61,8 @@ $ jupyter notebook
 And then select the created kernel in "Kernel" -> "Change kernel".
 
 ### VSCode
-Sometimes it's more confortable to open Jupyter notebooks in VSCode than in web browsers. In VSCode, you can select your preferred kernel without any additional commands. 
+
+Sometimes it's more confortable to open Jupyter notebooks in VSCode than in web browsers. In VSCode, you can select your preferred kernel without any additional commands.
 
 Click the "Python" button located near the bottom left corner and select the Python interpreter path.
 
@@ -70,6 +73,7 @@ When settings are done, the selected interpreter is displayed in the top right c
 ![](vscode.png)
 
 ## Pipenv
+
 With Pipenv, you can do the same thing in the following commands:
 
 ```console
@@ -98,6 +102,7 @@ python_version = "3.9"
 Now you are ready to go 🚀
 
 ### Native Jupyter
+
 The following command launches Jupyter server inside the virtual environment you just created.
 
 ```console
@@ -114,9 +119,11 @@ $ jupyter notebook
 And then select the created kernel in "Kernel" -> "Change kernel".
 
 ### VSCode
+
 See [the above VSCode section](#vscode). It's all the same.
 
 ## References
+
 [1] [Python in Visual Studio Code – August 2021 Release | Python](https://devblogs.microsoft.com/python/python-in-visual-studio-code-august-2021-release/)  
 [2] [Introduction | Documentation | Poetry - Python dependency management and packaging made easy](https://python-poetry.org/docs/)  
 [3] [Pipenv: Python Dev Workflow for Humans — pipenv 2021.5.29 documentation](https://pipenv.pypa.io/en/latest/)

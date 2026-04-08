@@ -3,7 +3,7 @@ title: Loss Functions for Ordinal Regression
 date: "2025-01-04T23:02:03.284Z"
 description: "Ordinal regression has order structure between classes and there are dedicated loss functions to use this information."
 featuredImage: ordinal_regression/ogp.jpg
-tags: ["en", "machine-learning", "math"]
+tags: ["machine-learning", "math"]
 slug: "ordinal_regression"
 lang: "en"
 ---
@@ -114,7 +114,7 @@ class TwoLayerNet(nn.Module):
         super().__init__()
         self.fc1 = nn.Linear(input_dim, hidden_dim)
         self.fc2 = nn.Linear(hidden_dim, output_dim)
-    
+
     def forward(self, x):
         x = F.relu(self.fc1(x))
         x = self.fc2(x)  # Raw logits or output
@@ -123,13 +123,13 @@ class TwoLayerNet(nn.Module):
 
 # Simplified training & evaluation function
 def train_and_evaluate(
-    model, 
-    criterion, 
-    optimizer, 
-    train_loader, 
-    X_test, 
-    y_test, 
-    num_epochs=30, 
+    model,
+    criterion,
+    optimizer,
+    train_loader,
+    X_test,
+    y_test,
+    num_epochs=30,
     evaluate_fn=None
 ):
     """
@@ -151,7 +151,7 @@ def train_and_evaluate(
             loss.backward()
             optimizer.step()
             running_loss += loss.item()
-        
+
         if (epoch + 1) % 5 == 0:
             print(f"Epoch {epoch+1}/{num_epochs}, Loss: {running_loss/len(train_loader):.4f}")
 
@@ -192,7 +192,7 @@ def convert_to_threshold_labels(y):
 def train_threshold_based():
     # --- Data Preparation ---
     X_train, y_train, X_test, y_test = load_wine_data()
-    
+
     # Convert y to 2-dimensional binary labels
     y_train_bin = convert_to_threshold_labels(y_train)
     y_test_bin  = convert_to_threshold_labels(y_test)
@@ -203,10 +203,10 @@ def train_threshold_based():
 
     # --- Model: Two outputs (>=1?, >=2?) ---
     model = TwoLayerNet(input_dim=13, hidden_dim=32, output_dim=2)
-    
+
     criterion = nn.BCEWithLogitsLoss()
     optimizer = optim.Adam(model.parameters(), lr=0.01)
-    
+
     # --- Training ---
     # Define "evaluate_fn" for threshold-based predictions
     def evaluate_fn(m, X):
@@ -226,15 +226,15 @@ def train_threshold_based():
                     else:
                         pred_list.append(2)
             return torch.tensor(pred_list, dtype=torch.long)
-    
+
     acc = train_and_evaluate(
-        model, 
-        criterion, 
-        optimizer, 
-        train_loader, 
-        X_test, 
-        y_test, 
-        num_epochs=30, 
+        model,
+        criterion,
+        optimizer,
+        train_loader,
+        X_test,
+        y_test,
+        num_epochs=30,
         evaluate_fn=evaluate_fn
     )
     print(f"[Threshold-based] Test Accuracy = {acc*100:.2f}%")
@@ -251,7 +251,7 @@ class SoftLabelLoss(nn.Module):
     def __init__(self, num_classes):
         super().__init__()
         self.num_classes = num_classes
-    
+
     def forward(self, logits, target):
         """
         logits: (batch_size, num_classes) - Model's raw logits output.
@@ -270,7 +270,7 @@ class SoftLabelLoss(nn.Module):
             unnorm = torch.exp(-dists)
             # Normalize to create soft label distribution
             soft_labels = unnorm / unnorm.sum(dim=1, keepdim=True)
-        
+
         # Compute log probabilities using log-softmax
         log_probs = F.log_softmax(logits, dim=1)  # (batch_size, num_classes)
         # Compute cross-entropy loss
@@ -280,7 +280,7 @@ class SoftLabelLoss(nn.Module):
 def train_soft_label():
     # --- Data Preparation ---
     X_train, y_train, X_test, y_test = load_wine_data()
-    
+
     # Create DataLoader (batch_size=16)
     train_dataset = torch.utils.data.TensorDataset(X_train, y_train)
     train_loader  = torch.utils.data.DataLoader(train_dataset, batch_size=16, shuffle=True)
@@ -314,15 +314,15 @@ class OrdinalLogisticModel(nn.Module):
         super().__init__()
         self.fc1 = nn.Linear(input_dim, hidden_dim)
         self.fc2 = nn.Linear(hidden_dim, 1)  # Scalar output z
-        
+
         # (K-1) threshold parameters
         # Raw parameters raw_alpha => softplus => cumsum to ensure ascending order
         self.raw_alpha = nn.Parameter(torch.zeros(num_classes - 1))
-    
+
     def forward(self, x):
         h = F.relu(self.fc1(x))
         z = self.fc2(h).squeeze(-1)  # (batch_size,)
-        
+
         alpha_sorted = torch.cumsum(F.softplus(self.raw_alpha), dim=0)
         return z, alpha_sorted
 
@@ -330,7 +330,7 @@ class OrdinalLogLoss(nn.Module):
     def __init__(self, num_classes):
         super().__init__()
         self.num_classes = num_classes
-    
+
     def forward(self, inputs, target):
         """
         inputs: A tuple (z, alpha)
@@ -354,15 +354,15 @@ class OrdinalLogLoss(nn.Module):
             p_mid = p_mid.transpose(0, 1)       # (batch_size, K-2)
         else:
             p_mid = None
-        
+
         p = torch.empty_like(z)
-        
+
         mask0 = (target == 0)
         p[mask0] = p_y0[mask0]
-        
+
         maskK_1 = (target == (K-1))
         p[maskK_1] = p_yK_1[maskK_1]
-        
+
         if K > 2:
             mask_mid = ~(mask0 | maskK_1)
             if mask_mid.any():
@@ -371,7 +371,7 @@ class OrdinalLogLoss(nn.Module):
                 idx_2d = idx.unsqueeze(1)
                 p_vals = torch.gather(rowwise, 1, idx_2d).squeeze(1)
                 p[mask_mid] = p_vals
-        
+
         # -log p
         eps = 1e-12
         nll = -torch.log(p + eps)
@@ -410,7 +410,7 @@ def train_ordinal_logistic():
                 p_mid = (sig_all[1:] - sig_all[:-1]).transpose(0, 1)  # (N, 1)
             else:
                 p_mid = None
-            
+
             if p_mid is None:
                 # For binary classification only
                 p_all = torch.cat([p_y0, p_y2], dim=1)

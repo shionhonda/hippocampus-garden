@@ -3,7 +3,7 @@ title: "On Optimal Threshold for Maximizing F1 Score"
 date: "2021-05-15T22:01:03.284Z"
 description: "This post attempts to take a deeper look at F1 score. Do you know that, for calibrated classifiers, the optimal threshold is half the max F1? How come? Here it's explained."
 featuredImage: f1/ogp.png
-tags: ["en", "math", "stats"]
+tags: ["math", "stats"]
 slug: "f1"
 lang: "en"
 ---
@@ -11,6 +11,7 @@ lang: "en"
 This post attempts to take a deeper look at the F1 score -- a popular metric for classification tasks. Based on a paper written by Lipton et al. in 2014 [1], I introduce some interesting properties of F1 with proofs. For instance, if the classifier outputs calibrated scores, the optimal threshold for maximizing F1 is half the optimal F1 score. After that, I confirm the claimed property through experiments, giving visualizations that may help better understand the original paper.
 
 ## Recap: Definitions
+
 Before diving into the main part, let's recap some definitions quickly. A **confusion matrix** represents the counts of **true positives**, **false positives**, **false negatives**, and **true negatives**.
 
 |                    | Actual Positive | Actual Negative |
@@ -53,7 +54,8 @@ Just like other metrics such as accuracy, precision, and recall, the F1 score is
 
 Setups are done, so let's move on to the main part. We start by simply combining the above definition with the Bayes' rule.
 
-**Lemma 1**. *By denoting the base rate by $b=p(t=1)$, and hence $1-b=p(t=0)$,  the entries of the confusion matrix are:*
+**Lemma 1**. _By denoting the base rate by $b=p(t=1)$, and hence $1-b=p(t=0)$, the entries of the confusion matrix are:_
+
 $$
 \begin{aligned}
   \mathrm{TP}= b\int_{s:D(s)=1}p(s \mid t=1) \mathrm{d}s,\\
@@ -63,7 +65,7 @@ $$
 \end{aligned}
 $$
 
-*Proof*. $\mathrm{TP}$ is defined as:
+_Proof_. $\mathrm{TP}$ is defined as:
 
 $$
 \mathrm{TP} = \int_{s:D(s)=1} p(t=1\mid s)p(s) \mathrm{d}s.
@@ -89,21 +91,22 @@ Similar arguments hold for the other three entries. $\blacksquare$
 Now we can derive the optimal decision rule that a classifier should follow.
 
 **Theorem 1**.
-*To maximize F1, a classifier should predict a sample with score $s$ as positive if and only if:*
+_To maximize F1, a classifier should predict a sample with score $s$ as positive if and only if:_
+
 $$
 \frac{bp(s\mid t=1)}{(1-b)p(s\mid t=0)} \geq J
 $$
 
-*where $J\coloneqq\mathrm{TP}/(\mathrm{TP} + \mathrm{FP} + \mathrm{FN})$ is the Jaccard index of the optimal classifier.*
+_where $J\coloneqq\mathrm{TP}/(\mathrm{TP} + \mathrm{FP} + \mathrm{FN})$ is the Jaccard index of the optimal classifier._
 
-*Proof*. Suppose that the decision rule $D(\cdot)$ has been fixed for all the region but a paticular region $\Delta$ around a point $s$. We want to identify $D(\Delta)$ so that we can decide whether a sample with score $s$ is positive or negative. For brevity, let's write:
+_Proof_. Suppose that the decision rule $D(\cdot)$ has been fixed for all the region but a paticular region $\Delta$ around a point $s$. We want to identify $D(\Delta)$ so that we can decide whether a sample with score $s$ is positive or negative. For brevity, let's write:
 
 $$
 \begin{aligned}
   P_1(\Delta) &= \int_{\Delta}p(s\mid t=1) \mathrm{d}s,\\
   P_0(\Delta) &= \int_{\Delta}p(s\mid t=0) \mathrm{d}s.
 \end{aligned}
-$$ 
+$$
 
 Let's say our current decision rule $D: [ 0,1 ]\backslash\Delta \rightarrow \{0,1\}$ achieves the F1 score:
 
@@ -143,15 +146,17 @@ Taking the limit $\Delta \rightarrow0$ results in the claimed theorem. $\blacksq
 In a special case, where the model outputs calibrated probabilities (e.g., logistic regression), that is $p(t=1 \mid s)=s$ and $p(t=0 \mid s)=1-s$, the following corollary holds.
 
 **Corollary 1**.
-*To maximize F1, a classifier should predict a sample with predicted probability $s$ as positive if and only if:*
+_To maximize F1, a classifier should predict a sample with predicted probability $s$ as positive if and only if:_
+
 $$
 s \geq \frac{F}{2}
 $$
 
-*where $F\coloneqq2\mathrm{TP}/(2\mathrm{TP} + \mathrm{FP} + \mathrm{FN})$ is the F1 score of the optimal classifier.*
+_where $F\coloneqq2\mathrm{TP}/(2\mathrm{TP} + \mathrm{FP} + \mathrm{FN})$ is the F1 score of the optimal classifier._
 
-*Proof*. 
-From the Bayes' rule and the definition of calibration, 
+_Proof_.
+From the Bayes' rule and the definition of calibration,
+
 $$
 \begin{aligned}
   sp(s) = bp(s\mid t=1),\\
@@ -173,7 +178,8 @@ This section is heavily based on [1] with some modifications. For more details, 
 ![](2021-05-13-22-10-26.png)
 
 ## Experiment
-I conducted a simple experiment to confirm the claimed property that *the optimal threshold is half of the maximum F1 score*.
+
+I conducted a simple experiment to confirm the claimed property that _the optimal threshold is half of the maximum F1 score_.
 
 Using the following libraries,
 
@@ -294,4 +300,5 @@ ax.set_ylim([0, 1]);
 ![](ogp.png)
 
 ## References
-[1] Zachary C. Lipton, Charles Elkan, Balakrishnan Naryanaswamy. "[Optimal Thresholding of Classifiers to Maximize F1 Measure](https://link.springer.com/chapter/10.1007/978-3-662-44851-9_15)". In *ECML PKDD*. 2014.
+
+[1] Zachary C. Lipton, Charles Elkan, Balakrishnan Naryanaswamy. "[Optimal Thresholding of Classifiers to Maximize F1 Measure](https://link.springer.com/chapter/10.1007/978-3-662-44851-9_15)". In _ECML PKDD_. 2014.

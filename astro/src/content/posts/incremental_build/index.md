@@ -3,7 +3,7 @@ title: Tiny Tips for Gatsby Incremental Builds on Netlify
 date: "2020-05-16T23:12:03.284Z"
 description: "Stuck in an error when enabling Gatsby incremental builds on Netlify? This post might help it."
 featuredImage: incremental_build/ogp.jpg
-tags: ["en", "gatsby", "programming"]
+tags: ["gatsby", "programming"]
 slug: "incremental_build"
 lang: "en"
 ---
@@ -23,9 +23,11 @@ v12.16.2
 $ npm --version
 6.14.4
 ```
+
 <br/>
 
 ## Error
+
 I just followed the instruction in [the official blog](https://www.netlify.com/blog/2020/04/23/enable-gatsby-incremental-builds-on-netlify/). I saw no errors in the development environment, so I pushed the code, and got this error on Netlify.
 
 ```shell
@@ -54,7 +56,8 @@ I just followed the instruction in [the official blog](https://www.netlify.com/b
 <br/>
 
 ## How to Solve
-This error was totally unfamiliar to me. Searching by the error message did not help.  
+
+This error was totally unfamiliar to me. Searching by the error message did not help.
 
 Since the error was happning in `netlify.toml`, I checked the file and went to [the official repository](https://github.com/jlengstorf/netlify-plugin-gatsby-cache) of `netlify-plugin-gatsby-cache`.
 
@@ -68,4 +71,4 @@ It tells us to add the following lines in `netlify.toml`.
   package = "netlify-plugin-gatsby-cache"
 ```
 
-*The first two lines are critical*. Adding them solved my problem. The problem was that I didn't include the first two lines because I created `netlify.toml` just when I read the blog.
+_The first two lines are critical_. Adding them solved my problem. The problem was that I didn't include the first two lines because I created `netlify.toml` just when I read the blog.
