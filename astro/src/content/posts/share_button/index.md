@@ -3,14 +3,14 @@ title: SNS Share Button for Gatsby Blog
 date: "2020-04-03T22:18:03.284Z"
 description: "This post introduces how to put arranged SNS share buttons for Gatsby blog posts."
 featuredImage: share_button/ogp.png
-tags: ["en", "gatsby", "programming"]
+tags: ["gatsby", "programming"]
 slug: "share_button"
 lang: "en"
 ---
 
 Share buttons are an essential element of blogs in this “SNS era”. In this blog, too, you see them for several SNS at the top and bottom of each post. However, Gatsby blog does not have share buttons by default.
 
-Fortunately, there is an easy-to-use module in React.js. In this post, I demonstrate how it is used in the Gatsby blog. 
+Fortunately, there is an easy-to-use module in React.js. In this post, I demonstrate how it is used in the Gatsby blog.
 
 ## Install
 
@@ -19,10 +19,13 @@ First, install [react-share](https://github.com/nygardk/react-share).
 ```bash
 npm install --save react-share
 ```
+
 <br>
 
 ## Share Button
-I consider the following 6 SNS (plus [*Hatena Bookmark*](https://b.hatena.ne.jp/)):
+
+I consider the following 6 SNS (plus [_Hatena Bookmark_](https://b.hatena.ne.jp/)):
+
 - Facebook
 - Twitter
 - WhatsApp
@@ -33,6 +36,7 @@ I consider the following 6 SNS (plus [*Hatena Bookmark*](https://b.hatena.ne.jp/
 `react-share` supports many other SNS such as Telegram, Tumblr, Weibo etc.
 
 ### react-share
+
 Let's create `share.js` ([full code](https://github.com/shionhonda/hippocampus-garden/blob/master/src/components/share.js)) and import `ShareButton` and `Icon` from `react-share` for each.
 
 ```javascript:title=src/components/share.js
@@ -55,6 +59,7 @@ import {
 
 ...
 ```
+
 <br>
 
 Next, get the site metadata such as the page title and URL with GraphQL.
@@ -83,6 +88,7 @@ const Share = ({title, url}) => {
 
 }
 ```
+
 <br>
 
 It's almost done! The last part returns the unnumbered list of share buttons. In each list item, I set `display: "inline-block"` to arrange the buttons in a single line.
@@ -91,9 +97,9 @@ It's almost done! The last part returns the unnumbered list of share buttons. In
 const Share = ({title, url}) => {
 
     ...
-  
-    return ( 
-        <ul style={{listStyle:"none", margin: "0", padding: "0"}}>    
+
+    return (
+        <ul style={{listStyle:"none", margin: "0", padding: "0"}}>
             <li style={{display: "inline-block"}}>
                 <TwitterShareButton title={title} via={social.twitter} url={url}>
                     <TwitterIcon size={40} square="true" />
@@ -124,16 +130,18 @@ const Share = ({title, url}) => {
                     <WhatsappIcon size={40} square="true" />
                 </WhatsappShareButton>
             </li>
-        </ul>    
-    );  
+        </ul>
+    );
 }
 
 export default Share;
 ```
+
 <br>
 
 ### Hatena Bookmark
-*Hatena Bookmark* is not supported by `react-share`, so I use Helmet instead. As I showed earlier, import `Helmet` from `react-helmet` first. The button component is taken from [here](https://b.hatena.ne.jp/guide/bbutton).
+
+_Hatena Bookmark_ is not supported by `react-share`, so I use Helmet instead. As I showed earlier, import `Helmet` from `react-helmet` first. The button component is taken from [here](https://b.hatena.ne.jp/guide/bbutton).
 
 ```javascript:title=src/components/share.js
 ...
@@ -146,12 +154,12 @@ const Share = ({title, url}) => {
     ...
 
     return (
-        
+
         <ul style={{listStyle:"none", margin: "0", padding: "0"}}>
             <Helmet>
                 <script type="text/javascript" src="//b.st-hatena.com/js/bookmark_button.js" charset="utf-8" async="async"/>
             </Helmet>
-            
+
             ...
 
             <li style={{display: "inline-block"}}>
@@ -160,15 +168,17 @@ const Share = ({title, url}) => {
                 </a>
             </li>
         </ul>
-            
-    );  
+
+    );
 }
 
 export default Share;
 ```
+
 <br>
 
 ## Blog Post Template
+
 Finally, let's import the share buttons from the blog post template `blog-post.js`. The `Share` component defined above displays the arranged share buttons. I call it twice: at the start and the end of the post.
 
 ```javascript:title=src/templates/blog-post.js
@@ -179,7 +189,7 @@ import Share from "../components/share"
 ...
 
 const BlogPostTemplate = ({ data, pageContext, location }) => {
-  
+
   ...
 
   return (
@@ -209,7 +219,7 @@ const BlogPostTemplate = ({ data, pageContext, location }) => {
           >
             {post.frontmatter.date}
           </p>
-          
+
           <Share title={post.frontmatter.title} url={url + post.fields.slug}></Share>
           <section dangerouslySetInnerHTML={{ __html: post.html }} />
           <hr
@@ -230,6 +240,7 @@ export default BlogPostTemplate
 
 ...
 ```
+
 <br>
 
 Don't forget to set OGP images 😉

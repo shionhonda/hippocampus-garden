@@ -3,7 +3,7 @@ title: 2023年に読んだ本
 date: "2024-02-24T23:02:03.284Z"
 description: "2023年に読んだ本を振り返ります。"
 featuredImage: books_2023/ogp.jpg
-tags: ["ja", "book"]
+tags: ["book"]
 slug: "books_2023"
 lang: "ja"
 ---
@@ -33,7 +33,7 @@ lang: "ja"
   - [はじめてのUXリサーチ](#はじめてのuxリサーチ)
 - [番外編](#番外編)
 
-##  機械学習
+## 機械学習
 
 ### Designing Machine Learning Systems
 

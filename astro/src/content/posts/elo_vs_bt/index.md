@@ -3,7 +3,7 @@ title: "Elo vs Bradley-Terry: Which is Better for Comparing the Performance of L
 date: "2024-03-17T22:01:03.284Z"
 description: "Chatbot Arena updated its LLM ranking method from Elo to Bradley-Terry. What changed? Let's dig into the differences."
 featuredImage: elo_vs_bt/figure.png
-tags: ["en", "math", "python"]
+tags: ["math", "python"]
 slug: "elo_vs_bt"
 lang: "en"
 ---
@@ -73,7 +73,7 @@ As opposed to the Elo rating system, Bradley-Terry model assumes that the perfor
 
 ## Experiment
 
-Is Bradley-Terry model really more stable than Elo rating? Let's compare the two models using the data from Chatbot Arena. 
+Is Bradley-Terry model really more stable than Elo rating? Let's compare the two models using the data from Chatbot Arena.
 
 LMSYS Org provides [an insightful notebook that demonstrates how to estimate the ratings of all the 45 chat models using the two methods](https://colab.research.google.com/drive/1KdwokPjirkTmpO_P1WByFNFiqxWQquwH). If you are interested in how to implement them in Python, I encourage you to check it out. Here, I only show the results of the experiment.
 

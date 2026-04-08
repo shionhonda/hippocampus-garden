@@ -3,7 +3,7 @@ title: "Book Review: Database Internals"
 date: "2025-04-27T22:12:03.284Z"
 description: "A deep dive into how databases work."
 featuredImage: book_review_petrov/ogp.jpg
-tags: ["en", "book", "database"]
+tags: ["book", "database"]
 slug: "book_review_petrov"
 lang: "en"
 ---

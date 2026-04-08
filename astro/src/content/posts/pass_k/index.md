@@ -3,7 +3,7 @@ title: "Pass@k and Pass^k Tell Different Stories from Mean Success Rate"
 date: "2025-10-30T22:01:03.284Z"
 description: "These metrics capture coverage and reliability."
 featuredImage: pass_k/pass_hat_k.png
-tags: ["en", "deep-learning", "nlp"]
+tags: ["deep-learning", "nlp"]
 slug: "pass_k"
 lang: "en"
 ---
@@ -34,29 +34,28 @@ In other words, the same average success rate (0.5) yields “continuous success
 
 Consider a task $i$ with single run success probability $p_i \in [0, 1]$. Across tasks the probabilities follow some distribution $P(p)$. Repeated trials on the same task are independent draws with the same $p_i$ throughout.
 
-| Metric | Definition | Intuition |
-| --- | --- | --- |
-| Average success rate | $\mathrm{pass}^1 = \mathbb{E}[p]$ | Probability of a single success |
-| Continuous success (pass^k) | $\mathrm{pass}^k = \mathbb{E}[p^k]$ | Probability of $k$ straight successful runs |
-| Coverage (pass@k) | $\mathrm{pass}@k = \mathbb{E}[1 - (1-p)^k]$ | Probability of at least one success in $k$ tries |
+| Metric                      | Definition                                  | Intuition                                        |
+| --------------------------- | ------------------------------------------- | ------------------------------------------------ |
+| Average success rate        | $\mathrm{pass}^1 = \mathbb{E}[p]$           | Probability of a single success                  |
+| Continuous success (pass^k) | $\mathrm{pass}^k = \mathbb{E}[p^k]$         | Probability of $k$ straight successful runs      |
+| Coverage (pass@k)           | $\mathrm{pass}@k = \mathbb{E}[1 - (1-p)^k]$ | Probability of at least one success in $k$ tries |
 
 ## A Toy Experiment: Same Mean, Different Shapes
 
 Hold the average success rate $\mu$ at 0.5 but change the shape of the per task distribution.
 
-| Scenario | Probabilities $p_i$ | Average | Standard deviation | Description |
-| --- | --- | --- | --- | --- |
-| homogeneous | 0.50 (100%) | 0.5 | 0.0 | Uniform skill on every task |
-| no skew | 0.20 (50%), 0.80 (50%) | 0.5 | ~0.30 | Half the tasks are easy wins, half resist |
-| negative skew | 0.07 (~33%), 0.715 (~67%) | 0.5 | ~0.30 | Most tasks are easy yet a few almost always fail |
-| positive skew | 0.93 (~33%), 0.285 (~67%) | 0.5 | ~0.30 | Most tasks are hard yet a few are guaranteed wins |
+| Scenario      | Probabilities $p_i$       | Average | Standard deviation | Description                                       |
+| ------------- | ------------------------- | ------- | ------------------ | ------------------------------------------------- |
+| homogeneous   | 0.50 (100%)               | 0.5     | 0.0                | Uniform skill on every task                       |
+| no skew       | 0.20 (50%), 0.80 (50%)    | 0.5     | ~0.30              | Half the tasks are easy wins, half resist         |
+| negative skew | 0.07 (~33%), 0.715 (~67%) | 0.5     | ~0.30              | Most tasks are easy yet a few almost always fail  |
+| positive skew | 0.93 (~33%), 0.285 (~67%) | 0.5     | ~0.30              | Most tasks are hard yet a few are guaranteed wins |
 
 ## k-sweep: Comparing pass@k and pass^k
 
 ![pass@k vs. pass^k for different distributions.](./pass_hat_k.png)
 
 <div style="text-align: center;"><small>Pass@k (dashed) and pass^k (solid).</small></div>
-
 
 The figure sweeps $k$ from one to eight and plots pass@k with dashed lines and pass^k with solid lines. Several patterns stand out:
 

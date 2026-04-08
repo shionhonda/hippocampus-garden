@@ -3,20 +3,20 @@ title: "Stats with Python: Multiple Linear Regression"
 date: "2021-03-31T22:10:03.284Z"
 description: "This post steps forward to multiple linear regression. The method of least squares is revisited --with linear algebra."
 featuredImage: stats_linreg_2/ogp.png
-tags: ["en", "stats", "python", "math"]
+tags: ["stats", "python", "math"]
 slug: "stats_linreg_2"
 lang: "en"
 ---
 
-[The last post](https://hippocampus-garden.com/stats_linreg/) discussed simple linear regression, which explains the objective variable $y$ by a *single* explanatory variable $x$. This post introduces regression with multiple explanatory variables $X$: **multiple linear regression**.
-
+[The last post](https://hippocampus-garden.com/stats_linreg/) discussed simple linear regression, which explains the objective variable $y$ by a _single_ explanatory variable $x$. This post introduces regression with multiple explanatory variables $X$: **multiple linear regression**.
 
 $$
 y = \beta_0+\beta_1x_1+\ldots+\beta_mx_m = \boldsymbol{\beta}^\mathrm{T}\boldsymbol{x}
 $$
 
 ## Least Square Estimates, Revisited!
-Just like simple linear regression, multiple linear regression also finds their parameters $\boldsymbol{\beta}$ by the **method of least squares**. 
+
+Just like simple linear regression, multiple linear regression also finds their parameters $\boldsymbol{\beta}$ by the **method of least squares**.
 Given the paired data $\{(x_i,y_i)\}_{i=1}^n$, the sum of the squared error between the predicted $\hat{y}_i =  \boldsymbol{\beta}^\mathrm{T}\boldsymbol{x}$ and the actual $y_i$ is written in a matrix form:
 
 $$
@@ -30,10 +30,10 @@ $$
 $$
 
 ### Proof
+
 $$
 \mathcal{L}(\boldsymbol{b}) = ( \boldsymbol{y} - X\boldsymbol{b} )^2
 $$
-
 
 $$
 \begin{aligned}
@@ -45,6 +45,7 @@ X^{\mathrm{T}}X\boldsymbol{b} &= X^{\mathrm{T}}\boldsymbol{y}\\
 $$
 
 ## Coefficient of Determination
+
 **Coefficient of determination** $R^2$ is defined in exactly the same way as for simple linear regression.
 
 $$
@@ -62,6 +63,7 @@ $$
 Here, $n-1$ is the degree of freedom of the totals $y_i-\bar{y}$ and $n-m-1$ is the degree of freedom of the residuals $y-\hat{y_i}$.
 
 ## Experiment
+
 It's easy to use multple linear regression because scikit-learn's `LinearRegression` supports it by default. You can use it exactly the same way as the [last post](https://hippocampus-garden.com/stats_linreg/).
 
 First, let's prepare the dataset.
@@ -118,5 +120,6 @@ r2_score(y, model.predict(X))
 <br/>
 
 ## References
+
 [1] 倉田 博史, 星野 崇宏. "[入門統計解析](https://www.saiensu.co.jp/search/?isbn=978-4-88384-140-0&y=2009)"（第9章）. 新世社. 2009.  
 [2] [Multiple Linear Regression and Visualization in Python | Pythonic Excursions](https://aegis4048.github.io/mutiple_linear_regression_and_visualization_in_python)

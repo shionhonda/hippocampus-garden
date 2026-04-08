@@ -3,7 +3,7 @@ title: "Stats with Python: Unbiased Variance"
 date: "2021-01-17T22:10:03.284Z"
 description: "What is unbiased sample variance? Why divide by n-1? With a little programming with Python, it's easier to understand."
 featuredImage: stats_unbiased_variance/ogp.jpg
-tags: ["en", "stats", "python"]
+tags: ["stats", "python"]
 slug: "stats_unbiased_variance"
 lang: "en"
 ---
@@ -25,6 +25,7 @@ $$
 When I first saw this, it looked weird. Where does $n-1$ come from? The professor said "this term makes the estimation unbiased", which I didn't quite understand. But now, thanks to Python, it's much clearer than it was then. So, in this post, I'll make a concise and clear explanation of unbiased variance.
 
 ## Visualizing How Unbiased Variance is Great
+
 Consider a "biased" version of variance estimator:
 
 $$
@@ -98,6 +99,7 @@ plt.title("Sample variance (averaged over 10,000 trials)");
 Now it's clear how the biased variance is biased. Even when there are 100 samples, its estimate is expected to be 1% smaller than the ground truth. In contrast, the unbiased variance is actually "unbiased" to the ground truth.
 
 ## Proof
+
 Though it is a little complicated, here is a formal explanation of the above experiment. Recall that the variance of the sample mean follows this equation:
 
 $$
@@ -110,7 +112,7 @@ V[\bar{X}] &= V\Biggl[\frac{1}{n}\sum_{i=1}^nX_i\Biggr]\\
 \end{aligned}
 $$
 
-Thus, 
+Thus,
 
 $$
 \begin{aligned}
@@ -120,7 +122,7 @@ E[S^2]
 &= E\Biggl[ \frac{1}{n}\sum_{i=1}^n \Bigl((X_i-\mu)^2 -2(X_i-\mu)(\bar{X}-\mu) +(\bar{X}-\mu)^2 \Bigr) \Biggr] \\
 &= E\Biggl[ \frac{1}{n}\sum_{i=1}^n (X_i-\mu)^2\Biggr] \\
   & \quad- E\Biggl[\frac{2}{n}\sum_{i=1}^n (X_i-\mu)(\bar{X}-\mu) \Biggr] \\
-  & \quad+ E\Biggl[\frac{1}{n}\sum_{i=1}^n (\bar{X}-\mu)^2 \Biggr] \\    
+  & \quad+ E\Biggl[\frac{1}{n}\sum_{i=1}^n (\bar{X}-\mu)^2 \Biggr] \\
 
 &=  \frac{1}{n}\sum_{i=1}^n E[(X_i-\mu)^2] \\
  & \quad- E\Biggl[\frac{2}{n}(\bar{X}-\mu)\sum_{i=1}^n (X_i-\mu) \Biggr] \\
@@ -145,7 +147,6 @@ $$
 E[s^2] = \sigma^2.
 $$
 
-
 Here, $n-1$ is a quantity called **degree of freedom**. In the above example, the samples are subject to the equation:
 
 $$
@@ -155,6 +156,7 @@ $$
 So, given the sample mean $\bar{X}$, the $n$ samples have only $n-1$ degrees of freedom. When I called the function `np.var()` in the experiment, I specified `ddof=0` or `ddof=1`. This argument is short for delta degree of freedom, meaning how many degrees of freedom are reduced.
 
 ## Intuition
+
 The bias of the biased variance can be explained in a more intuitive way. By definition, the sample mean is always closer to the samples than the population mean, which leads to the smaller variance estimation if divided by the sample size $n$. For more explanations, I'd recommend this video:
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/sHRBg6BhKjI?start=214" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
@@ -162,4 +164,5 @@ The bias of the biased variance can be explained in a more intuitive way. By def
 <br/>
 
 ## References
+
 [1] 東京大学教養学部統計学教室 編. "[統計学入門](http://www.utp.or.jp/book/b300857.html)"（第9章）. 東京大学出版会. 1991.

@@ -3,11 +3,10 @@ title: "Stats with Python: Simple Linear Regression"
 date: "2021-03-22T22:10:03.284Z"
 description: "This post summarizes the basics of simple linear regression --method of least squares and coefficient of determination."
 featuredImage: stats_linreg/ogp.png
-tags: ["en", "stats", "python", "math"]
+tags: ["stats", "python", "math"]
 slug: "stats_linreg"
 lang: "en"
 ---
-
 
 We've seen several aspects of the correlation coefficient in the [previous posts](https://hippocampus-garden.com/stats_correlation_bias/). The correlation coefficient treats two variables equally; they are symmetrical. When two variables are not symmetrical, that is, when you want to explain $y$ by $x$, correlation analysis alone is not sufficient. Instead, you might want to conduct a **regression analysis**.
 
@@ -35,6 +34,7 @@ $$
 $$
 
 , where
+
 $$
 \begin{gathered}
   S_{xy} \coloneqq \frac{1}{n}\sum_{i = 1}^n (x_i - \overline{x})
@@ -45,6 +45,7 @@ $$
 $$
 
 ### Proof
+
 $$
 \mathcal{L}(b_0,b_1) = \sum_{i=1}^n \{ (y_i-\bar{y}) + (\bar{y}-b_0-b_1\bar{x}) -b_1(x_i-\bar{x})\}^2
 $$
@@ -63,17 +64,18 @@ $$
 From the above calculation, $\mathcal{L}(b_0,b_1)$ takes its minimum value when $b_1=S_{xy}/S_x^2$ and $b_0 = \bar{y}-b_1\bar{x}$.
 
 ## Coefficient of Determination
+
 Now we have the predicted values $\{\hat{y}_i\}_{i=1}^n$. How good are these predictions? To evaluate the goodness, **coefficient of determination** $R^2$ is frequently used.
 
 $$
 R^2 \coloneqq \frac{ESS}{TSS} = \frac{ \sum_{i=1}^n (\hat{y_i}-\bar{y})^2}{\sum_{i=1}^n (y_i-\bar{y})^2}.
 $$
 
-The coefficient of determination is the ratio of ESS (explained sum of squares) to TSS (total sum of squares). As you may imagine from its notation, *the coefficient of determination $R^2$ is the square of the Pearson correlation coefficient $r$*.
+The coefficient of determination is the ratio of ESS (explained sum of squares) to TSS (total sum of squares). As you may imagine from its notation, _the coefficient of determination $R^2$ is the square of the Pearson correlation coefficient $r$_.
 
 ### Proof
-Using the equation: $\hat{y}_i - \bar{y} = \beta_1(x_i - \bar{x})$,
 
+Using the equation: $\hat{y}_i - \bar{y} = \beta_1(x_i - \bar{x})$,
 
 $$
 \begin{aligned}
@@ -86,6 +88,7 @@ $$
 $$
 
 ## Experiment
+
 Lastly, let's confirm that $R^2=r^2$, introducing how to use linear regression with Python. As done in [the previous post](https://hippocampus-garden.com/stats_rank_correlation/), I generated 100 pairs of correlated random samples (x and y).
 
 ```python
@@ -130,4 +133,5 @@ np.corrcoef(x, y)[0,1]**2
 <br/>
 
 ## References
-[1] 倉田 博史, 星野 崇宏. "[入門統計解析](https://www.saiensu.co.jp/search/?isbn=978-4-88384-140-0&y=2009)"（第3章）. 新世社. 2009.  
+
+[1] 倉田 博史, 星野 崇宏. "[入門統計解析](https://www.saiensu.co.jp/search/?isbn=978-4-88384-140-0&y=2009)"（第3章）. 新世社. 2009.

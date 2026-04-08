@@ -3,7 +3,7 @@ title: 2024年に読んだ本
 date: "2025-01-25T23:02:03.284Z"
 description: "2024年に読んだ本を振り返ります。"
 featuredImage: books_2024/ogp.jpg
-tags: ["ja", "book"]
+tags: ["book"]
 slug: "books_2024"
 lang: "ja"
 ---
@@ -25,7 +25,7 @@ lang: "ja"
   - [うひ山ぶみ](#うひ山ぶみ)
 - [番外編](#番外編)
 
-##  機械学習
+## 機械学習
 
 ### ゼロから作るDeep Learning 5
 
@@ -135,5 +135,7 @@ lang: "ja"
 あとは、資産運用と人生設計について考える材料として、『[DIE WITH ZERO](https://amzn.to/3PLrglg)』（Bill Perkins）と『[投資の大原則](https://amzn.to/4g6JtV2)』（Burton Malkiel）を読みました。
 
 [^1]: リクルートホールディングス社長の出木場 久征氏が唱える「[失敗の総量をマネジメントする](https://recruit-holdings.com/ja/blog/post_20240930_0001/)」という考え方は、まさにその具体例です。
+
 [^2]: 報酬を現金とストックオプションの組み合わせで設計するのも具体例の一つです。
+
 [^3]: 例えば、『[独学大全](https://hippocampus-garden.com/books_fy2022/#%E7%8B%AC%E5%AD%A6%E5%A4%A7%E5%85%A8)』のような本です。

@@ -19,7 +19,7 @@ export function topicSlug(tag: string) {
 }
 
 export function isDisplayTopic(tag: string) {
-  return tag !== "en" && tag !== "ja" && tag !== "internal"
+  return tag !== "internal"
 }
 
 export function getRecentMajorTopics<T extends PostLike>(posts: T[]) {

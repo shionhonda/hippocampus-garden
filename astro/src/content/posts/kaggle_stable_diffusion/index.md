@@ -3,7 +3,7 @@ title: "Kaggle Competition Report: Stable Diffusion"
 date: "2023-06-25T22:01:03.284Z"
 description: "How do you invert the text-to-image generation by Stable Diffusion? Let's take a look at the solutions by the winning teams."
 featuredImage: kaggle_stable_diffusion/ogp.jpg
-tags: ["en", "kaggle", "cv", "nlp"]
+tags: ["kaggle", "cv", "nlp"]
 slug: "kaggle_stable_diffusion"
 lang: "en"
 ---
@@ -74,7 +74,6 @@ On top of that, they
 - employed a technique called "linear probe and then finetune" (**LP-FT**), where they trained the last linear layers before finetuning the entire model [2]
 - used a higher resolution for images by interpolating positional encoding during pretraining
 
-
 ### 3rd Place
 
 [@sai11fkaneko](https://www.kaggle.com/competitions/stable-diffusion-image-to-prompts/discussion/410686) won the third place using only 400K images.
@@ -86,4 +85,4 @@ During CLIP training, @sai11fkaneko employed LP-FT and layer-wise learning rate 
 ## References
 
 [1] Kazuki Fujikawa. [Stable Diffusion - Image to Prompts - Speaker Deck](https://speakerdeck.com/kfujikawa/stable-diffusion-image-to-prompts). 2023.  
-[2] Ananya Kumar, Aditi Raghunathan, Robbie Jones, Tengyu Ma, Percy Liang. "[Fine-Tuning can Distort Pretrained Features and Underperform Out-of-Distribution](https://arxiv.org/abs/2202.10054)". *ICLR*. 2022.
+[2] Ananya Kumar, Aditi Raghunathan, Robbie Jones, Tengyu Ma, Percy Liang. "[Fine-Tuning can Distort Pretrained Features and Underperform Out-of-Distribution](https://arxiv.org/abs/2202.10054)". _ICLR_. 2022.

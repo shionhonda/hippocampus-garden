@@ -3,7 +3,7 @@ title: "Aligning LLMs without Paired Preference Labels"
 date: "2024-05-08T22:01:03.284Z"
 description: "It's hard to collect paired preferences. Can we align LLMs without them? Yes, with KTO!"
 featuredImage: tiny_llama_kto_lora/ogp.jpg
-tags: ["en", "nlp", "deep-learning"]
+tags: ["nlp", "deep-learning"]
 slug: "tiny_llama_kto_lora"
 lang: "en"
 ---

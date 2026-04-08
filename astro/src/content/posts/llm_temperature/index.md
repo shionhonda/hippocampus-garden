@@ -3,7 +3,7 @@ title: "Why You Can’t Set Temperature on GPT-5/o3"
 date: "2025-09-20T22:01:03.284Z"
 description: "Some LLMs disable sampling knobs like temperature and top_p. Here’s why."
 featuredImage: llm_temperature/ogp.png
-tags: ["en", "deep-learning", "llm"]
+tags: ["deep-learning", "llm"]
 slug: "llm_temperature"
 lang: "en"
 ---
@@ -64,7 +64,6 @@ The discussion above describes naive sampling, where you sample directly from th
 
 <br/>
 
-
 **Top-k sampling** truncates the candidate pool to the top $k$ tokens, then samples. It reduces extremely low-probability picks while keeping some variety. However, choosing the optimal $k$ is hard and can lead to abrupt cutoffs in the distribution.
 
 ### Top-p Sampling
@@ -95,6 +94,9 @@ The decoding path for modern reasoning models (like GPT-5, o3, and o4-mini) is l
 To let users steer the output, OpenAI introduced parameters such as `reasoning_effort` and `verbosity`. `verbosity` is straightforward: it adjusts the length of the output. `reasoning_effort` is more interesting: it likely adjusts not only the depth of reasoning, but also the width (the number of paths). This hypothesis aligns with published research on test-time scaling of LLMs. [^4]
 
 [^1]: If you are interested in the (non-)determinism of LLMs, [this blog post from Thinking Machines](https://thinkingmachines.ai/blog/defeating-nondeterminism-in-llm-inference/) is a great read.
+
 [^2]: Bradley Brown, Jordan Juravsky, Ryan Ehrlich, Ronald Clark, Quoc V. Le, Christopher Ré, Azalia Mirhoseini. [Large Language Monkeys: Scaling Inference Compute with Repeated Sampling](https://arxiv.org/abs/2407.21787). 2024.
+
 [^3]: While open-source reasoning models such as [DeepSeek R1](https://arxiv.org/abs/2501.12948), [QwQ](https://qwenlm.github.io/blog/qwq-32b/), and [Magistral](https://arxiv.org/abs/2506.10910) do not seem to use these techniques, I believe this is a key difference between them and the closed-source models that disable sampling knobs.
+
 [^4]: Charlie Snell, Jaehoon Lee, Kelvin Xu, Aviral Kumar. [Scaling LLM Test-Time Compute Optimally can be More Effective than Scaling Model Parameters](https://arxiv.org/abs/2408.03314v1). 2024.

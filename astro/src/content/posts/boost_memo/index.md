@@ -3,7 +3,7 @@ title: 「やる気ブーストメモ」を作ろう
 date: "2025-02-23T23:02:03.284Z"
 description: "成長意欲の高い人が自己肯定感を保つのに役立つ実践的なツールを紹介します。"
 featuredImage: boost_memo/ogp.jpg
-tags: ["ja", "career"]
+tags: ["career"]
 slug: "boost_memo"
 lang: "ja"
 ---

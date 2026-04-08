@@ -3,7 +3,7 @@ title: "Training A Not-So-Large Language Model for $50"
 date: "2023-09-08T22:01:03.284Z"
 description: "What I cannot create, I do not understand. Let's train your own LLM!"
 featuredImage: llm_from_scratch/ogp.jpg
-tags: ["en", "deep-learning", "nlp"]
+tags: ["deep-learning", "nlp"]
 slug: "llm_from_scratch"
 lang: "en"
 ---
@@ -64,7 +64,7 @@ The final perplexity was 0.83. But how good is that? To find out, let's have it 
 
 When I fed the prompt "life is about" into the initial model, it generated a random sequence of sub-words:
 
-> life is about hospitals stained whirlinggravity santvet ransacked accumulation  
+> life is about hospitals stained whirlinggravity santvet ransacked accumulation
 
 But when I gave it to the final model, it generated sentences like this:
 

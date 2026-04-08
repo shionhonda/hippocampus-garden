@@ -1,9 +1,9 @@
 ---
 title: "How to Get a List of Email Addresses of Team Members in Microsoft Teams"
 date: "2023-05-15T22:10:03.284Z"
-description: 'Learn how to easily obtain a list of email addresses for team members.'
+description: "Learn how to easily obtain a list of email addresses for team members."
 featuredImage: teams_email/ogp.jpg
-tags: ["en", "misc"]
+tags: ["misc"]
 slug: "teams_email"
 lang: "en"
 ---

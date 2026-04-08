@@ -96,7 +96,7 @@ export const profileByLocale: Record<Locale, LocalizedProfile> = {
         period: "2018-2020",
         title: "University of Tokyo",
         detail:
-          "Completed a master&apos;s degree in information science. Research focused on representation learning for molecules.",
+          "Completed a master's degree in information science. Research focused on representation learning for molecules.",
       },
     ],
     booksAndWriting: [

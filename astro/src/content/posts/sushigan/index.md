@@ -1,9 +1,9 @@
 ---
-title: 'How I Built 🍣This Sushi Does Not Exist🍣'
+title: "How I Built 🍣This Sushi Does Not Exist🍣"
 date: "2020-12-19T22:01:03.284Z"
 description: 'Lightweight GAN has opened the way for generating fine images with ~100 training samples and affordable computing resources. This post presents "This Sushi Does Not Exist" and how I built it with GAE.'
 featuredImage: sushigan/ogp.jpg
-tags: ["en", "cv", "python", "programming"]
+tags: ["cv", "python", "programming"]
 slug: "sushigan"
 lang: "en"
 ---
@@ -17,7 +17,8 @@ You may already know https://thispersondoesnotexist.com/, where you can get an i
 I've been a big fan of this series, and today, I finally got to release [🍣This Sushi Does Not Exist🍣](https://thissushidoesnotexist.com/), a variant that generates sushi images. Unlike other similar works, I here present how I built it so you can easily build your own "This Stuff Does Not Exist"!
 
 ## Lightweight GAN
-Recent GANs are able to generate super realistic images, while they often require a vast number of training images and prohibitively expensive computation. But recently, a paper by anonymous authors (currently under blind review of ICLR 2021), known as "**Lightweight GAN**", proposed a solution to this issue in an elegant way. They made it possible to generate *1024x1024-sized images with a few hours of training on a single GPU with 100 training samples*, using two simple techniques: a skip-layer excitation module and an autoencoder-like discriminator. As well as common FFHQ face images, Lightweight GAN can even generate pokemon images, which are not so bad.
+
+Recent GANs are able to generate super realistic images, while they often require a vast number of training images and prohibitively expensive computation. But recently, a paper by anonymous authors (currently under blind review of ICLR 2021), known as "**Lightweight GAN**", proposed a solution to this issue in an elegant way. They made it possible to generate _1024x1024-sized images with a few hours of training on a single GPU with 100 training samples_, using two simple techniques: a skip-layer excitation module and an autoencoder-like discriminator. As well as common FFHQ face images, Lightweight GAN can even generate pokemon images, which are not so bad.
 
 ![](2020-12-19-17-26-47.png)
 
@@ -38,6 +39,7 @@ $ lightweight_gan \
 Check out the repository for detailed instructions.
 
 Here are some notes about what I did particularly for generating sushi images.
+
 - I collected 250 sushi images with [sushiscraper](https://github.com/harupy/sushicraper/pull/1).
 - I resized all images to 256x256 and painted the background black.
 - I found the cutout augmentation leads to undesirable artifacts (see below), so I set `--aug-types [translation]` when training.
@@ -52,9 +54,10 @@ After 8 hours of training, the model generated impressive sushi images!
 <br/>
 
 ## Google App Engine
+
 To present the generated images on the internet like "This Stuff Does Not Exist", I built https://thissushidoesnotexist.com/ with **Google App Engine (GAE)** and Flask. It could cost much if generating images in an online fashion, so I saved the pre-generated images in **Google Cloud Storage (GCS)** and made the app randomly get an image to present each time. For communicating between GAE and GCS, [this official tutorial](https://cloud.google.com/appengine/docs/flexible/python/using-cloud-storage) would be a good starter. My app is also based on this tutorial.
 
-If you change `main.py` and `templates/index.html` to the following and deploy the project, you'll see the  images are presented on the website!
+If you change `main.py` and `templates/index.html` to the following and deploy the project, you'll see the images are presented on the website!
 
 ```python:title=main.py
 import base64
@@ -105,7 +108,7 @@ if __name__ == '__main__':
                 <div style="display: inline-block;">
                     <img src="data:image/jpg;base64,{{b64str}}" alt="sushi"/>
                     <div id="description" style="color: #FFFFFF;">
-                        Find more details at... 
+                        Find more details at...
                     </div>
                 </div>
             </div>
@@ -117,9 +120,11 @@ if __name__ == '__main__':
 </br>
 
 ## Concluding Remarks
+
 In this post, I present [🍣This Sushi Does Not Exist🍣](https://thissushidoesnotexist.com/) and how I built it with GAE. Lightweight GAN has brought GANs back to citizens. Now, let's create your GAN applications!
 
 ## References
+
 [1] Tero Karras, Samuli Laine, Miika Aittala, Janne Hellsten, Jaakko Lehtinen, Timo Aila. "[Analyzing and Improving the Image Quality of StyleGAN](https://arxiv.org/abs/1912.04958)." CVPR. 2020.  
 [2] Anonymous Authors. "[Towards Faster and Stabilized GAN Training for High-fidelity Few-shot Image Synthesis](https://openreview.net/forum?id=1Fqg133qRaI)." 2020.  
 [3] [Using Cloud Storage  |  App Engine flexible environment for Python docs](https://cloud.google.com/appengine/docs/flexible/python/using-cloud-storage)

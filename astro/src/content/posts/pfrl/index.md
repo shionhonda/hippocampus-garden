@@ -3,7 +3,7 @@ title: Learning to Play Slime Volleyball with PFRL
 date: "2020-08-08T22:13:03.284Z"
 description: "This post introduces PFRL, a new reinforcement learning library, and uses it to learn to play the Slime Volleyball game on Colaboratory."
 featuredImage: pfrl/ogp.jpg
-tags: ["en", "reinforcement-learning", "python"]
+tags: ["reinforcement-learning", "python"]
 slug: "pfrl"
 lang: "en"
 ---
@@ -16,11 +16,13 @@ In this post, I apply one of the PFRL's algorithms to the Slime Volleyball game 
 <br/>
 
 ## Slime Volleyball
+
 Slime Volleyball is a simple volleyball-like game between two slimes (agents). Each agent initially has five lives, and lose one life if it fails to push the ball back to the opponent's side. An agent receives +1 reward if its opponent loses and -1 if the agent loses a life.
 
-[A Slime Volleyball environment](https://github.com/hardmaru/slimevolleygym) with a Gym interface is provided by [@hardmaru](https://github.com/hardmaru). There are several types of environments, but here I will use the simplest one with 12-dimensional observational space and 3-dimensional action space. 
+[A Slime Volleyball environment](https://github.com/hardmaru/slimevolleygym) with a Gym interface is provided by [@hardmaru](https://github.com/hardmaru). There are several types of environments, but here I will use the simplest one with 12-dimensional observational space and 3-dimensional action space.
 
 ## Reinforcement Learning
+
 PFRL already has an official example of learning to play Slime Volleyball with a value-based algorithm called Rainbow [3]. So I tried a different one, a policy-based algorithm called **proximal policy optimization (PPO)**.
 
 I did the entire experiment on Colaboratory as found [here](https://colab.research.google.com/drive/1P6otMjOBz_LBt_vurUMBgSz88PSffIZI?usp=sharing). Some additional packages are required to render videos on Colab notebooks:
@@ -37,6 +39,7 @@ I did the entire experiment on Colaboratory as found [here](https://colab.resear
 ! pip install pfrl
 ! pip install slimevolleygym==0.1.0
 ```
+
 <br/>
 
 Next, define the environment and the PPO agent. The agent is modeled by a simple 3-layer neural network. For more details, see [the official example](https://github.com/pfnet/pfrl/blob/master/examples/slimevolley/train_rainbow.py) and [the official document](https://pfrl.readthedocs.io/en/latest/agents.html).
@@ -184,13 +187,14 @@ def main():
 
 main()
 ```
+
 <br/>
 
 ## Result
+
 I trained my PPO agent for 2.75M steps and obtained the following learning curve.
 
 ![](2020-08-09-08-13-22.png)
-
 
 My agent seems to have learned a good policy, but the average reward converged between -2 and -1. A careful look at the video above shows that after the 1.5M step, the agent repeatedly tries to lift the ball just to spend time. I think this happened because the agent didn't receive enough positive rewards. It couldn't even know that there was a positive reward, so it tried its best not to receive a negative reward. How to get out of this locally optimum policy? I leave it to a future post😉
 
@@ -203,10 +207,10 @@ Also, it is worth noting that the random seed for initializing the network does 
 The author explains this phenomenon by the analogy of an infant learning to play volleyball against a professional player. If the initial randomized agent is bad, it simply receives the minimum reward and the agent takes longer to learn something from the environment. On the other hand, if the initial randomized agent is good, it can receive a reward higher than the minimum amount by a luck and it can learn which policy is good or bad. So, learners need teachers appropriate for their level. Reinforcement learning teaches us a lot about ourselves!
 
 ## References
+
 [1] [Preferred Networks Releases PFRL Deep Reinforcement Learning Library for PyTorch Users | Preferred Networks, Inc.](https://preferred.jp/en/news/pr20200730/)  
 [2] Matteo Hessel, Joseph Modayil, Hado van Hasselt, Tom Schaul, Georg Ostrovski, Will Dabney, Dan Horgan, Bilal Piot, Mohammad Azar, David Silver. [Rainbow: Combining Improvements in Deep Reinforcement Learning](https://arxiv.org/abs/1710.02298). AAAI. 2018.  
 [3] John Schulman, Filip Wolski, Prafulla Dhariwal, Alec Radford, Oleg Klimov. [Proximal Policy Optimization Algorithms](https://arxiv.org/abs/1707.06347). 2017.  
 [4] [slimevolleygym/TRAINING.md at master · hardmaru/slimevolleygym](https://github.com/hardmaru/slimevolleygym/blob/master/TRAINING.md)  
 [5] [【強化学習】OpenAI Gym×Keras-rlで強化学習アルゴリズムを実装していくぞ（準備編） - Qiita](https://qiita.com/pocokhc/items/a8120b0abd5941dd7a9f#googlecolaboratory-%E3%81%A7%E5%AE%9F%E8%A1%8C%E3%81%97%E3%81%A6%E8%A1%A8%E7%A4%BA%E3%81%99%E3%82%8B)  
 [6] [How to take screen number? · Issue #54 · ponty/PyVirtualDisplay](https://github.com/ponty/PyVirtualDisplay/issues/54)
-

@@ -3,10 +3,11 @@ title: 読んだ本とともに2025年を振り返る
 date: "2026-01-05T23:02:03.284Z"
 description: "2025年に読んだ本を振り返ります。"
 featuredImage: books_2025/ogp.jpg
-tags: ["ja", "book"]
+tags: ["book"]
 slug: "books_2025"
 lang: "ja"
 ---
+
 『[2024年に読んだ本](https://hippocampus-garden.com/books_2024/)』に引き続き、2025年を簡単に振り返りつつ、読んだ本をまとめます。
 
 2025年を振り返ってみると、変化の多い1年でした。
@@ -34,7 +35,6 @@ lang: "ja"
   - [YABUNONAKA](#yabunonaka)
   - [ナチスは「良いこと」もしたのか？](#ナチスは良いこともしたのか)
   - [科学的根拠で子育て](#科学的根拠で子育て)
-
 
 ## コンピュータ
 

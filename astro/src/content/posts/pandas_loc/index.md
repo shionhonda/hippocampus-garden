@@ -3,7 +3,7 @@ title: "Meet Pandas: loc, iloc, at & iat"
 date: "2020-04-27T22:10:03.284Z"
 description: "Have you ever confused Pandas methods `loc`, `at`, and `iloc` with each other? It's no more confusing when you have this table in mind."
 featuredImage: pandas_loc/ogp.jpg
-tags: ["en", "pandas", "data-analysis", "python"]
+tags: ["pandas", "data-analysis", "python"]
 slug: "pandas_loc"
 lang: "en"
 ---
@@ -22,6 +22,7 @@ So, this post aims to help understand differences between the Pandas methods `lo
 Let's find the differences using a simple example!
 
 ## Load Example Data
+
 In this post, I use the iris dataset in the scikit-learn. The snippets in this post are supposed to be executed on Jupyter Notebook, Colaboratory, and stuff.
 
 ```python
@@ -38,6 +39,7 @@ The dataframe should look something like this.
 ![](2020-04-26-23-49-44.png)
 
 ## `at` & `iat` Access a Scalar Value
+
 If you just want to access a scalar value in the dataframe, it is fastest to use the methods `at` and `iat`. They both take two arguments to specify the row and the column to access, and produce the same outputs. The difference between them are discussed afterwards.
 
 ```python
@@ -46,10 +48,12 @@ print(df.at[0, "sepal width (cm)"])
 print(df.iat[0, 1])
 # 3.5
 ```
+
 <br/>
 
 ## `loc` & `iloc` Access Multiple Values
-When you want to access a scalar value, the methods `loc` and `iloc` are a bit slower but produce the same outputs as the methods `at` and `iat`. 
+
+When you want to access a scalar value, the methods `loc` and `iloc` are a bit slower but produce the same outputs as the methods `at` and `iat`.
 
 ```python
 print(df.loc[0, "sepal width (cm)"])
@@ -65,7 +69,7 @@ print(df.loc[0, :"sepal width (cm)"])
 print(df.iloc[0, :2])
 # sepal length (cm)    5.1
 # sepal width (cm)     3.5
-# Name: 0, dtype: float64 
+# Name: 0, dtype: float64
 ```
 
 The sliced form of the second argument is invalid for the methods `at` and `iat`.
@@ -77,7 +81,7 @@ print(df.iat[0, :2])
 ```
 
 You can input boolean arrays to specify rows and columns to access.
- 
+
 ```python
 print(df.loc[0, [True, True, False, False]])
 print(df.iloc[0, :2])
@@ -88,11 +92,11 @@ print(df.iloc[0, :2])
 
 <br/>
 
-
 ## `at` & `loc` vs. `iat` & `iloc`
+
 So, what exactly is the difference between `at` and `iat`, or `loc` and `iloc`? I first thought that it's the type of the second argument. Not accurate.
 
-*The methods `at` and `loc` access the values based on its labels, while the methods `iat` and `iloc` access the values based on its integer positions.*
+_The methods `at` and `loc` access the values based on its labels, while the methods `iat` and `iloc` access the values based on its integer positions._
 
 This difference is clear when you sort the dataframe.
 
@@ -117,13 +121,16 @@ print(df_sorted.loc[0, "sepal width (cm)"])
 print(df_sorted.iloc[0, 1])
 # 2.0
 ```
+
 <br/>
 
 ## Conclusion
+
 I hope this helps someone understand the differences between these confusing methods.
 
 That's it for today. Stay safe!
 
 ## References
+
 [1] [Indexing and selecting data — pandas 1.0.3 documentation](https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#different-choices-for-indexing)  
 [2] [pandasで任意の位置の値を取得・変更するat, iat, loc, iloc | note.nkmk.me](https://note.nkmk.me/python-pandas-at-iat-loc-iloc/)

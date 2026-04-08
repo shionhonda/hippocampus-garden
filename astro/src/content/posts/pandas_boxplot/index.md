@@ -3,17 +3,19 @@ title: "Meet Pandas: Grouping and Boxplot"
 date: "2020-06-14T22:10:03.284Z"
 description: "This post summarizes how to group data by some variable and draw boxplots on it using Pandas and Seaborn."
 featuredImage: pandas_boxplot/ogp.jpg
-tags: ["en", "pandas", "data-analysis", "python"]
+tags: ["pandas", "data-analysis", "python"]
 slug: "pandas_boxplot"
 lang: "en"
 ---
+
 🐼Welcome to the "Meet Pandas" series (a.k.a. my memorandum of understanding Pandas)!🐼
 
-[Last time](https://hippocampus-garden.com/pandas_loc/), I discussed differences between Pandas methods `loc`, `iloc`, `at`, and `iat`. 
+[Last time](https://hippocampus-garden.com/pandas_loc/), I discussed differences between Pandas methods `loc`, `iloc`, `at`, and `iat`.
 
 Today, I summarize how to group data by some variable and draw boxplots on it using Pandas and Seaborn. Let's begin!
 
 ## Load Example Data
+
 In this post, I use the "tips" dataset provided by seaborn. This is a data of food servers’ tips in restaurants with six factors that might influence tips.
 
 The snippets in this post are supposed to be executed on Jupyter Notebook, Colaboratory, and stuff.
@@ -32,6 +34,7 @@ The dataframe should look something like this:
 ![](2020-06-15-14-21-03.png)
 
 ## Group by Categorical or Discrete Variable
+
 First, let's group by the categorical variable `time` and create a boxplot for `tip`. This is done just by two pandas methods `groupby` and `boxplot`.
 
 ```python
@@ -61,6 +64,7 @@ sns.catplot(x="time", y="tip", kind="box", data=df);
 I'm not sure why it produced a figure of a little different size...
 
 ## Other Distribution Plots
+
 For larger datasets, `boxenplot()` gives more information about the shape of the distribution.
 
 ```python
@@ -78,6 +82,7 @@ sns.violinplot(x="time", y="tip", data=df);
 ![](2020-06-15-14-43-21.png)
 
 ## Group by Continuous Variable
+
 Next, let's group by the continuous numerical variable `total_bill` and create boxplot for `tip`. What happens if I use seaborn's `boxplot()` function in the same way as above?
 
 ```python
@@ -105,6 +110,7 @@ sns.boxplot(x="qbin", y="tip", data=df);
 ![](2020-06-15-14-58-14.png)
 
 ## References
+
 [1] [pandas.core.groupby.DataFrameGroupBy.boxplot — pandas 1.0.4 documentation](https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.core.groupby.DataFrameGroupBy.boxplot.html)  
 [2] [seaborn.boxplot — seaborn 0.10.1 documentation](https://seaborn.pydata.org/generated/seaborn.boxplot.html)  
 [3] [Plotting with categorical data — seaborn 0.10.1 documentation](https://seaborn.pydata.org/tutorial/categorical.html)

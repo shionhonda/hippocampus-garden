@@ -3,17 +3,19 @@ title: "Meet Pandas: Group-wise Sampling"
 date: "2020-10-13T22:10:03.284Z"
 description: "This post introduces how to sample groups from a dataset, which is helpful when you want to avoid data leakage."
 featuredImage: pandas_group_sample/ogp.jpg
-tags: ["en", "pandas", "data-analysis", "python"]
+tags: ["pandas", "data-analysis", "python"]
 slug: "pandas_group_sample"
 lang: "en"
 ---
+
 🐼Welcome back to the "Meet Pandas" series (a.k.a. my memorandum for learning Pandas)!🐼
 
-[Last time](https://hippocampus-garden.com/pandas_query/), I discussed `DataFrame`'s easy-to-read selecting method called `query`. 
+[Last time](https://hippocampus-garden.com/pandas_query/), I discussed `DataFrame`'s easy-to-read selecting method called `query`.
 
 Today, I introduce how to sample groups, or group-wise split a dataset. This may help you when you want to avoid data leakage.
 
 ## Create Example Data
+
 Suppose we are developing a user-to-item recommender model and have a dataset of 1,000,000 user-item interactions, which include 10,000 unique users, 256 items, and the corresponding conversion flag. Let's synthesize this dataset with `itertools`:
 
 ```python
@@ -53,6 +55,7 @@ But, in this case, random split leads to data leakage because this dataset inclu
 ![](2020-10-13-09-48-03.png)
 
 ## Group-wise Sampling
+
 Again, this dataset contains 10,000 unique users.
 
 ```python
@@ -93,5 +96,6 @@ df_sampled["user_id"].nunique()
 If you are not familiar with the method `query`, take a look at [my last post on Pandas](https://hippocampus-garden.com/pandas_query/).
 
 ## References
+
 [1] [Group by: split-apply-combine — pandas 1.1.3 documentation](https://pandas.pydata.org/pandas-docs/stable/user_guide/groupby.html#filtration)  
 [2] [itertools — Functions creating iterators for efficient looping — Python 3.9.0 documentation](https://docs.python.org/3/library/itertools.html)

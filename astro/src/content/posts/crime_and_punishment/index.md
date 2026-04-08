@@ -3,7 +3,7 @@ title: 忙しい人のための『罪と罰』
 date: "2024-09-08T23:02:03.284Z"
 description: "NotebookLMを使って青空文庫版『罪と罰』をまとめました。"
 featuredImage: crime_and_punishment/ogp.jpg
-tags: ["ja", "book"]
+tags: ["book"]
 slug: "crime_and_punishment"
 lang: "ja"
 ---
