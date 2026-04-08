@@ -15,13 +15,22 @@ export async function getStaticPaths() {
 
 const page = Number(Astro.params.page ?? "2")
 const allPosts = await getAllPosts()
-const { items, totalPages, currentPage } = paginatePosts(allPosts, page, site.postsPerPage)
+const { items, totalPages, currentPage } = paginatePosts(
+  allPosts,
+  page,
+  site.postsPerPage
+)
 ---
 
-<HomeLayout title={`Page ${currentPage}`} canonicalPath={`/page/${currentPage}/`}>
+<HomeLayout
+  title={`Page ${currentPage}`}
+  canonicalPath={`/page/${currentPage}/`}
+>
   <section class="section home-section">
     <div class="section-header">
-      <h1 class="section-title" style="font-size:var(--text-3xl);">Older posts</h1>
+      <h1 class="section-title" style="font-size:var(--text-3xl);">
+        Older posts
+      </h1>
       <a href="/">Back to latest</a>
     </div>
     <div class="divider-list">

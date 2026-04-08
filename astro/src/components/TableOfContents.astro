@@ -52,16 +52,21 @@ function renderNodes(nodes: TocNode[]): string {
       (node) =>
         `<li class="toc-item toc-depth-${node.depth}"><a href="#${escapeHtml(node.slug)}">${escapeHtml(node.text)}</a>${
           node.children.length > 0 ? renderNodes(node.children) : ""
-        }</li>`,
+        }</li>`
     )
     .join("")}</ul>`
 }
 
-const tree = buildTree(headings.filter((heading) => heading.depth >= 2 && heading.depth <= 4))
+const tree = buildTree(
+  headings.filter((heading) => heading.depth >= 2 && heading.depth <= 4)
+)
 const markup = renderNodes(tree)
 ---
 
-<details class="panel surface toc" style="padding:var(--space-4);margin-bottom:var(--space-8);">
+<details
+  class="panel surface toc"
+  style="padding:var(--space-4);margin-bottom:var(--space-8);"
+>
   <summary style="font-family:var(--font-ui);cursor:pointer;">{title}</summary>
   <div set:html={markup} />
 </details>

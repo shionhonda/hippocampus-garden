@@ -18,7 +18,7 @@ let cache:
 
 function getJsonPath() {
   return fileURLToPath(
-    new URL("../data/google-analytics-v3.json", import.meta.url),
+    new URL("../data/google-analytics-v3.json", import.meta.url)
   )
 }
 
@@ -39,7 +39,7 @@ async function fetchGaRows(startDate: string) {
     process.env.CLIENT_EMAIL,
     undefined,
     process.env.PRIVATE_KEY.replaceAll("\\n", "\n"),
-    "https://www.googleapis.com/auth/analytics.readonly",
+    "https://www.googleapis.com/auth/analytics.readonly"
   )
 
   await jwtClient.authorize()
@@ -67,7 +67,10 @@ async function fetchGaRows(startDate: string) {
   )
 }
 
-function mergeTotalsWithLegacy(rows: AnalyticsNode[], legacyTotals: AnalyticsNode[]) {
+function mergeTotalsWithLegacy(
+  rows: AnalyticsNode[],
+  legacyTotals: AnalyticsNode[]
+) {
   const mergedCounts = new Map<string, number>()
 
   for (const row of rows) {
@@ -77,7 +80,7 @@ function mergeTotalsWithLegacy(rows: AnalyticsNode[], legacyTotals: AnalyticsNod
   for (const legacyNode of legacyTotals) {
     mergedCounts.set(
       legacyNode.path,
-      (mergedCounts.get(legacyNode.path) ?? 0) + legacyNode.count,
+      (mergedCounts.get(legacyNode.path) ?? 0) + legacyNode.count
     )
   }
 
@@ -106,7 +109,7 @@ async function loadAnalytics() {
     const recent = attachPosts(recentRows ?? legacyTotals, posts)
     const total = attachPosts(
       totalRows ? mergeTotalsWithLegacy(totalRows, legacyTotals) : legacyTotals,
-      posts,
+      posts
     )
 
     return { recent, total }

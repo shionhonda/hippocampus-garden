@@ -3,18 +3,30 @@ import { profile } from "../data/profile"
 ---
 
 <section class="panel surface" style="padding:var(--space-6);">
-  <h2 style="position:relative;font-family:var(--font-ui);font-size:var(--text-xl);margin:0 0 var(--space-2);">
+  <h2
+    style="position:relative;font-family:var(--font-ui);font-size:var(--text-xl);margin:0 0 var(--space-2);"
+  >
     {profile.name}
   </h2>
-  <p style="position:relative;margin:0 0 var(--space-4);max-width:40rem;color:var(--color-ink-soft);">
+  <p
+    style="position:relative;margin:0 0 var(--space-4);max-width:40rem;color:var(--color-ink-soft);"
+  >
     {profile.aboutSummary}
   </p>
-  <div style="position:relative;display:flex;gap:var(--space-3);flex-wrap:wrap;font-family:var(--font-ui);font-size:var(--text-sm);">
-    {profile.socials.map((social) => (
-      <a href={social.href} target="_blank" rel="noreferrer">{social.label}</a>
-    ))}
+  <div
+    style="position:relative;display:flex;gap:var(--space-3);flex-wrap:wrap;font-family:var(--font-ui);font-size:var(--text-sm);"
+  >
+    {
+      profile.socials.map((social) => (
+        <a href={social.href} target="_blank" rel="noreferrer">
+          {social.label}
+        </a>
+      ))
+    }
   </div>
-  <div style="position:relative;margin-top:var(--space-4);font-family:var(--font-ui);font-size:var(--text-sm);">
+  <div
+    style="position:relative;margin-top:var(--space-4);font-family:var(--font-ui);font-size:var(--text-sm);"
+  >
     <a href="/about/">About</a>
   </div>
 </section>

@@ -9,43 +9,61 @@ const allTopics = getAllTopics(posts)
 ---
 
 <PageLayout title="Topics" canonicalPath="/topics/">
-  <section class="section" style="max-width:var(--width-wide-max);margin-inline:auto;">
-    <h1 style="font-family:var(--font-ui);font-size:clamp(1.8rem, 3vw, 2.8rem);line-height:1.08;letter-spacing:-0.03em;margin:0 0 var(--space-3);">
+  <section
+    class="section"
+    style="max-width:var(--width-wide-max);margin-inline:auto;"
+  >
+    <h1
+      style="font-family:var(--font-ui);font-size:clamp(1.8rem, 3vw, 2.8rem);line-height:1.08;letter-spacing:-0.03em;margin:0 0 var(--space-3);"
+    >
       Topics
     </h1>
-    <p style="margin:0;max-width:42rem;color:var(--color-ink-soft);font-size:clamp(1.02rem, 1.1vw, 1.14rem);">
+    <p
+      style="margin:0;max-width:42rem;color:var(--color-ink-soft);font-size:clamp(1.02rem, 1.1vw, 1.14rem);"
+    >
       A map of the subjects this site returns to.
     </p>
   </section>
 
-  <section class="section" style="max-width:var(--width-wide-max);margin-inline:auto;">
-    {recentTopics.length > 0 && (
-      <>
-        <div class="section-header">
-          <div>
-            <h2 class="section-title" style="font-size:var(--text-xl);">Recent major topics</h2>
+  <section
+    class="section"
+    style="max-width:var(--width-wide-max);margin-inline:auto;"
+  >
+    {
+      recentTopics.length > 0 && (
+        <>
+          <div class="section-header">
+            <div>
+              <h2 class="section-title" style="font-size:var(--text-xl);">
+                Recent major topics
+              </h2>
+            </div>
           </div>
-        </div>
-        <div style="display:flex;gap:var(--space-2);flex-wrap:wrap;margin-bottom:var(--space-8);">
-          {recentTopics.map((topic) => (
-            <a href={`/topics/${topic.slug}/`} class="topic-chip">
-              {topic.label} ({topic.count})
-            </a>
-          ))}
-        </div>
-      </>
-    )}
+          <div style="display:flex;gap:var(--space-2);flex-wrap:wrap;margin-bottom:var(--space-8);">
+            {recentTopics.map((topic) => (
+              <a href={`/topics/${topic.slug}/`} class="topic-chip">
+                {topic.label} ({topic.count})
+              </a>
+            ))}
+          </div>
+        </>
+      )
+    }
     <div class="section-header">
       <div>
-        <h2 class="section-title" style="font-size:var(--text-xl);">All topics</h2>
+        <h2 class="section-title" style="font-size:var(--text-xl);">
+          All topics
+        </h2>
       </div>
     </div>
     <div style="display:flex;gap:var(--space-2);flex-wrap:wrap;">
-      {allTopics.map((topic) => (
-        <a href={`/topics/${topic.slug}/`} class="topic-chip">
-          {topic.label} ({topic.count})
-        </a>
-      ))}
+      {
+        allTopics.map((topic) => (
+          <a href={`/topics/${topic.slug}/`} class="topic-chip">
+            {topic.label} ({topic.count})
+          </a>
+        ))
+      }
     </div>
   </section>
 </PageLayout>

@@ -60,9 +60,15 @@ const resolvedSocialImage = socialImage ?? getDefaultSocialImage()
     <meta name="twitter:image" content={resolvedSocialImage} />
     <meta name="twitter:creator" content={site.twitterHandle} />
     {noindex && <meta name="robots" content="noindex, nofollow" />}
-    {alternates.map((alternate) => (
-      <link rel="alternate" hreflang={alternate.hrefLang} href={alternate.href} />
-    ))}
+    {
+      alternates.map((alternate) => (
+        <link
+          rel="alternate"
+          hreflang={alternate.hrefLang}
+          href={alternate.href}
+        />
+      ))
+    }
   </head>
   <body>
     <Header />
@@ -94,7 +100,7 @@ const resolvedSocialImage = socialImage ?? getDefaultSocialImage()
           try {
             await registration.update()
           } catch {}
-        }),
+        })
       )
 
       await navigator.serviceWorker.register("/sw.js")
@@ -107,7 +113,7 @@ const resolvedSocialImage = socialImage ?? getDefaultSocialImage()
           try {
             await registration.unregister()
           } catch {}
-        }),
+        })
       )
     } catch {}
   }
@@ -123,6 +129,9 @@ const resolvedSocialImage = socialImage ?? getDefaultSocialImage()
 
   document.addEventListener("astro:page-load", setupAnalytics)
   window.addEventListener("load", unregisterLegacyServiceWorkers)
-  navigator.serviceWorker?.addEventListener("controllerchange", handleControllerChange)
+  navigator.serviceWorker?.addEventListener(
+    "controllerchange",
+    handleControllerChange
+  )
   setupAnalytics()
 </script>

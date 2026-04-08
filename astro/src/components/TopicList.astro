@@ -1,18 +1,16 @@
 ---
-const {
-  topics,
-} = Astro.props as {
+const { topics } = Astro.props as {
   topics: { label: string; slug: string; count: number }[]
 }
 ---
 
 <div style="display:flex;gap:var(--space-2);flex-wrap:wrap;">
-  {topics.map((topic) => (
-    <a
-      href={`/topics/${topic.slug}/`}
-      class="topic-chip"
-    >
-      {topic.label} <span style="color:var(--color-muted);">({topic.count})</span>
-    </a>
-  ))}
+  {
+    topics.map((topic) => (
+      <a href={`/topics/${topic.slug}/`} class="topic-chip">
+        {topic.label}{" "}
+        <span style="color:var(--color-muted);">({topic.count})</span>
+      </a>
+    ))
+  }
 </div>

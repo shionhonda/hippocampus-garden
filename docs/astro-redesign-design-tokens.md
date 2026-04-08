@@ -15,7 +15,6 @@
 - [astro-redesign-design-brief.md](/Users/shionhonda/Projects/hippocampus-garden/docs/astro-redesign-design-brief.md)
 - [astro-redesign-wireframes.md](/Users/shionhonda/Projects/hippocampus-garden/docs/astro-redesign-wireframes.md)
 
-
 ## トークン設計原則
 
 - 本文可読性をブランド表現より優先する
@@ -23,7 +22,6 @@
 - 日本語と英語の混在を前提にする
 - 大きな演出ではなく、小さな精度で印象を作る
 - アニメーション前提の設計はしない
-
 
 ## Color
 
@@ -66,7 +64,6 @@
 - 強いブランド色はポイント用途に限定する
 - `reef-coral` は hover、active、注目ラベル用に絞る
 - 境界線は影より優先する
-
 
 ## Typography
 
@@ -125,7 +122,6 @@
 - Meta text: `text-sm`, `font-ui`, `color-muted`
 - Tag label: `text-xs` or `text-sm`, `font-ui`
 
-
 ## Spacing
 
 8px ベースで統一する。
@@ -149,7 +145,6 @@
 - 本文の段落間は `space-5` 基準
 - タイトルとメタの間は `space-3`
 
-
 ## Radius
 
 - `--radius-sm: 0.375rem;`
@@ -165,7 +160,6 @@
 - badge / topic pill は `radius-pill`
 - 過度に丸くしない
 
-
 ## Border
 
 - `--border-thin: 1px solid var(--color-line);`
@@ -176,7 +170,6 @@
 
 - セクション境界、カード境界、TOC、code header に使用
 - 強いシャドウより境界線を優先する
-
 
 ## Shadow
 
@@ -189,7 +182,6 @@
 - 通常は `shadow-none` または `shadow-soft`
 - hover で少しだけ lift してよい
 - ベタなカード UI に見えるほど影を強くしない
-
 
 ## Layout widths
 
@@ -206,7 +198,6 @@
 - Article body: `width-reading-max`
 - Wide utility sections: `width-wide-max`
 
-
 ## Grid
 
 ### Home post grid
@@ -219,7 +210,6 @@
 
 - Desktop: 2-column where useful
 - Tablet and mobile: 1 column
-
 
 ## Component tokens
 
@@ -268,7 +258,6 @@
 - Radius: `radius-lg`
 - Padding: `space-4` or `space-5`
 
-
 ## Topics naming
 
 UI 上の表示名は原則 `Topics` を使う。
@@ -277,7 +266,6 @@ UI 上の表示名は原則 `Topics` を使う。
 
 - URL や内部データ構造では `tags` を維持してよい
 - ユーザー向け表示では `Topics` を優先する
-
 
 ## Responsive behavior
 
@@ -298,7 +286,6 @@ UI 上の表示名は原則 `Topics` を使う。
 - ワイドモニタでも本文幅を一定以上広げない
 - 情報密度を上げすぎない
 
-
 ## Motion
 
 初期リリースでは motion token は定義だけにとどめ、実装は行わない。
@@ -313,7 +300,6 @@ UI 上の表示名は原則 `Topics` を使う。
 - `transform` と `opacity` のみ
 - ページロード演出は入れない
 
-
 ## 実装メモ
 
 Astro 実装時は、まず CSS variables として global token を定義する。
@@ -327,7 +313,6 @@ Astro 実装時は、まず CSS variables として global token を定義する
 5. border / radius / shadow
 6. component-level token mapping
 
-
 ## 未決事項
 
 実装前に確定すべきこと:
@@ -338,4 +323,3 @@ Astro 実装時は、まず CSS variables として global token を定義する
 4. code font
 5. SNS アイコンの最終セット
 6. Topics の切り出しルール
-

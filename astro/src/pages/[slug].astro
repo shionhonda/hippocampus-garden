@@ -6,7 +6,12 @@ import AuthorSummary from "../components/AuthorSummary.astro"
 import PostCard from "../components/PostCard.astro"
 import TableOfContents from "../components/TableOfContents.astro"
 import PostLayout from "../layouts/PostLayout.astro"
-import { getAllPosts, getPostSlug, getReadingTime, getRelatedPosts } from "../lib/posts"
+import {
+  getAllPosts,
+  getPostSlug,
+  getReadingTime,
+  getRelatedPosts,
+} from "../lib/posts"
 import { getPostCanonicalUrl, getPostSocialImage } from "../lib/seo"
 
 export async function getStaticPaths() {
@@ -37,7 +42,12 @@ const localizedHeadings = isJapanese
   socialImage={getPostSocialImage(post)}
 >
   <article class:list={["prose", isJapanese && "prose-ja"]}>
-    <header class:list={["article-head", isJapanese ? "article-head-ja" : "article-head-en"]}>
+    <header
+      class:list={[
+        "article-head",
+        isJapanese ? "article-head-ja" : "article-head-en",
+      ]}
+    >
       <h1 class="article-title">{post.data.title}</h1>
       <p class="article-dek">{post.data.description}</p>
       <div class="meta-row">
@@ -47,26 +57,32 @@ const localizedHeadings = isJapanese
       </div>
     </header>
 
-    {localizedHeadings.length >= 4 && (
-      <TableOfContents
-        headings={localizedHeadings}
-        title={isJapanese ? "目次" : "Table of contents"}
-      />
-    )}
+    {
+      localizedHeadings.length >= 4 && (
+        <TableOfContents
+          headings={localizedHeadings}
+          title={isJapanese ? "目次" : "Table of contents"}
+        />
+      )
+    }
 
     <Content />
   </article>
 
-  {relatedPosts.length > 0 && (
-    <section class="section post-support">
-      <div class="section-header">
-        <h2 class="section-title">Related posts</h2>
-      </div>
-      <div class="divider-list">
-        {relatedPosts.map((relatedPost) => <PostCard post={relatedPost} />)}
-      </div>
-    </section>
-  )}
+  {
+    relatedPosts.length > 0 && (
+      <section class="section post-support">
+        <div class="section-header">
+          <h2 class="section-title">Related posts</h2>
+        </div>
+        <div class="divider-list">
+          {relatedPosts.map((relatedPost) => (
+            <PostCard post={relatedPost} />
+          ))}
+        </div>
+      </section>
+    )
+  }
 
   <section class="section post-support">
     <AuthorSummary />

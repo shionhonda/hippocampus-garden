@@ -187,8 +187,7 @@ export const profileByLocale: Record<Locale, LocalizedProfile> = {
       {
         period: "2018-2020",
         title: "東京大学大学院",
-        detail:
-          "情報理工学の修士課程で、分子の表現学習を研究しました。",
+        detail: "情報理工学の修士課程で、分子の表現学習を研究しました。",
       },
     ],
     booksAndWriting: [

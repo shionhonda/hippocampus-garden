@@ -11,7 +11,8 @@ import { remarkCodeMeta } from "./src/lib/remark-code-meta"
 
 const astroDir = fileURLToPath(new URL(".", import.meta.url))
 const repoRoot = path.resolve(astroDir, "..")
-const mode = process.env.NODE_ENV === "production" ? "production" : "development"
+const mode =
+  process.env.NODE_ENV === "production" ? "production" : "development"
 const envPath = path.join(repoRoot, `.env.${mode}`)
 
 if (fs.existsSync(envPath)) {
