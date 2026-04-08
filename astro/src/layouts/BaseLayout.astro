@@ -82,6 +82,47 @@ const resolvedSocialImage = socialImage ?? getDefaultSocialImage()
     trackPageView()
   }
 
+  const unregisterLegacyServiceWorkers = async () => {
+    if (!("serviceWorker" in navigator) || !("caches" in window)) {
+      return
+    }
+
+    try {
+      const registrations = await navigator.serviceWorker.getRegistrations()
+      await Promise.all(
+        registrations.map(async (registration) => {
+          try {
+            await registration.update()
+          } catch {}
+        }),
+      )
+
+      await navigator.serviceWorker.register("/sw.js")
+
+      const cacheKeys = await caches.keys()
+      await Promise.all(cacheKeys.map((cacheKey) => caches.delete(cacheKey)))
+
+      await Promise.all(
+        registrations.map(async (registration) => {
+          try {
+            await registration.unregister()
+          } catch {}
+        }),
+      )
+    } catch {}
+  }
+
+  const handleControllerChange = () => {
+    if (sessionStorage.getItem("legacy-sw-cleanup-reloaded") === "1") {
+      return
+    }
+
+    sessionStorage.setItem("legacy-sw-cleanup-reloaded", "1")
+    window.location.reload()
+  }
+
   document.addEventListener("astro:page-load", setupAnalytics)
+  window.addEventListener("load", unregisterLegacyServiceWorkers)
+  navigator.serviceWorker?.addEventListener("controllerchange", handleControllerChange)
   setupAnalytics()
 </script>
