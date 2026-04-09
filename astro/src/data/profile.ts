@@ -32,6 +32,7 @@ type SectionLabels = {
   selectedWritingTitle: string
   careerTitle: string
   booksTitle: string
+  usageTitle: string
 }
 
 type LocalizedProfile = {
@@ -49,6 +50,8 @@ type LocalizedProfile = {
   selectedWritingSlugs: string[]
   languageSwitchLabels: LanguageSwitchLabels
   sectionLabels: SectionLabels
+  usageHtml: string
+  bibtexTemplate: string
 }
 
 const socials = [
@@ -137,6 +140,17 @@ export const profileByLocale: Record<Locale, LocalizedProfile> = {
       "llm_temperature",
       "ai_papers_2025",
     ],
+    usageHtml:
+      'Unless otherwise noted, the written content and original images on this blog are licensed under <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noreferrer">CC BY 4.0</a>. You may reuse them, including for commercial purposes, as long as you provide attribution with a link to the original page and indicate whether you made changes.<br /><br />Source code in the <a href="https://github.com/shionhonda/hippocampus-garden" target="_blank" rel="noreferrer">repository</a> is licensed under the <a href="https://opensource.org/licenses/MIT" target="_blank" rel="noreferrer">MIT License</a>.<br /><br />If you cite a post from this blog in a paper, you can use the following BibTeX template and replace the placeholders.',
+    bibtexTemplate: `@online{honda_YEAR_slug,
+  author  = {Shion Honda},
+  title   = {POST_TITLE},
+  year    = {YEAR},
+  month   = {MONTH},
+  day     = {DAY},
+  url     = {https://hippocampus-garden.com/POST_SLUG/},
+  note    = {Accessed: YYYY-MM-DD}
+}`,
     languageSwitchLabels: {
       en: "English",
       ja: "日本語",
@@ -148,6 +162,7 @@ export const profileByLocale: Record<Locale, LocalizedProfile> = {
       selectedWritingTitle: "Selected writing",
       careerTitle: "Career",
       booksTitle: "Books and external writing",
+      usageTitle: "Reuse and licensing",
     },
   },
   ja: {
@@ -227,6 +242,17 @@ export const profileByLocale: Record<Locale, LocalizedProfile> = {
       "tuning_playbook",
       "job_hunt_in_france",
     ],
+    usageHtml:
+      '特に注記がない限り、このブログの本文およびオリジナル画像は <a href="https://creativecommons.org/licenses/by/4.0/deed.ja" target="_blank" rel="noreferrer">CC BY 4.0</a> のもとで利用できます。営利・非営利を問わず再利用可能ですが、元ページへのリンクを含むクレジットを明記し、必要に応じて改変の有無を示してください。<br /><br />この <a href="https://github.com/shionhonda/hippocampus-garden" target="_blank" rel="noreferrer">リポジトリ</a> 内のソースコードは <a href="https://opensource.org/licenses/MIT" target="_blank" rel="noreferrer">MIT License</a> です。<br /><br />論文などでこのブログの記事を引用する場合は、以下の BibTeX テンプレートを必要に応じて置き換えてください。',
+    bibtexTemplate: `@online{honda_YEAR_slug,
+  author  = {Shion Honda},
+  title   = {POST_TITLE},
+  year    = {YEAR},
+  month   = {MONTH},
+  day     = {DAY},
+  url     = {https://hippocampus-garden.com/POST_SLUG/},
+  note    = {Accessed: YYYY-MM-DD}
+}`,
     languageSwitchLabels: {
       en: "English",
       ja: "日本語",
@@ -238,6 +264,7 @@ export const profileByLocale: Record<Locale, LocalizedProfile> = {
       selectedWritingTitle: "おすすめ記事",
       careerTitle: "経歴",
       booksTitle: "書籍・外部寄稿",
+      usageTitle: "利用条件",
     },
   },
 }

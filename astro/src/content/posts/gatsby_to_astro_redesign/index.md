@@ -46,13 +46,17 @@ Astro felt more direct. Its positioning as a framework for fast, content-driven 
 
 Build performance improved dramatically as well, which was one of the motivations for the migration. The first deployed Astro version did not immediately outperform the old Gatsby site in **Lighthouse**, and the main regression came from a worse **First Contentful Paint** (**FCP**). Once I spotted the issue, Codex fixed it in a few seconds, and the Astro site ended up with better performance scores than the Gatsby version.
 
-| | Gatsby | Astro |
-|-|-|-|
-|Performance| 81| 98|
-|Accessibility | 100 | 100|
-|Best practices | 96|100|
-|SEO | 83 | 92|
+|                | Gatsby | Astro |
+| -------------- | ------ | ----- |
+| Performance    | 81     | 98    |
+| Accessibility  | 100    | 100   |
+| Best practices | 96     | 100   |
+| SEO            | 83     | 92    |
 
 I completed most of this rebuild with AI and wrote very little code myself. Without AI, I probably would not have made time to do it at all. It is a good time to be building. Happy coding!
 
+P.S. (April 9, 2026) After publishing this post, I found one important bug: the old Gatsby service worker was still registered in some browsers and kept serving stale cached assets.[^2] That meant some visitors continued seeing the old Gatsby site even after the Astro version had been deployed. The fix was to ship a temporary cleanup worker at `/sw.js`, force the legacy worker to update, delete its caches, unregister it, and reload the page once so the new Astro site could take over cleanly.
+
 [^1]: My very first article on this blog was [Top Navbar for Gatsby Blog](https://hippocampus-garden.com/navbar/).
+
+[^2]: For a more detailed explanation of this behavior, the `web.dev` articles [The service worker lifecycle](https://web.dev/articles/service-worker-lifecycle) and [Update](https://web.dev/learn/pwa/update) are helpful. In particular, they explain that old service workers can keep controlling existing clients until they are fully replaced, and that deleting or renaming the worker file does not automatically remove an existing registration or its caches.

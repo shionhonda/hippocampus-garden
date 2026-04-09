@@ -843,8 +843,8 @@ img {
   }
 
   .article-title {
-    font-size: clamp(1.28rem, 5.2vw, 1.72rem);
-    line-height: 1.04;
+    font-size: clamp(1.7rem, 6.4vw, 2rem);
+    line-height: 1.08;
     letter-spacing: -0.04em;
   }
 
@@ -853,8 +853,8 @@ img {
   }
 
   .article-dek {
-    font-size: 0.8rem;
-    line-height: 1.36;
+    font-size: 0.95rem;
+    line-height: 1.58;
   }
 
   .meta-row {

@@ -125,6 +125,18 @@ const languageLinks = [
   <section class="section about-shell">
     <div class="section-header about-section-header">
       <div>
+        <h2 class="section-title">{profile.sectionLabels.usageTitle}</h2>
+      </div>
+    </div>
+    <div class="panel surface about-panel">
+      <div class="prose" set:html={profile.usageHtml} />
+      <pre class="bibtex-block"><code>{profile.bibtexTemplate}</code></pre>
+    </div>
+  </section>
+
+  <section class="section about-shell">
+    <div class="section-header about-section-header">
+      <div>
         <h2 class="section-title">{profile.sectionLabels.careerTitle}</h2>
       </div>
     </div>
@@ -320,6 +332,24 @@ const languageLinks = [
 
   .focus-list li + li {
     margin-top: var(--space-2);
+  }
+
+  .bibtex-block {
+    width: min(100%, 58rem);
+    margin: var(--space-4) auto 0;
+    padding: var(--space-4);
+    overflow-x: auto;
+    border: 1px solid rgba(197, 210, 215, 0.72);
+    border-radius: calc(var(--radius-xl) - 0.25rem);
+    background: rgba(248, 251, 251, 0.92);
+    color: var(--color-ink-soft);
+    font-size: 0.95rem;
+    line-height: 1.65;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.5);
+  }
+
+  .bibtex-block code {
+    font-family: var(--font-mono);
   }
 
   .timeline {
