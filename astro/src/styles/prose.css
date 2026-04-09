@@ -36,6 +36,12 @@
   text-wrap: pretty;
 }
 
+.prose p,
+.prose li,
+.prose blockquote {
+  overflow-wrap: break-word;
+}
+
 .prose-ja p,
 .prose-ja li,
 .prose-ja blockquote {
@@ -186,6 +192,26 @@
 
 .prose .footnotes ol {
   padding-left: 1.2rem;
+}
+
+@media (max-width: 720px) {
+  .prose p,
+  .prose li,
+  .prose blockquote {
+    text-wrap: auto;
+    text-align: justify;
+    text-align-last: auto;
+    -webkit-hyphens: auto;
+    hyphens: auto;
+  }
+
+  .prose-ja p,
+  .prose-ja li,
+  .prose-ja blockquote {
+    text-justify: inter-character;
+    -webkit-hyphens: none;
+    hyphens: none;
+  }
 }
 
 .prose .footnote-backref {
