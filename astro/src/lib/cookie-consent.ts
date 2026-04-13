@@ -71,7 +71,8 @@ export const initializeAnalytics = () => {
   window.gtag =
     window.gtag ||
     function gtag(...args: unknown[]) {
-      window.dataLayer?.push(args)
+      const command = Object.assign({ length: args.length }, args)
+      window.dataLayer?.push(command)
     }
 
   if (!window.__gaInitialized) {
