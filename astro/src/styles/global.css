@@ -544,7 +544,7 @@ img {
   border-radius: 0;
   background: transparent;
   color: var(--color-reef-surface);
-  font-weight: var(--weight-medium);
+  font-weight: inherit;
   text-decoration: underline;
   text-decoration-thickness: 1px;
   text-underline-offset: 0.16em;

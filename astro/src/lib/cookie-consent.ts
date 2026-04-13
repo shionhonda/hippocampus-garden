@@ -71,7 +71,10 @@ export const initializeAnalytics = () => {
   window.gtag =
     window.gtag ||
     function gtag(...args: unknown[]) {
-      window.dataLayer?.push(args)
+      void args
+      // gtag.js expects the queued entry shape produced by the official snippet.
+      // eslint-disable-next-line prefer-rest-params
+      window.dataLayer?.push(arguments)
     }
 
   if (!window.__gaInitialized) {
