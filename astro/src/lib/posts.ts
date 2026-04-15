@@ -307,13 +307,12 @@ export async function getRelatedPosts(post: Post, limit = 3) {
           candidate,
           tagDocumentFrequency,
           allPosts.length
-        ) * 0.08
+        ) * 0.02
       const recencyScore = candidate.data.date.getTime() / 1e13
 
       return {
         candidate,
-        score:
-          tfidfSimilarity * 0.75 + linkScore + tagScore + recencyScore * 0.03,
+        score: tfidfSimilarity + linkScore + tagScore + recencyScore * 0.01,
       }
     })
     .filter(({ score }) => score > 0)
