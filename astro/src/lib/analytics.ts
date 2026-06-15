@@ -35,12 +35,11 @@ async function fetchGaRows(startDate: string) {
   if (!process.env.CLIENT_EMAIL || !process.env.PRIVATE_KEY) return null
 
   const { google } = await import("googleapis")
-  const jwtClient = new google.auth.JWT(
-    process.env.CLIENT_EMAIL,
-    undefined,
-    process.env.PRIVATE_KEY.replaceAll("\\n", "\n"),
-    "https://www.googleapis.com/auth/analytics.readonly"
-  )
+  const jwtClient = new google.auth.JWT({
+    email: process.env.CLIENT_EMAIL,
+    key: process.env.PRIVATE_KEY.replaceAll("\\n", "\n"),
+    scopes: ["https://www.googleapis.com/auth/analytics.readonly"],
+  })
 
   await jwtClient.authorize()
 

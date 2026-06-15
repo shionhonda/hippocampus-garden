@@ -23,6 +23,10 @@ export function getPostSlug(post: Post) {
   )
 }
 
+function getPostBody(post: Post) {
+  return post.body ?? ""
+}
+
 function stripNonProseContent(value: string) {
   return value
     .replace(/^---[\s\S]*?---/, "")
@@ -74,7 +78,7 @@ function tokenizeText(value: string) {
 function buildPostFeatureText(post: Post) {
   const title = `${post.data.title} ${post.data.title}`
   const description = `${post.data.description} ${post.data.description}`
-  const body = extractMarkdownText(post.body)
+  const body = extractMarkdownText(getPostBody(post))
   return `${title} ${description} ${body}`
 }
 
@@ -218,7 +222,7 @@ async function buildRelatedPostFeatures(posts: Post[]) {
       const slug = getPostSlug(post)
       featureMap.set(slug, {
         slug,
-        outboundLinks: extractInternalLinks(post.body),
+        outboundLinks: extractInternalLinks(getPostBody(post)),
         inboundLinks: new Set<string>(),
         tfidfVector: buildTfIdfVector(
           tokenMap.get(slug) ?? [],
@@ -249,7 +253,7 @@ function countCjkCharacters(value: string) {
 }
 
 export function getReadingTime(post: Post) {
-  const body = stripNonProseContent(post.body)
+  const body = stripNonProseContent(getPostBody(post))
   const latinWords = countLatinWords(body)
   const cjkCharacters = countCjkCharacters(body)
   const englishMinutes = latinWords / 220
