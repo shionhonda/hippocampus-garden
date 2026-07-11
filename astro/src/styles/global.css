@@ -469,10 +469,11 @@ img {
 }
 
 .cookie-banner__inner {
-  width: min(100%, 48rem);
-  display: grid;
-  gap: var(--space-5);
-  padding: var(--space-5);
+  width: min(100%, 52rem);
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  padding: var(--space-3) var(--space-4);
   border: var(--border-strong);
   border-radius: var(--radius-xl);
   background:
@@ -488,13 +489,14 @@ img {
 
 .cookie-banner__content {
   display: grid;
-  gap: var(--space-3);
+  flex: 1 1 auto;
+  gap: var(--space-1);
 }
 
 .cookie-banner__content h2 {
   margin: 0;
   font-family: var(--font-ui);
-  font-size: clamp(1.15rem, 1.05rem + 0.4vw, 1.4rem);
+  font-size: var(--text-md);
   line-height: var(--leading-snug);
   letter-spacing: -0.03em;
   color: var(--color-ink-strong);
@@ -503,13 +505,13 @@ img {
 .cookie-banner__content p {
   margin: 0;
   color: var(--color-ink-soft);
-  font-size: var(--text-sm);
-  line-height: 1.7;
+  font-size: var(--text-xs);
+  line-height: 1.45;
 }
 
 .cookie-banner__actions {
   display: flex;
-  flex-wrap: wrap;
+  flex: 0 0 auto;
   justify-content: flex-end;
   gap: var(--space-3);
 }
@@ -580,8 +582,9 @@ img {
   }
 
   .cookie-banner__inner {
-    gap: var(--space-4);
-    padding: var(--space-4);
+    display: grid;
+    gap: var(--space-3);
+    padding: var(--space-3);
   }
 
   .cookie-banner__actions {
@@ -589,9 +592,46 @@ img {
   }
 
   .cookie-banner__button {
-    flex: 1 1 12rem;
+    flex: 1 1 0;
     justify-content: center;
   }
+}
+
+.language-filter {
+  display: inline-flex;
+  gap: 0.125rem;
+  padding: 0.125rem;
+  border: 1px solid rgba(197, 210, 215, 0.58);
+  border-radius: var(--radius-pill);
+  background: rgba(255, 255, 255, 0.28);
+  font-family: var(--font-ui);
+}
+
+.language-filter__button {
+  min-height: 1.75rem;
+  padding: 0.2rem 0.55rem;
+  border: 0;
+  border-radius: var(--radius-pill);
+  background: transparent;
+  color: var(--color-ink-soft);
+  font: inherit;
+  font-size: var(--text-xs);
+  cursor: pointer;
+}
+
+.language-filter__button:hover {
+  color: var(--color-ink-strong);
+}
+
+.language-filter__button[aria-pressed="true"] {
+  background: rgba(30, 140, 138, 0.12);
+  color: var(--color-reef-deep);
+  font-weight: var(--weight-semibold);
+}
+
+.language-filter__button:focus-visible {
+  outline: 2px solid var(--color-reef-coral);
+  outline-offset: 2px;
 }
 
 .home-shell,

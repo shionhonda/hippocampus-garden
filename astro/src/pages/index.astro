@@ -25,12 +25,25 @@ const mostRead = await getMostReadPosts(5)
   <section class="section home-section">
     <div class="section-header">
       <h2 class="section-title">Recent posts</h2>
+      <div class="language-filter" aria-label="Filter posts by language">
+        <button type="button" class="language-filter__button" data-language-filter="all" aria-pressed="true">
+          All
+        </button>
+        <button type="button" class="language-filter__button" data-language-filter="en" aria-pressed="false">
+          English
+        </button>
+        <button type="button" class="language-filter__button" data-language-filter="ja" aria-pressed="false">
+          日本語
+        </button>
+      </div>
     </div>
     {
       posts.length > 0 ? (
         <div class="divider-list">
           {posts.map((post, index) => (
-            <PostCard post={post} priority={index === 0} />
+            <div data-post-language={post.data.lang ?? "en"}>
+              <PostCard post={post} priority={index === 0} />
+            </div>
           ))}
         </div>
       ) : (
@@ -39,6 +52,7 @@ const mostRead = await getMostReadPosts(5)
         </div>
       )
     }
+    <p class="sr-only" aria-live="polite" data-language-filter-status></p>
     <Pagination currentPage={1} totalPages={totalPages} />
   </section>
 
@@ -85,3 +99,49 @@ const mostRead = await getMostReadPosts(5)
     <AuthorSummary />
   </section>
 </HomeLayout>
+
+<script>
+  const setupLanguageFilter = () => {
+    const buttons = Array.from(
+      document.querySelectorAll<HTMLButtonElement>("[data-language-filter]")
+    )
+    const posts = Array.from(
+      document.querySelectorAll<HTMLElement>("[data-post-language]")
+    )
+    const status = document.querySelector<HTMLElement>(
+      "[data-language-filter-status]"
+    )
+
+    if (buttons.length === 0 || posts.length === 0) return
+
+    const applyFilter = (language: string) => {
+      let visibleCount = 0
+      for (const post of posts) {
+        const visible =
+          language === "all" || post.dataset.postLanguage === language
+        post.hidden = !visible
+        if (visible) visibleCount += 1
+      }
+
+      for (const button of buttons) {
+        button.setAttribute(
+          "aria-pressed",
+          String(button.dataset.languageFilter === language)
+        )
+      }
+
+      if (status) {
+        status.textContent = `${visibleCount} posts shown on this page.`
+      }
+    }
+
+    for (const button of buttons) {
+      button.addEventListener("click", () => {
+        applyFilter(button.dataset.languageFilter ?? "all")
+      })
+    }
+  }
+
+  document.addEventListener("astro:page-load", setupLanguageFilter)
+  setupLanguageFilter()
+</script>
