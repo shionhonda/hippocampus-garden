@@ -369,6 +369,14 @@ img {
   font-family: inherit;
 }
 
+.article-head .article-title {
+  margin: 0 0 var(--space-2);
+}
+
+.article-head .article-dek {
+  margin: 0 0 var(--space-1);
+}
+
 .divider-list {
   display: grid;
   gap: var(--space-4);
@@ -831,7 +839,7 @@ img {
 
 @media (max-width: 720px) {
   .article-page.section {
-    margin-block: 0 var(--space-12);
+    margin-block: var(--space-3) var(--space-12);
   }
 
   .article-page {
@@ -892,22 +900,22 @@ img {
 
   .site-title-link {
     gap: 0.6rem;
-    font-size: 1.02rem !important;
+    font-size: 1.38rem !important;
   }
 
   .site-emblem {
-    width: 1.4rem;
-    height: 1.4rem;
+    width: 1.7rem;
+    height: 1.7rem;
   }
 
   .site-tagline {
     margin-top: 0.08rem !important;
-    font-size: 0.7rem !important;
+    font-size: 0.82rem !important;
   }
 
   .site-nav {
     gap: 0.72rem;
-    font-size: 0.7rem;
+    font-size: 0.82rem;
   }
 
   .section {
