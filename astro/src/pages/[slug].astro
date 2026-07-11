@@ -37,6 +37,7 @@ const localizedHeadings = isJapanese
 <PostLayout
   title={post.data.title}
   description={post.data.description}
+  lang={post.data.lang}
   canonicalPath={`/${getPostSlug(post)}/`}
   canonicalUrl={getPostCanonicalUrl(post)}
   socialImage={getPostSocialImage(post)}
