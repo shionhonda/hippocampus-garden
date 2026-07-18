@@ -1,0 +1,50 @@
+---
+import LanguageFilter from "../../../components/LanguageFilter.astro"
+import Pagination from "../../../components/Pagination.astro"
+import PostCard from "../../../components/PostCard.astro"
+import { site } from "../../../data/site"
+import HomeLayout from "../../../layouts/HomeLayout.astro"
+import { getAllPosts, paginatePosts } from "../../../lib/posts"
+
+type Language = "en" | "ja"
+
+export async function getStaticPaths() {
+  return (["en", "ja"] as const).map((language) => ({
+    params: { language },
+    props: { language },
+  }))
+}
+
+const { language } = Astro.props as { language: Language }
+const allPosts = await getAllPosts()
+const languagePosts = allPosts.filter(
+  (post) => (post.data.lang ?? "en") === language
+)
+const { items, totalPages } = paginatePosts(languagePosts, 1, site.postsPerPage)
+const heading = language === "ja" ? "日本語の記事" : "English posts"
+---
+
+<HomeLayout
+  title={heading}
+  description={`${heading} from Hippocampus's Garden.`}
+  canonicalPath={`/language/${language}/`}
+>
+  <section class="section home-section">
+    <div class="section-header">
+      <h1 class="section-title">{heading}</h1>
+      <LanguageFilter currentLanguage={language} />
+    </div>
+    <div class="divider-list">
+      {
+        items.map((post, index) => (
+          <PostCard post={post} priority={index === 0} />
+        ))
+      }
+    </div>
+    <Pagination
+      currentPage={1}
+      totalPages={totalPages}
+      basePath={`/language/${language}`}
+    />
+  </section>
+</HomeLayout>

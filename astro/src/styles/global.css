@@ -617,13 +617,15 @@ img {
   font: inherit;
   font-size: var(--text-xs);
   cursor: pointer;
+  text-decoration: none;
 }
 
 .language-filter__button:hover {
   color: var(--color-ink-strong);
 }
 
-.language-filter__button[aria-pressed="true"] {
+.language-filter__button[aria-pressed="true"],
+.language-filter__button[aria-current="page"] {
   background: rgba(30, 140, 138, 0.12);
   color: var(--color-reef-deep);
   font-weight: var(--weight-semibold);
@@ -749,6 +751,10 @@ img {
   font-weight: 700;
   letter-spacing: -0.04em;
   line-height: 1.18;
+}
+
+.post-row-copy.lang-ja p {
+  font-family: var(--font-body-ja);
 }
 
 .post-row-thumb {
