@@ -1,10 +1,19 @@
 ---
-const { currentPage, totalPages } = Astro.props as {
+const {
+  currentPage,
+  totalPages,
+  basePath = "",
+} = Astro.props as {
   currentPage: number
   totalPages: number
+  basePath?: string
 }
 
-const hrefForPage = (page: number) => (page === 1 ? "/" : `/page/${page}/`)
+const normalizedBasePath = basePath.replace(/^\/+|\/+$/g, "")
+const hrefForPage = (page: number) => {
+  const root = normalizedBasePath ? `/${normalizedBasePath}/` : "/"
+  return page === 1 ? root : `${root}page/${page}/`
+}
 ---
 
 {

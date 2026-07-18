@@ -1,0 +1,25 @@
+---
+const { currentLanguage = "all" } = Astro.props as {
+  currentLanguage?: "all" | "en" | "ja"
+}
+
+const options = [
+  { language: "all", label: "All", href: "/" },
+  { language: "en", label: "English", href: "/language/en/" },
+  { language: "ja", label: "日本語", href: "/language/ja/" },
+] as const
+---
+
+<nav class="language-filter" aria-label="Filter posts by language">
+  {
+    options.map(({ language, label, href }) => (
+      <a
+        href={href}
+        class="language-filter__button"
+        aria-current={language === currentLanguage ? "page" : undefined}
+      >
+        {label}
+      </a>
+    ))
+  }
+</nav>
