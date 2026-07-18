@@ -32,6 +32,9 @@ const pageTitle = title ? `${title} | ${site.title}` : site.title
 const resolvedCanonicalUrl =
   canonicalUrl ?? toAbsoluteUrl(canonicalPath ?? Astro.url.pathname)
 const resolvedSocialImage = socialImage ?? getDefaultSocialImage()
+const robotsContent = noindex
+  ? "noindex, nofollow, max-image-preview:large"
+  : "max-image-preview:large"
 ---
 
 <!doctype html>
@@ -59,7 +62,7 @@ const resolvedSocialImage = socialImage ?? getDefaultSocialImage()
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={resolvedSocialImage} />
     <meta name="twitter:creator" content={site.twitterHandle} />
-    {noindex && <meta name="robots" content="noindex, nofollow" />}
+    <meta name="robots" content={robotsContent} />
     {
       alternates.map((alternate) => (
         <link
