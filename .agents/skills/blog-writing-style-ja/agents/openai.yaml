@@ -1,3 +1,4 @@
 interface:
-  display_name: "Blog Writing Style Ja"
-  short_description: "Help with Blog Writing Style Ja tasks"
+  display_name: "Japanese Blog Voice"
+  short_description: "Write Japanese posts in Shion Honda's voice"
+  default_prompt: "Use $blog-writing-style-ja to polish this Japanese blog draft while preserving my voice."

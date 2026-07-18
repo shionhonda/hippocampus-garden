@@ -1,0 +1,4 @@
+interface:
+  display_name: "Astro Blog Preview & Publish"
+  short_description: "Preview, validate, and publish the Astro blog"
+  default_prompt: "Use $astro-blog-preview-publish to validate and preview my blog changes locally."

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Astro Blog Media"
+  short_description: "Prepare and verify media for Astro blog posts"
+  default_prompt: "Use $astro-blog-media to add and verify images for this Astro blog post."

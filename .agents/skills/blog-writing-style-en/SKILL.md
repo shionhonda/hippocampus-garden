@@ -1,99 +1,53 @@
 ---
 name: blog-writing-style-en
-description: Write and polish English blog posts in Shion Honda's style for this repository. Use when drafting or revising English posts in `content/blog/*/index.md`, translating ideas into the author's English voice, or preserving style while improving clarity, structure, and precision.
+description: Write or revise English posts in Shion Honda's voice for this repository. Use for English prose in `astro/src/content/posts/*/index.md`, including technical explainers, research summaries, book reviews, project retrospectives, and personal essays; also use when translating a draft into natural English while preserving the author's argument and degree of certainty.
 ---
 
-# Blog Writing Style (EN)
+# Write English Blog Prose
 
-Match the author's recent English blog style for technical and reflective posts, then improve clarity without flattening voice.
+Preserve the author's ideas and specificity while making the prose easier to follow.
 
-## Style Calibration Set (10 recent EN posts analyzed)
+## Calibrate Before Writing
 
-1. `content/blog/ai_papers_2025/index.md`
-2. `content/blog/pass_k/index.md`
-3. `content/blog/llm_temperature/index.md`
-4. `content/blog/llm_serialization/index.md`
-5. `content/blog/book_review_petrov/index.md`
-6. `content/blog/claude_mcp/index.md`
-7. `content/blog/book_review_huyen/index.md`
-8. `content/blog/ordinal_regression/index.md`
-9. `content/blog/deep_learning_2024/index.md`
-10. `content/blog/preference_optimization/index.md`
+1. Read the target draft completely.
+2. Inspect 2–4 posts in `astro/src/content/posts/` that match its language and genre. Prefer recent dates, but include an older post when it is a closer structural match.
+3. Treat the repository as the source of truth for unpublished and migrated content. Use the live site only when the user asks to match the currently published presentation.
+4. Infer patterns from the samples instead of copying distinctive sentences.
 
-## Style Fingerprint (EN)
+Useful genre matches include:
 
-### Core tone
+- Technical explainer: `tool_calling_mcp_skills`, `llm_temperature`, `llm_serialization`
+- Research roundup: `ai_papers_2025`, `deep_learning_2024`
+- Book review: `book_review_petrov`, `book_review_huyen`
+- Project retrospective: `gatsby_to_astro_redesign`
 
-- Analytical and explanatory, with a calm teaching voice.
-- Opinionated when needed, but usually framed as reasoned argument rather than hot takes.
-- Comfortable mixing practitioner observations with research references.
-- Accessible to technical readers: define terms, then deepen the analysis.
+## Match the Voice
 
-### Common opening patterns
+- Use a calm, analytical teaching voice.
+- Lead with a concrete question, observation, experience, or reason for writing.
+- Define specialized terms before building on them; spell out acronyms on first use when the audience may need it.
+- Progress from context to mechanism, evidence or examples, limitations, and implications.
+- Make opinions explicit and reasoned. Preserve caveats and separate evidence from inference.
+- Prefer precise nouns and verbs over hype, generic praise, or abstract claims.
+- Use first person when the author's experience genuinely supports the point.
+- Keep paragraphs substantial when developing one argument, but split when the claim or function changes.
+- Use lists, tables, equations, code, or diagrams only when they make a comparison or mechanism clearer.
 
-- Start with context and why-now framing ("2025 was a year...", "As we move into 2025...").
-- Start with a concrete puzzle or misconception, then explain why it matters.
-- Start with a recent personal action for reviews/tutorials ("I recently read...", "If you follow the latest news...").
-- Occasionally use a short quoted question/hook before the first section.
-- `TL;DR` appears sometimes for dense technical topics, but not by default.
+## Revise Without Flattening
 
-### Structure patterns
+- Preserve technical detail, personal observations, humor, and deliberate informality.
+- Tighten repetition and vague references.
+- Add signposts only where the logical transition is otherwise unclear.
+- Replace AI-slop phrasing with concrete claims, examples, or causal explanations. Avoid empty openings, generic transitions, overly symmetrical structure, inflated conclusions, repeated thesis restatements, and polished sentences that add no information.
+- Do not add decorative or extended metaphors merely to make the prose vivid. Use an analogy only when it clarifies a difficult mechanism, keep it brief, and do not stack metaphors or expand one beyond the author's intent.
+- Do not add facts, citations, experiments, or certainty that the source does not support.
+- Do not force a `TL;DR`, conclusion, or rigid essay template when the draft does not need one.
+- Keep Markdown, footnotes, links, inline HTML, code, and math intact unless the user asks to restructure them.
 
-- Clear sectioned essays with `##` headings and descriptive labels.
-- Strong use of progressive exposition: recap -> definition -> examples -> implications.
-- Frequent use of bullets/numbered lists when comparing methods, papers, or takeaways.
-- Book reviews often use a stable pattern: general thoughts -> summary -> chapter/part breakdown.
-- Technical posts often include equations, code fences, or toy examples when they improve intuition.
+## Check the Result
 
-### Language patterns
-
-- Prefer precise nouns/verbs over hype language.
-- Explain acronyms on first mention and often bold important terms.
-- Use signposting phrases: "To answer this...", "In this post...", "However...", "In practice...", "The key idea is...".
-- Use examples and counterexamples to clarify distinctions.
-- Use long paragraphs when building an argument, but break into lists for scanability.
-
-## Writing Workflow (EN)
-
-1. Identify post type: technical explainer, paper roundup, tutorial, book review, or reflective analysis.
-2. Draft the intro with one of the opening patterns above.
-3. Build a section outline with descriptive `##` headings before full drafting.
-4. Add definitions/recaps before advanced discussion when introducing specialized concepts.
-5. Add examples, experiments, or comparisons (not just claims).
-6. End with a concise conclusion or explicit takeaway section when the argument is complex.
-
-## Voice-Preserving Polishing (EN)
-
-When polishing, improve quality without making it sound generic.
-
-### Keep
-
-- The author's explanatory pace
-- Technical specificity
-- Cautious claims and explicit uncertainty where appropriate
-- Practitioner framing (why this matters in real use)
-
-### Improve
-
-- Replace vague pronouns with precise referents
-- Break oversized paragraphs when topic shifts
-- Add signposts between sections
-- Tighten repetitive phrases
-- Convert dense comparisons into bullets/tables when readability improves
-- Clarify what is hypothesis vs evidence
-- Replace AI-sounding phrasing with concrete claims (avoid generic transitions, inflated summaries, and abstract “this highlights/underscores” filler unless genuinely needed)
-
-### Do not introduce
-
-- Clickbait framing
-- Overly casual/slangy tone
-- Marketing-style adjectives ("revolutionary", "game-changing") unless quoted/contextualized
-- Empty summaries that repeat the title
-- AI-slop tone: symmetrical paragraph cadence, vague thesis restatements, empty “In today’s fast-changing world” style framing, or polished-but-noncommittal wording
-
-## Revision Prompts This Skill Should Handle Well
-
-- "Rewrite this section to sound more like my recent technical posts."
-- "Polish this English draft but preserve my voice and technical nuance."
-- "Add a TL;DR and clearer headings without changing the argument."
-- "Turn this paper summary into a more structured explainer in my style."
+- Confirm the opening states why the topic matters without clickbait.
+- Confirm each section advances the argument.
+- Confirm examples support the nearby claim.
+- Confirm uncertainty and attribution survive the edit.
+- Read the prose aloud mentally for awkward cadence, repeated transitions, and unnaturally polished language.

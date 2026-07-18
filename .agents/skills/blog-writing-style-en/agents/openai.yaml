@@ -1,3 +1,4 @@
 interface:
-  display_name: "Blog Writing Style En"
-  short_description: "Help with Blog Writing Style En tasks"
+  display_name: "English Blog Voice"
+  short_description: "Write English posts in Shion Honda's voice"
+  default_prompt: "Use $blog-writing-style-en to polish this English blog draft while preserving my voice."

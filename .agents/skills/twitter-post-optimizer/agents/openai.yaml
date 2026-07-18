@@ -1,3 +1,4 @@
 interface:
-  display_name: "Twitter Post Optimizer"
-  short_description: "Help with Twitter Post Optimizer tasks"
+  display_name: "X Post Optimizer"
+  short_description: "Draft nuanced X posts from blog content"
+  default_prompt: "Use $twitter-post-optimizer to turn this blog post into a concise X announcement."
