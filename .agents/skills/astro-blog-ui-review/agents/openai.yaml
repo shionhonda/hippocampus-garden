@@ -1,0 +1,4 @@
+interface:
+  display_name: "Astro Blog UI Review"
+  short_description: "Review Astro blog UI, UX, and accessibility"
+  default_prompt: "Use $astro-blog-ui-review to review this UI change against the blog design system."

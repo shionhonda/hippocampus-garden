@@ -1,0 +1,4 @@
+interface:
+  display_name: "Astro Blog Authoring"
+  short_description: "Create and revise Astro Markdown blog posts"
+  default_prompt: "Use $astro-blog-post-authoring to create a publication-ready Astro blog post from this draft."
