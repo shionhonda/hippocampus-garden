@@ -28,6 +28,7 @@ html {
 }
 
 html:lang(ja) {
+  --font-ui: var(--font-body-ja);
   font-family: var(--font-body-ja);
 }
 
