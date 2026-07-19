@@ -7,7 +7,8 @@
   color: var(--color-ink);
 }
 
-.prose-ja {
+.prose-ja,
+.prose:lang(ja) {
   font-family: var(--font-body-ja);
 }
 
