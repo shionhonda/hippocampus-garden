@@ -16,16 +16,14 @@
   --color-paper: #ffffff;
   --color-panel: #f7fafa;
   --color-canvas: #f3f8f8;
-  --font-body-en:
-    Charter, "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Georgia,
-    serif;
-  --font-body-ja:
+  --font-sans:
+    ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
     "Helvetica Neue", "Hiragino Sans", "Hiragino Kaku Gothic ProN", Arial,
     "Noto Sans JP", Meiryo, sans-serif;
-  --font-body: var(--font-body-en);
-  --font-ui:
-    ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
-    "Helvetica Neue", Arial, sans-serif;
+  --font-body-en: var(--font-sans);
+  --font-body-ja: var(--font-sans);
+  --font-body: var(--font-sans);
+  --font-ui: var(--font-sans);
   --font-code:
     "SFMono-Regular", "SF Mono", "JetBrains Mono", "Cascadia Code", Consolas,
     monospace;
