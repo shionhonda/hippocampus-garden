@@ -1,8 +1,6 @@
 .cache
 .agents
 node_modules
-astro/node_modules
-astro/.astro
-astro/dist
+.astro
+dist
 output
-public

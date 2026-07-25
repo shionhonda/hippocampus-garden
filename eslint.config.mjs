@@ -5,13 +5,7 @@ import tseslint from "typescript-eslint"
 
 export default [
   {
-    ignores: [
-      "node_modules/**",
-      "astro/node_modules/**",
-      "astro/.astro/**",
-      "astro/dist/**",
-      "output/**",
-    ],
+    ignores: ["node_modules/**", ".astro/**", "dist/**", "output/**"],
   },
   js.configs.recommended,
   ...tseslint.configs.recommended,
@@ -23,13 +17,13 @@ export default [
     },
   },
   {
-    files: ["astro/public/**/*.js"],
+    files: ["public/**/*.js"],
     languageOptions: {
       globals: globals.serviceworker,
     },
   },
   {
-    files: ["astro/src/**/*.{ts,js,mjs,cjs}"],
+    files: ["src/**/*.{ts,js,mjs,cjs}"],
     languageOptions: {
       globals: {
         ...globals.browser,

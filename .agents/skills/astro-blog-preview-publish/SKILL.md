@@ -9,7 +9,7 @@ Validate locally first, then perform only the deployment action the user authori
 
 ## Use Root Commands
 
-Run the repository's proxy scripts from the root:
+Run the Astro scripts from the repository root:
 
 ```sh
 npm run dev
@@ -20,7 +20,7 @@ npm run lint
 npm run format:check
 ```
 
-Inspect `package.json`, `astro/package.json`, `netlify.toml`, and workflow files before assuming commands or deployment behavior.
+Inspect `package.json`, `astro.config.mjs`, `netlify.toml`, and workflow files before assuming commands or deployment behavior.
 
 ## Validate Locally
 
