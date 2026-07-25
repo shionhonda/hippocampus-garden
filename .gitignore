@@ -72,3 +72,4 @@ yarn-error.log
 .yarn-integrity
 
 .playwright-cli
+output
