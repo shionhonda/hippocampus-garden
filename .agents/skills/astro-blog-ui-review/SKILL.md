@@ -1,6 +1,6 @@
 ---
 name: astro-blog-ui-review
-description: Review or improve this Astro blog's UI, UX, accessibility, and visual consistency. Use for changes in `astro/src/components`, `layouts`, `pages`, `styles`, or UI-facing data and libraries, and for audits of reading comfort, navigation, responsiveness, SEO presentation, or the site's coral-reef design system.
+description: Review or improve this Astro blog's UI, UX, accessibility, and visual consistency. Use for changes in `src/components`, `layouts`, `pages`, `styles`, or UI-facing data and libraries, and for audits of reading comfort, navigation, responsiveness, SEO presentation, or the site's coral-reef design system.
 ---
 
 # Review the Astro Blog UI
@@ -14,7 +14,7 @@ Before substantial UI work, read the relevant sections of:
 - `docs/astro-redesign-design-brief.md`
 - `docs/astro-redesign-design-tokens.md`
 - `docs/astro-redesign-architecture.md`
-- `astro/src/styles/tokens.css`
+- `src/styles/tokens.css`
 
 Use the implementation as the source of truth when an older design note conflicts with current code. Preserve the core direction: quiet and intellectual, reading-first, generous spacing, restrained coral accents, minimal motion, and supporting—not dominant—discovery modules.
 

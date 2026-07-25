@@ -14,7 +14,7 @@ content, including for commercial purposes, as long as you:
 Scope:
 
 - This content license applies to blog post text and original images in
-  `astro/src/content/posts/` unless a post states otherwise.
+  `src/content/posts/` unless a post states otherwise.
 - Source code is not covered by this file and is instead licensed under the
   [MIT License](./LICENSE).
 

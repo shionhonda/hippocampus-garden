@@ -1,6 +1,6 @@
 ---
 name: astro-blog-media
-description: Add, edit, or verify images and other post media for this Astro blog. Use for screenshots, diagrams, photos, animated media, featured or social images, Markdown image references, alt text, and visual QA in `astro/src/content/posts/*`.
+description: Add, edit, or verify images and other post media for this Astro blog. Use for screenshots, diagrams, photos, animated media, featured or social images, Markdown image references, alt text, and visual QA in `src/content/posts/*`.
 ---
 
 # Manage Astro Blog Media
@@ -9,10 +9,10 @@ Keep post media local, legible, accessible, and compatible with the repository's
 
 ## Follow Repository Conventions
 
-- Store post-specific media beside `index.md` in `astro/src/content/posts/<slug>/`.
+- Store post-specific media beside `index.md` in `src/content/posts/<slug>/`.
 - Use relative Markdown references such as `![Description](figure.png)` or `![Description](./figure.png)`.
 - For list cards and social metadata, set `featuredImage` to `<slug>/<filename>` unless preserving an existing valid convention.
-- Treat `astro/src/lib/post-images.ts` and `astro/src/content.config.ts` as the source of truth for supported frontmatter and image lookup.
+- Treat `src/lib/post-images.ts` and `src/content.config.ts` as the source of truth for supported frontmatter and image lookup.
 - Preserve published filenames unless the user requests a migration; renaming can break old URLs, Markdown, or social caches.
 
 ## Choose and Prepare Media

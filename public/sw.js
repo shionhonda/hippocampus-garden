@@ -16,6 +16,6 @@ self.addEventListener("activate", (event) => {
       })
 
       await Promise.all(clients.map((client) => client.navigate(client.url)))
-    })(),
+    })()
   )
 })

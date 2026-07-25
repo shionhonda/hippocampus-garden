@@ -1,6 +1,6 @@
 ---
 name: blog-writing-style-ja
-description: Write or revise Japanese posts in Shion Honda's voice for this repository. Use for Japanese prose in `astro/src/content/posts/*/index.md`, including technical commentary, book reviews, career essays, practical guides, and personal or family writing; also use when translating a draft into natural Japanese while preserving the author's argument and level of certainty.
+description: Write or revise Japanese posts in Shion Honda's voice for this repository. Use for Japanese prose in `src/content/posts/*/index.md`, including technical commentary, book reviews, career essays, practical guides, and personal or family writing; also use when translating a draft into natural Japanese while preserving the author's argument and level of certainty.
 ---
 
 # 日本語ブログを書く
@@ -10,7 +10,7 @@ description: Write or revise Japanese posts in Shion Honda's voice for this repo
 ## 執筆前に文体を合わせる
 
 1. 対象の草稿を最後まで読む。
-2. `astro/src/content/posts/` から、同じ言語・ジャンルの記事を2〜4本読む。原則として日付が新しいものを優先し、構成が近ければ過去記事も参照する。
+2. `src/content/posts/` から、同じ言語・ジャンルの記事を2〜4本読む。原則として日付が新しいものを優先し、構成が近ければ過去記事も参照する。
 3. 未公開記事や移行後の内容についてはリポジトリを正とする。公開中の見え方に合わせる依頼の場合だけ本番サイトも確認する。
 4. 特徴的な一文を模倣するのではなく、導入、論の進め方、確信度、段落のリズムを抽出する。
 

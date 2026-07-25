@@ -1,6 +1,6 @@
 ---
 name: blog-writing-style-en
-description: Write or revise English posts in Shion Honda's voice for this repository. Use for English prose in `astro/src/content/posts/*/index.md`, including technical explainers, research summaries, book reviews, project retrospectives, and personal essays; also use when translating a draft into natural English while preserving the author's argument and degree of certainty.
+description: Write or revise English posts in Shion Honda's voice for this repository. Use for English prose in `src/content/posts/*/index.md`, including technical explainers, research summaries, book reviews, project retrospectives, and personal essays; also use when translating a draft into natural English while preserving the author's argument and degree of certainty.
 ---
 
 # Write English Blog Prose
@@ -10,7 +10,7 @@ Preserve the author's ideas and specificity while making the prose easier to fol
 ## Calibrate Before Writing
 
 1. Read the target draft completely.
-2. Inspect 2–4 posts in `astro/src/content/posts/` that match its language and genre. Prefer recent dates, but include an older post when it is a closer structural match.
+2. Inspect 2–4 posts in `src/content/posts/` that match its language and genre. Prefer recent dates, but include an older post when it is a closer structural match.
 3. Treat the repository as the source of truth for unpublished and migrated content. Use the live site only when the user asks to match the currently published presentation.
 4. Infer patterns from the samples instead of copying distinctive sentences.
 
