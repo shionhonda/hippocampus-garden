@@ -1,0 +1,851 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="data:,">
+  <title>WSGI / ASGI Request Lifecycle Lab</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f3f8f8;
+      --surface: #ffffff;
+      --surface-2: #e7f3f1;
+      --line: #d7e1e4;
+      --line-strong: #c5d2d7;
+      --text: #1e2f36;
+      --text-strong: #102129;
+      --muted: #5f737b;
+      --accent: #ff7a6b;
+      --accent-soft: #fff1ee;
+      --accent-ink: #ffffff;
+      --blue: #1e8c8a;
+      --yellow: #e8b95e;
+      --green: #2f7d67;
+      --gray: #a7b8bd;
+      --red: #c95851;
+      --deep: #062b38;
+      --radius: 16px;
+      --font-sans: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", "Hiragino Sans", "Hiragino Kaku Gothic ProN", Arial, "Noto Sans JP", Meiryo, sans-serif;
+      --font-code: "SFMono-Regular", "SF Mono", "JetBrains Mono", "Cascadia Code", Consolas, monospace;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { background: var(--bg); }
+
+    body {
+      margin: 0;
+      min-width: 320px;
+      background:
+        radial-gradient(circle at 12% 0%, rgba(255, 122, 107, .17), transparent 22rem),
+        radial-gradient(circle at 82% 0%, rgba(158, 223, 214, .32), transparent 30rem),
+        linear-gradient(180deg, #eef7f8 0%, #f7fbfb 44%, #fffaf5 100%);
+      color: var(--text);
+      font-family: var(--font-sans);
+      line-height: 1.65;
+    }
+
+    button, input { font: inherit; }
+
+    button { color: inherit; }
+
+    button:focus-visible,
+    input:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 3px;
+    }
+
+    .shell {
+      width: min(1240px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 34px 0 54px;
+    }
+
+    .masthead {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      align-items: end;
+      gap: 24px;
+      padding-bottom: 28px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .eyebrow {
+      margin: 0 0 10px;
+      color: var(--accent);
+      font: 700 12px/1 var(--font-code);
+      letter-spacing: .16em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 0;
+      max-width: 780px;
+      color: var(--text-strong);
+      font-size: clamp(32px, 5vw, 56px);
+      line-height: 1.06;
+      letter-spacing: -.045em;
+      font-weight: 650;
+    }
+
+    .lead {
+      max-width: 590px;
+      margin: 18px 0 0;
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    .legend {
+      display: grid;
+      grid-template-columns: repeat(2, auto);
+      gap: 9px 18px;
+      padding-bottom: 4px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .legend span { display: inline-flex; align-items: center; gap: 7px; }
+    .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--gray); }
+    .dot.run { background: var(--blue); }
+    .dot.wait { background: var(--yellow); }
+    .dot.done { background: var(--green); }
+
+    .scenario-nav {
+      display: flex;
+      gap: 6px;
+      margin: 22px 0 0;
+      padding: 5px;
+      width: fit-content;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, .74);
+    }
+
+    .scenario-nav button {
+      border: 0;
+      border-radius: 999px;
+      padding: 9px 16px;
+      background: transparent;
+      color: var(--muted);
+      cursor: pointer;
+      transition: background .18s ease, color .18s ease, transform .18s ease;
+    }
+
+    .scenario-nav button:hover { color: var(--text); }
+    .scenario-nav button:active { transform: scale(.98); }
+    .scenario-nav button[aria-selected="true"] { background: var(--deep); color: #ffffff; }
+
+    .control-strip {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 18px;
+      align-items: end;
+      padding: 20px 0;
+    }
+
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px 24px;
+    }
+
+    .control { min-width: 160px; }
+    .control[hidden] { display: none; }
+
+    .control label,
+    .control .label {
+      display: flex;
+      justify-content: space-between;
+      gap: 14px;
+      margin-bottom: 7px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .control output { color: var(--text-strong); font-family: var(--font-code); }
+
+    input[type="range"] {
+      width: 100%;
+      accent-color: var(--accent);
+      cursor: pointer;
+    }
+
+    .toggle {
+      display: inline-flex;
+      gap: 4px;
+      padding: 3px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+    }
+
+    .toggle button {
+      border: 0;
+      padding: 5px 9px;
+      border-radius: 7px;
+      background: transparent;
+      color: var(--muted);
+      cursor: pointer;
+      font: 600 11px/1.3 var(--font-code);
+    }
+
+    .toggle button[aria-pressed="true"] { background: var(--surface-2); color: var(--deep); }
+
+    .actions { display: flex; gap: 9px; }
+
+    .primary, .secondary {
+      border-radius: 12px;
+      padding: 11px 16px;
+      cursor: pointer;
+      transition: transform .18s ease, opacity .18s ease;
+      white-space: nowrap;
+    }
+
+    .primary { border: 1px solid var(--accent); background: var(--accent); color: var(--accent-ink); font-weight: 750; }
+    .secondary { border: 1px solid var(--line-strong); background: rgba(255, 255, 255, .62); }
+    .primary:hover, .secondary:hover { transform: translateY(-1px); }
+    button:disabled { opacity: .38; cursor: not-allowed; transform: none !important; }
+
+    .lab-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--line);
+      box-shadow: 0 10px 30px rgba(6, 43, 56, .06);
+    }
+
+    .model {
+      min-width: 0;
+      min-height: 455px;
+      padding: 22px;
+      background: rgba(255, 255, 255, .94);
+    }
+
+    .model-head {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 20px;
+      padding-bottom: 18px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .model h2 { margin: 0; color: var(--text-strong); font-size: 24px; line-height: 1; letter-spacing: -.03em; }
+    .signature { margin: 7px 0 0; color: var(--muted); font: 11px/1.45 var(--font-code); }
+
+    .counter { text-align: right; }
+    .counter strong { display: block; color: var(--text-strong); font: 600 24px/1 var(--font-code); }
+    .counter span { color: var(--muted); font-size: 11px; }
+
+    .metrics {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1px;
+      margin: 0;
+      border-bottom: 1px solid var(--line);
+      background: var(--line);
+    }
+
+    .metric {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 11px 12px;
+      background: rgba(247, 250, 250, .96);
+    }
+
+    .metric dt { color: var(--muted); font-size: 11px; }
+    .metric dd { margin: 0; color: var(--text-strong); font: 650 12px/1 var(--font-code); }
+
+    .architecture {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      min-height: 50px;
+      padding: 16px 0 10px;
+      color: var(--muted);
+      font: 11px/1.3 var(--font-code);
+    }
+
+    .architecture .node { padding: 6px 8px; border: 1px solid var(--line-strong); border-radius: 7px; background: var(--surface-2); color: var(--text-strong); }
+    .architecture .arrow { color: var(--accent); }
+
+    .lanes { display: grid; gap: 9px; min-height: 238px; }
+
+    .lane {
+      position: relative;
+      display: grid;
+      grid-template-columns: 76px minmax(0, 1fr);
+      align-items: center;
+      min-height: 46px;
+      border-top: 1px solid rgba(197, 210, 215, .62);
+    }
+
+    .lane-label { color: var(--muted); font: 10px/1.25 var(--font-code); }
+    .track { position: relative; height: 28px; border-radius: 8px; background: rgba(231, 238, 240, .72); overflow: hidden; }
+
+    .task {
+      position: absolute;
+      inset: 3px auto 3px 3px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      min-width: 74px;
+      max-width: calc(100% - 6px);
+      padding: 0 8px;
+      border-radius: 6px;
+      background: var(--gray);
+      color: #ffffff;
+      font: 750 10px/1 var(--font-code);
+      transition: width .18s linear, left .18s linear, background .18s ease, opacity .18s ease;
+      white-space: nowrap;
+      overflow: hidden;
+    }
+
+    .task.running { background: var(--blue); }
+    .task.waiting { background: var(--yellow); color: var(--text-strong); }
+    .task.queued { background: var(--gray); color: var(--text-strong); }
+    .task.done { background: var(--green); }
+    .task.blocked { background: var(--red); }
+
+    .event-stream { display: grid; gap: 7px; padding-top: 3px; }
+    .event {
+      display: grid;
+      grid-template-columns: 12px 1fr auto;
+      align-items: center;
+      gap: 9px;
+      min-height: 34px;
+      padding: 7px 9px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      color: var(--muted);
+      background: rgba(255, 255, 255, .7);
+      font: 10px/1.35 var(--font-code);
+      opacity: .34;
+      transform: translateY(3px);
+      transition: opacity .2s ease, transform .2s ease, border-color .2s ease;
+    }
+
+    .event.live { opacity: 1; transform: none; border-color: var(--gray); color: var(--text); }
+    .event.done { opacity: .72; transform: none; }
+    .event .pulse { width: 7px; height: 7px; border-radius: 50%; background: var(--gray); }
+    .event.live .pulse { background: var(--accent); box-shadow: 0 0 0 5px rgba(255, 122, 107, .12); }
+    .event .dir { color: var(--muted); }
+
+    .explanation {
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr) auto;
+      align-items: center;
+      gap: 14px;
+      margin-top: 12px;
+      padding: 15px 17px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: rgba(255, 255, 255, .86);
+    }
+
+    .explanation .status-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 6px rgba(255, 122, 107, .12); }
+    .explanation p { margin: 0; font-size: 13px; }
+    .explanation code { color: var(--deep); font-family: var(--font-code); }
+    .clock { color: var(--muted); font: 11px/1 var(--font-code); }
+
+    .takeaway {
+      display: grid;
+      grid-template-columns: 160px minmax(0, 1fr);
+      gap: 28px;
+      margin-top: 24px;
+      padding-top: 24px;
+      border-top: 1px solid var(--line);
+    }
+
+    .takeaway h3 { margin: 0; color: var(--accent); font: 700 11px/1.3 var(--font-code); letter-spacing: .1em; text-transform: uppercase; }
+    .takeaway p { margin: 0; max-width: 810px; font-size: clamp(18px, 2.5vw, 27px); line-height: 1.32; letter-spacing: -.025em; }
+    .takeaway small { display: block; margin-top: 10px; color: var(--muted); font-size: 12px; }
+
+    @media (max-width: 800px) {
+      .shell { width: min(100% - 20px, 640px); padding-top: 22px; }
+      .masthead, .control-strip, .takeaway { grid-template-columns: 1fr; }
+      .legend { grid-template-columns: repeat(4, auto); justify-content: start; }
+      .lab-grid { grid-template-columns: 1fr; }
+      .model { min-height: 420px; }
+      .actions { justify-content: stretch; }
+      .actions button { flex: 1; }
+    }
+
+    @media (max-width: 480px) {
+      .scenario-nav { width: 100%; border-radius: 14px; }
+      .scenario-nav button { flex: 1; padding-inline: 8px; font-size: 12px; }
+      .controls { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+      .control { min-width: 0; }
+      .model { padding: 17px; }
+      .metric { display: block; }
+      .metric dd { margin-top: 5px; }
+      .lane { grid-template-columns: 61px minmax(0, 1fr); }
+      .legend { grid-template-columns: repeat(2, auto); }
+      .explanation { grid-template-columns: auto minmax(0, 1fr); }
+      .clock { grid-column: 2; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <header class="masthead">
+      <div>
+        <p class="eyebrow">Request Lifecycle Lab · 01</p>
+        <h1>Same HTTP.<br>Different execution models.</h1>
+        <p class="lead">Send requests through both models and see how WSGI function calls and ASGI events represent waiting, concurrency, and disconnection.</p>
+      </div>
+      <div class="legend" aria-label="Status legend">
+        <span><i class="dot run"></i>Running</span>
+        <span><i class="dot wait"></i>Waiting for I/O</span>
+        <span><i class="dot"></i>Queued</span>
+        <span><i class="dot done"></i>Done</span>
+      </div>
+    </header>
+
+    <nav class="scenario-nav" aria-label="Scenarios">
+      <button type="button" data-scenario="simple" aria-selected="true">1 · Simple</button>
+      <button type="button" data-scenario="io" aria-selected="false">2 · I/O Wait</button>
+      <button type="button" data-scenario="stream" aria-selected="false">3 · Stream</button>
+    </nav>
+
+    <section class="control-strip" aria-label="Simulation settings">
+      <div class="controls">
+        <div class="control" id="requestControl">
+          <label for="requests">Requests <output id="requestsOut">5</output></label>
+          <input id="requests" type="range" min="1" max="8" value="5">
+        </div>
+        <div class="control" id="workerControl">
+          <label for="workers">WSGI workers <output id="workersOut">2</output></label>
+          <input id="workers" type="range" min="1" max="4" value="2">
+        </div>
+        <div class="control" id="waitControl">
+          <label for="waitTime">I/O wait <output id="waitOut">3.0s</output></label>
+          <input id="waitTime" type="range" min="1" max="5" step="0.5" value="3">
+        </div>
+        <div class="control" id="modeControl">
+          <div class="label"><span>ASGI wait mode</span></div>
+          <div class="toggle" role="group" aria-label="ASGI wait mode">
+            <button type="button" data-mode="await" aria-pressed="true">await</button>
+            <button type="button" data-mode="block" aria-pressed="false">blocking</button>
+          </div>
+        </div>
+      </div>
+      <div class="actions">
+        <button class="secondary" id="disconnect" type="button" disabled>Disconnect</button>
+        <button class="primary" id="run" type="button">Send 5 requests</button>
+      </div>
+    </section>
+
+    <section class="lab-grid" aria-live="polite">
+      <article class="model" aria-labelledby="wsgiTitle">
+        <div class="model-head">
+          <div>
+            <h2 id="wsgiTitle">WSGI</h2>
+            <p class="signature">app(environ, start_response) → iterable</p>
+          </div>
+          <div class="counter"><strong id="wsgiCount">0/5</strong><span>completed</span></div>
+        </div>
+        <dl class="metrics" aria-label="WSGI performance metrics">
+          <div class="metric"><dt>average latency</dt><dd id="wsgiLatency">—</dd></div>
+          <div class="metric"><dt>throughput</dt><dd id="wsgiThroughput">—</dd></div>
+        </dl>
+        <div class="architecture" id="wsgiArch"></div>
+        <div class="lanes" id="wsgiLanes"></div>
+      </article>
+
+      <article class="model" aria-labelledby="asgiTitle">
+        <div class="model-head">
+          <div>
+            <h2 id="asgiTitle">ASGI</h2>
+            <p class="signature">async app(scope, receive, send)</p>
+          </div>
+          <div class="counter"><strong id="asgiCount">0/5</strong><span>completed</span></div>
+        </div>
+        <dl class="metrics" aria-label="ASGI performance metrics">
+          <div class="metric"><dt>average latency</dt><dd id="asgiLatency">—</dd></div>
+          <div class="metric"><dt>throughput</dt><dd id="asgiThroughput">—</dd></div>
+        </dl>
+        <div class="architecture" id="asgiArch"></div>
+        <div class="lanes" id="asgiLanes"></div>
+      </article>
+    </section>
+
+    <section class="explanation" aria-live="polite">
+      <span class="status-dot"></span>
+      <p id="explanation">Click “Send 5 requests” to run both models at the same time.</p>
+      <span class="clock" id="clock">t = 0.0s</span>
+    </section>
+
+    <section class="takeaway">
+      <h3>What to notice</h3>
+      <div>
+        <p id="takeawayText">A short HTTP request produces the same result. The difference is that WSGI represents it as one function call, while ASGI represents it as events sent and received.</p>
+        <small id="caveat">WSGI is an interface specification; a sync worker is an execution model. Threads and greenlets can give WSGI applications different concurrency behavior.</small>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    (() => {
+      const state = {
+        scenario: 'simple',
+        mode: 'await',
+        running: false,
+        disconnected: false,
+        startedAt: 0,
+        raf: null,
+        duration: 0
+      };
+
+      const $ = (selector) => document.querySelector(selector);
+      const $$ = (selector) => [...document.querySelectorAll(selector)];
+      const els = {
+        requests: $('#requests'), requestsOut: $('#requestsOut'),
+        workers: $('#workers'), workersOut: $('#workersOut'),
+        wait: $('#waitTime'), waitOut: $('#waitOut'),
+        run: $('#run'), disconnect: $('#disconnect'),
+        requestControl: $('#requestControl'), workerControl: $('#workerControl'),
+        waitControl: $('#waitControl'), modeControl: $('#modeControl'),
+        wsgiLanes: $('#wsgiLanes'), asgiLanes: $('#asgiLanes'),
+        wsgiArch: $('#wsgiArch'), asgiArch: $('#asgiArch'),
+        wsgiCount: $('#wsgiCount'), asgiCount: $('#asgiCount'),
+        wsgiLatency: $('#wsgiLatency'), asgiLatency: $('#asgiLatency'),
+        wsgiThroughput: $('#wsgiThroughput'), asgiThroughput: $('#asgiThroughput'),
+        explanation: $('#explanation'), clock: $('#clock'),
+        takeaway: $('#takeawayText'), caveat: $('#caveat')
+      };
+
+      const labels = ['A','B','C','D','E','F','G','H'];
+      const speed = 620;
+
+      function config() {
+        return {
+          requests: Number(els.requests.value),
+          workers: Number(els.workers.value),
+          wait: Number(els.wait.value)
+        };
+      }
+
+      function node(text) { return `<span class="node">${text}</span>`; }
+      function arrow(text = '→') { return `<span class="arrow">${text}</span>`; }
+
+      function setScenario(next) {
+        stop();
+        state.scenario = next;
+        state.disconnected = false;
+        $$('[data-scenario]').forEach(button => button.setAttribute('aria-selected', String(button.dataset.scenario === next)));
+        const stream = next === 'stream';
+        const io = next === 'io';
+        els.requestControl.hidden = stream;
+        els.workerControl.hidden = stream;
+        els.waitControl.hidden = !io;
+        els.modeControl.hidden = !io;
+        els.disconnect.disabled = true;
+        els.run.textContent = stream ? 'Start stream' : `Send ${config().requests} requests`;
+
+        if (next === 'simple') {
+          els.takeaway.textContent = 'A short HTTP request produces the same result. WSGI represents it as one function call, while ASGI represents it as events sent and received.';
+          els.caveat.textContent = 'Before comparing speed, focus on what the server and application can exchange.';
+        } else if (next === 'io') {
+          els.takeaway.textContent = 'await does not eliminate the wait. It sets a waiting task aside so another task can make progress.';
+          els.caveat.textContent = 'WSGI is an interface specification; a sync worker is an execution model. Threads and greenlets can give WSGI applications different concurrency behavior.';
+        } else {
+          els.takeaway.textContent = 'Both interfaces can stream an HTTP body. ASGI can also represent a disconnection as a receive event in the same model.';
+          els.caveat.textContent = 'A WSGI server may detect a disconnect, but there is no standard interface for delivering it to the application as a separate event.';
+        }
+        renderIdle();
+      }
+
+      function lane(label, content = '') {
+        return `<div class="lane"><span class="lane-label">${label}</span><div class="track">${content}</div></div>`;
+      }
+
+      function task(label, status, width = 28, left = 0, detail = '') {
+        return `<span class="task ${status}" style="width:${width}%;left:${left}%">${label}${detail ? ` · ${detail}` : ''}</span>`;
+      }
+
+      function eventRow(name, direction, status = '') {
+        return `<div class="event ${status}"><i class="pulse"></i><span>${name}</span><span class="dir">${direction}</span></div>`;
+      }
+
+      function resetMetrics() {
+        els.wsgiLatency.textContent = '—';
+        els.asgiLatency.textContent = '—';
+        els.wsgiThroughput.textContent = '—';
+        els.asgiThroughput.textContent = '—';
+      }
+
+      function renderMetrics(kind, completionTimes, t) {
+        const completed = completionTimes.filter(end => t >= end);
+        const latency = kind === 'wsgi' ? els.wsgiLatency : els.asgiLatency;
+        const throughput = kind === 'wsgi' ? els.wsgiThroughput : els.asgiThroughput;
+
+        if (completed.length === 0) {
+          latency.textContent = '—';
+          throughput.textContent = '0.00 req/s';
+          return;
+        }
+
+        const average = completed.reduce((sum, end) => sum + end, 0) / completed.length;
+        const elapsed = completed.length === completionTimes.length
+          ? Math.max(...completionTimes)
+          : Math.max(t, .1);
+        latency.textContent = `${average.toFixed(2)}s`;
+        throughput.textContent = `${(completed.length / elapsed).toFixed(2)} req/s`;
+      }
+
+      function renderIdle() {
+        const c = config();
+        resetMetrics();
+        els.clock.textContent = 't = 0.0s';
+        els.wsgiCount.textContent = `0/${state.scenario === 'stream' ? 1 : c.requests}`;
+        els.asgiCount.textContent = `0/${state.scenario === 'stream' ? 1 : c.requests}`;
+        if (state.scenario === 'simple') {
+          els.wsgiArch.innerHTML = node('HTTP') + arrow() + node('callable') + arrow() + node('iterable');
+          els.asgiArch.innerHTML = node('1 ASGI worker') + arrow() + node('1 event loop') + arrow('⇄') + node('receive / send');
+          els.wsgiLanes.innerHTML = lane('worker', task('ready', 'queued', 24));
+          els.asgiLanes.innerHTML = lane('event loop', task('ready', 'queued', 24));
+          els.explanation.innerHTML = `Click “Send ${c.requests} requests” to run both models at the same time.`;
+        } else if (state.scenario === 'io') {
+          els.wsgiArch.innerHTML = node(`${c.workers} sync workers`) + arrow() + node('blocking call');
+          els.asgiArch.innerHTML = node('1 ASGI worker') + arrow() + node('1 event loop') + arrow() + node(state.mode === 'await' ? 'await I/O' : 'blocking I/O');
+          els.wsgiLanes.innerHTML = Array.from({length: c.workers}, (_, i) => lane(`worker ${i + 1}`)).join('') + lane('queue');
+          els.asgiLanes.innerHTML = lane('event loop') + lane(state.mode === 'await' ? 'awaiting' : 'blocked');
+          els.explanation.innerHTML = state.mode === 'await'
+            ? '<code>await</code> yields control to the event loop while waiting for I/O.'
+            : '<code>time.sleep()</code> blocks the thread, so other tasks on the same loop cannot make progress.';
+        } else {
+          els.wsgiArch.innerHTML = node('callable') + arrow() + node('body iterable') + arrow() + node('client');
+          els.asgiArch.innerHTML = node('1 ASGI worker') + arrow() + node('receive') + arrow('⇄') + node('send');
+          els.wsgiLanes.innerHTML = `<div class="event-stream">${eventRow('start_response("200 OK")', 'app → server')}${eventRow('yield chunk 1', 'app → server')}${eventRow('yield chunk 2', 'app → server')}${eventRow('yield chunk 3', 'app → server')}</div>`;
+          els.asgiLanes.innerHTML = `<div class="event-stream">${eventRow('http.response.start', 'send →')}${eventRow('http.response.body · 1', 'send →')}${eventRow('http.response.body · 2', 'send →')}${eventRow('http.response.body · 3', 'send →')}</div>`;
+          els.explanation.textContent = 'Start the simulation to send the same three-chunk HTTP response through each interface.';
+        }
+      }
+
+      function stop() {
+        state.running = false;
+        if (state.raf) cancelAnimationFrame(state.raf);
+        state.raf = null;
+        els.run.disabled = false;
+      }
+
+      function run() {
+        stop();
+        state.running = true;
+        state.disconnected = false;
+        state.startedAt = performance.now();
+        els.run.disabled = true;
+        els.disconnect.disabled = state.scenario !== 'stream';
+        frame(state.startedAt);
+      }
+
+      function phase(t, start, wait, end) {
+        if (t < start) return 'queued';
+        if (t < start + .35) return 'running';
+        if (t < start + .35 + wait) return 'waiting';
+        if (t < end) return 'running';
+        return 'done';
+      }
+
+      function renderSimple(t) {
+        const c = config();
+        const total = Math.max(1, c.requests * .42 + .7);
+        const completionTimes = Array.from({length: c.requests}, (_, i) => i * .42 + .6);
+        let wDone = 0, aDone = 0;
+        const wRows = [];
+        const aRows = [];
+        for (let i = 0; i < Math.min(c.requests, 5); i++) {
+          const start = i * .42;
+          const status = t < start ? 'queued' : t < start + .6 ? 'running' : 'done';
+          if (t >= start + .6) { wDone++; aDone++; }
+          wRows.push(lane(`request ${labels[i]}`, task(labels[i], status, status === 'done' ? 94 : 42, status === 'queued' ? 0 : Math.min(52, (t - start) * 80), status === 'running' ? 'call' : status)));
+          aRows.push(lane(`request ${labels[i]}`, task(labels[i], status, status === 'done' ? 94 : 42, status === 'queued' ? 0 : Math.min(52, (t - start) * 80), status === 'running' ? 'events' : status)));
+        }
+        if (c.requests > 5) {
+          const extraDone = Math.max(0, Math.min(c.requests - 5, Math.floor((t - 5 * .42) / .42 + 1)));
+          wDone += extraDone; aDone += extraDone;
+        }
+        els.wsgiLanes.innerHTML = wRows.join('');
+        els.asgiLanes.innerHTML = aRows.join('');
+        els.wsgiCount.textContent = `${Math.min(wDone, c.requests)}/${c.requests}`;
+        els.asgiCount.textContent = `${Math.min(aDone, c.requests)}/${c.requests}`;
+        renderMetrics('wsgi', completionTimes, t);
+        renderMetrics('asgi', completionTimes, t);
+        els.explanation.innerHTML = t < .3
+          ? 'WSGI calls the application callable; ASGI receives an <code>http.request</code> event.'
+          : t < total - .3
+            ? 'Both return the same 200 OK. Only the shape of the interface differs here.'
+            : 'Both are complete. For a short HTTP request, there is little perceptible difference.';
+        return t >= total;
+      }
+
+      function renderIO(t) {
+        const c = config();
+        const service = c.wait + .7;
+        const wsgiJobs = [];
+        for (let i = 0; i < c.requests; i++) {
+          const batch = Math.floor(i / c.workers);
+          const worker = i % c.workers;
+          const start = batch * service;
+          const end = start + service;
+          wsgiJobs.push({ i, worker, start, end, status: phase(t, start, c.wait, end) });
+        }
+        const workerRows = [];
+        for (let w = 0; w < c.workers; w++) {
+          const active = wsgiJobs.find(j => j.worker === w && t >= j.start && t < j.end);
+          const completed = [...wsgiJobs].reverse().find(j => j.worker === w && t >= j.end);
+          const job = active || completed;
+          workerRows.push(lane(`worker ${w + 1}`, job ? task(labels[job.i], active ? job.status : 'done', 88, 0, active ? (job.status === 'waiting' ? 'I/O wait' : 'Python') : 'done') : ''));
+        }
+        const queued = wsgiJobs.filter(j => j.status === 'queued');
+        workerRows.push(lane('queue', queued.map((j, idx) => task(labels[j.i], 'queued', 13, idx * 14, 'wait')).join('')));
+        els.wsgiLanes.innerHTML = workerRows.join('');
+
+        const asgiRows = [];
+        let asgiDone = 0;
+        if (state.mode === 'await') {
+          for (let i = 0; i < Math.min(c.requests, 6); i++) {
+            const start = i * .12;
+            const end = start + c.wait + .55;
+            const status = phase(t, start, c.wait, end);
+            if (status === 'done') asgiDone++;
+            asgiRows.push(lane(`task ${labels[i]}`, task(labels[i], status, status === 'waiting' ? 80 : 42, status === 'waiting' ? 8 : 0, status === 'waiting' ? 'parked' : status)));
+          }
+          if (c.requests > 6) asgiDone += Math.max(0, Math.min(c.requests - 6, Math.floor((t - (6 * .12 + c.wait + .55)) / .12 + 1)));
+        } else {
+          for (let i = 0; i < Math.min(c.requests, 6); i++) {
+            const start = i * service;
+            const end = start + service;
+            const status = phase(t, start, c.wait, end);
+            if (status === 'done') asgiDone++;
+            asgiRows.push(lane(`task ${labels[i]}`, task(labels[i], status === 'waiting' ? 'blocked' : status, status === 'queued' ? 25 : 86, 0, status === 'waiting' ? 'loop blocked' : status)));
+          }
+          if (c.requests > 6) asgiDone += Math.max(0, Math.min(c.requests - 6, Math.floor((t - 6 * service) / service + 1)));
+        }
+        els.asgiLanes.innerHTML = asgiRows.join('');
+
+        const wDone = wsgiJobs.filter(j => j.status === 'done').length;
+        els.wsgiCount.textContent = `${wDone}/${c.requests}`;
+        els.asgiCount.textContent = `${Math.min(asgiDone, c.requests)}/${c.requests}`;
+        const wsgiCompletionTimes = wsgiJobs.map(job => job.end);
+        const asgiCompletionTimes = Array.from({length: c.requests}, (_, i) =>
+          state.mode === 'await' ? i * .12 + c.wait + .55 : (i + 1) * service
+        );
+        renderMetrics('wsgi', wsgiCompletionTimes, t);
+        renderMetrics('asgi', asgiCompletionTimes, t);
+        if (state.mode === 'await') {
+          els.explanation.innerHTML = t < .5
+            ? 'In ASGI, the next task can start when the current task reaches <code>await</code>.'
+            : wDone < c.requests
+              ? `The ${c.workers} WSGI sync workers remain occupied during I/O. ASGI tasks wait without occupying the event loop.`
+              : 'Complete. ASGI overlapped the I/O waits; it did not make the waits themselves shorter.';
+        } else {
+          els.explanation.innerHTML = '<code>time.sleep()</code> blocks the event loop\'s only thread, so later tasks cannot start.';
+        }
+        const wEnd = Math.ceil(c.requests / c.workers) * service;
+        const aEnd = state.mode === 'await' ? c.wait + .55 + (c.requests - 1) * .12 : c.requests * service;
+        return t >= Math.max(wEnd, aEnd) + .2;
+      }
+
+      function renderStream(t) {
+        const steps = state.disconnected ? 3 : 4;
+        const index = Math.min(steps - 1, Math.floor(t / 2.2));
+        const wsgiNames = ['start_response("200 OK")', 'yield chunk 1', 'yield chunk 2', 'yield chunk 3'];
+        const asgiNames = ['http.response.start', 'http.response.body · 1', 'http.response.body · 2', 'http.response.body · 3'];
+        const w = [], a = [];
+        for (let i = 0; i < 4; i++) {
+          const status = i < index ? 'done' : i === index ? 'live' : '';
+          w.push(eventRow(wsgiNames[i], 'app → server', status));
+          a.push(eventRow(asgiNames[i], 'send →', status));
+        }
+        if (state.disconnected) {
+          w.push(eventRow('no standard disconnect event', 'server × app', 'live'));
+          a.push(eventRow('http.disconnect', 'receive ←', 'live'));
+          els.explanation.innerHTML = 'ASGI delivers <code>http.disconnect</code> through <code>receive</code>. WSGI has no equivalent standard event.';
+        } else {
+          els.explanation.textContent = index === 0 ? 'The response has started. Try disconnecting before it completes.' : `Sending chunk ${index}. Both interfaces support HTTP streaming.`;
+        }
+        els.wsgiLanes.innerHTML = `<div class="event-stream">${w.join('')}</div>`;
+        els.asgiLanes.innerHTML = `<div class="event-stream">${a.join('')}</div>`;
+        const done = state.disconnected || t >= 8.8;
+        els.wsgiCount.textContent = `${done ? 1 : 0}/1`;
+        els.asgiCount.textContent = `${done ? 1 : 0}/1`;
+        if (done) {
+          const completionTime = state.disconnected ? Math.max(t, .1) : 8.8;
+          renderMetrics('wsgi', [completionTime], t);
+          renderMetrics('asgi', [completionTime], t);
+        }
+        return done;
+      }
+
+      function frame(now) {
+        if (!state.running) return;
+        const t = (now - state.startedAt) / speed;
+        els.clock.textContent = `t = ${t.toFixed(1)}s`;
+        let done = false;
+        if (state.scenario === 'simple') done = renderSimple(t);
+        else if (state.scenario === 'io') done = renderIO(t);
+        else done = renderStream(t);
+        if (done) {
+          stop();
+          els.disconnect.disabled = true;
+          els.run.textContent = state.scenario === 'stream' ? 'Run again' : 'Send again';
+          return;
+        }
+        state.raf = requestAnimationFrame(frame);
+      }
+
+      $$('[data-scenario]').forEach(button => button.addEventListener('click', () => setScenario(button.dataset.scenario)));
+      $$('[data-mode]').forEach(button => button.addEventListener('click', () => {
+        stop();
+        state.mode = button.dataset.mode;
+        $$('[data-mode]').forEach(b => b.setAttribute('aria-pressed', String(b === button)));
+        renderIdle();
+      }));
+
+      [els.requests, els.workers, els.wait].forEach(input => input.addEventListener('input', () => {
+        stop();
+        els.requestsOut.textContent = els.requests.value;
+        els.workersOut.textContent = els.workers.value;
+        els.waitOut.textContent = `${Number(els.wait.value).toFixed(1)}s`;
+        els.run.textContent = state.scenario === 'stream' ? 'Start stream' : `Send ${els.requests.value} requests`;
+        renderIdle();
+      }));
+
+      els.run.addEventListener('click', run);
+      els.disconnect.addEventListener('click', () => {
+        if (!state.running || state.scenario !== 'stream') return;
+        state.disconnected = true;
+        els.disconnect.disabled = true;
+      });
+
+      setScenario('simple');
+
+      const frameElement = window.frameElement;
+      if (frameElement?.tagName === 'IFRAME') {
+        let resizeFrame = null;
+        const syncFrameHeight = () => {
+          if (resizeFrame) cancelAnimationFrame(resizeFrame);
+          resizeFrame = requestAnimationFrame(() => {
+            frameElement.style.height = `${Math.ceil(document.body.getBoundingClientRect().height) + 2}px`;
+          });
+        };
+        new ResizeObserver(syncFrameHeight).observe(document.body);
+        window.addEventListener('load', syncFrameHeight);
+        window.addEventListener('resize', syncFrameHeight);
+        syncFrameHeight();
+      }
+    })();
+  </script>
+</body>
+</html>

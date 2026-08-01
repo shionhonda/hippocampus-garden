@@ -1,6 +1,6 @@
 ---
 title: "イタリアの冷凍食品食べ比べ"
-date: "2026-07-22T12:00:00.000Z"
+date: "2026-07-24T12:00:00.000Z"
 description: "ローマのスーパーで買える冷凍イタリア料理8品を、本場らしさ、電子レンジとの相性、そして実際の味から五つ星で評価しました。"
 featuredImage: frozen_italian_food/processed/featured.webp
 tags: ["food", "misc"]

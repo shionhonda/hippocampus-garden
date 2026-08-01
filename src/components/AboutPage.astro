@@ -44,9 +44,15 @@ const languageLinks = [
   canonicalPath={locale === "ja" ? "/about-ja/" : "/about/"}
 >
   <section class="section about-shell">
-    <div class="about-topbar">
+    <div class="about-intro-header">
+      <div>
+        <h1 class="intro-title">{profile.name}</h1>
+        <div class="intro-meta">
+          {profile.role} · {profile.location} · {profile.currentCompany}
+        </div>
+      </div>
       <nav aria-label={profile.sectionLabels.switchLanguage}>
-        <ul class="language-switch">
+        <ul class="language-filter">
           {
             languageLinks.map((item) => (
               <li>
@@ -54,7 +60,7 @@ const languageLinks = [
                   href={item.href}
                   hreflang={item.code}
                   aria-current={item.current ? "page" : undefined}
-                  class:list={["language-pill", { current: item.current }]}
+                  class="language-filter__button"
                 >
                   {item.label}
                 </a>
@@ -64,7 +70,8 @@ const languageLinks = [
         </ul>
       </nav>
     </div>
-    <div class="about-intro-grid">
+
+    <div class="about-intro-content">
       <div class="about-photo-wrap">
         <Image
           src={faceImage}
@@ -82,11 +89,7 @@ const languageLinks = [
           height="44"
         />
       </div>
-      <div>
-        <h1 class="intro-title">{profile.name}</h1>
-        <div class="intro-meta">
-          {profile.role} · {profile.location} · {profile.currentCompany}
-        </div>
+      <div class="about-copy-wrap">
         <div class="intro-copy prose" set:html={profile.introHtml} />
         <div class="social-row">
           {
@@ -198,23 +201,23 @@ const languageLinks = [
     margin-inline: auto;
   }
 
-  .about-topbar {
+  .about-intro-header {
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
     gap: var(--space-4);
-    align-items: center;
-    margin-bottom: var(--space-5);
+    align-items: start;
+    margin-bottom: var(--space-6);
     flex-wrap: wrap;
   }
 
-  .about-intro-grid {
+  .about-intro-content {
     display: grid;
-    grid-template-columns: minmax(10rem, 14rem) minmax(0, 1fr);
-    gap: var(--space-8);
-    align-items: start;
+    gap: var(--space-6);
   }
 
   .about-photo-wrap {
+    width: min(100%, 14rem);
+    margin-inline: auto;
     position: relative;
     padding: 0.85rem;
     border: 1px solid rgba(197, 210, 215, 0.72);
@@ -256,33 +259,6 @@ const languageLinks = [
     border: 1px solid rgba(197, 210, 215, 0.58);
   }
 
-  .language-switch {
-    display: flex;
-    gap: var(--space-2);
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    font-family: var(--font-ui);
-    font-size: var(--text-sm);
-  }
-
-  .language-pill {
-    display: inline-flex;
-    align-items: center;
-    padding: 0.5rem 0.85rem;
-    border: 1px solid rgba(197, 210, 215, 0.82);
-    border-radius: var(--radius-pill);
-    background: rgba(255, 255, 255, 0.72);
-    text-decoration: none;
-    color: var(--color-ink-soft);
-  }
-
-  .language-pill.current {
-    border-color: rgba(14, 63, 82, 0.24);
-    background: rgba(14, 63, 82, 0.08);
-    color: var(--color-ink-strong);
-  }
-
   .intro-title {
     margin: 0 0 var(--space-2);
     font-family: var(--font-ui);
@@ -292,15 +268,12 @@ const languageLinks = [
   }
 
   .intro-meta {
-    margin-bottom: var(--space-4);
+    margin: 0;
     font-family: var(--font-ui);
     color: var(--color-muted);
   }
 
   .intro-copy {
-    width: 100%;
-    max-width: none;
-    margin-inline: 0;
     color: var(--color-ink-soft);
   }
 
@@ -359,9 +332,9 @@ const languageLinks = [
   }
 
   @media (max-width: 720px) {
-    .about-intro-grid {
-      grid-template-columns: 1fr;
-      gap: var(--space-5);
+    .about-intro-header {
+      gap: var(--space-3);
+      margin-bottom: var(--space-5);
     }
 
     .about-photo-wrap {

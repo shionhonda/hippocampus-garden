@@ -1,0 +1,71 @@
+<script>
+  const diagrams = document.querySelectorAll<HTMLElement>(
+    ".mermaid[data-mermaid-source]"
+  )
+
+  if (diagrams.length > 0) {
+    const { default: mermaid } = await import("mermaid")
+
+    mermaid.initialize({
+      startOnLoad: false,
+      securityLevel: "strict",
+      theme: "base",
+      fontFamily:
+        'ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", "Hiragino Sans", "Hiragino Kaku Gothic ProN", Arial, "Noto Sans JP", Meiryo, sans-serif',
+      themeVariables: {
+        background: "#ffffff",
+        primaryColor: "#e7f3f1",
+        primaryTextColor: "#102129",
+        primaryBorderColor: "#1e8c8a",
+        secondaryColor: "#fff3f1",
+        secondaryTextColor: "#102129",
+        secondaryBorderColor: "#ff7a6b",
+        tertiaryColor: "#f7fafa",
+        tertiaryTextColor: "#1e2f36",
+        tertiaryBorderColor: "#c5d2d7",
+        lineColor: "#0e3f52",
+        textColor: "#1e2f36",
+        mainBkg: "#e7f3f1",
+        nodeBorder: "#1e8c8a",
+        clusterBkg: "#f7fafa",
+        clusterBorder: "#d7e1e4",
+        edgeLabelBackground: "#ffffff",
+        noteBkgColor: "#f3e7d3",
+        noteBorderColor: "#ff7a6b",
+        noteTextColor: "#1e2f36",
+        actorBkg: "#e7f3f1",
+        actorBorder: "#1e8c8a",
+        actorTextColor: "#102129",
+        signalColor: "#0e3f52",
+        signalTextColor: "#1e2f36",
+        labelBoxBkgColor: "#ffffff",
+        labelBoxBorderColor: "#c5d2d7",
+        labelTextColor: "#1e2f36",
+        activationBkgColor: "#fff3f1",
+        activationBorderColor: "#ff7a6b",
+      },
+      flowchart: {
+        curve: "basis",
+        htmlLabels: false,
+        useMaxWidth: true,
+      },
+      sequence: {
+        useMaxWidth: true,
+        diagramMarginX: 24,
+        diagramMarginY: 18,
+        actorMargin: 36,
+        messageMargin: 32,
+        mirrorActors: false,
+      },
+    })
+
+    try {
+      await mermaid.run({ nodes: diagrams })
+    } catch (error) {
+      diagrams.forEach((diagram) => {
+        diagram.dataset.mermaidError = "true"
+      })
+      console.error("Failed to render Mermaid diagram", error)
+    }
+  }
+</script>
