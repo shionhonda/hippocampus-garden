@@ -657,6 +657,16 @@ img {
   margin-top: 0;
 }
 
+.about-copy-wrap {
+  width: min(100%, 52rem);
+  margin-inline: auto;
+}
+
+.about-copy-wrap .intro-copy {
+  max-width: none;
+  margin-inline: 0;
+}
+
 .site-header-inner {
   position: relative;
   padding-block: var(--space-6);

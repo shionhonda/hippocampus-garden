@@ -89,7 +89,7 @@ const languageLinks = [
           height="44"
         />
       </div>
-      <div>
+      <div class="about-copy-wrap">
         <div class="intro-copy prose" set:html={profile.introHtml} />
         <div class="social-row">
           {
@@ -274,8 +274,6 @@ const languageLinks = [
   }
 
   .intro-copy {
-    max-width: var(--width-content-max);
-    margin-inline: 0;
     color: var(--color-ink-soft);
   }
 
