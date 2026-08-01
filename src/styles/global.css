@@ -330,7 +330,7 @@ img {
 }
 
 .article-page.section {
-  margin-block: var(--space-2) var(--space-16);
+  margin-block: var(--space-4) var(--space-16);
 }
 
 .article-head {
@@ -641,6 +641,18 @@ img {
 .home-section {
   max-width: var(--width-wide-max);
   margin-inline: auto;
+}
+
+.home-section:first-child {
+  margin-top: var(--space-5);
+}
+
+.page-layout {
+  margin-top: var(--space-5);
+}
+
+.page-layout > .section:first-child {
+  margin-top: 0;
 }
 
 .site-header-inner {
