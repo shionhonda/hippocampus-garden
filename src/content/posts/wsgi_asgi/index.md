@@ -256,7 +256,7 @@ Of course it can. The comparison so far may make WSGI sound unable to handle req
 It helps to separate the problem into three decisions:
 
 1. **Interface specification:** What can the server and application exchange? This is where WSGI and ASGI differ.
-2. **Concurrency model:** What can run while one operation waits? Options include processes, threads, greenlets, and coroutines.
+2. **Concurrency model:** What can run while one operation waits? Web servers in general use processes, threads, greenlets, or coroutines. WSGI deployments commonly use the first three. Native coroutine-based concurrency across requests primarily belongs to ASGI.
 3. **Communication protocol:** How does the client exchange data with the server? Examples include HTTP, Server-Sent Events (SSE), and WebSocket.
 
 For example, a gevent worker lets a WSGI application use greenlets. But the server and application still communicate through WSGI. Similarly, `WsgiToAsgi` translates between ASGI and WSGI at the boundary. It does not make the WSGI application asynchronous.
@@ -268,6 +268,7 @@ There are several ways to increase I/O concurrency in a WSGI application without
 | Add worker processes | Process | Low | Each waiting request occupies a relatively heavy process |
 | Use `gthread` | OS thread | Low | Thread count and memory are finite |
 | Use `gevent` | Greenlet | Sometimes low | Check library compatibility and monkey patching |
+| Run an async view through a WSGI framework | Coroutine within the current request | Medium | Can overlap I/O within that request, but the WSGI worker remains occupied |
 | Use `WsgiToAsgi` | Thread inside the adapter | Low | The application inside remains synchronous WSGI |
 
 In addition to sync workers, Gunicorn provides the thread-based `gthread` worker and a [**gevent**](https://www.gevent.org/) worker based on [**greenlets**](https://greenlet.readthedocs.io/en/latest/). If you need to keep a synchronous LLM SDK, a thread worker may be sufficient.
