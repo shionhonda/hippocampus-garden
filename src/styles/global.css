@@ -601,7 +601,9 @@ img {
 .language-filter {
   display: inline-flex;
   gap: 0.125rem;
+  margin: 0;
   padding: 0.125rem;
+  list-style: none;
   border: 1px solid rgba(197, 210, 215, 0.58);
   border-radius: var(--radius-pill);
   background: rgba(255, 255, 255, 0.28);
@@ -897,6 +899,10 @@ img {
 }
 
 @media (max-width: 720px) {
+  .section.page-layout {
+    margin-top: var(--space-5);
+  }
+
   .article-page.section {
     margin-block: var(--space-3) var(--space-12);
   }
