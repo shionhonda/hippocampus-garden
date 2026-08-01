@@ -256,32 +256,13 @@ sequenceDiagram
 
 もちろん作れます。ここまでの比較だけを見ると「WSGIは同時処理できない」と感じますが、それはWSGIとsync workerを同一視した理解です。
 
-<!--この図はよくわからないので、テキストで表現してください。-->
-```mermaid
-flowchart TB
-    accTitle: Webアプリケーションを考える三つの層
-    accDescr: インターフェース仕様、並行処理方式、通信プロトコルを分け、WSGIやASGI、processやthread、HTTPやWebSocketを整理する
+Webアプリケーションの構成は、次の三つの判断軸に分けると整理しやすくなります。
 
-    I["1. インターフェース仕様：何を受け渡すか"]
-    I --> WSGI
-    I --> ASGI
+1. **インターフェース仕様**：サーバーとアプリケーションが何を受け渡すか。WSGIとASGIの違いはここにあります。
+2. **並行処理方式**：待機中に何へ実行権を渡すか。process、thread、greenlet、coroutineなどの選択肢があります。
+3. **通信プロトコル**：クライアントとどのようにデータを交換するか。HTTP、SSE、WebSocketなどが該当します。
 
-    C["2. 並行処理方式：何へ実行権を渡すか"]
-    C --> Process
-    C --> Thread
-    C --> Greenlet
-    C --> Coroutine
-
-    P["3. 通信プロトコル：どうデータを交換するか"]
-    P --> HTTP
-    P --> SSE
-    P --> WebSocket
-
-    Greenlet -. "待ち方を変える" .-> WSGI
-    WTA["WsgiToAsgi"] -. "内側は同期のまま" .-> WSGI
-```
-
-<div style="text-align: center;"><small>WSGI/ASGI、worker方式、通信プロトコルは別々の判断軸です。</small></div>
+たとえば、WSGIアプリケーションをgevent workerで動かすと、並行処理方式はgreenletになりますが、サーバーとアプリケーションがやり取りするインターフェースはWSGIのままです。`WsgiToAsgi`も外側でASGIとWSGIを変換しますが、内側のアプリケーションまで非同期になるわけではありません。
 
 ASGIに移行せずWSGIアプリケーションでI/O待ちの並行性を高める方法はいくつかあります。
 
