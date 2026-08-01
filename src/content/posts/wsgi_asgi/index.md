@@ -19,6 +19,7 @@ LLMを使ったアプリケーションを作ろうとすると、FastAPIとUvic
 
 典型的なAIエージェントの処理を単純化すると、次のようになります。
 
+<!--A->>LでもIO待ちがあるよね？-->
 ```mermaid
 sequenceDiagram
     accTitle: AIエージェントAPIの典型的な処理
@@ -49,7 +50,7 @@ sequenceDiagram
 ここで問題になるのが、あるリクエストが待っている間に、同じサーバーへ来た別のリクエストをどう扱うかです。
 
 ## WSGIとASGIはサーバー製品ではない
-
+<!--重要なtechnical termや固有名詞は初回登場時に太字にして。可能ならURLもつけて。これは記事全体への指示です-->
 まず、よく一緒に登場する名前を分けておきます。
 
 - FlaskやDjango、FastAPIはWebアプリケーションフレームワーク
@@ -71,6 +72,7 @@ def application(environ, start_response):
     return [b"Hello, WSGI"]
 ```
 
+<!--start_responseは具体的にどんなことをする？environがコード内で使われていないのはなぜ？-->
 サーバーはリクエスト情報を`environ`に入れてアプリケーションを呼び、アプリケーションはステータスとヘッダーを設定して、レスポンス本文のイテラブルを返します。
 
 このモデルは単純で、短いHTTPリクエストを同期的に処理するアプリケーションでは扱いやすいものです。レスポンスのイテラブルから複数のチャンクを返せるため、HTTPストリーミングも可能です。
@@ -80,6 +82,8 @@ def application(environ, start_response):
 ### ASGIは接続上のイベントを送受信する
 
 [ASGIの仕様](https://asgi.readthedocs.io/en/latest/specs/main.html)では、アプリケーションは3つの引数を受け取る非同期関数です。
+
+<!--scopeがコード内で使われていないのはなぜ？-->
 
 ```python
 async def application(scope, receive, send):
@@ -138,6 +142,7 @@ ASGI mode: await
 ```
 
 下の「2 · I/O Wait」を選び、「5件を送信」を押してみてください。次にASGIの待ち方を`await`から`blocking`へ切り替えると、同じASGIでもタスクの進み方が変わります。
+<!--この図はよくわからないので削除して-->
 
 ```mermaid
 flowchart TB
@@ -161,6 +166,9 @@ flowchart TB
     end
 ```
 
+<!--iframe の中でスクロールが有効化されています。スクロールさせず、全体を最初から表示する方法はありますか？-->
+<!--ASGIのワーカーが1つであることを明示して-->
+<!--各指標でレイテンシとスループットも表示して-->
 <iframe
   src="/labs/wsgi-asgi-lab.html"
   title="WSGIとASGIのRequest Lifecycle Lab"
@@ -170,6 +178,7 @@ flowchart TB
 
 <div style="text-align: center;"><small><a href="/labs/wsgi-asgi-lab.html" target="_blank" rel="noopener noreferrer">ラボを別画面で開く</a></small></div>
 
+
 <details>
 <summary>ラボを表示できない場合は静止画を見る</summary>
 
@@ -177,6 +186,7 @@ flowchart TB
 
 </details>
 
+<!--よくわからないので、以下は削除していいです。-->
 ここで比較しているのは、厳密には「WSGIとASGIの性能」ではありません。
 
 ```text
@@ -225,6 +235,7 @@ flowchart LR
 
 ## `async def`でも処理は止まる
 
+<!--ここは直前の例を踏襲してください。response = async_llm_client.generate(...)-->
 ラボのASGI modeを`await`から`blocking`へ変えると、先ほどとは違う動きになります。たとえば、非同期関数の中で`time.sleep()`を呼んだ場合です。
 
 ```python
@@ -290,7 +301,7 @@ flowchart TB
 
 <div style="text-align: center;"><small>WSGI/ASGI、worker方式、通信プロトコルは別々の判断軸です。</small></div>
 
-WSGIアプリケーションでI/O待ちの並行性を高める方法はいくつかあります。
+ASGIに移行せずWSGIアプリケーションでI/O待ちの並行性を高める方法はいくつかあります。
 
 | 方法 | 待機中にほかの処理を進める単位 | 既存コードへの影響 | 注意点 |
 |---|---|---:|---|
@@ -298,8 +309,8 @@ WSGIアプリケーションでI/O待ちの並行性を高める方法はいく�
 | `gthread`を使う | OSスレッド | 小さい | スレッド数とメモリに上限がある |
 | `gevent`を使う | greenlet | 小さい場合がある | ライブラリとの互換性やmonkey patchを確認する |
 | `WsgiToAsgi`を使う | アダプター内のスレッド | 小さい | 内側のアプリケーションは同期WSGIのまま |
-| ネイティブASGIへ移行する | coroutine | 大きい場合がある | 同期処理との境界を設計する |
 
+<!--link to https://greenlet.readthedocs.io/en/latest/-->
 Gunicornはsync workerのほかに、スレッドを使う`gthread`やgreenletを使う`gevent` workerを提供しています。同期のLLM SDKを維持したい場合、thread workerで十分なこともあります。
 
 geventは、対応したI/Oが待ちに入ったときに別のgreenletへ切り替えます。標準ライブラリのsocketなどを協調動作する実装へ置き換えるmonkey patchも利用できます。ただし、[geventの公式ドキュメント](https://docs.gevent.org/api/gevent.monkey.html)が注意しているように、patchのタイミングやライブラリとの互換性を確認する必要があります。
@@ -337,36 +348,11 @@ WSGIにもI/O待ちを効率よく処理する選択肢があります。それ�
 - WebSocketのような双方向通信へ発展させやすい
 - DB接続プールの作成と破棄をlifespanイベントで管理できる
 
-WSGIでも、このうちいくつかは実装できます。たとえばレスポンスのイテラブルを使ったHTTPストリーミングは可能です。違いは「WSGIでは不可能、ASGIでは可能」という二分法よりも、接続中の出来事を同じイベントモデルで表現できるかどうかにあります。
+<!--WSGIと比べてレスポンスをチャンクに分けて送信しやすいのはなぜ？-->
+<!--切断やキャンセルをイベントとして扱えると何が嬉しい？-->
+<!--DB接続プールの作成と破棄をlifespanイベントで管理できると何が嬉しい？-->
 
-AIアプリでASGIが選ばれるのは、AIという名前が付いているからではありません。LLMやツールの応答を待つ時間が長く、その待ち時間にほかの接続を進めたいからです。さらにストリーミング、切断、キャンセルといった処理も同じモデルで扱いたいと考えると、ASGIとasyncioの組み合わせが素直です。
 
-## ASGIを選ぶだけでは足りない
+ただし、WSGIでも、このうちいくつかは実装できます。たとえばレスポンスのイテラブルを使ったHTTPストリーミングは可能です。
 
-実際にAIエージェントAPIを作るときは、サーバー名だけでなく、処理経路全体を確認する必要があります。
-
-- LLM SDKは非同期APIを提供しているか
-- HTTPクライアントやDBドライバーは非同期か
-- `time.sleep()`や同期ファイルI/Oをイベントループ上で呼んでいないか
-- CPU負荷の高い前処理やローカル推論を同じプロセスで実行していないか
-- 外部APIのタイムアウトを設定しているか
-- クライアント切断時に不要な処理をキャンセルするか
-- 同時実行数や外部APIのレート制限をどこで制御するか
-
-ASGIはこれらの問題を自動的に解決しません。むしろ、待機、キャンセル、タイムアウトの境界がコードに現れるため、設計すべきことが増えます。`async def`に変えれば速くなるのではなく、待ち時間をほかの仕事へ使えるようにアプリケーション全体を組み立てる必要があります。
-
-なお、本番でGunicornからUvicorn workerを使う構成では、Uvicornに同梱されている`uvicorn.workers`モジュールは非推奨になっています。現在の[Uvicornのデプロイガイド](https://www.uvicorn.org/deployment/)は、Gunicornと組み合わせる場合に外部の`uvicorn-worker`パッケージを案内しています。コンテナ基盤やsystemdがプロセス管理を担うなら、Uvicornを直接起動する構成も候補になります。
-
-## 今回わかったこと
-
-最初は、WSGIは同期、ASGIは非同期、と覚えれば十分だと思っていました。しかし、この説明だけでは実際の構成を選べません。整理してみると、少なくとも次の3層を分けて考える必要がありました。
-
-1. インターフェース仕様：WSGIかASGIか
-2. 並行処理方式：process、thread、greenlet、coroutineのどれか
-3. 通信プロトコル：HTTP、SSE、WebSocketなど
-
-WSGIにgeventを組み合わせれば待ち方は変わりますが、インターフェースはWSGIのままです。`WsgiToAsgi`を使えばASGIサーバーへ接続できますが、内側のプログラミングモデルは同期のままです。一方、ASGIを選んでも、ブロッキング処理を置けばイベントループは止まります。
-
-最も短くまとめるなら、WSGIはHTTPリクエストを関数呼び出しとして扱い、ASGIは接続上の通信をイベント交換として扱う仕様です。そしてAIエージェントのように外部I/O待ちが多いアプリケーションでは、その待ち時間に別の仕事を進めやすいASGIが選ばれやすい、ということになります。
-
-今回は通常のHTTPリクエストとI/O待ちに絞りました。WebSocket、ストリーミング、バックプレッシャーについては、それぞれ仕組みと設計上の論点があるため、別の記事で掘り下げたいと思います。
+AIアプリでASGIが選ばれるのは、LLMやツールの応答を待つ時間が長く、その待ち時間にほかの接続を進めたいからです。さらにストリーミング、切断、キャンセルといった処理も同じモデルで扱いたいと考えると、ASGIとasyncioの組み合わせが素直です。
