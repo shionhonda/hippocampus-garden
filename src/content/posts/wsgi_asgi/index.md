@@ -2,8 +2,8 @@
 title: "Why AI Apps Use ASGI—and How It Differs from WSGI"
 date: "2026-08-01T12:00:00.000Z"
 description: "A simple comparison of WSGI and ASGI, using an AI agent that spends most of its time waiting for LLM APIs."
-featuredImage: wsgi_asgi/wsgi-asgi-model.png
-thumbnailAlt: "A side-by-side comparison of WSGI function calls and ASGI event exchange"
+featuredImage: wsgi_asgi/ogp.png
+thumbnailAlt: "A comparison of WSGI function calls and ASGI event exchange"
 tags: ["python", "web", "llm"]
 slug: "wsgi_asgi"
 lang: "en"
@@ -263,13 +263,13 @@ For example, a gevent worker lets a WSGI application use greenlets. But the serv
 
 There are several ways to increase I/O concurrency in a WSGI application without migrating it to ASGI:
 
-| Approach | What runs while another request waits | Impact on existing code | Caveat |
-|---|---|---:|---|
-| Add worker processes | Process | Low | Each waiting request occupies a relatively heavy process |
-| Use `gthread` | OS thread | Low | Thread count and memory are finite |
-| Use `gevent` | Greenlet | Sometimes low | Check library compatibility and monkey patching |
-| Run an async view through a WSGI framework | Coroutine within the current request | Medium | Can overlap I/O within that request, but the WSGI worker remains occupied |
-| Use `WsgiToAsgi` | Thread inside the adapter | Low | The application inside remains synchronous WSGI |
+| Approach                                   | What runs while another request waits | Impact on existing code | Caveat                                                                    |
+| ------------------------------------------ | ------------------------------------- | ----------------------: | ------------------------------------------------------------------------- |
+| Add worker processes                       | Process                               |                     Low | Each waiting request occupies a relatively heavy process                  |
+| Use `gthread`                              | OS thread                             |                     Low | Thread count and memory are finite                                        |
+| Use `gevent`                               | Greenlet                              |           Sometimes low | Check library compatibility and monkey patching                           |
+| Run an async view through a WSGI framework | Coroutine within the current request  |                  Medium | Can overlap I/O within that request, but the WSGI worker remains occupied |
+| Use `WsgiToAsgi`                           | Thread inside the adapter             |                     Low | The application inside remains synchronous WSGI                           |
 
 In addition to sync workers, Gunicorn provides the thread-based `gthread` worker and a [**gevent**](https://www.gevent.org/) worker based on [**greenlets**](https://greenlet.readthedocs.io/en/latest/). If you need to keep a synchronous LLM SDK, a thread worker may be sufficient.
 
