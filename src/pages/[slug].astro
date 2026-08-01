@@ -3,6 +3,7 @@ import "katex/dist/katex.min.css"
 import "../styles/prose.css"
 import { render } from "astro:content"
 import AuthorSummary from "../components/AuthorSummary.astro"
+import MermaidDiagrams from "../components/MermaidDiagrams.astro"
 import PostCard from "../components/PostCard.astro"
 import TableOfContents from "../components/TableOfContents.astro"
 import PostLayout from "../layouts/PostLayout.astro"
@@ -68,6 +69,7 @@ const localizedHeadings = isJapanese
     }
 
     <Content />
+    <MermaidDiagrams />
   </article>
 
   {

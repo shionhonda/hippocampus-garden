@@ -8,6 +8,7 @@ import rehypeSlug from "rehype-slug"
 import remarkGfm from "remark-gfm"
 import remarkMath from "remark-math"
 import { remarkCodeMeta } from "./src/lib/remark-code-meta"
+import { remarkMermaid } from "./src/lib/remark-mermaid"
 
 const astroDir = fileURLToPath(new URL(".", import.meta.url))
 const mode =
@@ -30,7 +31,7 @@ export default defineConfig({
       },
       wrap: true,
     },
-    remarkPlugins: [remarkCodeMeta, remarkGfm, remarkMath],
+    remarkPlugins: [remarkCodeMeta, remarkMermaid, remarkGfm, remarkMath],
     rehypePlugins: [[rehypeKatex, { strict: "ignore" }], rehypeSlug],
   },
 })
