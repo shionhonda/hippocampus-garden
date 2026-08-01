@@ -240,6 +240,27 @@
     .counter strong { display: block; color: var(--text-strong); font: 600 24px/1 var(--font-code); }
     .counter span { color: var(--muted); font-size: 11px; }
 
+    .metrics {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1px;
+      margin: 0;
+      border-bottom: 1px solid var(--line);
+      background: var(--line);
+    }
+
+    .metric {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 11px 12px;
+      background: rgba(247, 250, 250, .96);
+    }
+
+    .metric dt { color: var(--muted); font-size: 11px; }
+    .metric dd { margin: 0; color: var(--text-strong); font: 650 12px/1 var(--font-code); }
+
     .architecture {
       display: flex;
       align-items: center;
@@ -361,6 +382,8 @@
       .controls { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
       .control { min-width: 0; }
       .model { padding: 17px; }
+      .metric { display: block; }
+      .metric dd { margin-top: 5px; }
       .lane { grid-template-columns: 61px minmax(0, 1fr); }
       .legend { grid-template-columns: repeat(2, auto); }
       .explanation { grid-template-columns: auto minmax(0, 1fr); }
@@ -431,6 +454,10 @@
           </div>
           <div class="counter"><strong id="wsgiCount">0/5</strong><span>completed</span></div>
         </div>
+        <dl class="metrics" aria-label="WSGIの性能指標">
+          <div class="metric"><dt>平均 latency</dt><dd id="wsgiLatency">—</dd></div>
+          <div class="metric"><dt>throughput</dt><dd id="wsgiThroughput">—</dd></div>
+        </dl>
         <div class="architecture" id="wsgiArch"></div>
         <div class="lanes" id="wsgiLanes"></div>
       </article>
@@ -443,6 +470,10 @@
           </div>
           <div class="counter"><strong id="asgiCount">0/5</strong><span>completed</span></div>
         </div>
+        <dl class="metrics" aria-label="ASGIの性能指標">
+          <div class="metric"><dt>平均 latency</dt><dd id="asgiLatency">—</dd></div>
+          <div class="metric"><dt>throughput</dt><dd id="asgiThroughput">—</dd></div>
+        </dl>
         <div class="architecture" id="asgiArch"></div>
         <div class="lanes" id="asgiLanes"></div>
       </article>
@@ -487,6 +518,8 @@
         wsgiLanes: $('#wsgiLanes'), asgiLanes: $('#asgiLanes'),
         wsgiArch: $('#wsgiArch'), asgiArch: $('#asgiArch'),
         wsgiCount: $('#wsgiCount'), asgiCount: $('#asgiCount'),
+        wsgiLatency: $('#wsgiLatency'), asgiLatency: $('#asgiLatency'),
+        wsgiThroughput: $('#wsgiThroughput'), asgiThroughput: $('#asgiThroughput'),
         explanation: $('#explanation'), clock: $('#clock'),
         takeaway: $('#takeawayText'), caveat: $('#caveat')
       };
@@ -544,20 +577,47 @@
         return `<div class="event ${status}"><i class="pulse"></i><span>${name}</span><span class="dir">${direction}</span></div>`;
       }
 
+      function resetMetrics() {
+        els.wsgiLatency.textContent = '—';
+        els.asgiLatency.textContent = '—';
+        els.wsgiThroughput.textContent = '—';
+        els.asgiThroughput.textContent = '—';
+      }
+
+      function renderMetrics(kind, completionTimes, t) {
+        const completed = completionTimes.filter(end => t >= end);
+        const latency = kind === 'wsgi' ? els.wsgiLatency : els.asgiLatency;
+        const throughput = kind === 'wsgi' ? els.wsgiThroughput : els.asgiThroughput;
+
+        if (completed.length === 0) {
+          latency.textContent = '—';
+          throughput.textContent = '0.00 req/s';
+          return;
+        }
+
+        const average = completed.reduce((sum, end) => sum + end, 0) / completed.length;
+        const elapsed = completed.length === completionTimes.length
+          ? Math.max(...completionTimes)
+          : Math.max(t, .1);
+        latency.textContent = `${average.toFixed(2)}s`;
+        throughput.textContent = `${(completed.length / elapsed).toFixed(2)} req/s`;
+      }
+
       function renderIdle() {
         const c = config();
+        resetMetrics();
         els.clock.textContent = 't = 0.0s';
         els.wsgiCount.textContent = `0/${state.scenario === 'stream' ? 1 : c.requests}`;
         els.asgiCount.textContent = `0/${state.scenario === 'stream' ? 1 : c.requests}`;
         if (state.scenario === 'simple') {
           els.wsgiArch.innerHTML = node('HTTP') + arrow() + node('callable') + arrow() + node('iterable');
-          els.asgiArch.innerHTML = node('HTTP') + arrow('⇄') + node('receive / send') + arrow() + node('events');
+          els.asgiArch.innerHTML = node('1 ASGI worker') + arrow() + node('1 event loop') + arrow('⇄') + node('receive / send');
           els.wsgiLanes.innerHTML = lane('worker', task('ready', 'queued', 24));
           els.asgiLanes.innerHTML = lane('event loop', task('ready', 'queued', 24));
           els.explanation.innerHTML = `「${c.requests}件を送信」で、2つのモデルを同時に動かします。`;
         } else if (state.scenario === 'io') {
           els.wsgiArch.innerHTML = node(`${c.workers} sync workers`) + arrow() + node('blocking call');
-          els.asgiArch.innerHTML = node('1 event loop') + arrow() + node(state.mode === 'await' ? 'await I/O' : 'time.sleep');
+          els.asgiArch.innerHTML = node('1 ASGI worker') + arrow() + node('1 event loop') + arrow() + node(state.mode === 'await' ? 'await I/O' : 'blocking I/O');
           els.wsgiLanes.innerHTML = Array.from({length: c.workers}, (_, i) => lane(`worker ${i + 1}`)).join('') + lane('queue');
           els.asgiLanes.innerHTML = lane('event loop') + lane(state.mode === 'await' ? 'awaiting' : 'blocked');
           els.explanation.innerHTML = state.mode === 'await'
@@ -565,7 +625,7 @@
             : '<code>time.sleep()</code>はスレッドを止め、同じループのほかのタスクも進めません。';
         } else {
           els.wsgiArch.innerHTML = node('callable') + arrow() + node('body iterable') + arrow() + node('client');
-          els.asgiArch.innerHTML = node('receive') + arrow('⇄') + node('application') + arrow('⇄') + node('send');
+          els.asgiArch.innerHTML = node('1 ASGI worker') + arrow() + node('receive') + arrow('⇄') + node('send');
           els.wsgiLanes.innerHTML = `<div class="event-stream">${eventRow('start_response("200 OK")', 'app → server')}${eventRow('yield chunk 1', 'app → server')}${eventRow('yield chunk 2', 'app → server')}${eventRow('yield chunk 3', 'app → server')}</div>`;
           els.asgiLanes.innerHTML = `<div class="event-stream">${eventRow('http.response.start', 'send →')}${eventRow('http.response.body · 1', 'send →')}${eventRow('http.response.body · 2', 'send →')}${eventRow('http.response.body · 3', 'send →')}</div>`;
           els.explanation.textContent = '開始すると、同じ3チャンクのHTTPレスポンスが異なるインターフェースを通ります。';
@@ -600,6 +660,7 @@
       function renderSimple(t) {
         const c = config();
         const total = Math.max(1, c.requests * .42 + .7);
+        const completionTimes = Array.from({length: c.requests}, (_, i) => i * .42 + .6);
         let wDone = 0, aDone = 0;
         const wRows = [];
         const aRows = [];
@@ -618,6 +679,8 @@
         els.asgiLanes.innerHTML = aRows.join('');
         els.wsgiCount.textContent = `${Math.min(wDone, c.requests)}/${c.requests}`;
         els.asgiCount.textContent = `${Math.min(aDone, c.requests)}/${c.requests}`;
+        renderMetrics('wsgi', completionTimes, t);
+        renderMetrics('asgi', completionTimes, t);
         els.explanation.innerHTML = t < .3
           ? 'WSGIはcallableを呼び、ASGIは<code>http.request</code>を受け取ります。'
           : t < total - .3
@@ -674,6 +737,12 @@
         const wDone = wsgiJobs.filter(j => j.status === 'done').length;
         els.wsgiCount.textContent = `${wDone}/${c.requests}`;
         els.asgiCount.textContent = `${Math.min(asgiDone, c.requests)}/${c.requests}`;
+        const wsgiCompletionTimes = wsgiJobs.map(job => job.end);
+        const asgiCompletionTimes = Array.from({length: c.requests}, (_, i) =>
+          state.mode === 'await' ? i * .12 + c.wait + .55 : (i + 1) * service
+        );
+        renderMetrics('wsgi', wsgiCompletionTimes, t);
+        renderMetrics('asgi', asgiCompletionTimes, t);
         if (state.mode === 'await') {
           els.explanation.innerHTML = t < .5
             ? 'ASGIでは各タスクが<code>await</code>へ到達すると、次のタスクが開始します。'
@@ -711,6 +780,11 @@
         const done = state.disconnected || t >= 8.8;
         els.wsgiCount.textContent = `${done ? 1 : 0}/1`;
         els.asgiCount.textContent = `${done ? 1 : 0}/1`;
+        if (done) {
+          const completionTime = state.disconnected ? Math.max(t, .1) : 8.8;
+          renderMetrics('wsgi', [completionTime], t);
+          renderMetrics('asgi', [completionTime], t);
+        }
         return done;
       }
 
@@ -756,6 +830,21 @@
       });
 
       setScenario('simple');
+
+      const frameElement = window.frameElement;
+      if (frameElement?.tagName === 'IFRAME') {
+        let resizeFrame = null;
+        const syncFrameHeight = () => {
+          if (resizeFrame) cancelAnimationFrame(resizeFrame);
+          resizeFrame = requestAnimationFrame(() => {
+            frameElement.style.height = `${Math.ceil(document.body.getBoundingClientRect().height) + 2}px`;
+          });
+        };
+        new ResizeObserver(syncFrameHeight).observe(document.body);
+        window.addEventListener('load', syncFrameHeight);
+        window.addEventListener('resize', syncFrameHeight);
+        syncFrameHeight();
+      }
     })();
   </script>
 </body>
