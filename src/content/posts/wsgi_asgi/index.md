@@ -1,67 +1,67 @@
 ---
-title: "AIアプリでよく見るASGI、WSGIと何が違うのか"
+title: "Why AI Apps Use ASGI—and How It Differs from WSGI"
 date: "2026-08-01T12:00:00.000Z"
-description: "LLM APIの応答を待つAIエージェントを例に、WSGIとASGIの違いをリクエストの流れ、workerの占有、awaitの役割から整理します。"
+description: "A simple comparison of WSGI and ASGI, using an AI agent that spends most of its time waiting for LLM APIs."
 featuredImage: wsgi_asgi/wsgi-asgi-model.png
-thumbnailAlt: "WSGIの関数呼び出しとASGIのイベント交換を並べた比較図"
+thumbnailAlt: "A side-by-side comparison of WSGI function calls and ASGI event exchange"
 tags: ["python", "web", "llm"]
 slug: "wsgi_asgi"
-lang: "ja"
+lang: "en"
 ---
 
-<strong>大規模言語モデル（LLM）</strong>を使ったアプリケーションを作ろうとすると、[**FastAPI**](https://fastapi.tiangolo.com/)と[**Uvicorn**](https://www.uvicorn.org/)を使った実装例によく出会います。PythonのAI APIでは[**ASGI（Asynchronous Server Gateway Interface）**](https://asgi.readthedocs.io/en/latest/)ベースの構成が一般的らしい、と私も特に疑問を持たずに使っていました。
+When you build an application with a <strong>large language model (LLM)</strong>, many Python examples use [**FastAPI**](https://fastapi.tiangolo.com/) and [**Uvicorn**](https://www.uvicorn.org/). I also used this setup without asking why. I simply assumed that [**ASGI (Asynchronous Server Gateway Interface)**](https://asgi.readthedocs.io/en/latest/) was the usual choice for AI APIs in Python.
 
-しかし、なぜ[**Flask**](https://flask.palletsprojects.com/)と[**Gunicorn**](https://gunicorn.org/)ではなくFastAPIとUvicornなのか、そもそも[**WSGI（Web Server Gateway Interface）**](https://peps.python.org/pep-3333/)とASGIの違いは何か、と聞かれるとうまく説明できませんでした。「ASGIは非同期だから速い」という理解だけでは、WSGIでも[**worker**](https://docs.gunicorn.org/en/stable/design.html)や[**thread**](https://docs.python.org/3/library/threading.html)を増やせることや、ASGIアプリでも処理が止まることを説明できません。
+But I could not clearly explain why they used FastAPI and Uvicorn instead of [**Flask**](https://flask.palletsprojects.com/) and [**Gunicorn**](https://gunicorn.org/). I could not even explain the difference between ASGI and [**WSGI (Web Server Gateway Interface)**](https://peps.python.org/pep-3333/). Saying “ASGI is faster because it is asynchronous” does not answer the question. A WSGI server can use more [**workers**](https://docs.gunicorn.org/en/stable/design.html) or [**threads**](https://docs.python.org/3/library/threading.html), and an ASGI application can still block.
 
-調べてみると、ポイントは単なる速度比較ではなく、外部APIの応答を待っている間に、サーバーがほかのリクエストを進められるかどうかでした。本記事ではLLM APIを呼ぶAIエージェントを例に、WSGIとASGIの違いをリクエストの流れから整理します。
+The more useful question is this: can the server work on other requests while one request waits for an external API? In this article, I will compare WSGI and ASGI by following requests through an AI agent that calls an LLM API.
 
-## AIエージェントの処理は「待つ」ことが多い
+## AI Agents Spend a Lot of Time Waiting
 
-典型的なAIエージェントの処理を単純化すると、次のようになります。
+A simplified AI agent request might look like this:
 
 ```mermaid
 sequenceDiagram
-    accTitle: AIエージェントAPIの典型的な処理
-    accDescr: ユーザーのリクエストを受けたエージェントが、DB、LLM API、ツールAPIの応答を順に待って結果を返す
+    accTitle: A typical AI agent API request
+    accDescr: The agent receives a user request, waits for a database, an LLM API, and a tool API in sequence, then returns the result
     participant U as User
     participant A as Agent API
     participant D as Database
     participant L as LLM API
     participant T as Tool API
 
-    U->>A: 質問
-    A->>D: 会話履歴を取得
-    Note over A,D: I/O待ち
-    D-->>A: 会話履歴
-    A->>L: 推論を依頼
-    Note over A,L: 数秒〜数十秒のI/O待ち
-    L-->>A: ツール呼び出し
-    A->>T: 検索・社内API
-    Note over A,T: I/O待ち
-    T-->>A: 実行結果
-    A->>L: 結果を含めて再び推論
-    Note over A,L: 数秒〜数十秒のI/O待ち
-    L-->>A: 最終回答
-    A-->>U: レスポンス
+    U->>A: Ask a question
+    A->>D: Fetch conversation history
+    Note over A,D: Waiting for I/O
+    D-->>A: Conversation history
+    A->>L: Request inference
+    Note over A,L: Seconds or tens of seconds of I/O wait
+    L-->>A: Tool call
+    A->>T: Search or internal API
+    Note over A,T: Waiting for I/O
+    T-->>A: Tool result
+    A->>L: Continue inference with the result
+    Note over A,L: Seconds or tens of seconds of I/O wait
+    L-->>A: Final answer
+    A-->>U: Response
 ```
 
-エージェントは高度な計算をしているように見えますが、アプリケーションサーバー側でLLMを推論しているわけではありません。外部のLLMや検索サービスを利用する構成なら、Pythonプロセスが実際にCPUを使う時間より、ネットワーク越しの応答を待つ時間のほうが長くなりがちです。
+The agent may appear to be doing complex work, but the application server is not usually running the LLM itself. When the agent uses external LLM and search services, the Python process often spends much more time waiting for network responses than using the CPU.
 
-ここで問題になるのが、あるリクエストが待っている間に、同じサーバーへ来た別のリクエストをどう扱うかです。
+So what happens when another request reaches the same server while the first one is waiting?
 
-## WSGIとASGIはサーバー製品ではない
+## WSGI and ASGI Are Interface Specifications
 
-まず、よく一緒に登場する名前を分けておきます。
+First, let us separate several names that often appear together:
 
-- Flaskや[**Django**](https://www.djangoproject.com/)、FastAPIはWebアプリケーションフレームワーク
-- GunicornやUvicornはアプリケーションを動かすアプリケーションサーバー
-- WSGIとASGIはサーバーとPythonアプリケーションの間のインターフェース仕様
+- Flask, [**Django**](https://www.djangoproject.com/), and FastAPI are web application frameworks.
+- Gunicorn and Uvicorn are application servers that run those applications.
+- WSGI and ASGI specify the interface between a server and a Python application.
 
-GunicornとUvicornの違いを理解する前に、両者がアプリケーションとどのように会話するかを見る必要があります。
+Before comparing Gunicorn and Uvicorn, we need to see how each server communicates with an application.
 
-### WSGIはリクエストを関数呼び出しとして扱う
+### WSGI Represents a Request as a Function Call
 
-[WSGIの仕様（PEP 3333）](https://peps.python.org/pep-3333/)では、アプリケーションは概ね次の形を取ります。
+In the [WSGI specification (PEP 3333)](https://peps.python.org/pep-3333/), an application looks roughly like this:
 
 ```python
 def application(environ, start_response):
@@ -79,17 +79,17 @@ def application(environ, start_response):
     return [body]
 ```
 
-サーバーはリクエスト情報を`environ`という辞書に入れてアプリケーションを呼びます。ここにはHTTPメソッド、パス、クエリ文字列、ヘッダー、リクエスト本文を読むための`wsgi.input`などが入ります。上の例では`REQUEST_METHOD`と`PATH_INFO`を使って、`GET /example`のようなレスポンス本文を作っています。
+The server puts the request data into a dictionary called `environ`, then calls the application. The dictionary contains the HTTP method, path, query string, headers, and `wsgi.input`, which the application can use to read the request body. The example uses `REQUEST_METHOD` and `PATH_INFO` to create a response body such as `GET /example`.
 
-`start_response`は、アプリケーションがHTTPステータスとレスポンスヘッダーをサーバーへ渡すための関数です。
+The application uses `start_response` to pass the HTTP status and response headers back to the server.
 
-このモデルは単純で、短いHTTPリクエストを同期的に処理するアプリケーションでは扱いやすいものです。レスポンスのイテラブルから複数のチャンクを返せるため、HTTPストリーミングも可能です。
+This model is simple and works well for applications that handle short HTTP requests synchronously. The response iterable can also yield multiple chunks, so WSGI supports HTTP streaming.
 
-一方、インターフェース自体がHTTPのリクエストとレスポンスに結びついています。レスポンスを返している途中で「クライアントから新しいメッセージが届いた」「接続が切れた」といったイベントを、サーバーからアプリケーションへ継続的に渡す共通の経路はありません。
+However, the interface is built around one HTTP request and response. While the response is in progress, WSGI has no standard way to keep sending events such as “the client sent another message” or “the connection was closed” to the application.
 
-### ASGIは接続上のイベントを送受信する
+### ASGI Exchanges Events over a Connection
 
-[ASGIの仕様](https://asgi.readthedocs.io/en/latest/specs/main.html)では、アプリケーションは3つの引数を受け取る非同期関数です。
+In the [ASGI specification](https://asgi.readthedocs.io/en/latest/specs/main.html), an application is an asynchronous function with three arguments:
 
 ```python
 async def application(scope, receive, send):
@@ -116,82 +116,79 @@ async def application(scope, receive, send):
     })
 ```
 
-- `scope`は接続の種類、HTTPメソッド、パスなど、その接続を通して変わらない情報
-- `receive`はサーバーからイベントを受け取る関数
-- `send`はサーバーへイベントを送る関数
+- `scope` contains information that does not change during the connection, such as its type, the HTTP method, and the path.
+- `receive` is a function for receiving events from the server.
+- `send` is a function for sending events to the server.
 
-上の例では`scope`からHTTPメソッドとパスを読み、`receive()`で受け取った`http.request`イベントから本文を取り出しています。実際のリクエスト本文は複数イベントに分かれる場合があるため、本番の実装では`more_body`が`False`になるまで受信を続ける必要があります。
+The example reads the HTTP method and path from `scope`, then extracts the body from an `http.request` event returned by `receive()`. In a real request, the body may be split across multiple events, so production code must keep receiving until `more_body` becomes `False`.
 
-HTTPなら`http.request`や`http.response.body`、[**WebSocket**](https://datatracker.ietf.org/doc/html/rfc6455)なら`websocket.connect`や`websocket.receive`というように、プロトコルごとの出来事をイベントとして表します。[HTTPとWebSocketのASGI仕様](https://asgi.readthedocs.io/en/latest/specs/www.html)では、接続種別ごとのscopeとイベントが標準化されています。
+ASGI uses different events for different protocols. HTTP uses events such as `http.request` and `http.response.body`. A [**WebSocket**](https://datatracker.ietf.org/doc/html/rfc6455) uses events such as `websocket.connect` and `websocket.receive`. The [ASGI HTTP and WebSocket specification](https://asgi.readthedocs.io/en/latest/specs/www.html) defines the scopes and events for each connection type.
 
-したがって、WSGIとASGIの本質的な違いは「同期か非同期か」だけではありません。WSGIが1回のHTTPリクエストを関数呼び出しとして表すのに対し、ASGIは接続中に起きる通信をイベントの交換として表します。
+So the main difference is not only synchronous versus asynchronous code. WSGI represents one HTTP request as a function call. ASGI represents the communication during a connection as a series of events.
 
 ```mermaid
 flowchart TB
-    accTitle: WSGIとASGIの通信モデルの比較
-    accDescr: WSGIは一度の関数呼び出しでレスポンスを返し、ASGIは接続中にreceiveとsendでイベントを交換する
+    accTitle: Comparing the WSGI and ASGI communication models
+    accDescr: WSGI returns a response from one function call, while ASGI exchanges events through receive and send for the lifetime of a connection
 
-    subgraph W["WSGI：1リクエスト = 1回の関数呼び出し"]
+    subgraph W["WSGI: one request = one function call"]
         direction LR
-        WS["Server"] -->|"environ と start_response"| WA["同期 application"]
+        WS["Server"] -->|"environ and start_response"| WA["sync application"]
         WA -->|"response iterable"| WS
     end
 
-    subgraph A["ASGI：1接続 = 時間とともに流れるイベント"]
+    subgraph A["ASGI: one connection = events over time"]
         direction LR
         AS["Server"] -->|"receive()"| AA["async application"]
         AA -->|"send()"| AS
     end
 ```
 
-<div style="text-align: center;"><small>まず比較したいのは処理速度ではなく、サーバーとアプリケーションが何を受け渡せるかです。</small></div>
+<div style="text-align: center;"><small>Compare what the server and application can exchange.</small></div>
 
-## 5人が同時にAIエージェントへ質問したら
+## What Happens When Five People Ask at Once?
 
-ここからは、1回の処理でLLM APIの応答を3秒待つエージェントを考えます。5人がほぼ同時に質問した場合、何が起きるでしょうか。
+Consider an agent that waits three seconds for an LLM API during each request. What happens if five people send questions at nearly the same time?
 
-ラボでは次の設定を使います。
+The lab below starts with these settings:
 
-```text
-Requests: 5
-WSGI workers: 2
-I/O wait: 3 seconds
-ASGI mode: await
-```
+- Requests: 5
+- WSGI workers: 2
+- I/O wait: 3 seconds
+- ASGI mode: await
 
-下の「2 · I/O Wait」を選び、「5件を送信」を押してみてください。次にASGIの待ち方を`await`から`blocking`へ切り替えると、同じASGIでもタスクの進み方が変わります。
+Select “2 · I/O Wait” and click “Send 5 requests.” Then switch the ASGI mode from `await` to `blocking`. Even though both versions use ASGI, their tasks progress very differently.
 
-ラボの`平均 latency`は、5件が同時に到着してから各リクエストが完了するまでの平均時間です。`throughput`は、シミュレーション上の1秒あたりに完了したリクエスト数を示します。ASGI側は、<strong>1 worker・1 event loop</strong>という設定です。
+In the lab, `average latency` is the average time from the arrival of the five requests to the completion of each request. `Throughput` is the number of requests completed per simulated second. The ASGI side uses <strong>one worker and one event loop</strong>.
 
 <iframe
   src="/labs/wsgi-asgi-lab.html"
-  title="WSGIとASGIのRequest Lifecycle Lab"
+  title="WSGI and ASGI Request Lifecycle Lab"
   height="1200"
   loading="lazy"
   scrolling="no"
 ></iframe>
 
-<div style="text-align: center;"><small><a href="/labs/wsgi-asgi-lab.html" target="_blank" rel="noopener noreferrer">ラボを別画面で開く</a></small></div>
-
+<div style="text-align: center;"><small><a href="/labs/wsgi-asgi-lab.html" target="_blank" rel="noopener noreferrer">Open the lab in a new tab</a></small></div>
 
 <details>
-<summary>ラボを表示できない場合は静止画を見る</summary>
+<summary>If the lab does not load, view a static screenshot</summary>
 
-![5件のリクエストを2つのWSGI sync workerと1つのASGIイベントループで処理したラボの完了画面](request-lifecycle-lab.png)
+![Five requests completed by two WSGI sync workers and one ASGI event loop](request-lifecycle-lab.png)
 
 </details>
 
-### WSGIのsync workerは待機中も席を使う
+### A WSGI Sync Worker Remains Occupied While Waiting
 
-Gunicornのデフォルトであるsync workerは、一度に1リクエストを処理します。2 workerで5リクエストを受け取ると、最初の2件がそれぞれworkerを使い、残りの3件は空きを待ちます。
+Gunicorn's default sync worker processes one request at a time. With two workers and five requests, the first two requests occupy the workers while the other three wait for a free worker.
 
-AとBはほとんどCPUを使っていません。それでも同期関数の呼び出しは終わっていないため、2つのworkerは別のリクエストを始められません。AかBが完了して初めて、Cが空いた席に座れます。
+Requests A and B use almost no CPU while they wait. But their synchronous function calls have not returned, so the workers cannot start another request. Request C can start only after A or B finishes.
 
-これはWSGI仕様が「1接続につき1プロセスを使え」と定めているからではなく、WSGIアプリケーションをsync workerで実行した結果です。[Gunicornの設計ドキュメント](https://docs.gunicorn.org/en/stable/design.html)でも、sync workerは一度に1リクエストを処理すると説明されています。
+WSGI itself does not say “use one process per connection.” This behavior comes from running a WSGI application with sync workers. [Gunicorn's design documentation](https://docs.gunicorn.org/en/stable/design.html) also explains that a sync worker handles one request at a time.
 
-### ASGIでは待機中のタスクを脇へ置ける
+### ASGI Can Set Aside a Waiting Task
 
-ASGI側では、LLM APIの呼び出しを次のように待つとします。
+On the ASGI side, suppose the LLM call looks like this:
 
 ```python
 async def run_agent():
@@ -199,27 +196,27 @@ async def run_agent():
     return response
 ```
 
-`await`に到達すると、現在のタスクは「LLM APIから返事が来るまで進めない」と[**イベントループ**](https://docs.python.org/3/library/asyncio-eventloop.html)へ伝え、いったん実行権を返します。イベントループは、その間にB、C、D、Eの処理を開始できます。
+When the code reaches `await`, the current task tells the [**event loop**](https://docs.python.org/3/library/asyncio-eventloop.html) that it must wait for the LLM API. The task then gives control back to the event loop. While it waits, the event loop can start B, C, D, and E.
 
 ```mermaid
 flowchart LR
-    accTitle: await中にイベントループへ実行権を返す流れ
-    accDescr: Request AがLLM APIを待つ間に実行権がイベントループへ戻り、BからEまでのタスクが順に開始される
+    accTitle: Yielding control to the event loop while awaiting I/O
+    accDescr: Request A yields control while waiting for the LLM API, allowing the event loop to start requests B through E
 
     A1["Request A"] --> A2["await LLM"]
-    A2 -. "実行権を返す" .-> L["Event loop"]
+    A2 -. "yield control" .-> L["Event loop"]
     L --> B["Request B"]
     B --> C["Request C"]
     C --> D["Request D"]
     D --> E["Request E"]
-    E -. "全タスクがI/O待ち" .-> R["応答が来たタスクから再開"]
+    E -. "all tasks waiting for I/O" .-> R["Resume each task when its response arrives"]
 ```
 
-ここでASGIは、LLM APIの3秒という応答時間を短縮してはいません。複数の待ち時間を重ね、Pythonが何もできない時間を別の接続へ使っているだけです。そのため、改善するのは主に同時に複数のリクエストを受けたときのスループットや待機列であり、単発リクエストの応答時間とは限りません。
+ASGI has not reduced the LLM API's three-second response time. It has simply overlapped several waits. When Python has nothing to do for one connection, it can work on another. This mainly improves throughput and reduces queues when many requests arrive together. It does not necessarily reduce the latency of one request.
 
-## `async def`でも処理は止まる
+## `async def` Can Still Block
 
-ラボのASGI modeを`await`から`blocking`へ変えると、先ほどとは違う動きになります。たとえば、非同期関数の中で同期版のLLMクライアントを直接呼んだ場合です。
+Switch the lab's ASGI mode from `await` to `blocking`, and the behavior changes. One way to create this problem is to call a synchronous LLM client directly from an asynchronous function:
 
 ```python
 async def run_agent():
@@ -227,69 +224,67 @@ async def run_agent():
     return response
 ```
 
-この`generate()`が同期的にネットワーク応答を待つ間は、イベントループに実行権が戻りません。そのため、Aだけでなく、同じイベントループ上で待っているB、C、D、Eも進めなくなります。
+While `generate()` waits synchronously for the network response, it does not give control back to the event loop. As a result, B, C, D, and E cannot run either.
 
 ```mermaid
 sequenceDiagram
-    accTitle: time.sleepがイベントループを止める様子
-    accDescr: Task Aがtime.sleepを実行している3秒間、同じイベントループ上のTask B、Task C、切断処理を開始できない
+    accTitle: time.sleep blocks the event loop
+    accDescr: While Task A runs time.sleep for three seconds, the same event loop cannot start Task B, Task C, or disconnection handling
     participant L as Event loop
     participant A as Task A
     participant B as Task B
     participant C as Task C
 
-    L->>A: handlerを開始
+    L->>A: Start handler
     activate A
-    Note over L,A: time.sleep(3)<br/>イベントループを占有
-    A-->>L: 3秒後に実行権を返す
+    Note over L,A: time.sleep(3)<br/>occupies the event loop
+    A-->>L: Yield control after three seconds
     deactivate A
-    L->>B: ようやく開始
-    L->>C: ようやく開始
-    Note over L,C: 切断イベントの処理もここまで待つ
+    L->>B: Finally start B
+    L->>C: Finally start C
+    Note over L,C: Disconnect handling also waits until now
 ```
 
-つまり、関数を`async def`にしたりASGIサーバーで動かしたりするだけでは不十分です。LLM SDK、HTTPクライアント、DBドライバーなど、I/Oを行う処理も[**non-blocking I/O**](https://docs.python.org/3/library/asyncio-dev.html#running-blocking-code)に対応している必要があります。
+Using `async def` or an ASGI server is not enough. The code that performs I/O—including LLM SDKs, HTTP clients, and database drivers—must also support [**non-blocking I/O**](https://docs.python.org/3/library/asyncio-dev.html#running-blocking-code).
 
-同期APIしかない場合は、[**asyncio**](https://docs.python.org/3/library/asyncio.html)の[`asyncio.to_thread()`](https://docs.python.org/3/library/asyncio-task.html#asyncio.to_thread)などを使って別スレッドへ処理を移す方法があります。ただし、これは無制限に並行実行できるという意味ではなく、今度はスレッドプールの容量が上限になります。CPU負荷の高い処理もイベントループを占有するため、重い画像処理やローカル推論は別プロセスやジョブworkerへ分ける必要があります。
+If only a synchronous API is available, you can move the call to another thread with [`asyncio.to_thread()`](https://docs.python.org/3/library/asyncio-task.html#asyncio.to_thread) from [**asyncio**](https://docs.python.org/3/library/asyncio.html). But this does not allow unlimited concurrency: the thread pool has a fixed size. CPU-heavy work can also block the event loop, so heavy image processing or local inference should usually run in another process or a job worker.
 
-## では、WSGIではAIアプリを作れないのか
+## Does This Mean WSGI Cannot Run an AI App?
 
-もちろん作れます。ここまでの比較だけを見ると「WSGIは同時処理できない」と感じますが、それはWSGIとsync workerを同一視した理解です。
+Of course it can. The comparison so far may make WSGI sound unable to handle requests concurrently. But that view mixes up WSGI itself with one type of worker: the sync worker.
 
-Webアプリケーションの構成は、次の三つの判断軸に分けると整理しやすくなります。
+It helps to separate the problem into three decisions:
 
-1. **インターフェース仕様**：サーバーとアプリケーションが何を受け渡すか。WSGIとASGIの違いはここにあります。
-2. **並行処理方式**：待機中に何へ実行権を渡すか。process、thread、greenlet、coroutineなどの選択肢があります。
-3. **通信プロトコル**：クライアントとどのようにデータを交換するか。HTTP、SSE、WebSocketなどが該当します。
+1. **Interface specification:** What can the server and application exchange? This is where WSGI and ASGI differ.
+2. **Concurrency model:** What can run while one operation waits? Options include processes, threads, greenlets, and coroutines.
+3. **Communication protocol:** How does the client exchange data with the server? Examples include HTTP, Server-Sent Events (SSE), and WebSocket.
 
-たとえば、WSGIアプリケーションをgevent workerで動かすと、並行処理方式はgreenletになりますが、サーバーとアプリケーションがやり取りするインターフェースはWSGIのままです。`WsgiToAsgi`も外側でASGIとWSGIを変換しますが、内側のアプリケーションまで非同期になるわけではありません。
+For example, a gevent worker lets a WSGI application use greenlets. But the server and application still communicate through WSGI. Similarly, `WsgiToAsgi` translates between ASGI and WSGI at the boundary. It does not make the WSGI application asynchronous.
 
-ASGIに移行せずWSGIアプリケーションでI/O待ちの並行性を高める方法はいくつかあります。
+There are several ways to increase I/O concurrency in a WSGI application without migrating it to ASGI:
 
-| 方法 | 待機中にほかの処理を進める単位 | 既存コードへの影響 | 注意点 |
+| Approach | What runs while another request waits | Impact on existing code | Caveat |
 |---|---|---:|---|
-| workerプロセスを増やす | プロセス | 小さい | 待機中のリクエストごとに比較的重いプロセスを使う |
-| `gthread`を使う | OSスレッド | 小さい | スレッド数とメモリに上限がある |
-| `gevent`を使う | greenlet | 小さい場合がある | ライブラリとの互換性やmonkey patchを確認する |
-| `WsgiToAsgi`を使う | アダプター内のスレッド | 小さい | 内側のアプリケーションは同期WSGIのまま |
+| Add worker processes | Process | Low | Each waiting request occupies a relatively heavy process |
+| Use `gthread` | OS thread | Low | Thread count and memory are finite |
+| Use `gevent` | Greenlet | Sometimes low | Check library compatibility and monkey patching |
+| Use `WsgiToAsgi` | Thread inside the adapter | Low | The application inside remains synchronous WSGI |
 
-Gunicornはsync workerのほかに、スレッドを使う`gthread`や[**greenlet**](https://greenlet.readthedocs.io/en/latest/)を使う[**gevent**](https://www.gevent.org/) workerを提供しています。同期のLLM SDKを維持したい場合、thread workerで十分なこともあります。
+In addition to sync workers, Gunicorn provides the thread-based `gthread` worker and a [**gevent**](https://www.gevent.org/) worker based on [**greenlets**](https://greenlet.readthedocs.io/en/latest/). If you need to keep a synchronous LLM SDK, a thread worker may be sufficient.
 
-geventは、対応したI/Oが待ちに入ったときに別のgreenletへ切り替えます。標準ライブラリのsocketなどを協調動作する実装へ置き換えるmonkey patchも利用できます。ただし、[geventの公式ドキュメント](https://docs.gevent.org/api/gevent.monkey.html)が注意しているように、patchのタイミングやライブラリとの互換性を確認する必要があります。
+gevent switches to another greenlet when a compatible I/O operation starts waiting. It can also use monkey patching to replace standard-library modules such as `socket` with versions that work with gevent. However, the [official gevent documentation](https://docs.gevent.org/api/gevent.monkey.html) warns that you need to check when patches are applied and whether your libraries are compatible. The important point is that gevent changes how a WSGI application waits, not how it represents communication. The WSGI interface still returns an HTTP response as an iterable; it does not gain ASGI's `receive` and `send` functions.
 
-ここで大切なのは、geventが変えるのはWSGIの「待ち方」であって「表現方法」ではないことです。HTTPレスポンスをイテラブルとして返すWSGIのインターフェースは変わらず、ASGIの`receive`や`send`が使えるようになるわけではありません。
-
-[`asgiref.wsgi.WsgiToAsgi`](https://github.com/django/asgiref#wsgi-to-asgi-adapter)のようなアダプターを使えば、既存のWSGIアプリケーションをASGIサーバー上で動かせます。
+An adapter such as [`asgiref.wsgi.WsgiToAsgi`](https://github.com/django/asgiref#wsgi-to-asgi-adapter) can run an existing WSGI application behind an ASGI server.
 
 ```mermaid
 flowchart TB
-    accTitle: WsgiToAsgiによるリクエスト変換
-    accDescr: ASGIサーバーのHTTPイベントをWsgiToAsgiがWSGI environへ変換し、同期WSGIアプリをスレッドで呼び出してレスポンスをASGIイベントへ戻す
+    accTitle: Translating a request with WsgiToAsgi
+    accDescr: WsgiToAsgi converts ASGI HTTP events into a WSGI environ, calls the synchronous WSGI application in a thread, and converts its response back into ASGI events
 
     S["ASGI server"]
     A1["ASGI HTTP events"]
     W["WsgiToAsgi adapter"]
-    T["threadで同期処理"]
+    T["synchronous work in a thread"]
     APP["WSGI application"]
     R["response iterable"]
     A2["ASGI response events"]
@@ -297,25 +292,23 @@ flowchart TB
     S --> A1 --> W --> T --> APP --> R --> W --> A2 --> S
 ```
 
-これは既存アプリケーションと新しいASGIエンドポイントを共存させる移行境界として便利です。ただし、外側をラップしても内側の同期関数が非同期関数へ変わるわけではありません。WSGI関数の中で自然に`await`できるようになったり、WebSocketを処理できるようになったりするわけではない点には注意が必要です。ASGI仕様の[WSGI Compatibility](https://asgi.readthedocs.io/en/latest/specs/www.html#wsgi-compatibility)でも、WSGIアプリケーションはスレッドプールで実行する必要があるとされています。
+This is useful during a gradual migration, when an existing WSGI application needs to run beside new ASGI endpoints. However, wrapping the application does not turn its synchronous functions into asynchronous ones. A WSGI function still cannot naturally use `await` or handle WebSockets. The ASGI specification's section on [WSGI compatibility](https://asgi.readthedocs.io/en/latest/specs/www.html#wsgi-compatibility) also says that WSGI applications must run in a thread pool.
 
-## それでもAIアプリでASGIをよく見る理由
+## Why ASGI Is Still Common in AI Applications
 
-WSGIにもI/O待ちを効率よく処理する選択肢があります。それでも新しいAIアプリケーションでASGIが自然な選択になりやすいのは、並行性だけが理由ではありません。
+WSGI offers several ways to handle I/O waits efficiently. Even so, ASGI is often a good choice for a new AI application because concurrency is only part of the story:
 
-- 非同期LLMクライアントやHTTPクライアントをそのまま`await`できる
-- 複数のツールAPIを並行して呼びやすい
-- レスポンスをチャンクに分けて送信しやすい
-- 切断をイベントとして受け取り、不要になった処理をキャンセルしやすい
-- WebSocketのような双方向通信へ発展させやすい
-- DB接続プールの作成と破棄を[**lifespanイベント**](https://asgi.readthedocs.io/en/latest/specs/lifespan.html)で管理できる
+- You can directly `await` asynchronous LLM and HTTP clients.
+- You can call several tool APIs concurrently.
+- You can send a response in chunks.
+- You can receive a disconnect event and cancel work that is no longer needed.
+- You can extend the application to bidirectional protocols such as WebSocket.
+- You can manage the creation and cleanup of a database connection pool with [**lifespan events**](https://asgi.readthedocs.io/en/latest/specs/lifespan.html).
 
-ASGIでは、`http.response.body`を`more_body=True`で複数回`send()`し、その合間に`await`できます。LLMからトークンが届くたびにチャンクを送りつつ、待っている間は同じworkerで別の接続を進められます。WSGIでもレスポンスのイテラブルを使ったHTTPストリーミングは可能ですが、同期イテラブルの次の値を待つ間にworkerを占有しやすく、レスポンス送信中にクライアント側から届くイベントを同じインターフェースで受け取ることもできません。
+With ASGI, an application can call `send()` several times with `http.response.body` and `more_body=True`, using `await` between calls. It can send each chunk as tokens arrive from the LLM. While it waits for more tokens, the same worker can handle other connections. WSGI can also stream HTTP through a response iterable. But the worker is often busy while it waits for the next value, and the application cannot receive client events through the same interface while it sends the response.
 
-切断を扱える利点は、すでに画面を閉じたユーザーのためにLLM生成、ツール呼び出し、DB問い合わせを続けずに済むことです。長い処理ほど、計算資源やAPI料金の無駄を減らせます。ASGIでは`http.disconnect`や`websocket.disconnect`を`receive()`で受け取れるため、関連するタスクをキャンセルし、確保したリソースを解放する流れを組み立てやすくなります。
+Disconnect handling matters because there is little value in continuing LLM generation, tool calls, and database queries after the user closes the page. For a long operation, cancellation can save both computing resources and API costs. With ASGI, the application can receive `http.disconnect` or `websocket.disconnect` through `receive()`, cancel related tasks, and release their resources.
 
-lifespanイベントは、サーバーがリクエストを受け始める前にDB接続プールを一度だけ作り、停止時に確実に閉じるために使えます。各リクエストで接続を作り直すコストを避けられるうえ、起動時の初期化に失敗した場合はリクエスト受付前に失敗を通知できます。また、接続プールとリクエスト処理を同じイベントループに結び付けられるため、別のループに属する接続を誤って共有する問題も避けやすくなります。
+Lifespan events let a server create a database connection pool once before it accepts requests, then close the pool during shutdown. This avoids creating new connections for every request. It also lets the server report an initialization error before it starts accepting traffic. Finally, it helps keep the pool and request handlers on the same event loop, instead of accidentally sharing connections across loops.
 
-ただし、WSGIでも、このうちいくつかは実装できます。たとえばレスポンスのイテラブルを使ったHTTPストリーミングは可能です。
-
-まとめると、AIアプリでASGIが選ばれるのは、LLMやツールの応答を待つ時間が長く、その待ち時間にほかの接続を進めたいからです。さらにストリーミング、切断、キャンセルといった処理も同じモデルで扱いたいと考えると、ASGIとasyncioの組み合わせが素直です。
+In short, AI applications spend a lot of time waiting for LLMs and tools. ASGI lets the server use that time to handle other connections. It also provides one model for streaming, disconnection, and cancellation. That is why ASGI and asyncio are a common combination in new AI applications.

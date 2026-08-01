@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="ja">
+<html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -400,27 +400,27 @@
     <header class="masthead">
       <div>
         <p class="eyebrow">Request Lifecycle Lab · 01</p>
-        <h1>同じHTTP。<br>違う実行モデル。</h1>
-        <p class="lead">リクエストを流して、WSGIの関数呼び出しとASGIのイベント交換が、待機・並行性・切断をどう表現するか観察します。</p>
+        <h1>Same HTTP.<br>Different execution models.</h1>
+        <p class="lead">Send requests through both models and see how WSGI function calls and ASGI events represent waiting, concurrency, and disconnection.</p>
       </div>
-      <div class="legend" aria-label="状態の凡例">
-        <span><i class="dot run"></i>実行中</span>
-        <span><i class="dot wait"></i>I/O待ち</span>
-        <span><i class="dot"></i>待機列</span>
-        <span><i class="dot done"></i>完了</span>
+      <div class="legend" aria-label="Status legend">
+        <span><i class="dot run"></i>Running</span>
+        <span><i class="dot wait"></i>Waiting for I/O</span>
+        <span><i class="dot"></i>Queued</span>
+        <span><i class="dot done"></i>Done</span>
       </div>
     </header>
 
-    <nav class="scenario-nav" aria-label="シナリオ">
+    <nav class="scenario-nav" aria-label="Scenarios">
       <button type="button" data-scenario="simple" aria-selected="true">1 · Simple</button>
       <button type="button" data-scenario="io" aria-selected="false">2 · I/O Wait</button>
       <button type="button" data-scenario="stream" aria-selected="false">3 · Stream</button>
     </nav>
 
-    <section class="control-strip" aria-label="シミュレーション設定">
+    <section class="control-strip" aria-label="Simulation settings">
       <div class="controls">
         <div class="control" id="requestControl">
-          <label for="requests">リクエスト数 <output id="requestsOut">5</output></label>
+          <label for="requests">Requests <output id="requestsOut">5</output></label>
           <input id="requests" type="range" min="1" max="8" value="5">
         </div>
         <div class="control" id="workerControl">
@@ -428,20 +428,20 @@
           <input id="workers" type="range" min="1" max="4" value="2">
         </div>
         <div class="control" id="waitControl">
-          <label for="waitTime">I/O待ち <output id="waitOut">3.0s</output></label>
+          <label for="waitTime">I/O wait <output id="waitOut">3.0s</output></label>
           <input id="waitTime" type="range" min="1" max="5" step="0.5" value="3">
         </div>
         <div class="control" id="modeControl">
-          <div class="label"><span>ASGIの待ち方</span></div>
-          <div class="toggle" role="group" aria-label="ASGIの待ち方">
+          <div class="label"><span>ASGI wait mode</span></div>
+          <div class="toggle" role="group" aria-label="ASGI wait mode">
             <button type="button" data-mode="await" aria-pressed="true">await</button>
             <button type="button" data-mode="block" aria-pressed="false">blocking</button>
           </div>
         </div>
       </div>
       <div class="actions">
-        <button class="secondary" id="disconnect" type="button" disabled>切断する</button>
-        <button class="primary" id="run" type="button">5件を送信</button>
+        <button class="secondary" id="disconnect" type="button" disabled>Disconnect</button>
+        <button class="primary" id="run" type="button">Send 5 requests</button>
       </div>
     </section>
 
@@ -454,8 +454,8 @@
           </div>
           <div class="counter"><strong id="wsgiCount">0/5</strong><span>completed</span></div>
         </div>
-        <dl class="metrics" aria-label="WSGIの性能指標">
-          <div class="metric"><dt>平均 latency</dt><dd id="wsgiLatency">—</dd></div>
+        <dl class="metrics" aria-label="WSGI performance metrics">
+          <div class="metric"><dt>average latency</dt><dd id="wsgiLatency">—</dd></div>
           <div class="metric"><dt>throughput</dt><dd id="wsgiThroughput">—</dd></div>
         </dl>
         <div class="architecture" id="wsgiArch"></div>
@@ -470,8 +470,8 @@
           </div>
           <div class="counter"><strong id="asgiCount">0/5</strong><span>completed</span></div>
         </div>
-        <dl class="metrics" aria-label="ASGIの性能指標">
-          <div class="metric"><dt>平均 latency</dt><dd id="asgiLatency">—</dd></div>
+        <dl class="metrics" aria-label="ASGI performance metrics">
+          <div class="metric"><dt>average latency</dt><dd id="asgiLatency">—</dd></div>
           <div class="metric"><dt>throughput</dt><dd id="asgiThroughput">—</dd></div>
         </dl>
         <div class="architecture" id="asgiArch"></div>
@@ -481,15 +481,15 @@
 
     <section class="explanation" aria-live="polite">
       <span class="status-dot"></span>
-      <p id="explanation">「5件を送信」で、2つのモデルを同時に動かします。</p>
+      <p id="explanation">Click “Send 5 requests” to run both models at the same time.</p>
       <span class="clock" id="clock">t = 0.0s</span>
     </section>
 
     <section class="takeaway">
       <h3>What to notice</h3>
       <div>
-        <p id="takeawayText">短いHTTPでは結果は同じ。違いは、WSGIが1回の関数呼び出し、ASGIがイベントの送受信として処理を表すことです。</p>
-        <small id="caveat">WSGIは仕様、sync workerは実行方式です。WSGIでもthreadsやgreenletsを使えば並行性は変わります。</small>
+        <p id="takeawayText">A short HTTP request produces the same result. The difference is that WSGI represents it as one function call, while ASGI represents it as events sent and received.</p>
+        <small id="caveat">WSGI is an interface specification; a sync worker is an execution model. Threads and greenlets can give WSGI applications different concurrency behavior.</small>
       </div>
     </section>
   </main>
@@ -550,17 +550,17 @@
         els.waitControl.hidden = !io;
         els.modeControl.hidden = !io;
         els.disconnect.disabled = true;
-        els.run.textContent = stream ? 'ストリーム開始' : `${config().requests}件を送信`;
+        els.run.textContent = stream ? 'Start stream' : `Send ${config().requests} requests`;
 
         if (next === 'simple') {
-          els.takeaway.textContent = '短いHTTPでは結果は同じ。違いは、WSGIが1回の関数呼び出し、ASGIがイベントの送受信として処理を表すことです。';
-          els.caveat.textContent = 'まずは速さではなく、アプリとサーバーが何を受け渡すかに注目してください。';
+          els.takeaway.textContent = 'A short HTTP request produces the same result. WSGI represents it as one function call, while ASGI represents it as events sent and received.';
+          els.caveat.textContent = 'Before comparing speed, focus on what the server and application can exchange.';
         } else if (next === 'io') {
-          els.takeaway.textContent = 'awaitは待ち時間を消しません。待っているタスクを脇に置き、その時間に別のタスクを進めます。';
-          els.caveat.textContent = 'WSGIは仕様、sync workerは実行方式です。WSGIでもthreadsやgreenletsを使えば並行性は変わります。';
+          els.takeaway.textContent = 'await does not eliminate the wait. It sets a waiting task aside so another task can make progress.';
+          els.caveat.textContent = 'WSGI is an interface specification; a sync worker is an execution model. Threads and greenlets can give WSGI applications different concurrency behavior.';
         } else {
-          els.takeaway.textContent = '両方ともHTTP本文を分割送信できます。ASGIはさらに、切断をreceiveイベントとして同じモデルで表現できます。';
-          els.caveat.textContent = 'WSGIサーバーも切断を検知できますが、アプリが独立イベントとして受け取る共通仕様はありません。';
+          els.takeaway.textContent = 'Both interfaces can stream an HTTP body. ASGI can also represent a disconnection as a receive event in the same model.';
+          els.caveat.textContent = 'A WSGI server may detect a disconnect, but there is no standard interface for delivering it to the application as a separate event.';
         }
         renderIdle();
       }
@@ -614,21 +614,21 @@
           els.asgiArch.innerHTML = node('1 ASGI worker') + arrow() + node('1 event loop') + arrow('⇄') + node('receive / send');
           els.wsgiLanes.innerHTML = lane('worker', task('ready', 'queued', 24));
           els.asgiLanes.innerHTML = lane('event loop', task('ready', 'queued', 24));
-          els.explanation.innerHTML = `「${c.requests}件を送信」で、2つのモデルを同時に動かします。`;
+          els.explanation.innerHTML = `Click “Send ${c.requests} requests” to run both models at the same time.`;
         } else if (state.scenario === 'io') {
           els.wsgiArch.innerHTML = node(`${c.workers} sync workers`) + arrow() + node('blocking call');
           els.asgiArch.innerHTML = node('1 ASGI worker') + arrow() + node('1 event loop') + arrow() + node(state.mode === 'await' ? 'await I/O' : 'blocking I/O');
           els.wsgiLanes.innerHTML = Array.from({length: c.workers}, (_, i) => lane(`worker ${i + 1}`)).join('') + lane('queue');
           els.asgiLanes.innerHTML = lane('event loop') + lane(state.mode === 'await' ? 'awaiting' : 'blocked');
           els.explanation.innerHTML = state.mode === 'await'
-            ? '<code>await</code>ではI/O待ち中に実行権がイベントループへ戻ります。'
-            : '<code>time.sleep()</code>はスレッドを止め、同じループのほかのタスクも進めません。';
+            ? '<code>await</code> yields control to the event loop while waiting for I/O.'
+            : '<code>time.sleep()</code> blocks the thread, so other tasks on the same loop cannot make progress.';
         } else {
           els.wsgiArch.innerHTML = node('callable') + arrow() + node('body iterable') + arrow() + node('client');
           els.asgiArch.innerHTML = node('1 ASGI worker') + arrow() + node('receive') + arrow('⇄') + node('send');
           els.wsgiLanes.innerHTML = `<div class="event-stream">${eventRow('start_response("200 OK")', 'app → server')}${eventRow('yield chunk 1', 'app → server')}${eventRow('yield chunk 2', 'app → server')}${eventRow('yield chunk 3', 'app → server')}</div>`;
           els.asgiLanes.innerHTML = `<div class="event-stream">${eventRow('http.response.start', 'send →')}${eventRow('http.response.body · 1', 'send →')}${eventRow('http.response.body · 2', 'send →')}${eventRow('http.response.body · 3', 'send →')}</div>`;
-          els.explanation.textContent = '開始すると、同じ3チャンクのHTTPレスポンスが異なるインターフェースを通ります。';
+          els.explanation.textContent = 'Start the simulation to send the same three-chunk HTTP response through each interface.';
         }
       }
 
@@ -682,10 +682,10 @@
         renderMetrics('wsgi', completionTimes, t);
         renderMetrics('asgi', completionTimes, t);
         els.explanation.innerHTML = t < .3
-          ? 'WSGIはcallableを呼び、ASGIは<code>http.request</code>を受け取ります。'
+          ? 'WSGI calls the application callable; ASGI receives an <code>http.request</code> event.'
           : t < total - .3
-            ? '結果は同じ200 OK。ここではインターフェースの形だけが違います。'
-            : '両方とも完了しました。短いHTTPでは体感差はほとんどありません。';
+            ? 'Both return the same 200 OK. Only the shape of the interface differs here.'
+            : 'Both are complete. For a short HTTP request, there is little perceptible difference.';
         return t >= total;
       }
 
@@ -705,7 +705,7 @@
           const active = wsgiJobs.find(j => j.worker === w && t >= j.start && t < j.end);
           const completed = [...wsgiJobs].reverse().find(j => j.worker === w && t >= j.end);
           const job = active || completed;
-          workerRows.push(lane(`worker ${w + 1}`, job ? task(labels[job.i], active ? job.status : 'done', 88, 0, active ? (job.status === 'waiting' ? 'I/O待ち' : 'Python') : 'done') : ''));
+          workerRows.push(lane(`worker ${w + 1}`, job ? task(labels[job.i], active ? job.status : 'done', 88, 0, active ? (job.status === 'waiting' ? 'I/O wait' : 'Python') : 'done') : ''));
         }
         const queued = wsgiJobs.filter(j => j.status === 'queued');
         workerRows.push(lane('queue', queued.map((j, idx) => task(labels[j.i], 'queued', 13, idx * 14, 'wait')).join('')));
@@ -728,7 +728,7 @@
             const end = start + service;
             const status = phase(t, start, c.wait, end);
             if (status === 'done') asgiDone++;
-            asgiRows.push(lane(`task ${labels[i]}`, task(labels[i], status === 'waiting' ? 'blocked' : status, status === 'queued' ? 25 : 86, 0, status === 'waiting' ? 'loop停止' : status)));
+            asgiRows.push(lane(`task ${labels[i]}`, task(labels[i], status === 'waiting' ? 'blocked' : status, status === 'queued' ? 25 : 86, 0, status === 'waiting' ? 'loop blocked' : status)));
           }
           if (c.requests > 6) asgiDone += Math.max(0, Math.min(c.requests - 6, Math.floor((t - 6 * service) / service + 1)));
         }
@@ -745,12 +745,12 @@
         renderMetrics('asgi', asgiCompletionTimes, t);
         if (state.mode === 'await') {
           els.explanation.innerHTML = t < .5
-            ? 'ASGIでは各タスクが<code>await</code>へ到達すると、次のタスクが開始します。'
+            ? 'In ASGI, the next task can start when the current task reaches <code>await</code>.'
             : wDone < c.requests
-              ? `WSGIのsync workerはI/O待ち中も${c.workers}席を保持。ASGIの待機タスクはイベントループの外で待っています。`
-              : '完了。ASGIはI/O待ちを重ねられましたが、待ち時間そのものを短縮したわけではありません。';
+              ? `The ${c.workers} WSGI sync workers remain occupied during I/O. ASGI tasks wait without occupying the event loop.`
+              : 'Complete. ASGI overlapped the I/O waits; it did not make the waits themselves shorter.';
         } else {
-          els.explanation.innerHTML = '<code>time.sleep()</code>中はイベントループの唯一のスレッドが止まり、後続タスクは開始できません。';
+          els.explanation.innerHTML = '<code>time.sleep()</code> blocks the event loop\'s only thread, so later tasks cannot start.';
         }
         const wEnd = Math.ceil(c.requests / c.workers) * service;
         const aEnd = state.mode === 'await' ? c.wait + .55 + (c.requests - 1) * .12 : c.requests * service;
@@ -769,11 +769,11 @@
           a.push(eventRow(asgiNames[i], 'send →', status));
         }
         if (state.disconnected) {
-          w.push(eventRow('標準化された切断イベントなし', 'server × app', 'live'));
+          w.push(eventRow('no standard disconnect event', 'server × app', 'live'));
           a.push(eventRow('http.disconnect', 'receive ←', 'live'));
-          els.explanation.innerHTML = 'ASGIでは<code>http.disconnect</code>がreceive側に届きます。WSGIには対応する共通イベントがありません。';
+          els.explanation.innerHTML = 'ASGI delivers <code>http.disconnect</code> through <code>receive</code>. WSGI has no equivalent standard event.';
         } else {
-          els.explanation.textContent = index === 0 ? 'レスポンスを開始しました。途中で「切断する」も試せます。' : `chunk ${index} を送信中。両方式ともHTTPストリーミングは可能です。`;
+          els.explanation.textContent = index === 0 ? 'The response has started. Try disconnecting before it completes.' : `Sending chunk ${index}. Both interfaces support HTTP streaming.`;
         }
         els.wsgiLanes.innerHTML = `<div class="event-stream">${w.join('')}</div>`;
         els.asgiLanes.innerHTML = `<div class="event-stream">${a.join('')}</div>`;
@@ -799,7 +799,7 @@
         if (done) {
           stop();
           els.disconnect.disabled = true;
-          els.run.textContent = state.scenario === 'stream' ? 'もう一度' : 'もう一度送信';
+          els.run.textContent = state.scenario === 'stream' ? 'Run again' : 'Send again';
           return;
         }
         state.raf = requestAnimationFrame(frame);
@@ -818,7 +818,7 @@
         els.requestsOut.textContent = els.requests.value;
         els.workersOut.textContent = els.workers.value;
         els.waitOut.textContent = `${Number(els.wait.value).toFixed(1)}s`;
-        els.run.textContent = state.scenario === 'stream' ? 'ストリーム開始' : `${els.requests.value}件を送信`;
+        els.run.textContent = state.scenario === 'stream' ? 'Start stream' : `Send ${els.requests.value} requests`;
         renderIdle();
       }));
 

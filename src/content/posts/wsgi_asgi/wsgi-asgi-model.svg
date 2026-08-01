@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 620" role="img" aria-labelledby="title desc">
-  <title id="title">WSGIとASGIの通信モデルの違い</title>
-  <desc id="desc">WSGIはリクエストを一度の関数呼び出しとして処理し、ASGIは接続中にreceiveとsendでイベントを交換する。</desc>
+  <title id="title">How WSGI and ASGI communicate differently</title>
+  <desc id="desc">WSGI handles a request as one function call, while ASGI exchanges events through receive and send for the lifetime of a connection.</desc>
   <defs>
     <marker id="arrow-coral" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
       <path d="M 0 0 L 10 5 L 0 10 z" fill="#ef765f"/>
@@ -17,28 +17,28 @@
     </style>
   </defs>
   <rect width="1200" height="620" rx="32" fill="#f6f3ea"/>
-  <text x="60" y="70" class="title">同じHTTPでも、アプリとサーバーの会話が違う</text>
+  <text x="60" y="70" class="title">Same HTTP, different conversation between server and app</text>
 
   <rect x="60" y="112" width="510" height="438" rx="26" fill="#fffaf1" stroke="#e3d9c9" stroke-width="2"/>
   <text x="96" y="164" class="label">WSGI</text>
-  <text x="96" y="196" class="small">1リクエスト = 1回の関数呼び出し</text>
+  <text x="96" y="196" class="small">One request = one function call</text>
   <rect x="100" y="244" width="160" height="82" rx="18" fill="#f5d6ce"/>
   <text x="180" y="278" text-anchor="middle" class="label">Server</text>
   <text x="180" y="304" text-anchor="middle" class="small">HTTP request</text>
   <rect x="370" y="244" width="160" height="82" rx="18" fill="#f5d6ce"/>
   <text x="450" y="278" text-anchor="middle" class="label">App</text>
-  <text x="450" y="304" text-anchor="middle" class="small">同期callable</text>
+  <text x="450" y="304" text-anchor="middle" class="small">sync callable</text>
   <path d="M 270 265 C 304 242, 330 242, 360 265" fill="none" stroke="#ef765f" stroke-width="4" marker-end="url(#arrow-coral)"/>
   <text x="315" y="232" text-anchor="middle" class="code">environ</text>
   <path d="M 360 310 C 330 342, 300 342, 270 310" fill="none" stroke="#ef765f" stroke-width="4" marker-end="url(#arrow-coral)"/>
   <text x="315" y="374" text-anchor="middle" class="code">response iterable</text>
   <rect x="96" y="414" width="438" height="90" rx="18" fill="#ffffff" stroke="#eadfd0"/>
-  <text x="315" y="448" text-anchor="middle" class="body">呼び出しが終わると処理も完了</text>
-  <text x="315" y="478" text-anchor="middle" class="small">レスポンス方向のストリーミングは可能</text>
+  <text x="315" y="448" text-anchor="middle" class="body">The request ends when the call returns</text>
+  <text x="315" y="478" text-anchor="middle" class="small">Response streaming is supported</text>
 
   <rect x="630" y="112" width="510" height="438" rx="26" fill="#eef7f8" stroke="#c9dfe3" stroke-width="2"/>
   <text x="666" y="164" class="label">ASGI</text>
-  <text x="666" y="196" class="small">1接続 = 時間とともに流れるイベント</text>
+  <text x="666" y="196" class="small">One connection = events over time</text>
   <rect x="670" y="244" width="160" height="82" rx="18" fill="#cce8ed"/>
   <text x="750" y="278" text-anchor="middle" class="label">Server</text>
   <text x="750" y="304" text-anchor="middle" class="small">connection</text>
@@ -50,8 +50,8 @@
   <path d="M 930 316 C 902 344, 870 344, 840 316" fill="none" stroke="#3186a0" stroke-width="4" marker-end="url(#arrow-blue)"/>
   <text x="885" y="378" text-anchor="middle" class="code">send()</text>
   <rect x="666" y="414" width="438" height="90" rx="18" fill="#ffffff" stroke="#d7e8eb"/>
-  <text x="885" y="448" text-anchor="middle" class="body">接続中、イベントを何度も交換</text>
-  <text x="885" y="478" text-anchor="middle" class="small">HTTP・WebSocket・切断などを表現</text>
+  <text x="885" y="448" text-anchor="middle" class="body">Exchange events throughout the connection</text>
+  <text x="885" y="478" text-anchor="middle" class="small">Represents HTTP, WebSocket, disconnects, and more</text>
 
-  <text x="600" y="592" text-anchor="middle" class="small">違いは「速さ」より先に、何を受け渡せるインターフェースか</text>
+  <text x="600" y="592" text-anchor="middle" class="small">Before comparing speed, compare what the interface can exchange</text>
 </svg>
