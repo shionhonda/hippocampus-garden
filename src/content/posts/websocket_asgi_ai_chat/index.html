@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Raw ASGI WebSocket Chat</title>
+    <style>
+      body {
+        max-width: 720px;
+        margin: 3rem auto;
+        padding: 0 1rem;
+        font: 16px/1.5 system-ui, sans-serif;
+      }
+      form {
+        display: flex;
+        gap: 0.5rem;
+      }
+      input {
+        flex: 1;
+        padding: 0.7rem;
+      }
+      button {
+        padding: 0.7rem 1rem;
+      }
+      #output {
+        min-height: 8rem;
+        padding: 1rem;
+        border: 1px solid #aaa;
+        white-space: pre-wrap;
+      }
+      #status {
+        color: #555;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Raw ASGI WebSocket Chat</h1>
+    <p id="status">Connecting...</p>
+
+    <form id="chat-form">
+      <input id="prompt" value="Why does ASGI fit WebSockets?" />
+      <button id="send" type="submit" disabled>Send</button>
+      <button id="stop" type="button" disabled>Stop</button>
+    </form>
+
+    <h2>Response</h2>
+    <div id="output"></div>
+
+    <script>
+      const websocketProtocol = location.protocol === "https:" ? "wss" : "ws"
+      const socket = new WebSocket(`${websocketProtocol}://${location.host}/ws`)
+
+      const form = document.querySelector("#chat-form")
+      const prompt = document.querySelector("#prompt")
+      const sendButton = document.querySelector("#send")
+      const stopButton = document.querySelector("#stop")
+      const output = document.querySelector("#output")
+      const status = document.querySelector("#status")
+
+      socket.addEventListener("open", () => {
+        status.textContent = "Connected with WebSocket"
+        sendButton.disabled = false
+      })
+
+      socket.addEventListener("message", (event) => {
+        const message = JSON.parse(event.data)
+
+        if (message.type === "token") {
+          output.textContent += message.value
+        } else if (message.type === "done") {
+          status.textContent = "Generation complete"
+          sendButton.disabled = false
+          stopButton.disabled = true
+        } else if (message.type === "stopped") {
+          status.textContent = "Generation stopped"
+          sendButton.disabled = false
+          stopButton.disabled = true
+        } else if (message.type === "error") {
+          status.textContent = message.message
+          sendButton.disabled = false
+          stopButton.disabled = true
+        }
+      })
+
+      socket.addEventListener("close", () => {
+        status.textContent = "Disconnected"
+        sendButton.disabled = true
+        stopButton.disabled = true
+      })
+
+      form.addEventListener("submit", (event) => {
+        event.preventDefault()
+        output.textContent = ""
+        status.textContent = "Generating..."
+        sendButton.disabled = true
+        stopButton.disabled = false
+        socket.send(JSON.stringify({ type: "start", prompt: prompt.value }))
+      })
+
+      stopButton.addEventListener("click", () => {
+        socket.send(JSON.stringify({ type: "stop" }))
+      })
+    </script>
+  </body>
+</html>
