@@ -59,17 +59,15 @@ websocket-ai-chat/
 uvicorn[standard]==0.52.1
 ```
 
+`standard`を指定すると、ASGIサーバー本体に加えて、Uvicornが利用するWebSocket実装もインストールされます。
+
 仮想環境を作り、依存パッケージをインストールします。
 
-<!--UV を使って-->
-
 ```bash
-python3 -m venv .venv
+uv venv --python 3.10
 source .venv/bin/activate
-python -m pip install -r requirements.txt
+uv pip install -r requirements.txt
 ```
-
-`standard` extraを指定すると、ASGIサーバー本体に加えて、Uvicornが利用するWebSocket実装もインストールされます。
 
 ## ブラウザクライアントを作る
 
@@ -340,15 +338,15 @@ async def send_json(send: Send, message: dict[str, Any]) -> None:
     await send({"type": "websocket.send", "text": json.dumps(message)})
 ```
 
-<!--suppress(asyncio.CancelledError) は何をしている？-->
+`generation_task.cancel()`を呼んでも、taskはその場で強制終了するわけではありません。次にtaskへ制御が戻る`await`地点（この例では多くの場合`await asyncio.sleep()`）で`asyncio.CancelledError`が発生し、task内の後処理を実行する機会が与えられます。そのtaskを`await`すると、呼び出し側にも`CancelledError`が伝わります。ここではキャンセルが意図した動作なので、`suppress(asyncio.CancelledError)`でその例外だけを無視し、WebSocket handlerの処理を続けています。[^cancel]
 
 フレームワークを使ったecho serverよりコードは長くなりますが、その代わりにASGIの動きをほぼすべて確認できます。このアプリケーションは三種類のASGI scopeを処理します。
-
-<!--3種類すべてを処理する必要はありますか？-->
 
 - `lifespan`では、起動と終了が完了したことをUvicornに伝える
 - `http`では、`GET /`に対して`index.html`を返す
 - `websocket`では、`/ws`への接続を維持しながらイベントを交換する
+
+WebSocketを試すだけなら、三種類すべてを処理する必要はありません。`websocket`だけでも実験できます。今回は一つのapplicationから`index.html`も配信するために`http`を実装し、Uvicornをdefault設定のまま起動・終了できるように`lifespan`も実装しました。HTMLを別のserverから配信し、Uvicornを`--lifespan off`で起動するなら、後者二つは省略できます。実際の開発ではframeworkやrouterがscopeの振り分けを担当します。
 
 ## アプリケーションを動かす
 
@@ -404,20 +402,6 @@ for token in response.split():
 
 `asyncio.create_task()`を使うことで、二つの処理を一つのevent loop上で進められます。token生成が`await asyncio.sleep()`に到達して待機している間に、受信loopは`stop`メッセージを処理できます。逆に、受信loopが次のブラウザメッセージを待っている間には、生成taskが次のtokenを送れます。
 
-<!--この図はよくわからないので、削除でいいです。-->
-
-```mermaid
-flowchart LR
-    accTitle: 一つのWebSocket接続を共有する二つのtask
-    accDescr: 受信loopがstartとstopメッセージを待つ一方で、別の生成taskが同じASGIのsend callableを通じてtokenを送る
-
-    W["WebSocket接続"] --> R["受信loop"]
-    R -->|"start"| G["生成task"]
-    G -->|"token message"| W
-    W -->|"stop"| R
-    R -->|"cancel"| G
-```
-
 ここで、ASGIの接続を中心としたイベントモデルが具体的に見えてきます。WebSocket接続が続く間、application callableも終了しません。その間に複数のイベントを受け取り、複数のイベントを送り、接続に関連するtaskを実行できます。
 
 ブラウザが切断すると、`receive()`は`websocket.disconnect`を返します。すると`finally` blockが生成taskをcancelし、すでにいなくなったclientのために処理を続けることを防ぎます。実際のAIアプリケーションであれば、同じ後処理によってLLMのstreamやtool callを中断できるでしょう。
@@ -440,11 +424,7 @@ event = await receive()
 
 したがって、upgrade後の接続上で`stop`を新しいイベントとして受け取るための、portableな方法がありません。また、標準WSGIはアプリケーションが`Upgrade`のようなhop-by-hop headerを生成することも禁止しています。これはWebSocket handshakeに必要なheaderです。[^wsgi]
 
-<!--hop-by-hop header: これは脚注でいいので、もう少し詳しく説明してください。-->
-
-ただし、これはFlaskアプリケーションではWebSocketのような機能を提供できない、という意味ではありません。Flask-SocketIOのようなlibraryは、WSGIを通じてHTTP long-pollingを使うことも、対応するserverや追加libraryが提供するWebSocket機能を使うこともできます。ここでの違いは、WebSocket接続そのものを標準WSGIのapplication interfaceが表現しているわけではない、という点です。
-
-<!--"対応するserverや追加libraryが提供するWebSocket機能を使うこともできます。" これは脚注でいいので、もう少し詳しく説明してください。SocketIOのことを言っていますか？-->
+ただし、これはFlaskアプリケーションではWebSocketのような機能を提供できない、という意味ではありません。Flask-SocketIOは、WSGIを通じてHTTP long-pollingを使うことも、対応するserverや追加libraryが提供するWebSocket機能を使うこともできます。[^flask-socketio] ここでの違いは、WebSocket接続そのものを標準WSGIのapplication interfaceが表現しているわけではない、という点です。
 
 ## WebSocketなしでも同じAIチャットを作れるか
 
@@ -468,7 +448,11 @@ long-pollingを使う方法もあります。ブラウザが繰り返しHTTP req
 
 promptを一度送り、tokenを一方向に受け取るだけのtext chatなら、HTTP streamingやSSEのほうが単純かもしれません。live voice input、途中までのtranscript、toolの進行状況、ユーザーによる中断、共同編集するstateなど、小さなイベントを両方向に頻繁に送る場合はWebSocketが有力になります。
 
-<!--なぜですか？複数の接続を使うと race condition が発生しやすいからでしょうか？もう少し詳しく説明してください。-->
+<!--音声通話についても言及して-->
+
+理由は主に通信のoverheadです。HTTP streamingやSSEでサーバーからデータを受け取りながらブラウザからもメッセージを送るには、受信用の接続とは別にHTTP requestを作る必要があります。long-pollingでは、サーバーから一つのresponseを受け取るたびに次のGET requestを開始し、ブラウザからは別のPOST requestを送ります。それぞれのrequestでHTTP headerの送信、requestのparse、routing、認証などが繰り返されます。WebSocketでは最初のhandshake後は一つの接続を再利用し、小さなframeとしてメッセージを送れるため、頻繁なやり取りでこのoverheadを抑えられます。
+
+複数の接続を使うと、どのrequestがどの生成処理に対応するかをapplication側で管理する必要もあります。たとえば`POST /cancel`が届いたときには、session IDなどを使って、別の接続でstreaming中のtaskを特定しなければなりません。順序の入れ替わりやキャンセル完了直前のtoken送信といったrace conditionはWebSocketでも起こり得るため、これだけがWebSocketを選ぶ理由ではありません。ただし、一つの順序付けられた接続にメッセージを集約すると、接続間の対応付けは単純になります。
 
 つまり、AIアプリケーションでは必ずWebSocketを使うべきだ、という話ではありません。必要な通信パターンに応じてprotocolを選ぶべきです。
 
@@ -480,4 +464,10 @@ promptを一度送り、tokenを一方向に受け取るだけのtext chatなら
 
 FastAPIやStarletteのようなframeworkは、より高水準なWebSocket APIを提供します。Socket.IOは独自のevent protocol、再接続、transport fallbackなどを追加します。こうした抽象化は便利ですが、今回の素の実装ではその下にあるinterfaceを確認できました。そこにあるのはconnection scope、receive callable、send callable、そして時間とともに届く一連のイベントです。
 
-[^wsgi]: [PEP 3333](https://peps.python.org/pep-3333/#other-http-features)では、WSGIアプリケーションがhop-by-hop headerを生成することや、`environ`に含まれるhop-by-hop headerに依存することを禁止しています。
+[^uv]: [uvのenvironment documentation](https://docs.astral.sh/uv/pip/environments/)では、`uv venv`による仮想環境の作成と、current directoryの`.venv`を自動検出する仕組みが説明されています。
+
+[^cancel]: [`Task.cancel()`のdocumentation](https://docs.python.org/3/library/asyncio-task.html#task-cancellation)によると、taskの次の実行機会に`CancelledError`が送出されます。[`contextlib.suppress()`](https://docs.python.org/3/library/contextlib.html#contextlib.suppress)は、`with` block内で指定された例外だけを無視し、その直後から処理を再開するcontext managerです。
+
+[^wsgi]: **Hop-by-hop header**は、end-to-endで最終的なclientやserverまで伝えるheaderではなく、現在のtransport connectionだけに適用されるheaderです。proxyなどのintermediaryは、次の接続へ転送する前にこれらを処理・削除します。`Connection`、`Keep-Alive`、`Transfer-Encoding`、`Upgrade`などが該当します。WebSocket handshakeでは、browserが`Connection: Upgrade`と`Upgrade: websocket`を送り、serverが`101 Switching Protocols`を返すことでHTTPからWebSocketへ切り替えます。しかし、WSGI serverとapplicationはHTTP messageそのものを交換しているわけではありません。そのため[PEP 3333](https://peps.python.org/pep-3333/#other-http-features)は、WSGI applicationがhop-by-hop headerを生成したり、`environ`内のhop-by-hop headerに依存したりすることを禁止し、対応する場合はserver側で処理するものとしています。
+
+[^flask-socketio]: ここではFlask-SocketIOと、その下で動くEngine.IO、WebSocket対応server・libraryの組み合わせを指しています。Socket.IOはWebSocketそのものではなく、event、ack、room、reconnectionなどを定義する上位protocolです。transportとしてlong-pollingを選んだ場合、送受信は通常のWSGI request/responseで実現できます。一方、WebSocket transportを選ぶ場合、Flask-SocketIOは標準WSGIだけで処理するのではなく、たとえばthreaded Gunicornと`simple-websocket`、geventと`gevent-websocket`、またはuWSGIのnative WebSocket supportなどを利用します。これらは標準WSGIに含まれないsocket accessやWebSocket処理を提供します。具体的な構成は[Flask-SocketIOのdeployment documentation](https://flask-socketio.readthedocs.io/en/stable/deployment.html)で説明されています。
