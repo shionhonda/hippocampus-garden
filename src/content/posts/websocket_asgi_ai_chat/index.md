@@ -1,11 +1,10 @@
 ---
 title: "WebSocketと素のASGIでストリーミングAIチャットを作る"
-date: "2026-08-02T12:00:00.000Z"
+date: "2026-08-04T12:00:00.000Z"
 description: "トークンのストリーミングと生成の中断ができる小さなAIチャットを作りながら、WebSocketとASGIの仕組みを学びます。"
 tags: ["python", "web", "llm"]
 slug: "websocket_asgi_ai_chat"
 lang: "ja"
-draft: true
 ---
 
 私はいま、AIアプリケーションを支える技術スタックを学んでいます。[前回の記事](/wsgi_asgi/)では、LLM APIの応答を待つAIエージェントを題材に、WSGIとASGIを比較しました。その中で、WSGIはWebSocketをサポートしていないという話がありました。これはなぜでしょうか？
@@ -14,7 +13,7 @@ draft: true
 
 ## 今回作るもの
 
-今回のアプリケーションでは、次の三つのやり取りを実装します。
+今回のアプリケーションでは、次の3つのやり取りを実装します。
 
 1. ブラウザがpromptを含む`start`メッセージを送る
 2. サーバーが複数の`token`メッセージを送り、最後に`done`を送る
@@ -39,7 +38,7 @@ sequenceDiagram
 
 ## 実験の準備
 
-次の三つのファイルを置くディレクトリを作ります。
+次の3つのファイルを置くディレクトリを作ります。
 
 ```text
 websocket-ai-chat/
@@ -151,10 +150,6 @@ uv pip install -r requirements.txt
           status.textContent = "Generation stopped"
           sendButton.disabled = false
           stopButton.disabled = true
-        } else if (message.type === "error") {
-          status.textContent = message.message
-          sendButton.disabled = false
-          stopButton.disabled = true
         }
       })
 
@@ -190,76 +185,33 @@ import asyncio
 import json
 from contextlib import suppress
 from pathlib import Path
-from typing import Any, Awaitable, Callable
 
 
 INDEX_HTML = Path(__file__).with_name("index.html").read_bytes()
 
-Receive = Callable[[], Awaitable[dict[str, Any]]]
-Send = Callable[[dict[str, Any]], Awaitable[None]]
 
-
-async def app(scope: dict[str, Any], receive: Receive, send: Send) -> None:
-    """A framework-free ASGI application for HTTP, WebSocket, and lifespan."""
-    if scope["type"] == "lifespan":
-        await handle_lifespan(receive, send)
-    elif scope["type"] == "http":
-        await handle_http(scope, send)
+async def app(scope, receive, send):
+    if scope["type"] == "http":
+        await send(
+            {
+                "type": "http.response.start",
+                "status": 200,
+                "headers": [(b"content-type", b"text/html; charset=utf-8")],
+            }
+        )
+        await send({"type": "http.response.body", "body": INDEX_HTML})
     elif scope["type"] == "websocket":
-        await handle_websocket(scope, receive, send)
-    else:
-        raise ValueError(f"Unsupported scope type: {scope['type']}")
+        await handle_websocket(receive, send)
 
 
-async def handle_lifespan(receive: Receive, send: Send) -> None:
-    while True:
-        event = await receive()
-        if event["type"] == "lifespan.startup":
-            await send({"type": "lifespan.startup.complete"})
-        elif event["type"] == "lifespan.shutdown":
-            await send({"type": "lifespan.shutdown.complete"})
-            return
-
-
-async def handle_http(scope: dict[str, Any], send: Send) -> None:
-    if scope["method"] == "GET" and scope["path"] == "/":
-        status = 200
-        body = INDEX_HTML
-        content_type = b"text/html; charset=utf-8"
-    else:
-        status = 404
-        body = b"Not found"
-        content_type = b"text/plain; charset=utf-8"
-
-    await send(
-        {
-            "type": "http.response.start",
-            "status": status,
-            "headers": [
-                (b"content-type", content_type),
-                (b"content-length", str(len(body)).encode()),
-            ],
-        }
-    )
-    await send({"type": "http.response.body", "body": body})
-
-
-async def handle_websocket(
-    scope: dict[str, Any], receive: Receive, send: Send
-) -> None:
+async def handle_websocket(receive, send):
     event = await receive()
     print("<-", event["type"])
-    if event["type"] != "websocket.connect":
-        return
-
-    if scope["path"] != "/ws":
-        await send({"type": "websocket.close", "code": 1008})
-        return
 
     await send({"type": "websocket.accept"})
     print("-> websocket.accept")
 
-    generation_task: asyncio.Task[None] | None = None
+    generation_task = None
 
     try:
         while True:
@@ -269,38 +221,18 @@ async def handle_websocket(
             if event["type"] == "websocket.disconnect":
                 break
 
-            if event["type"] != "websocket.receive" or "text" not in event:
-                continue
+            message = json.loads(event["text"])
 
-            try:
-                message = json.loads(event["text"])
-            except json.JSONDecodeError:
-                await send_json(send, {"type": "error", "message": "Invalid JSON"})
-                continue
-
-            if message.get("type") == "start":
-                prompt = str(message.get("prompt", "")).strip()
-                if not prompt:
-                    await send_json(
-                        send, {"type": "error", "message": "Prompt is empty"}
-                    )
-                elif generation_task is not None and not generation_task.done():
-                    await send_json(
-                        send,
-                        {"type": "error", "message": "Generation already running"},
-                    )
-                else:
-                    generation_task = asyncio.create_task(
-                        stream_fake_response(prompt, send)
-                    )
-
-            elif message.get("type") == "stop":
-                if generation_task is not None and not generation_task.done():
-                    generation_task.cancel()
-                    with suppress(asyncio.CancelledError):
-                        await generation_task
-                    generation_task = None
-                    await send_json(send, {"type": "stopped"})
+            if message["type"] == "start":
+                generation_task = asyncio.create_task(
+                    stream_fake_response(message["prompt"], send)
+                )
+            elif message["type"] == "stop" and generation_task is not None:
+                generation_task.cancel()
+                with suppress(asyncio.CancelledError):
+                    await generation_task
+                generation_task = None
+                await send_json(send, {"type": "stopped"})
     finally:
         if generation_task is not None and not generation_task.done():
             generation_task.cancel()
@@ -308,44 +240,34 @@ async def handle_websocket(
                 await generation_task
 
 
-async def stream_fake_response(prompt: str, send: Send) -> None:
+async def stream_fake_response(prompt, send):
     response = (
         f"You asked: {prompt}. "
         "This response is generated locally, one token at a time, "
         "without calling an LLM API."
     )
 
-    try:
-        for token in response.split():
-            await asyncio.sleep(0.25)
-            await send_json(send, {"type": "token", "value": token + " "})
-        await send_json(send, {"type": "done"})
-    except OSError:
-        # The connection can close just before websocket.disconnect is received.
-        return
+    for token in response.split():
+        await asyncio.sleep(0.25)
+        await send_json(send, {"type": "token", "value": token + " "})
+    await send_json(send, {"type": "done"})
 
 
-async def send_json(send: Send, message: dict[str, Any]) -> None:
+async def send_json(send, message):
     print("->", message["type"])
     await send({"type": "websocket.send", "text": json.dumps(message)})
 ```
 
-<!--できる限りコードを単純化して。例えば、except json.JSONDecodeErrorはプロトタイプには不要です-->
+このコードで扱うASGI scopeは2種類です。`http`では`index.html`を返し、`websocket`では接続を維持しながらイベントを交換します。Uvicornのlifespan処理は、起動時のoptionで無効にします。
 
-フレームワークを使ったecho serverよりコードは長くなりますが、その代わりにASGIの動きをほぼすべて確認できます。このアプリケーションは3種類のASGI scopeを処理します。
-
-- `lifespan`では、起動と終了が完了したことをUvicornに伝える
-- `http`では、`GET /`に対して`index.html`を返す
-- `websocket`では、`/ws`への接続を維持しながらイベントを交換する
-
-なお、`generation_task.cancel()`を呼んでも、taskはその場で強制終了するわけではありません。次にtaskへ制御が戻る`await`地点（この例では多くの場合`await asyncio.sleep()`）で`asyncio.CancelledError`が発生し、task内の後処理を実行する機会が与えられます。そのtaskを`await`すると、呼び出し側にも`CancelledError`が伝わります。ここではキャンセルが意図した動作なので、`suppress(asyncio.CancelledError)`でその例外だけを無視し、WebSocket handlerの処理を続けています。[^cancel]
+なお、`generation_task.cancel()`を呼んでも、taskはその場で強制終了するわけではありません。次にtaskへ制御が戻る`await`地点（この例では多くの場合`await asyncio.sleep()`）で`asyncio.CancelledError`が発生し、task内の後処理を実行する機会が与えられます。そのtaskを`await`すると、呼び出し側にも`CancelledError`が伝わります。ここではキャンセルが意図した動作なので、`suppress(asyncio.CancelledError)`でその例外だけを無視し、WebSocket handlerの処理を続けています。
 
 ## アプリケーションを動かす
 
-三つのファイルを置いたディレクトリでUvicornを起動します。
+3つのファイルを置いたディレクトリでUvicornを起動します。
 
 ```bash
-uvicorn app:app --host 127.0.0.1 --port 8000
+uvicorn app:app --host 127.0.0.1 --port 8000 --lifespan off
 ```
 
 ブラウザで次のURLを開きます。
@@ -355,6 +277,8 @@ http://127.0.0.1:8000/
 ```
 
 Sendを押すと、response欄に文章がtoken単位で少しずつ表示されます。表示が終わる前にStopを押すと、その時点でストリーミングが止まります。
+
+<!--ここでapp.movを表示-->
 
 サーバー側には、ASGIイベントとアプリケーションのメッセージが表示されます。
 
@@ -369,15 +293,11 @@ Sendを押すと、response欄に文章がtoken単位で少しずつ表示され
 -> stopped
 ```
 
-<!--数を数えるときは漢数字ではなく算用数字-->
-
-二つの`websocket.receive`イベントには、それぞれ`start`と`stop`のメッセージが入っています。ASGIサーバーはWebSocket frameをすでにdecodeしており、アプリケーションには完全なtext messageを渡します。逆方向では、アプリケーションが`websocket.send`を使ってメッセージの送信を依頼します。アプリケーション自身がWebSocket frameを組み立てるわけではありません。
+2つの`websocket.receive`イベントには、それぞれ`start`と`stop`のメッセージが入っています。ASGIサーバーはWebSocket frameをすでにdecodeしており、アプリケーションには完全なtext messageを渡します。逆方向では、アプリケーションが`websocket.send`を使ってメッセージの送信を依頼します。アプリケーション自身がWebSocket frameを組み立てるわけではありません。
 
 [ASGIのHTTP・WebSocket仕様](https://asgi.readthedocs.io/en/latest/specs/www.html#websocket)では、この責任分担が定義されています。Uvicornはhandshake、frame、PING/PONG message、network socketを処理します。アプリケーションが受け取ったり送ったりするのは、ASGIイベントを表す辞書です。
 
-<!--数を数えるときは漢数字ではなく算用数字-->
-
-## 一つの接続で二つの処理を並行する
+## 1つの接続で2つの処理を並行する
 
 この実験で重要なのは、生成される文章の内容ではありません。メッセージを受け取るloopと、文章を生成するtaskの関係です。
 
@@ -396,7 +316,7 @@ for token in response.split():
     await send_json(send, {"type": "token", "value": token + " "})
 ```
 
-`asyncio.create_task()`を使うことで、二つの処理を一つのevent loop上で進められます。token生成が`await asyncio.sleep()`に到達して待機している間に、受信loopは`stop`メッセージを処理できます。逆に、受信loopが次のブラウザメッセージを待っている間には、生成taskが次のtokenを送れます。
+`asyncio.create_task()`を使うことで、2つの処理を1つのevent loop上で進められます。token生成が`await asyncio.sleep()`に到達して待機している間に、受信loopは`stop`メッセージを処理できます。逆に、受信loopが次のブラウザメッセージを待っている間には、生成taskが次のtokenを送れます。
 
 ここで、ASGIの接続を中心としたイベントモデルが具体的に見えてきます。WebSocket接続が続く間、application callableも終了しません。その間に複数のイベントを受け取り、複数のイベントを送り、接続に関連するtaskを実行できます。
 
@@ -432,7 +352,7 @@ event = await receive()
 2. Server-Sent Events（SSE）またはHTTP streaming responseでtokenを受け取る
 3. `POST /cancel`で生成を止める
 
-long-pollingを使う方法もあります。ブラウザが繰り返しHTTP requestを作り、サーバーは送るメッセージができるまでresponseを返さずに保持します。これらの方法は、一つの双方向WebSocket接続ではなく、複数のHTTP requestを組み合わせます。
+long-pollingを使う方法もあります。ブラウザが繰り返しHTTP requestを作り、サーバーは送るメッセージができるまでresponseを返さずに保持します。これらの方法は、1つの双方向WebSocket接続ではなく、複数のHTTP requestを組み合わせます。
 
 | 要件                                    | HTTP streaming / SSE | Long-polling         | WebSocket        |
 | --------------------------------------- | -------------------- | -------------------- | ---------------- |
@@ -444,28 +364,20 @@ long-pollingを使う方法もあります。ブラウザが繰り返しHTTP req
 
 promptを一度送り、tokenを一方向に受け取るだけのtext chatなら、HTTP streamingやSSEのほうが単純かもしれません。live voice input、途中までのtranscript、toolの進行状況、ユーザーによる中断、共同編集するstateなど、小さなイベントを両方向に頻繁に送る場合はWebSocketが有力になります。
 
-<!--音声通話についても言及して-->
+音声通話型のAIでは、ブラウザからmicrophoneの音声dataを継続的に送りながら、サーバーから合成音声やtranscriptを受け取ります。AIが話している途中にユーザーが話し始めたら生成を止める、いわゆる割り込みも必要です。送信と受信が同時かつ頻繁に起きるため、text chatよりもWebSocketの利点が明確になります。ただし、低遅延な音声・映像の配送には、jitterへの対処やmedia向けの仕組みを備えたWebRTCが適する場合もあります。WebSocketは音声dataそのものだけでなく、開始・中断・tool実行などの制御messageに使うこともできます。
 
-理由は主に通信のoverheadです。HTTP streamingやSSEでサーバーからデータを受け取りながらブラウザからもメッセージを送るには、受信用の接続とは別にHTTP requestを作る必要があります。long-pollingでは、サーバーから一つのresponseを受け取るたびに次のGET requestを開始し、ブラウザからは別のPOST requestを送ります。それぞれのrequestでHTTP headerの送信、requestのparse、routing、認証などが繰り返されます。WebSocketでは最初のhandshake後は一つの接続を再利用し、小さなframeとしてメッセージを送れるため、頻繁なやり取りでこのoverheadを抑えられます。
+<!--段落の繋がりを綺麗にして-->
 
-複数の接続を使うと、どのrequestがどの生成処理に対応するかをapplication側で管理する必要もあります。たとえば`POST /cancel`が届いたときには、session IDなどを使って、別の接続でstreaming中のtaskを特定しなければなりません。順序の入れ替わりやキャンセル完了直前のtoken送信といったrace conditionはWebSocketでも起こり得るため、これだけがWebSocketを選ぶ理由ではありません。ただし、一つの順序付けられた接続にメッセージを集約すると、接続間の対応付けは単純になります。
+理由は主に通信のoverheadです。HTTP streamingやSSEでサーバーからデータを受け取りながらブラウザからもメッセージを送るには、受信用の接続とは別にHTTP requestを作る必要があります。long-pollingでは、サーバーから1つのresponseを受け取るたびに次のGET requestを開始し、ブラウザからは別のPOST requestを送ります。それぞれのrequestでHTTP headerの送信、requestのparse、routing、認証などが繰り返されます。WebSocketでは最初のhandshake後は1つの接続を再利用し、小さなframeとしてメッセージを送れるため、頻繁なやり取りでこのoverheadを抑えられます。
+
+複数の接続を使うと、どのrequestがどの生成処理に対応するかをapplication側で管理する必要もあります。たとえば`POST /cancel`が届いたときには、session IDなどを使って、別の接続でstreaming中のtaskを特定しなければなりません。順序の入れ替わりやキャンセル完了直前のtoken送信といったrace conditionはWebSocketでも起こり得るため、これだけがWebSocketを選ぶ理由ではありません。ただし、1つの順序付けられた接続にメッセージを集約すると、接続間の対応付けは単純になります。
 
 つまり、AIアプリケーションでは必ずWebSocketを使うべきだ、という話ではありません。必要な通信パターンに応じてprotocolを選ぶべきです。
 
 ## まとめ
 
-<!--あらためて記事を読んでみて、このまとめはどうでしょうか？更新は必要？-->
+素のASGIでStop buttonまで実装すると、WSGIとASGIの違いが具体的に見えました。WebSocket接続が続く間、同じapplication callableが複数回`receive`と`send`を呼び、token生成と新しいmessageの受信を並行できます。標準WSGIには、このように接続から次のイベントを受け取るinterfaceも、HTTPから切り替わったsocketを扱うinterfaceもありません。今回の実験ではそのことを確かめました。
 
-コードを書く前は、ASGIの`receive`と`send` callableを、WSGIとの抽象的な違いとして理解していました。Stop buttonを実装したことで、この違いをもう少し具体的に捉えられるようになりました。
-
-サーバーがtokenを送っている途中でも、同じアプリケーションが別のメッセージを受け取り、生成taskをcancelできます。この接続は、一つのresponseを返す一回の関数呼び出しではありません。scopeが生き続け、その間にイベントが両方向へ移動します。
-
-FastAPIやStarletteのようなframeworkは、より高水準なWebSocket APIを提供します。Socket.IOは独自のevent protocol、再接続、transport fallbackなどを追加します。こうした抽象化は便利ですが、今回の素の実装ではその下にあるinterfaceを確認できました。そこにあるのはconnection scope、receive callable、send callable、そして時間とともに届く一連のイベントです。
-
-[^cancel]: [`Task.cancel()`のdocumentation](https://docs.python.org/3/library/asyncio-task.html#task-cancellation)によると、taskの次の実行機会に`CancelledError`が送出されます。[`contextlib.suppress()`](https://docs.python.org/3/library/contextlib.html#contextlib.suppress)は、`with` block内で指定された例外だけを無視し、その直後から処理を再開するcontext managerです。
-
-[^wsgi]: **Hop-by-hop header**は、end-to-endで最終的なclientやserverまで伝えるheaderではなく、現在のtransport connectionだけに適用されるheaderです。proxyなどのintermediaryは、次の接続へ転送する前にこれらを処理・削除します。`Connection`、`Keep-Alive`、`Transfer-Encoding`、`Upgrade`などが該当します。WebSocket handshakeでは、browserが`Connection: Upgrade`と`Upgrade: websocket`を送り、serverが`101 Switching Protocols`を返すことでHTTPからWebSocketへ切り替えます。しかし、WSGI serverとapplicationはHTTP messageそのものを交換しているわけではありません。そのため[PEP 3333](https://peps.python.org/pep-3333/#other-http-features)は、WSGI applicationがhop-by-hop headerを生成したり、`environ`内のhop-by-hop headerに依存したりすることを禁止し、対応する場合はserver側で処理するものとしています。
-
-<!--「そのため〜禁止し」の理由がよくわかりませんでした-->
+[^wsgi]: **Hop-by-hop header**は、end-to-endで最終的なclientやserverまで伝えるheaderではなく、現在のtransport connectionだけに適用されるheaderです。`Connection`や`Upgrade`などが該当し、WebSocket handshakeでは接続を所有するserverに「このHTTP接続を別のprotocolへ切り替えてほしい」と伝えます。一方、WSGI applicationが受け取る`environ`は、WSGI serverがHTTP requestをparseしたあとの情報です。applicationはstatus、end-to-end header、response bodyを返せますが、clientとのnetwork socketを受け取らないため、protocolを切り替えたあとの接続を引き継げません。applicationに`Upgrade` headerだけを書かせても、その指示を完遂するinterfaceがないのです。この責任の境界を曖昧にしないため、[PEP 3333](https://peps.python.org/pep-3333/#other-http-features)はWSGI applicationがhop-by-hop headerを生成したり、`environ`内のhop-by-hop headerに依存したりすることを禁止し、必要な処理をserver側の責任としています。
 
 [^flask-socketio]: ここではFlask-SocketIOと、その下で動くEngine.IO、WebSocket対応server・libraryの組み合わせを指しています。Socket.IOはWebSocketそのものではなく、event、ack、room、reconnectionなどを定義する上位protocolです。transportとしてlong-pollingを選んだ場合、送受信は通常のWSGI request/responseで実現できます。一方、WebSocket transportを選ぶ場合、Flask-SocketIOは標準WSGIだけで処理するのではなく、たとえばthreaded Gunicornと`simple-websocket`、geventと`gevent-websocket`、またはuWSGIのnative WebSocket supportなどを利用します。これらは標準WSGIに含まれないsocket accessやWebSocket処理を提供します。具体的な構成は[Flask-SocketIOのdeployment documentation](https://flask-socketio.readthedocs.io/en/stable/deployment.html)で説明されています。

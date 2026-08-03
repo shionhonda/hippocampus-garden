@@ -77,10 +77,6 @@
           status.textContent = "Generation stopped"
           sendButton.disabled = false
           stopButton.disabled = true
-        } else if (message.type === "error") {
-          status.textContent = message.message
-          sendButton.disabled = false
-          stopButton.disabled = true
         }
       })
 
