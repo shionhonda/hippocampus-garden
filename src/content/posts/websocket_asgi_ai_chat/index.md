@@ -8,13 +8,9 @@ lang: "ja"
 draft: true
 ---
 
-私はいま、AIアプリケーションを支える技術スタックを学んでいます。[前回の記事](/wsgi_asgi/)では、LLM APIの応答を待つAIエージェントを題材に、WSGIとASGIを比較しました。そこで分かったのは、両者の違いを単に同期Pythonと非同期Pythonの違いとして捉えるだけでは不十分だということです。WSGIは一つのHTTPリクエストを一回の関数呼び出しとして表現する一方、ASGIは接続中の通信を一連のイベントとして表現します。
+私はいま、AIアプリケーションを支える技術スタックを学んでいます。[前回の記事](/wsgi_asgi/)では、LLM APIの応答を待つAIエージェントを題材に、WSGIとASGIを比較しました。その中で、WSGIはWebSocketをサポートしていないという話がありました。これはなぜでしょうか？
 
-しかし、この説明だけではASGIのイベントモデルによって何ができるようになるのか、まだ具体的にイメージできませんでした。
-
-この疑問を考える題材として、WebSocketはちょうどよさそうです。WebSocketでは一度確立した接続が維持され、その接続中にクライアントとサーバーのどちらからでも何度もメッセージを送れます。この通信パターンは、対話的なAIアプリケーションにも現れます。ユーザーがpromptを送り、サーバーが生成したtokenを少しずつ返し、生成が終わる前にユーザーがStopを押す、という場面です。
-
-この記事では、この一連の操作をLLM APIやWebフレームワークを使わずに実装します。サーバーは`asyncio.sleep()`を使って、固定された文章をtokenごとに生成します。外部APIを呼ばないことで、WebSocketとASGIの動きだけに注目できるようにします。
+この記事では、この疑問に答えられるようになるため、WebSocketによる双方向通信をLLM APIやWebフレームワークを使わずに実装します。サーバーは`asyncio.sleep()`を使って、固定された文章をtokenごとに生成します。外部APIを呼ばないことで、WebSocketとASGIの動きだけに注目できるようにします。
 
 ## 今回作るもの
 
@@ -71,7 +67,7 @@ uv pip install -r requirements.txt
 
 ## ブラウザクライアントを作る
 
-ブラウザ側では、標準の[`WebSocket`](https://developer.mozilla.org/en-US/docs/Web/API/WebSocket) APIを使います。これはSocket.IOで使う`io()`とは別のものです。`WebSocket`はブラウザに組み込まれていますが、`io()`はSocket.IOのクライアントライブラリが提供する関数です。
+ブラウザ側では、標準の[`WebSocket`](https://developer.mozilla.org/en-US/docs/Web/API/WebSocket) APIを使います。
 
 次の内容を`index.html`として保存します。
 
@@ -185,15 +181,11 @@ uv pip install -r requirements.txt
 </html>
 ```
 
-ブラウザとサーバーは、WebSocket上でJSONメッセージを交換します。`start`、`token`、`stop`といった名前はWebSocket仕様に含まれるものではありません。今回の実験のために定義した、小さなアプリケーションレベルのプロトコルです。
-
 ## 素のASGIアプリケーションを作る
 
 続いて、次の内容を`app.py`として保存します。
 
 ```python
-from __future__ import annotations
-
 import asyncio
 import json
 from contextlib import suppress
@@ -338,15 +330,15 @@ async def send_json(send: Send, message: dict[str, Any]) -> None:
     await send({"type": "websocket.send", "text": json.dumps(message)})
 ```
 
-`generation_task.cancel()`を呼んでも、taskはその場で強制終了するわけではありません。次にtaskへ制御が戻る`await`地点（この例では多くの場合`await asyncio.sleep()`）で`asyncio.CancelledError`が発生し、task内の後処理を実行する機会が与えられます。そのtaskを`await`すると、呼び出し側にも`CancelledError`が伝わります。ここではキャンセルが意図した動作なので、`suppress(asyncio.CancelledError)`でその例外だけを無視し、WebSocket handlerの処理を続けています。[^cancel]
+<!--できる限りコードを単純化して。例えば、except json.JSONDecodeErrorはプロトタイプには不要です-->
 
-フレームワークを使ったecho serverよりコードは長くなりますが、その代わりにASGIの動きをほぼすべて確認できます。このアプリケーションは三種類のASGI scopeを処理します。
+フレームワークを使ったecho serverよりコードは長くなりますが、その代わりにASGIの動きをほぼすべて確認できます。このアプリケーションは3種類のASGI scopeを処理します。
 
 - `lifespan`では、起動と終了が完了したことをUvicornに伝える
 - `http`では、`GET /`に対して`index.html`を返す
 - `websocket`では、`/ws`への接続を維持しながらイベントを交換する
 
-WebSocketを試すだけなら、三種類すべてを処理する必要はありません。`websocket`だけでも実験できます。今回は一つのapplicationから`index.html`も配信するために`http`を実装し、Uvicornをdefault設定のまま起動・終了できるように`lifespan`も実装しました。HTMLを別のserverから配信し、Uvicornを`--lifespan off`で起動するなら、後者二つは省略できます。実際の開発ではframeworkやrouterがscopeの振り分けを担当します。
+なお、`generation_task.cancel()`を呼んでも、taskはその場で強制終了するわけではありません。次にtaskへ制御が戻る`await`地点（この例では多くの場合`await asyncio.sleep()`）で`asyncio.CancelledError`が発生し、task内の後処理を実行する機会が与えられます。そのtaskを`await`すると、呼び出し側にも`CancelledError`が伝わります。ここではキャンセルが意図した動作なので、`suppress(asyncio.CancelledError)`でその例外だけを無視し、WebSocket handlerの処理を続けています。[^cancel]
 
 ## アプリケーションを動かす
 
@@ -377,9 +369,13 @@ Sendを押すと、response欄に文章がtoken単位で少しずつ表示され
 -> stopped
 ```
 
+<!--数を数えるときは漢数字ではなく算用数字-->
+
 二つの`websocket.receive`イベントには、それぞれ`start`と`stop`のメッセージが入っています。ASGIサーバーはWebSocket frameをすでにdecodeしており、アプリケーションには完全なtext messageを渡します。逆方向では、アプリケーションが`websocket.send`を使ってメッセージの送信を依頼します。アプリケーション自身がWebSocket frameを組み立てるわけではありません。
 
 [ASGIのHTTP・WebSocket仕様](https://asgi.readthedocs.io/en/latest/specs/www.html#websocket)では、この責任分担が定義されています。Uvicornはhandshake、frame、PING/PONG message、network socketを処理します。アプリケーションが受け取ったり送ったりするのは、ASGIイベントを表す辞書です。
+
+<!--数を数えるときは漢数字ではなく算用数字-->
 
 ## 一つの接続で二つの処理を並行する
 
@@ -456,7 +452,9 @@ promptを一度送り、tokenを一方向に受け取るだけのtext chatなら
 
 つまり、AIアプリケーションでは必ずWebSocketを使うべきだ、という話ではありません。必要な通信パターンに応じてprotocolを選ぶべきです。
 
-## この実験で分かったこと
+## まとめ
+
+<!--あらためて記事を読んでみて、このまとめはどうでしょうか？更新は必要？-->
 
 コードを書く前は、ASGIの`receive`と`send` callableを、WSGIとの抽象的な違いとして理解していました。Stop buttonを実装したことで、この違いをもう少し具体的に捉えられるようになりました。
 
@@ -464,10 +462,10 @@ promptを一度送り、tokenを一方向に受け取るだけのtext chatなら
 
 FastAPIやStarletteのようなframeworkは、より高水準なWebSocket APIを提供します。Socket.IOは独自のevent protocol、再接続、transport fallbackなどを追加します。こうした抽象化は便利ですが、今回の素の実装ではその下にあるinterfaceを確認できました。そこにあるのはconnection scope、receive callable、send callable、そして時間とともに届く一連のイベントです。
 
-[^uv]: [uvのenvironment documentation](https://docs.astral.sh/uv/pip/environments/)では、`uv venv`による仮想環境の作成と、current directoryの`.venv`を自動検出する仕組みが説明されています。
-
 [^cancel]: [`Task.cancel()`のdocumentation](https://docs.python.org/3/library/asyncio-task.html#task-cancellation)によると、taskの次の実行機会に`CancelledError`が送出されます。[`contextlib.suppress()`](https://docs.python.org/3/library/contextlib.html#contextlib.suppress)は、`with` block内で指定された例外だけを無視し、その直後から処理を再開するcontext managerです。
 
 [^wsgi]: **Hop-by-hop header**は、end-to-endで最終的なclientやserverまで伝えるheaderではなく、現在のtransport connectionだけに適用されるheaderです。proxyなどのintermediaryは、次の接続へ転送する前にこれらを処理・削除します。`Connection`、`Keep-Alive`、`Transfer-Encoding`、`Upgrade`などが該当します。WebSocket handshakeでは、browserが`Connection: Upgrade`と`Upgrade: websocket`を送り、serverが`101 Switching Protocols`を返すことでHTTPからWebSocketへ切り替えます。しかし、WSGI serverとapplicationはHTTP messageそのものを交換しているわけではありません。そのため[PEP 3333](https://peps.python.org/pep-3333/#other-http-features)は、WSGI applicationがhop-by-hop headerを生成したり、`environ`内のhop-by-hop headerに依存したりすることを禁止し、対応する場合はserver側で処理するものとしています。
+
+<!--「そのため〜禁止し」の理由がよくわかりませんでした-->
 
 [^flask-socketio]: ここではFlask-SocketIOと、その下で動くEngine.IO、WebSocket対応server・libraryの組み合わせを指しています。Socket.IOはWebSocketそのものではなく、event、ack、room、reconnectionなどを定義する上位protocolです。transportとしてlong-pollingを選んだ場合、送受信は通常のWSGI request/responseで実現できます。一方、WebSocket transportを選ぶ場合、Flask-SocketIOは標準WSGIだけで処理するのではなく、たとえばthreaded Gunicornと`simple-websocket`、geventと`gevent-websocket`、またはuWSGIのnative WebSocket supportなどを利用します。これらは標準WSGIに含まれないsocket accessやWebSocket処理を提供します。具体的な構成は[Flask-SocketIOのdeployment documentation](https://flask-socketio.readthedocs.io/en/stable/deployment.html)で説明されています。
