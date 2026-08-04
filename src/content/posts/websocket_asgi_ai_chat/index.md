@@ -8,9 +8,9 @@ slug: "websocket_asgi_ai_chat"
 lang: "en"
 ---
 
-I am learning the technologies behind AI applications. In my [previous article](/wsgi_asgi/), I compared [**WSGI (Web Server Gateway Interface)**](https://peps.python.org/pep-3333/) and [**ASGI (Asynchronous Server Gateway Interface)**](https://asgi.readthedocs.io/en/latest/specs/main.html) using an AI agent that waits for a **large language model (LLM) API**. I mentioned that WSGI does not support [**WebSocket**](https://datatracker.ietf.org/doc/html/rfc6455) connections, but I did not explain why.
+I am learning the technologies behind AI applications. In my [previous article](/wsgi_asgi/), I compared [**WSGI (Web Server Gateway Interface)**](https://peps.python.org/pep-3333/) and [**ASGI (Asynchronous Server Gateway Interface)**](https://asgi.readthedocs.io/en/latest/specs/main.html) using an AI agent that waits for an LLM API. I mentioned that WSGI does not support [**WebSocket**](https://datatracker.ietf.org/doc/html/rfc6455) connections, but I did not explain why.
 
-In this article, I will build a small two-way application with WebSockets. I will not use an LLM API or a web framework. The server will use [**`asyncio.sleep()`**](https://docs.python.org/3/library/asyncio-task.html#asyncio.sleep) to generate a fixed response one token at a time. This keeps the example focused on WebSockets and ASGI.
+In this article, I will build a small two-way application with WebSockets. I will not use an LLM API or a web framework. The server will use `asyncio.sleep()` to generate a fixed response one token at a time. This keeps the example focused on WebSockets and ASGI.
 
 ## What We Will Build
 
@@ -378,4 +378,4 @@ Standard WSGI has no interface for receiving the next event from a connection, a
 
 [^flask-socketio]: Flask-SocketIO works with Engine.IO and a WebSocket-capable server or library. Socket.IO is not the WebSocket protocol itself. It is a higher-level protocol that adds events, acknowledgements, rooms, and reconnection. With long-polling, its messages can travel through normal WSGI requests and responses. With the WebSocket transport, Flask-SocketIO uses support outside standard WSGI, such as threaded Gunicorn with `simple-websocket`, gevent with `gevent-websocket`, or uWSGI's native WebSocket support. The [Flask-SocketIO deployment documentation](https://flask-socketio.readthedocs.io/en/stable/deployment.html) describes these options.
 
-[^audio]: For low-latency audio and video delivery, [WebRTC](https://developer.mozilla.org/en-US/docs/Web/API/WebRTC_API) may be a better choice because it includes features designed for real-time media and network jitter.
+[^audio]: For low-latency audio and video delivery, [**WebRTC**](https://developer.mozilla.org/en-US/docs/Web/API/WebRTC_API) may be a better choice because it includes features designed for real-time media and network jitter.

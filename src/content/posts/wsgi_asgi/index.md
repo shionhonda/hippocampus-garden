@@ -306,10 +306,12 @@ WSGI offers several ways to handle I/O waits efficiently. Even so, ASGI is often
 - You can extend the application to bidirectional protocols such as WebSocket.
 - You can manage the creation and cleanup of a database connection pool with [**lifespan events**](https://asgi.readthedocs.io/en/latest/specs/lifespan.html).
 
-With ASGI, an application can call `send()` several times with `http.response.body` and `more_body=True`, using `await` between calls. It can send each chunk as tokens arrive from the LLM. While it waits for more tokens, the same worker can handle other connections. WSGI can also stream HTTP through a response iterable. But the worker is often busy while it waits for the next value, and the application cannot receive client events through the same interface while it sends the response.
+With ASGI, an application can call `send()` several times with `http.response.body` and `more_body=True`, using `await` between calls. It can send each chunk as tokens arrive from the LLM. While it waits for more tokens, the same worker can handle other connections. WSGI can also stream HTTP through a response iterable.[^flask-sse] But the worker is often busy while it waits for the next value, and the application cannot receive client events through the same interface while it sends the response.
 
 Disconnect handling matters because there is little value in continuing LLM generation, tool calls, and database queries after the user closes the page. For a long operation, cancellation can save both computing resources and API costs. With ASGI, the application can receive `http.disconnect` or `websocket.disconnect` through `receive()`, cancel related tasks, and release their resources.
 
 Lifespan events let a server create a database connection pool once before it accepts requests, then close the pool during shutdown. This avoids creating new connections for every request. It also lets the server report an initialization error before it starts accepting traffic. Finally, it helps keep the pool and request handlers on the same event loop, instead of accidentally sharing connections across loops.
 
 In short, AI applications spend a lot of time waiting for LLMs and tools. ASGI lets the server use that time to handle other connections. It also provides one model for streaming, disconnection, and cancellation. That is why ASGI and asyncio are a common combination in new AI applications.
+
+[^flask-sse]: Check [this previous article](https://hippocampus-garden.com/flask_sse/) for example.
