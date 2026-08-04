@@ -29,7 +29,8 @@ export default defineConfig({
         light: "github-light",
         dark: "github-dark",
       },
-      wrap: true,
+      // `white-space: pre` keeps mobile WebKit from text-autosizing code.
+      wrap: false,
     },
     remarkPlugins: [remarkCodeMeta, remarkMermaid, remarkGfm, remarkMath],
     rehypePlugins: [[rehypeKatex, { strict: "ignore" }], rehypeSlug],

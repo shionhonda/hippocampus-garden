@@ -70,15 +70,16 @@
   padding: var(--space-4);
   border-radius: var(--radius-lg);
   overflow-x: auto;
-  -webkit-text-size-adjust: 100%;
-  text-size-adjust: 100%;
+  /* `!important` keeps the WebKit-prefixed fallback in minified CSS. */
+  -webkit-text-size-adjust: none !important;
+  text-size-adjust: none;
   border: 1px solid rgba(158, 223, 214, 0.14);
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
 }
 
 .prose pre code {
   display: block;
-  min-width: max-content;
+  min-width: 0;
   color: inherit;
 }
 
