@@ -8,9 +8,9 @@ slug: "websocket_asgi_ai_chat"
 lang: "en"
 ---
 
-I am learning the technologies behind AI applications. In my [previous article](/wsgi_asgi/), I compared WSGI and ASGI using an AI agent that waits for an LLM API. I mentioned that WSGI does not support WebSockets, but I did not explain why.
+I am learning the technologies behind AI applications. In my [previous article](/wsgi_asgi/), I compared [**WSGI (Web Server Gateway Interface)**](https://peps.python.org/pep-3333/) and [**ASGI (Asynchronous Server Gateway Interface)**](https://asgi.readthedocs.io/en/latest/specs/main.html) using an AI agent that waits for a **large language model (LLM) API**. I mentioned that WSGI does not support [**WebSocket**](https://datatracker.ietf.org/doc/html/rfc6455) connections, but I did not explain why.
 
-In this article, I will build a small two-way application with WebSockets. I will not use an LLM API or a web framework. The server will use `asyncio.sleep()` to generate a fixed response one token at a time. This keeps the example focused on WebSockets and ASGI.
+In this article, I will build a small two-way application with WebSockets. I will not use an LLM API or a web framework. The server will use [**`asyncio.sleep()`**](https://docs.python.org/3/library/asyncio-task.html#asyncio.sleep) to generate a fixed response one token at a time. This keeps the example focused on WebSockets and ASGI.
 
 ## What We Will Build
 
@@ -53,7 +53,7 @@ I tested the code with Python 3.10.9 and this dependency:
 uvicorn[standard]==0.52.1
 ```
 
-The `standard` extra installs Uvicorn together with the WebSocket implementation it uses.
+The `standard` extra installs [**Uvicorn**](https://www.uvicorn.org/) together with the WebSocket implementation it uses. Uvicorn documents the available implementations in its [WebSocket protocol guide](https://www.uvicorn.org/concepts/websockets/).
 
 Create a virtual environment and install the dependency:
 
@@ -257,9 +257,9 @@ async def send_json(send, message):
     await send({"type": "websocket.send", "text": json.dumps(message)})
 ```
 
-This application handles two ASGI scope types. For an `http` scope, it returns `index.html`. For a `websocket` scope, it keeps the connection open and exchanges events. We will disable Uvicorn's lifespan handling when we start the server.
+This application handles two ASGI [**connection scope**](https://asgi.readthedocs.io/en/latest/specs/main.html#connection-scope) types. For an `http` scope, it returns `index.html`. For a `websocket` scope, it keeps the connection open and exchanges events. We will disable Uvicorn's [**lifespan protocol**](https://asgi.readthedocs.io/en/latest/specs/lifespan.html) handling when we start the server.
 
-Calling `generation_task.cancel()` does not stop the task at once. Python raises `asyncio.CancelledError` the next time the task reaches an `await`, usually `await asyncio.sleep()` in this example. Awaiting the cancelled task passes the same exception to the caller. Cancellation is expected here, so `suppress(asyncio.CancelledError)` ignores that exception and lets the WebSocket handler continue.
+Calling `generation_task.cancel()` requests [**task cancellation**](https://docs.python.org/3/library/asyncio-task.html#task-cancellation); it does not stop the task at once. Python raises `asyncio.CancelledError` the next time the task reaches an `await`, usually `await asyncio.sleep()` in this example. Awaiting the cancelled task passes the same exception to the caller. Cancellation is expected here, so `suppress(asyncio.CancelledError)` ignores that exception and lets the WebSocket handler continue.
 
 ## Run the Application
 
@@ -295,9 +295,9 @@ The server prints the ASGI events and the messages sent by the application:
 -> stopped
 ```
 
-The two `websocket.receive` events contain the `start` and `stop` messages. The ASGI server has already decoded the WebSocket frames, so the application receives complete text messages. In the other direction, the application asks the server to send a message with `websocket.send`. The application does not build WebSocket frames itself.
+The two `websocket.receive` events contain the `start` and `stop` messages. The ASGI server has already decoded the [**WebSocket frames**](https://datatracker.ietf.org/doc/html/rfc6455#section-5), so the application receives complete text messages. In the other direction, the application asks the server to send a message with `websocket.send`. The application does not build WebSocket frames itself.
 
-The [ASGI HTTP and WebSocket specification](https://asgi.readthedocs.io/en/latest/specs/www.html#websocket) defines this division of work. Uvicorn handles the handshake, frames, PING/PONG messages, and the network socket. The application only sends and receives dictionaries that represent ASGI events.
+The [ASGI HTTP and WebSocket specification](https://asgi.readthedocs.io/en/latest/specs/www.html#websocket) defines this division of work. Uvicorn handles the [**opening handshake**](https://www.uvicorn.org/concepts/websockets/#upgrade-process), frames, PING/PONG messages, and the network socket. The application only sends and receives dictionaries that represent ASGI events.
 
 ## Run Two Tasks over One Connection
 
@@ -318,7 +318,7 @@ for token in response.split():
     await send_json(send, {"type": "token", "value": token + " "})
 ```
 
-`asyncio.create_task()` lets both tasks make progress on one event loop. While token generation is waiting at `await asyncio.sleep()`, the message loop can process `stop`. While the message loop is waiting for the next browser message, the generation task can send another token.
+[`asyncio.create_task()`](https://docs.python.org/3/library/asyncio-task.html#asyncio.create_task) lets both tasks make progress on one [**event loop**](https://docs.python.org/3/library/asyncio-eventloop.html). While token generation is waiting at `await asyncio.sleep()`, the message loop can process `stop`. While the message loop is waiting for the next browser message, the generation task can send another token.
 
 This makes ASGI's connection-based event model easier to see. The application callable stays active for as long as the WebSocket connection is open. During that time, it can receive many events, send many events, and run tasks related to the connection.
 
@@ -349,10 +349,10 @@ This does not mean that a Flask application cannot provide WebSocket-like featur
 Yes. For example, we could use three HTTP operations:
 
 1. Send the prompt with `POST /generate`.
-2. Receive tokens with Server-Sent Events (SSE) or an HTTP streaming response.
+2. Receive tokens with [**Server-Sent Events (SSE)**](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events) or an [**HTTP streaming**](https://developer.mozilla.org/en-US/docs/Web/API/Streams_API) response.
 3. Stop generation with `POST /cancel`.
 
-Long-polling is another option. The browser repeatedly creates HTTP requests, and the server keeps each response open until it has a message to send. These approaches combine several HTTP requests instead of using one two-way WebSocket connection.
+[**Long-polling**](https://datatracker.ietf.org/doc/html/rfc6202) is another option. The browser repeatedly creates HTTP requests, and the server keeps each response open until it has a message to send. These approaches combine several HTTP requests instead of using one two-way WebSocket connection.
 
 | Requirement                               | HTTP streaming / SSE  | Long-polling                 | WebSocket               |
 | ----------------------------------------- | --------------------- | ---------------------------- | ----------------------- |
@@ -378,4 +378,4 @@ Standard WSGI has no interface for receiving the next event from a connection, a
 
 [^flask-socketio]: Flask-SocketIO works with Engine.IO and a WebSocket-capable server or library. Socket.IO is not the WebSocket protocol itself. It is a higher-level protocol that adds events, acknowledgements, rooms, and reconnection. With long-polling, its messages can travel through normal WSGI requests and responses. With the WebSocket transport, Flask-SocketIO uses support outside standard WSGI, such as threaded Gunicorn with `simple-websocket`, gevent with `gevent-websocket`, or uWSGI's native WebSocket support. The [Flask-SocketIO deployment documentation](https://flask-socketio.readthedocs.io/en/stable/deployment.html) describes these options.
 
-[^audio]: For low-latency audio and video delivery, WebRTC may be a better choice because it includes features designed for real-time media and network jitter.
+[^audio]: For low-latency audio and video delivery, [WebRTC](https://developer.mozilla.org/en-US/docs/Web/API/WebRTC_API) may be a better choice because it includes features designed for real-time media and network jitter.
