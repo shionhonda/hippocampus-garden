@@ -1,30 +1,31 @@
 ---
-title: "WebSocketと素のASGIでストリーミングAIチャットを作る"
+title: "Learning WebSockets by Building a Streaming AI Chat with Raw ASGI"
 date: "2026-08-04T12:00:00.000Z"
-description: "トークンのストリーミングと生成の中断ができる小さなAIチャットを作りながら、WebSocketとASGIの仕組みを学びます。"
+description: "Build a small AI-style chat with token streaming and cancellation to learn how WebSockets and ASGI work together."
+featuredImage: websocket_asgi_ai_chat/ogp.png
 tags: ["python", "web", "llm"]
 slug: "websocket_asgi_ai_chat"
-lang: "ja"
+lang: "en"
 ---
 
-私はいま、AIアプリケーションを支える技術スタックを学んでいます。[前回の記事](/wsgi_asgi/)では、LLM APIの応答を待つAIエージェントを題材に、WSGIとASGIを比較しました。その中で、WSGIはWebSocketをサポートしていないという話がありました。これはなぜでしょうか？
+I am learning the technologies behind AI applications. In my [previous article](/wsgi_asgi/), I compared WSGI and ASGI using an AI agent that waits for an LLM API. I mentioned that WSGI does not support WebSockets, but I did not explain why.
 
-この記事では、この疑問に答えられるようになるため、WebSocketによる双方向通信をLLM APIやWebフレームワークを使わずに実装します。サーバーは`asyncio.sleep()`を使って、固定された文章をtokenごとに生成します。外部APIを呼ばないことで、WebSocketとASGIの動きだけに注目できるようにします。
+In this article, I will build a small two-way application with WebSockets. I will not use an LLM API or a web framework. The server will use `asyncio.sleep()` to generate a fixed response one token at a time. This keeps the example focused on WebSockets and ASGI.
 
-## 今回作るもの
+## What We Will Build
 
-今回のアプリケーションでは、次の3つのやり取りを実装します。
+The application will perform three steps:
 
-1. ブラウザがpromptを含む`start`メッセージを送る
-2. サーバーが複数の`token`メッセージを送り、最後に`done`を送る
-3. tokenの受信中でも、ブラウザから`stop`を送れるようにする
+1. The browser sends a `start` message with a prompt.
+2. The server sends several `token` messages, followed by `done`.
+3. While tokens are arriving, the browser can send `stop` to cancel the generation.
 
 ```mermaid
 sequenceDiagram
-    accTitle: WebSocketによる疑似AI応答のストリーミングと中断
-    accDescr: ブラウザがstartメッセージを送り、サーバーが複数のtokenメッセージを返している途中で、ブラウザがstopメッセージによって生成を中断する
-    participant B as ブラウザ
-    participant A as ASGIアプリケーション
+    accTitle: Streaming and cancelling a mock AI response over WebSocket
+    accDescr: The browser sends a start message, the ASGI application streams token messages, and the browser sends stop before generation finishes
+    participant B as Browser
+    participant A as ASGI application
 
     B->>A: start(prompt)
     A-->>B: token("You ")
@@ -34,11 +35,9 @@ sequenceDiagram
     A-->>B: stopped
 ```
 
-外部サービスやAPI keyは不要です。必要なのはPython、Uvicorn、ブラウザだけです。
+## Set Up the Example
 
-## 実験の準備
-
-次の3つのファイルを置くディレクトリを作ります。
+Create a directory with these three files:
 
 ```text
 websocket-ai-chat/
@@ -47,16 +46,16 @@ websocket-ai-chat/
 └── requirements.txt
 ```
 
-この記事のコードは、Python 3.10.9と次の依存関係で動作を確認しました。
+I tested the code with Python 3.10.9 and this dependency:
 
 ```text
 # requirements.txt
 uvicorn[standard]==0.52.1
 ```
 
-`standard`を指定すると、ASGIサーバー本体に加えて、Uvicornが利用するWebSocket実装もインストールされます。
+The `standard` extra installs Uvicorn together with the WebSocket implementation it uses.
 
-仮想環境を作り、依存パッケージをインストールします。
+Create a virtual environment and install the dependency:
 
 ```bash
 uv venv --python 3.10
@@ -64,11 +63,11 @@ source .venv/bin/activate
 uv pip install -r requirements.txt
 ```
 
-## ブラウザクライアントを作る
+## Build the Browser Client
 
-ブラウザ側では、標準の[`WebSocket`](https://developer.mozilla.org/en-US/docs/Web/API/WebSocket) APIを使います。
+The browser uses the standard [`WebSocket`](https://developer.mozilla.org/en-US/docs/Web/API/WebSocket) API.
 
-次の内容を`index.html`として保存します。
+Save the following code as `index.html`:
 
 ```html
 <!doctype html>
@@ -176,9 +175,9 @@ uv pip install -r requirements.txt
 </html>
 ```
 
-## 素のASGIアプリケーションを作る
+## Build a Raw ASGI Application
 
-続いて、次の内容を`app.py`として保存します。
+Next, save the following code as `app.py`:
 
 ```python
 import asyncio
@@ -258,29 +257,32 @@ async def send_json(send, message):
     await send({"type": "websocket.send", "text": json.dumps(message)})
 ```
 
-このコードで扱うASGI scopeは2種類です。`http`では`index.html`を返し、`websocket`では接続を維持しながらイベントを交換します。Uvicornのlifespan処理は、起動時のoptionで無効にします。
+This application handles two ASGI scope types. For an `http` scope, it returns `index.html`. For a `websocket` scope, it keeps the connection open and exchanges events. We will disable Uvicorn's lifespan handling when we start the server.
 
-なお、`generation_task.cancel()`を呼んでも、taskはその場で強制終了するわけではありません。次にtaskへ制御が戻る`await`地点（この例では多くの場合`await asyncio.sleep()`）で`asyncio.CancelledError`が発生し、task内の後処理を実行する機会が与えられます。そのtaskを`await`すると、呼び出し側にも`CancelledError`が伝わります。ここではキャンセルが意図した動作なので、`suppress(asyncio.CancelledError)`でその例外だけを無視し、WebSocket handlerの処理を続けています。
+Calling `generation_task.cancel()` does not stop the task at once. Python raises `asyncio.CancelledError` the next time the task reaches an `await`, usually `await asyncio.sleep()` in this example. Awaiting the cancelled task passes the same exception to the caller. Cancellation is expected here, so `suppress(asyncio.CancelledError)` ignores that exception and lets the WebSocket handler continue.
 
-## アプリケーションを動かす
+## Run the Application
 
-3つのファイルを置いたディレクトリでUvicornを起動します。
+Start Uvicorn from the directory that contains the three files:
 
 ```bash
 uvicorn app:app --host 127.0.0.1 --port 8000 --lifespan off
 ```
 
-ブラウザで次のURLを開きます。
+Open this URL in a browser:
 
 ```text
 http://127.0.0.1:8000/
 ```
 
-Sendを押すと、response欄に文章がtoken単位で少しずつ表示されます。表示が終わる前にStopを押すと、その時点でストリーミングが止まります。
+Click Send. The response appears one token at a time. Click Stop before it finishes, and the stream stops at that point.
 
-<!--ここでapp.movを表示-->
+<video controls muted playsinline preload="metadata" style="display: block; width: 100%;">
+  <source src="/websocket_asgi_ai_chat/demo.m4v" type="video/mp4" />
+  Your browser does not support this video. You can <a href="/websocket_asgi_ai_chat/demo.m4v">open the demo directly</a>.
+</video>
 
-サーバー側には、ASGIイベントとアプリケーションのメッセージが表示されます。
+The server prints the ASGI events and the messages sent by the application:
 
 ```text
 <- websocket.connect
@@ -293,22 +295,22 @@ Sendを押すと、response欄に文章がtoken単位で少しずつ表示され
 -> stopped
 ```
 
-2つの`websocket.receive`イベントには、それぞれ`start`と`stop`のメッセージが入っています。ASGIサーバーはWebSocket frameをすでにdecodeしており、アプリケーションには完全なtext messageを渡します。逆方向では、アプリケーションが`websocket.send`を使ってメッセージの送信を依頼します。アプリケーション自身がWebSocket frameを組み立てるわけではありません。
+The two `websocket.receive` events contain the `start` and `stop` messages. The ASGI server has already decoded the WebSocket frames, so the application receives complete text messages. In the other direction, the application asks the server to send a message with `websocket.send`. The application does not build WebSocket frames itself.
 
-[ASGIのHTTP・WebSocket仕様](https://asgi.readthedocs.io/en/latest/specs/www.html#websocket)では、この責任分担が定義されています。Uvicornはhandshake、frame、PING/PONG message、network socketを処理します。アプリケーションが受け取ったり送ったりするのは、ASGIイベントを表す辞書です。
+The [ASGI HTTP and WebSocket specification](https://asgi.readthedocs.io/en/latest/specs/www.html#websocket) defines this division of work. Uvicorn handles the handshake, frames, PING/PONG messages, and the network socket. The application only sends and receives dictionaries that represent ASGI events.
 
-## 1つの接続で2つの処理を並行する
+## Run Two Tasks over One Connection
 
-この実験で重要なのは、生成される文章の内容ではありません。メッセージを受け取るloopと、文章を生成するtaskの関係です。
+The important part of this example is the relationship between the message loop and the generation task.
 
-受信loopは、ブラウザからのメッセージを待ちます。
+The message loop waits for input from the browser:
 
 ```python
 while True:
     event = await receive()
 ```
 
-それとは別に、生成taskは待機を挟みながらtokenを送ります。
+At the same time, the generation task waits between tokens and sends them to the browser:
 
 ```python
 for token in response.split():
@@ -316,15 +318,15 @@ for token in response.split():
     await send_json(send, {"type": "token", "value": token + " "})
 ```
 
-`asyncio.create_task()`を使うことで、2つの処理を1つのevent loop上で進められます。token生成が`await asyncio.sleep()`に到達して待機している間に、受信loopは`stop`メッセージを処理できます。逆に、受信loopが次のブラウザメッセージを待っている間には、生成taskが次のtokenを送れます。
+`asyncio.create_task()` lets both tasks make progress on one event loop. While token generation is waiting at `await asyncio.sleep()`, the message loop can process `stop`. While the message loop is waiting for the next browser message, the generation task can send another token.
 
-ここで、ASGIの接続を中心としたイベントモデルが具体的に見えてきます。WebSocket接続が続く間、application callableも終了しません。その間に複数のイベントを受け取り、複数のイベントを送り、接続に関連するtaskを実行できます。
+This makes ASGI's connection-based event model easier to see. The application callable stays active for as long as the WebSocket connection is open. During that time, it can receive many events, send many events, and run tasks related to the connection.
 
-ブラウザが切断すると、`receive()`は`websocket.disconnect`を返します。すると`finally` blockが生成taskをcancelし、すでにいなくなったclientのために処理を続けることを防ぎます。実際のAIアプリケーションであれば、同じ後処理によってLLMのstreamやtool callを中断できるでしょう。
+When the browser disconnects, `receive()` returns `websocket.disconnect`. The `finally` block then cancels the generation task. This prevents the server from continuing work for a client that is no longer connected. In a real AI application, similar cleanup could stop an LLM stream or a tool call.
 
-## 標準WSGIではこの接続を表現できない
+## Standard WSGI Cannot Represent This Connection
 
-WSGIアプリケーションは`environ`と`start_response`を引数として呼び出され、iterableなresponse bodyを返します。
+A WSGI application is called with `environ` and `start_response`, and it returns an iterable response body:
 
 ```python
 def application(environ, start_response):
@@ -332,52 +334,48 @@ def application(environ, start_response):
     return [b"Hello"]
 ```
 
-このinterfaceでも、bodyのchunkを複数回yieldすることでHTTP responseをstreamingできます。しかし、今回のコードにある受信側の処理は表現できません。response headerを返したあと、WSGIには次のコードに相当するものがありません。
+The response iterable can yield several chunks, so WSGI supports HTTP response streaming. However, it cannot represent the receiving side of our example. After the response headers have been sent, WSGI has no equivalent of this line:
 
 ```python
 event = await receive()
 ```
 
-したがって、upgrade後の接続上で`stop`を新しいイベントとして受け取るための、portableな方法がありません。また、標準WSGIはアプリケーションが`Upgrade`のようなhop-by-hop headerを生成することも禁止しています。これはWebSocket handshakeに必要なheaderです。[^wsgi]
+As a result, a standard WSGI application has no portable way to receive `stop` as a new event over an upgraded connection. WSGI also prevents applications from producing **hop-by-hop headers** such as `Upgrade`, which is part of the WebSocket handshake.[^wsgi]
 
-ただし、これはFlaskアプリケーションではWebSocketのような機能を提供できない、という意味ではありません。Flask-SocketIOは、WSGIを通じてHTTP long-pollingを使うことも、対応するserverや追加libraryが提供するWebSocket機能を使うこともできます。[^flask-socketio] ここでの違いは、WebSocket接続そのものを標準WSGIのapplication interfaceが表現しているわけではない、という点です。
+This does not mean that a Flask application cannot provide WebSocket-like features. Flask-SocketIO can use HTTP long-polling through WSGI. It can also use WebSockets when the server or an extra library provides the required support.[^flask-socketio] The key point is that the standard WSGI application interface does not represent the WebSocket connection itself.
 
-## WebSocketなしでも同じAIチャットを作れるか
+## Could We Build the Same Chat without WebSockets?
 
-作れます。画面上の操作だけでは、背後で使われているprotocolは決まりません。
+Yes. For example, we could use three HTTP operations:
 
-たとえば、次の組み合わせでも実装できます。
+1. Send the prompt with `POST /generate`.
+2. Receive tokens with Server-Sent Events (SSE) or an HTTP streaming response.
+3. Stop generation with `POST /cancel`.
 
-1. `POST /generate`でpromptを送る
-2. Server-Sent Events（SSE）またはHTTP streaming responseでtokenを受け取る
-3. `POST /cancel`で生成を止める
+Long-polling is another option. The browser repeatedly creates HTTP requests, and the server keeps each response open until it has a message to send. These approaches combine several HTTP requests instead of using one two-way WebSocket connection.
 
-long-pollingを使う方法もあります。ブラウザが繰り返しHTTP requestを作り、サーバーは送るメッセージができるまでresponseを返さずに保持します。これらの方法は、1つの双方向WebSocket接続ではなく、複数のHTTP requestを組み合わせます。
+| Requirement                               | HTTP streaming / SSE  | Long-polling                 | WebSocket               |
+| ----------------------------------------- | --------------------- | ---------------------------- | ----------------------- |
+| Stream tokens from server to browser      | Yes                   | Yes                          | Yes                     |
+| Send a prompt from the browser            | Needs another request | POST request                 | Uses the same connection |
+| Send Stop while streaming                 | Needs another request | POST request                 | Uses the same connection |
+| Send frequent messages in both directions | Awkward               | Possible, with more overhead | A natural fit           |
+| Works through the standard WSGI interface | Yes                   | Yes                          | No                      |
 
-| 要件                                    | HTTP streaming / SSE | Long-polling         | WebSocket        |
-| --------------------------------------- | -------------------- | -------------------- | ---------------- |
-| サーバーからブラウザへtokenをstreamする | できる               | できる               | できる           |
-| ブラウザからpromptを送る                | 別のrequestが必要    | POST request         | 同じ接続を使える |
-| streaming中にStopを送る                 | 別のrequestが必要    | POST request         | 同じ接続を使える |
-| 両方向に頻繁にメッセージを送る          | 扱いにくい           | できるがoverheadあり | 自然に表現できる |
-| 標準WSGI interfaceを通じて動く          | 動く                 | 動く                 | 動かない         |
+For a text chat that sends one prompt and receives a one-way token stream, HTTP streaming or SSE may be simpler. WebSockets become more useful when small messages need to travel often in both directions. Examples include live audio input[^audio], partial transcripts, tool progress, user interruptions, and shared state.
 
-promptを一度送り、tokenを一方向に受け取るだけのtext chatなら、HTTP streamingやSSEのほうが単純かもしれません。live voice input、途中までのtranscript、toolの進行状況、ユーザーによる中断、共同編集するstateなど、小さなイベントを両方向に頻繁に送る場合はWebSocketが有力になります。
+Compared with long-polling, WebSockets also reduce repeated HTTP work. With long-polling, the browser starts another GET request after every response and uses separate POST requests to send messages. Each request repeats HTTP headers, parsing, routing, and authentication. A WebSocket reuses one connection after the initial handshake and sends later messages in small frames.
 
-音声通話型のAIでは、ブラウザからmicrophoneの音声dataを継続的に送りながら、サーバーから合成音声やtranscriptを受け取ります。AIが話している途中にユーザーが話し始めたら生成を止める、いわゆる割り込みも必要です。送信と受信が同時かつ頻繁に起きるため、text chatよりもWebSocketの利点が明確になります。ただし、低遅延な音声・映像の配送には、jitterへの対処やmedia向けの仕組みを備えたWebRTCが適する場合もあります。WebSocketは音声dataそのものだけでなく、開始・中断・tool実行などの制御messageに使うこともできます。
+Using several HTTP connections also means that the application must match each request to the correct generation task. When `POST /cancel` arrives, for example, the application may need a session ID to find the task that is streaming over another connection.
 
-<!--段落の繋がりを綺麗にして-->
+## Conclusion
 
-理由は主に通信のoverheadです。HTTP streamingやSSEでサーバーからデータを受け取りながらブラウザからもメッセージを送るには、受信用の接続とは別にHTTP requestを作る必要があります。long-pollingでは、サーバーから1つのresponseを受け取るたびに次のGET requestを開始し、ブラウザからは別のPOST requestを送ります。それぞれのrequestでHTTP headerの送信、requestのparse、routing、認証などが繰り返されます。WebSocketでは最初のhandshake後は1つの接続を再利用し、小さなframeとしてメッセージを送れるため、頻繁なやり取りでこのoverheadを抑えられます。
+Building the Stop button with raw ASGI made the difference between WSGI and ASGI concrete. While the WebSocket connection is open, the same application callable can call `receive` and `send` many times. It can also generate tokens and receive new messages at the same time.
 
-複数の接続を使うと、どのrequestがどの生成処理に対応するかをapplication側で管理する必要もあります。たとえば`POST /cancel`が届いたときには、session IDなどを使って、別の接続でstreaming中のtaskを特定しなければなりません。順序の入れ替わりやキャンセル完了直前のtoken送信といったrace conditionはWebSocketでも起こり得るため、これだけがWebSocketを選ぶ理由ではありません。ただし、1つの順序付けられた接続にメッセージを集約すると、接続間の対応付けは単純になります。
+Standard WSGI has no interface for receiving the next event from a connection, and it cannot take control of a socket after an HTTP upgrade. This small example let us see that limitation directly.
 
-つまり、AIアプリケーションでは必ずWebSocketを使うべきだ、という話ではありません。必要な通信パターンに応じてprotocolを選ぶべきです。
+[^wsgi]: A **hop-by-hop header** applies only to the current transport connection, rather than travelling end to end to the final client or server. `Connection` and `Upgrade` are examples. During a WebSocket handshake, they ask the server that owns the connection to switch the HTTP connection to another protocol. A WSGI application receives `environ` only after the WSGI server has parsed the HTTP request. It can return a status, end-to-end headers, and a response body, but it does not receive the network socket. It therefore cannot take over the connection after the protocol changes. Allowing the application to write an `Upgrade` header would provide the instruction without an interface for completing it. To keep this responsibility with the server, [PEP 3333](https://peps.python.org/pep-3333/#other-http-features) prevents WSGI applications from generating hop-by-hop headers or relying on them in `environ`.
 
-## まとめ
+[^flask-socketio]: Flask-SocketIO works with Engine.IO and a WebSocket-capable server or library. Socket.IO is not the WebSocket protocol itself. It is a higher-level protocol that adds events, acknowledgements, rooms, and reconnection. With long-polling, its messages can travel through normal WSGI requests and responses. With the WebSocket transport, Flask-SocketIO uses support outside standard WSGI, such as threaded Gunicorn with `simple-websocket`, gevent with `gevent-websocket`, or uWSGI's native WebSocket support. The [Flask-SocketIO deployment documentation](https://flask-socketio.readthedocs.io/en/stable/deployment.html) describes these options.
 
-素のASGIでStop buttonまで実装すると、WSGIとASGIの違いが具体的に見えました。WebSocket接続が続く間、同じapplication callableが複数回`receive`と`send`を呼び、token生成と新しいmessageの受信を並行できます。標準WSGIには、このように接続から次のイベントを受け取るinterfaceも、HTTPから切り替わったsocketを扱うinterfaceもありません。今回の実験ではそのことを確かめました。
-
-[^wsgi]: **Hop-by-hop header**は、end-to-endで最終的なclientやserverまで伝えるheaderではなく、現在のtransport connectionだけに適用されるheaderです。`Connection`や`Upgrade`などが該当し、WebSocket handshakeでは接続を所有するserverに「このHTTP接続を別のprotocolへ切り替えてほしい」と伝えます。一方、WSGI applicationが受け取る`environ`は、WSGI serverがHTTP requestをparseしたあとの情報です。applicationはstatus、end-to-end header、response bodyを返せますが、clientとのnetwork socketを受け取らないため、protocolを切り替えたあとの接続を引き継げません。applicationに`Upgrade` headerだけを書かせても、その指示を完遂するinterfaceがないのです。この責任の境界を曖昧にしないため、[PEP 3333](https://peps.python.org/pep-3333/#other-http-features)はWSGI applicationがhop-by-hop headerを生成したり、`environ`内のhop-by-hop headerに依存したりすることを禁止し、必要な処理をserver側の責任としています。
-
-[^flask-socketio]: ここではFlask-SocketIOと、その下で動くEngine.IO、WebSocket対応server・libraryの組み合わせを指しています。Socket.IOはWebSocketそのものではなく、event、ack、room、reconnectionなどを定義する上位protocolです。transportとしてlong-pollingを選んだ場合、送受信は通常のWSGI request/responseで実現できます。一方、WebSocket transportを選ぶ場合、Flask-SocketIOは標準WSGIだけで処理するのではなく、たとえばthreaded Gunicornと`simple-websocket`、geventと`gevent-websocket`、またはuWSGIのnative WebSocket supportなどを利用します。これらは標準WSGIに含まれないsocket accessやWebSocket処理を提供します。具体的な構成は[Flask-SocketIOのdeployment documentation](https://flask-socketio.readthedocs.io/en/stable/deployment.html)で説明されています。
+[^audio]: For low-latency audio and video delivery, WebRTC may be a better choice because it includes features designed for real-time media and network jitter.
