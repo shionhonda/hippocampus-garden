@@ -1,0 +1,37 @@
+name: Netlify Deploy
+
+on:
+  schedule:
+    # GitHub Actions cron expressions use UTC.
+    - cron: "0 8 * * *"
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: "Repository branch for Netlify to build"
+        required: true
+        default: main
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+    name: Trigger Netlify build
+    runs-on: ubuntu-latest
+    env:
+      NETLIFY_BUILD_HOOK: ${{ secrets.NETLIFY_BUILD_HOOK }}
+      BRANCH: ${{ inputs.branch || 'main' }}
+    steps:
+      - name: Trigger build hook
+        run: |
+          curl \
+            --fail \
+            --show-error \
+            --silent \
+            --retry 3 \
+            --request POST \
+            --data '{}' \
+            --url-query "trigger_branch=${BRANCH}" \
+            --url-query "trigger_title=Triggered by GitHub Actions" \
+            "${NETLIFY_BUILD_HOOK}"
